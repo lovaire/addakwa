@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/undanganhaflah/(.*)",
+      "destination": "/undanganhaflah/public/$1"
+    }
+  ]
+}
