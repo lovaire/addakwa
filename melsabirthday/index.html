@@ -14,10 +14,10 @@
   body, html {
     margin: 0; padding: 0;
     height: 100%;
-    overflow: hidden;
     font-family: 'Baloo 2', cursive;
     background: black;
     color: white;
+    overflow: hidden;
   }
 
   /* Carousel container */
@@ -37,26 +37,26 @@
     transform: translate(-50%, -50%);
     filter: brightness(0.45) blur(3px);
     opacity: 0;
-    animation: fade 24s infinite;
+    animation: fade 12s infinite;
   }
 
   .carousel img:nth-child(1) {
     animation-delay: 0s;
   }
   .carousel img:nth-child(2) {
-    animation-delay: 8s;
+    animation-delay: 4s;
   }
   .carousel img:nth-child(3) {
-    animation-delay: 16s;
+    animation-delay: 8s;
   }
 
   @keyframes fade {
-    0%, 33% {opacity: 0;}
-    40%, 60% {opacity: 1;}
-    67%, 100% {opacity: 0;}
+    0%, 25% {opacity: 0;}
+    30%, 60% {opacity: 1;}
+    65%, 100% {opacity: 0;}
   }
 
-  /* Overlay black transparent with less opacity */
+  /* Overlay black transparent */
   .overlay {
     position: fixed;
     top:0; left:0; right:0; bottom:0;
@@ -64,16 +64,20 @@
     z-index: 1;
   }
 
-  /* Content container fixed size & padding */
-  .content {
+  /* Content container with vertical scroll */
+  .content-wrapper {
     position: fixed;
-    z-index: 2;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
-    padding: 40px 30px;
     max-width: 600px;
+    max-height: 70vh;
+    padding: 40px 30px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,182,193,0.7);
+    overflow-y: auto;
+    z-index: 2;
+    color: #ffc0cb;
     user-select: none;
   }
 
@@ -86,8 +90,23 @@
   p {
     font-size: 1.3rem;
     line-height: 1.6;
-    color: #ffb6c1;
     text-shadow: 0 0 6px rgba(255,105,180,0.7);
+    margin: 0;
+  }
+
+  /* Scrollbar styling for modern browsers */
+  .content-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .content-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 182, 193, 0.1);
+    border-radius: 10px;
+  }
+
+  .content-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 105, 180, 0.5);
+    border-radius: 10px;
   }
 </style>
 </head>
@@ -100,16 +119,126 @@
 </div>
 <div class="overlay"></div>
 
-<div class="content" role="main" aria-label="Ucapan ulang tahun">
+<div class="content-wrapper" role="main" aria-label="Ucapan ulang tahun">
   <h1>Happy Birthday Ayangg 💖</h1>
   <p>
-    Setiap detik yang kuhabiskan bersamamu adalah anugerah terindah dalam hidupku. 
-    Senyummu adalah pelangi di hari-hariku, dan tawamu adalah lagu favorit yang selalu ingin kudengar. 
-    Semoga hari ulang tahunmu dipenuhi dengan cinta, tawa, dan kebahagiaan yang tak terhingga. 
-    Aku berjanji akan selalu menjadi tempatmu bersandar, teman terbaikmu, dan cinta sejatimu sepanjang masa. 
-    Terima kasih telah membawa warna indah ke dalam hidupku. Aku mencintaimu lebih dari kata-kata bisa ungkapkan, dan aku berharap kita bisa melewati setiap momen indah bersama, dari hari ini sampai selamanya.
+    Setiap detik yang kuhabiskan bersamamu adalah anugerah terindah dalam hidupku.<br><br>
+    Senyummu adalah pelangi di hari-hariku, dan tawamu adalah lagu favorit yang selalu ingin kudengar.<br><br>
+    Semoga hari ulang tahunmu dipenuhi dengan cinta, tawa, dan kebahagiaan yang tak terhingga.<br><br>
+    Aku berjanji akan selalu menjadi tempatmu bersandar, teman terbaikmu, dan cinta sejatimu sepanjang masa.<br><br>
+    Terima kasih telah membawa warna indah ke dalam hidupku. Aku mencintaimu lebih dari kata-kata bisa ungkapkan, dan aku berharap kita bisa melewati setiap momen indah bersama, dari hari ini sampai selamanya.<br><br>
+    Mari kita terus ukir kenangan, tertawa bersama, dan saling menguatkan melewati segala rintangan.<br><br>
+    Karena kamu adalah hadiah terindah yang pernah kumiliki. Selamat ulang tahun, cintaku. Semoga setiap harimu seindah hatimu.
   </p>
 </div>
+
+<script>
+  // Fireworks confetti effect on click/touch (no button)
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = 9999;
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let cw, ch;
+
+  function resizeCanvas() {
+    cw = canvas.width = window.innerWidth;
+    ch = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Firework {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.particles = [];
+      this.createParticles();
+    }
+
+    createParticles() {
+      const colors = ['#ff3f3f','#ffb347','#ffe066','#6eff7b','#5ee0ff','#bb5eff','#ff5ebc'];
+      const count = 30 + Math.floor(Math.random() * 20);
+      for(let i=0; i<count; i++) {
+        const angle = Math.random() * 2 * Math.PI;
+        const speed = 2 + Math.random() * 4;
+        this.particles.push({
+          x: this.x,
+          y: this.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color: colors[Math.floor(Math.random()*colors.length)],
+          size: 2 + Math.random()*2
+        });
+      }
+    }
+
+    update() {
+      this.particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05;
+        p.alpha -= 0.02;
+        if(p.alpha < 0) p.alpha = 0;
+      });
+      this.particles = this.particles.filter(p => p.alpha > 0);
+    }
+
+    draw(ctx) {
+      this.particles.forEach(p => {
+        ctx.beginPath();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 8;
+        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    isDone() {
+      return this.particles.length === 0;
+    }
+  }
+
+  const fireworks = [];
+
+  function launchFirework(x, y) {
+    fireworks.push(new Firework(x, y));
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, cw, ch);
+    for(let i = fireworks.length - 1; i >= 0; i--) {
+      const fw = fireworks[i];
+      fw.update();
+      fw.draw(ctx);
+      if(fw.isDone()) {
+        fireworks.splice(i, 1);
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Confetti on click or touch anywhere
+  document.body.addEventListener('click', e => {
+    launchFirework(e.clientX, e.clientY);
+  });
+
+  document.body.addEventListener('touchstart', e => {
+    const touch = e.touches[0];
+    launchFirework(touch.clientX, touch.clientY);
+  });
+</script>
 
 </body>
 </html>
