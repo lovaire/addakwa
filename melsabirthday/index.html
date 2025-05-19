@@ -151,35 +151,6 @@
 <script>
   
 
-  const countdownWrapper = document.getElementById('countdown-wrapper');
-  const birthdayContent = document.getElementById('birthday-content');
-  const timerDisplay = document.getElementById('countdown-timer');
-
-  function updateCountdown() {
-    const now = new Date();
-    const target = getNextMidnight();
-    const diff = target - now;
-
-    if(diff <= 0) {
-      // Waktu sudah lewat, tampilkan konten utama
-      countdownWrapper.classList.add('hidden');
-      birthdayContent.classList.remove('hidden');
-      setupBirthdayFeatures();
-      clearInterval(intervalId);
-      return;
-    }
-
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    timerDisplay.textContent = 
-      `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-  }
-
-  const intervalId = setInterval(updateCountdown, 1000);
-  updateCountdown();
-
   // Fungsi untuk setup konten ulang tahun ketika countdown selesai
   function setupBirthdayFeatures() {
     // Fireworks confetti effect on click/touch
