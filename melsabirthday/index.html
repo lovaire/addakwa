@@ -20,11 +20,6 @@
     overflow: hidden;
   }
 
-  /* General hidden class */
-  .hidden {
-    display: none;
-  }
-
   /* Carousel container */
   .carousel {
     position: fixed;
@@ -45,14 +40,15 @@
     animation: fade 12s infinite;
   }
 
-  .carousel img:nth-child(1) { animation-delay: 0s; }
-  .carousel img:nth-child(2) { animation-delay: 4s; }
-  .carousel img:nth-child(3) { animation-delay: 8s; }
-  .carousel img:nth-child(4) { animation-delay: 12s; }
-  .carousel img:nth-child(5) { animation-delay: 16s; }
-  .carousel img:nth-child(6) { animation-delay: 20s; }
-  .carousel img:nth-child(7) { animation-delay: 24s; }
-  .carousel img:nth-child(8) { animation-delay: 28s; }
+  .carousel img:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .carousel img:nth-child(2) {
+    animation-delay: 4s;
+  }
+  .carousel img:nth-child(3) {
+    animation-delay: 8s;
+  }
 
   @keyframes fade {
     0%, 25% {opacity: 0;}
@@ -60,6 +56,7 @@
     65%, 100% {opacity: 0;}
   }
 
+  /* Overlay black transparent */
   .overlay {
     position: fixed;
     top:0; left:0; right:0; bottom:0;
@@ -67,6 +64,7 @@
     z-index: 1;
   }
 
+  /* Content container with vertical scroll */
   .content-wrapper {
     position: fixed;
     top: 50%; left: 50%;
@@ -83,10 +81,6 @@
     user-select: none;
   }
 
-  h1, p {
-    margin: 0;
-  }
-
   h1 {
     font-size: 3rem;
     margin-bottom: 0.4em;
@@ -97,8 +91,10 @@
     font-size: 1.3rem;
     line-height: 1.6;
     text-shadow: 0 0 6px rgba(255,105,180,0.7);
+    margin: 0;
   }
 
+  /* Scrollbar styling for modern browsers */
   .content-wrapper::-webkit-scrollbar {
     width: 8px;
   }
@@ -116,153 +112,144 @@
 </head>
 <body>
 
-<!-- Main birthday content -->
-<div id="birthday-content" class="hidden">
-  <div class="carousel" aria-hidden="true">
-    <img src="assets/Foto1.jpg" alt="Background Foto 1" />
-    <img src="assets/Foto2.jpg" alt="Background Foto 2" />
-    <img src="assets/Foto3.jpg" alt="Background Foto 3" />
-    <img src="assets/Foto4.jpg" alt="Background Foto 4" />
-    <img src="assets/Foto5.jpg" alt="Background Foto 5" />
-    <img src="assets/Foto6.jpg" alt="Background Foto 6" />
-    <img src="assets/Foto7.jpg" alt="Background Foto 7" />
-    <img src="assets/Foto8.jpg" alt="Background Foto 8" />
-  </div>
-  <div class="overlay"></div>
-
-  <div class="content-wrapper" role="main" aria-label="Ucapan ulang tahun">
-    <h1>Happy Birthday Ayangg 💖</h1>
-    <p>
-      Selamat ulang tahun yaa cantik, doa mas untuk adek pasti selalu yang terbaik❤️<br><br>
-      Semoga membuka lembaran baru tahun ini, setiap langkah adek akan berbuah hasil kedepannya.<br><br>
-      Tiap tawa, tangis, dan air mata yang keluar juga akan jadi saksi, dan bukti bahwa adek itu orang yang kuat untuk menghadapi semua ini.<br><br>
-      So, selamat ulang tahun yaa adek, semoga dimanapun adek beranjak, hal-hal baik selalu meliputi.<br><br>
-      Selalu diberi kesehatan, dan cantik yang luar dalam hehe<br><br>
-      I love you, more and more❤️<br><br>
-      Karena kamu adalah hadiah terindah yang pernah kumiliki. Selamat ulang tahun, cintaku. Semoga setiap harimu seindah hatimu.
-    </p>
-  </div>
-
-  <audio id="myAudio" loop>
-    <source src="assets/Audio.mp3" type="audio/mpeg" />
-  </audio>
-</div>
-
-<script>
+<div class="carousel" aria-hidden="true">
+  <img src="assets/Foto1.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto2.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto3.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto4.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto5.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto6.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto7.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto8.jpg" alt="Background Foto 1" />
   
-    // Fireworks confetti effect on click/touch
-    const canvas = document.createElement('canvas');
-    canvas.style.position = 'fixed';
-    canvas.style.top = 0;
-    canvas.style.left = 0;
-    canvas.style.width = '100vw';
-    canvas.style.height = '100vh';
-    canvas.style.pointerEvents = 'none';
-    canvas.style.zIndex = 9999;
-    document.body.appendChild(canvas);
+</div>
+<div class="overlay"></div>
 
-    const ctx = canvas.getContext('2d');
-    let cw, ch;
+<div class="content-wrapper" role="main" aria-label="Ucapan ulang tahun">
+  <h1>Happy Birthday Ayangg 💖</h1>
+  <p>
+    Selamat ulang tahun yaa cantik, doa mas untuk adek pasti selalu yang terbaik❤️<br><br>
+    Semoga membuka lembaran baru tahun ini, setiap langkah adek akan berbuah hasil kedepannya.<br><br>
+    Tiap tawa, tangis, dan air mata yang keluar juga akan jadi saksi, dan bukti bahwa adek itu orang yang kuat untuk menghadapi semua ini.<br><br>
+    So, selamat ulang tahun yaa adek, semoga dimanapun adek beranjak, hal-hal baik selalu meliputi.<br><br>
+    Selalu diberi kesehatan, dan cantik yang luar dalam hehe<br><br>
+    I love you, more and more❤️<br><br>
+    Karena kamu adalah hadiah terindah yang pernah kumiliki. Selamat ulang tahun, cintaku. Semoga setiap harimu seindah hatimu.
+  </p>
+</div>
+<audio id="myAudio" loop>
+  <source src="assets/Audio.mp3" type="audio/mpeg" />
+</audio>
+<script>
+  // Fireworks confetti effect on click/touch (no button)
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = 9999;
+  document.body.appendChild(canvas);
 
-    function resizeCanvas() {
-      cw = canvas.width = window.innerWidth;
-      ch = canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+  const ctx = canvas.getContext('2d');
+  let cw, ch;
 
-    class Firework {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.particles = [];
-        this.createParticles();
-      }
-
-      createParticles() {
-        const colors = ['#ff3f3f','#ffb347','#ffe066','#6eff7b','#5ee0ff','#bb5eff','#ff5ebc'];
-        const count = 30 + Math.floor(Math.random() * 20);
-        for(let i=0; i<count; i++) {
-          const angle = Math.random() * 2 * Math.PI;
-          const speed = 2 + Math.random() * 4;
-          this.particles.push({
-            x: this.x,
-            y: this.y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            alpha: 1,
-            color: colors[Math.floor(Math.random()*colors.length)],
-            size: 2 + Math.random()*2
-          });
-        }
-      }
-
-      update() {
-        this.particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.05;
-          p.alpha -= 0.02;
-          if(p.alpha < 0) p.alpha = 0;
-        });
-        this.particles = this.particles.filter(p => p.alpha > 0);
-      }
-
-      draw(ctx) {
-        this.particles.forEach(p => {
-          ctx.beginPath();
-          ctx.globalAlpha = p.alpha;
-          ctx.fillStyle = p.color;
-          ctx.shadowColor = p.color;
-          ctx.shadowBlur = 8;
-          ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        });
-      }
-
-      isDone() {
-        return this.particles.length === 0;
-      }
-    }
-
-    const fireworks = [];
-
-    function launchFirework(x, y) {
-      fireworks.push(new Firework(x, y));
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, cw, ch);
-      for(let i = fireworks.length - 1; i >= 0; i--) {
-        const fw = fireworks[i];
-        fw.update();
-        fw.draw(ctx);
-        if(fw.isDone()) {
-          fireworks.splice(i, 1);
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // Confetti on click or touch anywhere
-    document.body.addEventListener('click', e => {
-      launchFirework(e.clientX, e.clientY);
-    });
-
-    document.body.addEventListener('touchstart', e => {
-      const touch = e.touches[0];
-      launchFirework(touch.clientX, touch.clientY);
-    });
-
-    // Audio autoplay after first click/tap
-    const audio = document.getElementById('myAudio');
-    document.body.addEventListener('click', () => {
-      audio.play();
-    }, { once: true });
+  function resizeCanvas() {
+    cw = canvas.width = window.innerWidth;
+    ch = canvas.height = window.innerHeight;
   }
-</script>
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
+  class Firework {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.particles = [];
+      this.createParticles();
+    }
+
+    createParticles() {
+      const colors = ['#ff3f3f','#ffb347','#ffe066','#6eff7b','#5ee0ff','#bb5eff','#ff5ebc'];
+      const count = 30 + Math.floor(Math.random() * 20);
+      for(let i=0; i<count; i++) {
+        const angle = Math.random() * 2 * Math.PI;
+        const speed = 2 + Math.random() * 4;
+        this.particles.push({
+          x: this.x,
+          y: this.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color: colors[Math.floor(Math.random()*colors.length)],
+          size: 2 + Math.random()*2
+        });
+      }
+    }
+
+    update() {
+      this.particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.05;
+        p.alpha -= 0.02;
+        if(p.alpha < 0) p.alpha = 0;
+      });
+      this.particles = this.particles.filter(p => p.alpha > 0);
+    }
+
+    draw(ctx) {
+      this.particles.forEach(p => {
+        ctx.beginPath();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 8;
+        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+    }
+
+    isDone() {
+      return this.particles.length === 0;
+    }
+  }
+
+  const fireworks = [];
+
+  function launchFirework(x, y) {
+    fireworks.push(new Firework(x, y));
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, cw, ch);
+    for(let i = fireworks.length - 1; i >= 0; i--) {
+      const fw = fireworks[i];
+      fw.update();
+      fw.draw(ctx);
+      if(fw.isDone()) {
+        fireworks.splice(i, 1);
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Confetti on click or touch anywhere
+  document.body.addEventListener('click', e => {
+    launchFirework(e.clientX, e.clientY);
+  });
+
+  document.body.addEventListener('touchstart', e => {
+    const touch = e.touches[0];
+    launchFirework(touch.clientX, touch.clientY);
+  });
+  const audio = document.getElementById('myAudio');
+  document.body.addEventListener('click', () => {
+    audio.play();
+  }, { once: true }); // supaya cuma sekali trigger play
+</script>
 </body>
 </html>
