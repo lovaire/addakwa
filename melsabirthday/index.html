@@ -73,19 +73,19 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 20px;
+    padding: 1.5rem 1rem;
     max-width: 90vw;
     user-select: none;
   }
 
   h1 {
-    font-size: 3.5rem;
-    margin-bottom: 0.2em;
+    font-size: clamp(1.8rem, 6vw, 3.5rem);
+    margin-bottom: 0.3em;
     text-shadow: 0 0 10px rgba(255, 192, 203, 0.7);
   }
 
   p {
-    font-size: 1.6rem;
+    font-size: clamp(1rem, 4vw, 1.6rem);
     line-height: 1.4;
     max-width: 600px;
     margin: 0 auto;
@@ -95,12 +95,12 @@
 
   /* Confetti button */
   .confetti-btn {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     background: #ff69b4;
     border: none;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
     cursor: pointer;
     box-shadow: 0 0 10px #ff69b4;
     display: flex;
@@ -118,10 +118,10 @@
     background: #e65ca8;
   }
 
-  /* Confetti icon (simple SVG) */
+  /* Confetti icon */
   .confetti-icon {
-    width: 28px;
-    height: 28px;
+    width: clamp(18px, 3vw, 28px);
+    height: clamp(18px, 3vw, 28px);
     fill: white;
   }
 
@@ -135,6 +135,17 @@
     height: 100vh;
     overflow: visible;
     z-index: 3;
+  }
+
+  /* Responsive tweaks for very small screens */
+  @media (max-width: 360px) {
+    .content {
+      padding: 1rem 0.8rem;
+    }
+
+    p {
+      max-width: 100%;
+    }
   }
 </style>
 </head>
@@ -162,7 +173,6 @@
 <canvas id="fireworks"></canvas>
 
 <script>
-  // Canvas setup for fireworks
   const canvas = document.getElementById('fireworks');
   const ctx = canvas.getContext('2d');
   let cw, ch;
@@ -174,7 +184,6 @@
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Fireworks particle class
   class Firework {
     constructor(x, y) {
       this.x = x;
@@ -205,7 +214,7 @@
       this.particles.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.05; // gravity
+        p.vy += 0.05; 
         p.alpha -= 0.02;
         if(p.alpha < 0) p.alpha = 0;
       });
@@ -236,7 +245,6 @@
     fireworks.push(new Firework(x, y));
   }
 
-  // Animate fireworks
   function animate() {
     ctx.clearRect(0, 0, cw, ch);
     for(let i = fireworks.length - 1; i >= 0; i--) {
@@ -251,9 +259,7 @@
   }
   animate();
 
-  // Confetti effect on touch or click
   function confettiEffect(x, y) {
-    // Launch multiple small fireworks with random offset near x,y
     for(let i=0; i<3; i++) {
       const offsetX = x + (Math.random() - 0.5) * 100;
       const offsetY = y + (Math.random() - 0.5) * 100;
@@ -261,7 +267,6 @@
     }
   }
 
-  // Button click triggers fireworks from bottom center
   const btn = document.querySelector('.confetti-btn');
   btn.addEventListener('click', () => {
     const x = window.innerWidth / 2;
@@ -269,7 +274,6 @@
     launchFirework(x, y);
   });
 
-  // User interaction triggers confetti effect
   document.body.addEventListener('click', (e) => {
     confettiEffect(e.clientX, e.clientY);
   });
