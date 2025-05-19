@@ -113,21 +113,27 @@
 <body>
 
 <div class="carousel" aria-hidden="true">
-  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80" alt="Background Foto 1" />
-  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1920&q=80" alt="Background Foto 2" />
-  <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1920&q=80" alt="Background Foto 3" />
+  <img src="assets/Foto1.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto2.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto3.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto4.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto5.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto6.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto7.jpg" alt="Background Foto 1" />
+  <img src="assets/Foto8.jpg" alt="Background Foto 1" />
+  
 </div>
 <div class="overlay"></div>
 
 <div class="content-wrapper" role="main" aria-label="Ucapan ulang tahun">
   <h1>Happy Birthday Ayangg 💖</h1>
   <p>
-    Setiap detik yang kuhabiskan bersamamu adalah anugerah terindah dalam hidupku.<br><br>
-    Senyummu adalah pelangi di hari-hariku, dan tawamu adalah lagu favorit yang selalu ingin kudengar.<br><br>
-    Semoga hari ulang tahunmu dipenuhi dengan cinta, tawa, dan kebahagiaan yang tak terhingga.<br><br>
-    Aku berjanji akan selalu menjadi tempatmu bersandar, teman terbaikmu, dan cinta sejatimu sepanjang masa.<br><br>
-    Terima kasih telah membawa warna indah ke dalam hidupku. Aku mencintaimu lebih dari kata-kata bisa ungkapkan, dan aku berharap kita bisa melewati setiap momen indah bersama, dari hari ini sampai selamanya.<br><br>
-    Mari kita terus ukir kenangan, tertawa bersama, dan saling menguatkan melewati segala rintangan.<br><br>
+    Selamat ulang tahun yaa cantik, doa mas untuk adek pasti selalu yang terbaik❤️<br><br>
+    Semoga membuka lembaran baru tahun ini, setiap langkah adek akan berbuah hasil kedepannya.<br><br>
+    Tiap tawa, tangis, dan air mata yang keluar juga akan jadi saksi, dan bukti bahwa adek itu orang yang kuat untuk menghadapi semua ini.<br><br>
+    So, selamat ulang tahun yaa adek, semoga dimanapun adek beranjak, hal-hal baik selalu meliputi.<br><br>
+    Selalu diberi kesehatan, dan cantik yang luar dalam hehe<br><br>
+    I love you, more and more❤️<br><br>
     Karena kamu adalah hadiah terindah yang pernah kumiliki. Selamat ulang tahun, cintaku. Semoga setiap harimu seindah hatimu.
   </p>
 </div>
@@ -238,7 +244,13 @@
     const touch = e.touches[0];
     launchFirework(touch.clientX, touch.clientY);
   });
+  const audio = document.getElementById('myAudio');
+  document.body.addEventListener('click', () => {
+    audio.play();
+  }, { once: true }); // supaya cuma sekali trigger play
 </script>
-
+<audio id="myAudio" loop>
+  <source src="assets/Audio.mp3" type="audio/mpeg" />
+</audio>
 </body>
 </html>
