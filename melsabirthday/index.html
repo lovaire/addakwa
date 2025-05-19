@@ -137,7 +137,9 @@
     Karena kamu adalah hadiah terindah yang pernah kumiliki. Selamat ulang tahun, cintaku. Semoga setiap harimu seindah hatimu.
   </p>
 </div>
-
+<audio id="myAudio" loop>
+  <source src="assets/Audio.mp3" type="audio/mpeg" />
+</audio>
 <script>
   // Fireworks confetti effect on click/touch (no button)
   const canvas = document.createElement('canvas');
@@ -249,8 +251,5 @@
     audio.play();
   }, { once: true }); // supaya cuma sekali trigger play
 </script>
-<audio id="myAudio" loop>
-  <source src="assets/Audio.mp3" type="audio/mpeg" />
-</audio>
 </body>
 </html>
