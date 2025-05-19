@@ -35,12 +35,11 @@
     height: 100vh;
     object-fit: cover;
     transform: translate(-50%, -50%);
-    filter: brightness(0.3) blur(4px);
+    filter: brightness(0.45) blur(3px);
     opacity: 0;
     animation: fade 24s infinite;
   }
 
-  /* Multiple images with staggered fade */
   .carousel img:nth-child(1) {
     animation-delay: 0s;
   }
@@ -57,15 +56,15 @@
     67%, 100% {opacity: 0;}
   }
 
-  /* Overlay black transparent */
+  /* Overlay black transparent with less opacity */
   .overlay {
     position: fixed;
     top:0; left:0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.25);
     z-index: 1;
   }
 
-  /* Content container */
+  /* Content container fixed size & padding */
   .content {
     position: fixed;
     z-index: 2;
@@ -73,79 +72,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding: 1.5rem 1rem;
-    max-width: 90vw;
+    padding: 40px 30px;
+    max-width: 600px;
     user-select: none;
   }
 
   h1 {
-    font-size: clamp(1.8rem, 6vw, 3.5rem);
-    margin-bottom: 0.3em;
-    text-shadow: 0 0 10px rgba(255, 192, 203, 0.7);
+    font-size: 3rem;
+    margin-bottom: 0.4em;
+    text-shadow: 0 0 12px rgba(255, 182, 193, 0.85);
   }
 
   p {
-    font-size: clamp(1rem, 4vw, 1.6rem);
-    line-height: 1.4;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #ffc0cb;
-    text-shadow: 0 0 5px rgba(255,105,180,0.6);
-  }
-
-  /* Confetti button */
-  .confetti-btn {
-    margin-top: 2rem;
-    background: #ff69b4;
-    border: none;
-    border-radius: 50%;
-    width: clamp(40px, 6vw, 60px);
-    height: clamp(40px, 6vw, 60px);
-    cursor: pointer;
-    box-shadow: 0 0 10px #ff69b4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
-    outline: none;
-  }
-
-  .confetti-btn:hover {
-    background: #ff85c1;
-  }
-
-  .confetti-btn:active {
-    background: #e65ca8;
-  }
-
-  /* Confetti icon */
-  .confetti-icon {
-    width: clamp(18px, 3vw, 28px);
-    height: clamp(18px, 3vw, 28px);
-    fill: white;
-  }
-
-  /* Fireworks container */
-  #fireworks {
-    pointer-events: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: visible;
-    z-index: 3;
-  }
-
-  /* Responsive tweaks for very small screens */
-  @media (max-width: 360px) {
-    .content {
-      padding: 1rem 0.8rem;
-    }
-
-    p {
-      max-width: 100%;
-    }
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #ffb6c1;
+    text-shadow: 0 0 6px rgba(255,105,180,0.7);
   }
 </style>
 </head>
@@ -161,128 +103,13 @@
 <div class="content" role="main" aria-label="Ucapan ulang tahun">
   <h1>Happy Birthday Ayangg 💖</h1>
   <p>
-    Setiap detik yang kuhabiskan bersamamu adalah anugerah terindah. Semoga hari istimewamu dipenuhi tawa, cinta, dan kebahagiaan tanpa akhir. Aku mencintaimu lebih dari kata-kata bisa ungkapkan, dan akan selalu ada di sampingmu, hari ini dan selamanya.
+    Setiap detik yang kuhabiskan bersamamu adalah anugerah terindah dalam hidupku. 
+    Senyummu adalah pelangi di hari-hariku, dan tawamu adalah lagu favorit yang selalu ingin kudengar. 
+    Semoga hari ulang tahunmu dipenuhi dengan cinta, tawa, dan kebahagiaan yang tak terhingga. 
+    Aku berjanji akan selalu menjadi tempatmu bersandar, teman terbaikmu, dan cinta sejatimu sepanjang masa. 
+    Terima kasih telah membawa warna indah ke dalam hidupku. Aku mencintaimu lebih dari kata-kata bisa ungkapkan, dan aku berharap kita bisa melewati setiap momen indah bersama, dari hari ini sampai selamanya.
   </p>
-  <button class="confetti-btn" aria-label="Tombol kembang api dan konfetti">
-    <svg class="confetti-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M4 2l2 7h-7l5-7zm12 0l5 7h-7l2-7zm-6 4l3 8h-6l3-8zm0 10c-2 0-4 2-4 4h8c0-2-2-4-4-4z"/>
-    </svg>
-  </button>
 </div>
-
-<canvas id="fireworks"></canvas>
-
-<script>
-  const canvas = document.getElementById('fireworks');
-  const ctx = canvas.getContext('2d');
-  let cw, ch;
-
-  function resizeCanvas() {
-    cw = canvas.width = window.innerWidth;
-    ch = canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  class Firework {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.particles = [];
-      this.createParticles();
-    }
-
-    createParticles() {
-      const colors = ['#ff3f3f','#ffb347','#ffe066','#6eff7b','#5ee0ff','#bb5eff','#ff5ebc'];
-      const count = 30 + Math.floor(Math.random() * 20);
-      for(let i=0; i<count; i++) {
-        const angle = Math.random() * 2 * Math.PI;
-        const speed = 2 + Math.random() * 4;
-        this.particles.push({
-          x: this.x,
-          y: this.y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          alpha: 1,
-          color: colors[Math.floor(Math.random()*colors.length)],
-          size: 2 + Math.random()*2
-        });
-      }
-    }
-
-    update() {
-      this.particles.forEach(p => {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.05; 
-        p.alpha -= 0.02;
-        if(p.alpha < 0) p.alpha = 0;
-      });
-      this.particles = this.particles.filter(p => p.alpha > 0);
-    }
-
-    draw(ctx) {
-      this.particles.forEach(p => {
-        ctx.beginPath();
-        ctx.globalAlpha = p.alpha;
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 8;
-        ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      });
-    }
-
-    isDone() {
-      return this.particles.length === 0;
-    }
-  }
-
-  const fireworks = [];
-
-  function launchFirework(x, y) {
-    fireworks.push(new Firework(x, y));
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, cw, ch);
-    for(let i = fireworks.length - 1; i >= 0; i--) {
-      const fw = fireworks[i];
-      fw.update();
-      fw.draw(ctx);
-      if(fw.isDone()) {
-        fireworks.splice(i, 1);
-      }
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  function confettiEffect(x, y) {
-    for(let i=0; i<3; i++) {
-      const offsetX = x + (Math.random() - 0.5) * 100;
-      const offsetY = y + (Math.random() - 0.5) * 100;
-      launchFirework(offsetX, offsetY);
-    }
-  }
-
-  const btn = document.querySelector('.confetti-btn');
-  btn.addEventListener('click', () => {
-    const x = window.innerWidth / 2;
-    const y = window.innerHeight - 50;
-    launchFirework(x, y);
-  });
-
-  document.body.addEventListener('click', (e) => {
-    confettiEffect(e.clientX, e.clientY);
-  });
-
-  document.body.addEventListener('touchstart', (e) => {
-    const touch = e.touches[0];
-    confettiEffect(touch.clientX, touch.clientY);
-  });
-</script>
 
 </body>
 </html>
