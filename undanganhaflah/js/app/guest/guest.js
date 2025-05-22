@@ -139,22 +139,25 @@ export const guest = (() => {
      * @returns {void}
      */
     const open = (button) => {
-        button.disabled = true;
-        document.body.scrollIntoView({ behavior: 'instant' });
+    button.disabled = true;
+    document.body.scrollIntoView({ behavior: 'instant' });
 
-        if (theme.isAutoMode()) {
-            document.getElementById('button-theme').classList.remove('d-none');
-        }
+    if (theme.isAutoMode()) {
+        document.getElementById('button-theme').classList.remove('d-none');
+    }
 
-        slide();
-        theme.spyTop();
+    slide();
+    theme.spyTop();
 
+    if (document.body.getAttribute('data-confetti') === 'true') {
         confetti.basicAnimation();
         util.timeOut(confetti.openAnimation, 1500);
+    }
 
-        document.dispatchEvent(new Event('undangan.open'));
-        util.changeOpacity(document.getElementById('welcome'), false).then((el) => el.remove());
+    document.dispatchEvent(new Event('undangan.open'));
+    util.changeOpacity(document.getElementById('welcome'), false).then((el) => el.remove());
     };
+
 
     /**
      * @param {HTMLImageElement} img
