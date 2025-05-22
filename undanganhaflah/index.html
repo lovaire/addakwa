@@ -146,8 +146,40 @@
 </div>
 </section>
 <!-- Wave Separator -->
-<svg class="color-theme-svg no-gap-bottom" viewbox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,165.3C672,160,768,96,864,96C960,96,1056,160,1152,154.7C1248,149,1344,75,1392,37.3L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="currentColor" fill-opacity="1"></path>
+<svg class="color-theme-svg no-gap-bottom" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+  <path fill="#2F4F4F" fill-opacity="1" d="M0,320L1440,320V0H0V320z"/>
+  
+  <!-- Bunga Gold -->
+  <g transform="translate(100 220)">
+    <circle cx="0" cy="0" r="12" fill="#FFD700"/>
+    <ellipse cx="0" cy="-18" rx="8" ry="12" fill="#DAA520" transform="rotate(30)"/>
+    <ellipse cx="0" cy="-18" rx="8" ry="12" fill="#DAA520" transform="rotate(150)"/>
+    <ellipse cx="0" cy="-18" rx="8" ry="12" fill="#DAA520" transform="rotate(90)"/>
+  </g>
+  
+  <g transform="translate(300 200)">
+    <circle cx="0" cy="0" r="15" fill="#B8860B"/>
+    <ellipse cx="0" cy="-22" rx="10" ry="15" fill="#FFD700" transform="rotate(45)"/>
+    <ellipse cx="0" cy="-22" rx="10" ry="15" fill="#FFD700" transform="rotate(135)"/>
+    <path d="M0,-25 Q5,-35 10,-25 T0,-25" fill="#DAA520"/>
+  </g>
+
+  <g transform="translate(500 240)">
+    <circle cx="0" cy="0" r="10" fill="#DAA520"/>
+    <ellipse cx="0" cy="-15" rx="6" ry="10" fill="#FFD700" transform="rotate(20)"/>
+    <ellipse cx="0" cy="-15" rx="6" ry="10" fill="#FFD700" transform="rotate(60)"/>
+    <ellipse cx="0" cy="-15" rx="6" ry="10" fill="#FFD700" transform="rotate(100)"/>
+  </g>
+
+  <!-- Daun -->
+  <path d="M400 250 Q420 230 440 250 T480 240" fill="#556B2F" opacity="0.8"/>
+  <path d="M600 260 Q620 240 640 260 T680 250" fill="#556B2F" opacity="0.8"/>
+
+  <!-- Repeat bunga dengan transformasi berbeda -->
+  <use href="#bunga1" transform="translate(800 210) scale(0.9)"/>
+  <use href="#bunga2" transform="translate(1000 230) scale(1.1)"/>
+  <use href="#bunga3" transform="translate(1200 220) scale(0.8)"/>
+
 </svg>
 <!-- Countdown -->
 <section class="bg-white-black text-center" id="bride">
