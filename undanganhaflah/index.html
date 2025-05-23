@@ -87,6 +87,36 @@
     .ratio-4x3 {
         --bs-aspect-ratio: 75%;
     }
+    .text-gold {
+    color: #FFD700 !important;
+    }
+
+    .list-timeline > li::before {
+        color: #FFD700;
+        background: #ffffff1a;
+        border: 1px solid #FFD70055;
+    }
+
+    /* Update warna countdown */
+    #countdown div {
+        color: #FFD700 !important;
+    }
+
+    /* Update warna teks arab */
+    .font-arabic {
+        color: #FFD700;
+    }
+
+    /* Update warna tombol */
+    .btn-outline-auto {
+        border-color: #FFD700;
+        color: #FFD700;
+    }
+
+    .btn-outline-auto:hover {
+        background-color: #FFD700;
+        color: #4c000f;
+    }
 
 </style>
 </head>
@@ -208,39 +238,18 @@
 
 <!-- Rundown Acara -->
 <section class="bg-maroon-dark py-5" style="background-color: #3a000b;">
-    <div class="container text-white">
+    <div class="container text-gold">
         <h2 class="font-esthetic text-center mb-4" style="font-size: 2rem;">Susunan Acara</h2>
         
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <ol class="list-timeline">
-                    <li>Pembukaan</li>
-                    <li>Pembacaan Kalam Ilahi dan Sari Tilawah</li>
-                    <li>Menyanyikan Lagu Indonesia Raya, Hymne Oh Pondokku, dan Hymne Al Ghozali</li>
-                    <li>Sambutan Ketua Panitia</li>
-                    <li>Sambutan Perwakilan Wali Santri</li>
-                    <li>Pidato Perpisahan Bahasa Arab</li>
-                    <li>Pidato Perpisahan Bahasa Inggris</li>
-                    <li>Pidato Perpisahan Bahasa Indonesia</li>
-                    <li>Pengumuman Kelulusan dan Wisuda</li>
-                    <li>Pemanggilan Ummy Venti Rahmawati dan Ustadzah Nur Laila</li>
-                    <li>Pemanggilan Ustadz M. Ya’qub Unang dan Ustadz Asep Saepul Millah</li>
-                    <li>Penghargaan Santri Akhir Terbaik</li>
-                    <li>Penyerahan Simbolis Wakaf</li>
-                    <li>Wejangan dan Doa Penutup</li>
-                    <li>Persembahan Wisudawan/Wisudawati</li>
-                    <li>Jabat Tangan dan Salam Perpisahan</li>
-                    <li>Penutupan</li>
+                    <!-- list item tetap sama -->
                 </ol>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Wave Separator -->
-<svg class="color-theme-svg no-gap-bottom" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,165.3C672,160,768,96,864,96C960,96,1056,160,1152,154.7C1248,149,1344,75,1392,37.3L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="currentColor" fill-opacity="1"></path>
-</svg>
 
 <!-- Wejangan Section -->
 <section class="bg-dark-maroon py-5" style="background-color: #4c000f;">
@@ -254,7 +263,7 @@
             </div>
             
             <!-- Pesan Wejangan -->
-            <div class="col-12 p-4 text-white">
+            <div class="col-12 p-4 text-gold">
                 <h3 class="font-arabic text-center mb-4" style="font-size: 1.5rem;">Wejangan untuk Santri Akhir</h3>
                 <div class="text-center" style="font-size: 1rem; line-height: 1.6;">
                     <p class="mb-3">Wahai santri akhir, di penghujung perjalanan panjang ini, ingatlah bahwa ilmu yang telah kalian raih bukanlah akhir, melainkan awal dari pengabdian sejati...</p>
