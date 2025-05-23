@@ -53,7 +53,7 @@ html[data-bs-theme="light"] .btn-transparent {
     z-index: 1056;
 }
 
-html[data-bs-theme="light"] .color-theme-svg {
+/* html[data-bs-theme="light"] .color-theme-svg {
     color: #4c000f;
     background-color: var(--bs-light);
 }
@@ -62,7 +62,7 @@ html[data-bs-theme="dark"] .color-theme-svg {
     color: #4c000f;
 
     background-color: var(--bs-dark);
-}
+} */
 
 html[data-bs-theme="light"] .bg-light-dark {
     background-color: rgba(var(--bs-light-rgb), 1);
