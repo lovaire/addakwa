@@ -104,5 +104,11 @@ html[data-bs-theme="dark"] .bg-white-black {
 }
 
 .no-gap-bottom {
-    margin-bottom: -0.75rem !important;
+  display: block;
+  margin-bottom: -1px; /* Ensures no gap between SVG and next section */
+  width: 100%;
+}
+section {
+  position: relative;
+  z-index: 1; /* Ensures sections stack correctly with SVGs */
 }
