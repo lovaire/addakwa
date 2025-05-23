@@ -72,11 +72,11 @@ html[data-bs-theme="dark"] .bg-light-dark {
 }
 
 html[data-bs-theme="light"] .bg-white-black {
-    background-color: rgba(var(--bs-white-rgb), 1);
+    background-color: #4c000f !important;
 }
 
 html[data-bs-theme="dark"] .bg-white-black {
-    background-color: rgba(var(--bs-black-rgb), 1);
+    background-color: #4c000f !important;
 }
 
 .bg-cover-home {
