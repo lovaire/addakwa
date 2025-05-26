@@ -26,7 +26,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
 
 <!-- Dependencies CSS -->
@@ -52,7 +52,7 @@
     background-image: none !important;
   }
   .font-esthetic {
-    font-family: 'Playfair Display', serif !important;
+    font-family: 'Italianno', serif !important;
   }
   .font-arabic {
     font-family: 'Aref Ruqaa', serif !important;
@@ -156,7 +156,6 @@
 <div class="col-sm-7 col-md-6 col-lg-5 col-xl-4 col-xxl-3 m-0 p-0">
 <!-- Main Content -->
 <main data-bs-root-margin="25% 0% 0% 0%" data-bs-smooth-scroll="true" data-bs-spy="scroll" data-bs-target="#navbar-menu" tabindex="0">
-<!-- Home -->
 <!-- Home -->
 <section class="position-relative overflow-hidden p-0 m-0" id="home" 
          style="background-image: url('./assets/images/background.png'); 
@@ -356,59 +355,6 @@
     </div>
   </div>
 </section>
-
-<!-- Wave Separator untuk transisi ke section selanjutnya -->
-<svg class="no-gap-bottom" style="color: #4c000f;" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-  <path d="M0,192L40,181.3C80,171,160,149,240,149.3C320,149,400,171,480,165.3C560,160,640,128,720,128C800,128,880,160,960,186.7C1040,213,1120,235,1200,218.7C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z" fill="currentColor" fill-opacity="1"></path>
-</svg>
-<!-- Comment -->
-<section class="bg-light-dark my-0 pb-0 pt-3" id="comment">
-<div class="container">
-<div class="border rounded-5 shadow p-3 mb-2">
-<h2 class="font-esthetic text-center mt-2 mb-4" style="font-size: 2.25rem;">Ucapan &amp; Doa</h2>
-<div class="mb-3">
-<label class="form-label my-1" for="form-name"><i class="fa-solid fa-person me-2"></i>Nama</label>
-<input autocomplete="name" class="form-control shadow-sm rounded-4" data-offline-disabled="false" id="form-name" maxlength="50" minlength="2" placeholder="Isikan Nama Anda" type="text"/>
-</div>
-<div class="mb-3">
-<label class="form-label my-1" for="form-presence"><i class="fa-solid fa-person-circle-question me-2"></i>Presensi</label>
-<select autocomplete="off" class="form-select shadow-sm rounded-4" data-offline-disabled="false" id="form-presence">
-<option selected="" value="0">Konfirmasi Presensi</option>
-<option value="1">✅ Datang</option>
-<option value="2">❌ Berhalangan</option>
-</select>
-</div>
-<div class="d-block mb-3" id="comment-form-default">
-<div class="alert alert-info alert-dismissible fade show rounded-4" id="information" role="alert">
-<button aria-label="Close" class="btn-close rounded-4 p-3" data-bs-dismiss="alert" onclick="undangan.guest.closeInformation()" type="button"></button>
-<p style="font-size: 1.5rem;">Bestieee!!!</p>
-<p class="m-0">Cobain like seperti Instagram, dengan tap tap bagian komentarnya</p>
-<hr class="my-2"/>
-<p class="m-0">Sama bisa format text seperti Whatsapp lohh... cobainn jugaaa, makaciwww bestieee</p>
-</div>
-<label class="form-label my-1" for="form-comment"><i class="fa-solid fa-comment me-2"></i>Ucapan &amp; Doa</label>
-<div class="position-relative">
-<button aria-label="button gif" class="btn btn-secondary btn-sm rounded-4 shadow-sm me-1 my-1 position-absolute bottom-0 end-0" data-offline-disabled="false" onclick="undangan.comment.gif.open(undangan.comment.gif.default)"><i class="fa-solid fa-photo-film"></i></button>
-<textarea autocomplete="off" class="form-control shadow-sm rounded-4" data-offline-disabled="false" id="form-comment" maxlength="1000" minlength="1" placeholder="Tulis Ucapan dan Doa" rows="4"></textarea>
-</div>
-</div>
-<div class="d-none mb-3" id="gif-form-default"></div>
-<div class="d-grid">
-<button class="btn btn-primary btn-sm rounded-4 shadow m-1" data-offline-disabled="false" onclick="undangan.comment.send(this)">
-<i class="fa-solid fa-paper-plane me-2"></i>Send
-                                </button>
-</div>
-</div>
-<!-- Comments -->
-<div class="py-3" data-loading="false" id="comments"></div>
-<!-- Pagination -->
-<nav class="d-flex d-none justify-content-center mt-1 mb-0" id="pagination"></nav>
-</div>
-</section>
-<!-- Wave Separator -->
-<svg class="no-gap-bottom" style="color: #3a000b;" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,224L34.3,234.7C68.6,245,137,267,206,266.7C274.3,267,343,245,411,234.7C480,224,549,224,617,213.3C685.7,203,754,181,823,197.3C891.4,213,960,267,1029,266.7C1097.1,267,1166,213,1234,192C1302.9,171,1371,181,1406,186.7L1440,192L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z" fill="currentColor" fill-opacity="1"></path>
-</svg>
 <!-- End Of Invitation -->
 <section class="bg-white-black py-2 no-gap-bottom">
 <div class="container text-center">
