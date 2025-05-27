@@ -223,7 +223,7 @@
     Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu Wali Santri untuk menghadiri:
   </p>
   
-  <div class="text-start px-3 py-3 mx-auto" style="max-width: 600px; font-family: Arial, sans-serif;">
+  <div class="text-start px-3 py-3 mx-auto" style="max-width: 600px;">
     <div class="d-flex mb-1" style="align-items: flex-start;">
       <strong style="width: 100px; flex-shrink: 0;">Acara</strong>
       <span>: Haflatul Wada' Perpisahan Kelas 3<br>SMA Angkatan 29 Pondok Modern Al-Ghozali</span>
@@ -485,19 +485,20 @@
   background-size: cover; 
   background-position: center; 
   min-height: 100vh;">
-  <div class="d-flex justify-content-center align-items-center vh-100 overflow-y-scroll">
-    <div class="d-flex flex-column text-center">
-      <div class="position-relative text-center">
-<img alt="bg" class="img-center-crop mx-auto" style="margin-top: 100px; max-width: 80%;"; src="./assets/images/bg.png" onclick="undangan.guest.modal(this)"/>
-<h1 class="font-esthetic my-4 pt-4 fw-medium" style="font-size: 4rem; font-weight: bold;">Haflatul Wada'</h1>
-<h2 class="font-esthetic my-4" style="font-size: 2.25rem; font-weight: bold;">Angkatan ke-29</h2>
-<h2 class="font-esthetic my-4" style="font-size: 2.25rem; font-weight: bold;">Tahun Ajaran 2024-2025</h2>
-<h2 class="font-esthetic my-4" style="font-size: 2.25rem; font-weight: bold;">Pondok Modern Al-Ghozali</h2>
-<p class="my-2" style="font-size: 1.25rem;">Ahad, 1 Juni 2025 /	5 Dzulhijjah 1446 H</p>
-      <div data-message="Kepada Yth Bapak/Ibu/Saudara/i" id="guest-name"></div>
-      <button class="btn btn-light shadow rounded-4 mt-3 mx-auto" onclick="undangan.guest.open(this)" type="button">
-        <i class="fa-solid fa-envelope-open fa-bounce me-2"></i>Open Invitation
-      </button>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="d-flex flex-column text-center" style="max-height: 90vh; overflow-y: auto; padding: 20px 0;">
+      <div class="position-relative text-center" style="padding-top: 20px;">
+        <img alt="bg" class="img-center-crop mx-auto" style="max-width: 80%; max-height: 200px; object-fit: contain;" src="./assets/images/bg.png" onclick="undangan.guest.modal(this)"/>
+        <h1 class="font-esthetic my-3 fw-medium" style="font-size: clamp(2.5rem, 6vw, 4rem); font-weight: bold;">Haflatul Wada'</h1>
+        <h2 class="font-esthetic my-2" style="font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: bold;">Angkatan ke-29</h2>
+        <h2 class="font-esthetic my-2" style="font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: bold;">Tahun Ajaran 2024-2025</h2>
+        <h2 class="font-esthetic my-2" style="font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: bold;">Pondok Modern Al-Ghozali</h2>
+        <p class="my-2" style="font-size: clamp(1rem, 2vw, 1.25rem);">Ahad, 1 Juni 2025 / 5 Dzulhijjah 1446 H</p>
+        <div data-message="Kepada Yth Bapak/Ibu/Saudara/i" id="guest-name" class="my-2"></div>
+        <button class="btn btn-light shadow rounded-4 my-3 mx-auto px-4 py-2" onclick="undangan.guest.open(this)" type="button" style="font-size: 1rem;">
+          <i class="fa-solid fa-envelope-open fa-bounce me-2"></i>Open Invitation
+        </button>
+      </div>
     </div>
   </div>
 </div>
