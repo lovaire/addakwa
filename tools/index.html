@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Undangan Haflah</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: darkgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Undangan Haflatul Wada'</h2>
+
+  <label for="nama">Nama:</label>
+  <input type="text" id="nama" placeholder="Contoh: Lamine Yamal">
+
+  <label for="nomor">Nomor WhatsApp (Contoh: 812xxxxxxxx):</label>
+  <input type="text" id="nomor" placeholder="812xxxxxxx">
+
+  <button onclick="kirimUndangan()">Kirim via WhatsApp</button>
+
+  <script>
+    function kirimUndangan() {
+      const nama = document.getElementById('nama').value.trim();
+      const nomor = document.getElementById('nomor').value.trim();
+
+      if (!nama || !nomor) {
+        alert("Mohon isi nama dan nomor WhatsApp.");
+        return;
+      }
+
+      const namaEncoded = encodeURIComponent(nama);
+      const linkUndangan = `https://addakwa.com/undanganhaflah/?to=${namaEncoded.replace(/%20/g, '%2520')}`;
+
+      const pesan = `Assalamualaikum Warahmatullahi Wabarakatuh%0A%0A` +
+        `Dengan memohon rahmat dan ridha Allah SWT, kami mengundang Bapak/Ibu/Saudara/i ${nama} untuk hadir dalam acara Haflatul Wada' Angkatan ke-29 sebagai bentuk syukur dan perpisahan para santri.%0A%0A` +
+        `Acara ini insyaAllah akan dilaksanakan pada:%0A` +
+        `Hari/Tanggal: Ahad, 1 Juni 2025/ 5 Dzulhijjah 1446 %0A` +
+        `Waktu: 07.00 s/d Selesai%0A` +
+        `Tempat: Aula Darussalam %0A` +
+        `Atau dapat disaksikan secara online melalui link berikut:%0A` +
+        `${linkUndangan}%0A%0A` +
+        `Harap mengisi reservasi pada akhir undangan.%0A%0A` +
+        `Kehadiran dan doa restu dari Bapak/Ibu/Saudara/i sangat kami harapkan.%0A%0A` +
+        `Jazakumullahu khairan katsiran.%0A%0A` +
+        `Wassalamu’alaikum Warahmatullahi Wabarakatuh`;
+
+      const waLink = `https://wa.me/62${nomor}?text=${pesan}`;
+
+      window.open(waLink, '_blank');
+    }
+  </script>
+
+</body>
+</html>
