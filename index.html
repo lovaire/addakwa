@@ -127,6 +127,24 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        .fitur-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.fitur-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.fitur-card:hover {
+    transform: translateY(-5px);
+}
 
         @media (max-width: 600px) {
             .detail-fitur h1 {
@@ -292,7 +310,7 @@ display: none !important;
 		<div class="container pt-lg-5">
 			<div class="row pt-lg-5">
 				<div class="col-lg-6 mb-4 mb-lg-0">
-					<h1 class="hero-title font-weight-bold mb-4 text-white">Buat Undangan Online Digital Untuk <span style="color: #FFF1A9" id="typing">Pernikahan</span></h1>
+					<h1 class="hero-title font-weight-bold mb-4 text-white">Buat Undangan Online Digital Untuk <span style="color: #D1B391" id="typing">Pernikahan</span></h1>
 					<p class="mb-4 text-white" style="font-weight: 200;">Buat segala jenis undangan apapun, tanpa terikat dengan template, kamu bisa bebas berekspresi melalui desain yang kamu buat sendiri. Bebas revisi sampai jadi!</p>
 					<a href="https://wa.me/6285697833911" title="buat undangan online digital" class="btn-register position-relative btn btn-lg rounded-pill d-block d-md-inline-flex mb-2 mb-md-0 mr-md-2" style="background-color: #D1B391; color: #221C17; border: none;">
 						<span class="pr-1" style="color: #221C17;">Pesan Sekarang</span>
@@ -344,12 +362,12 @@ display: none !important;
 
 	</section>
 	
-	<section class="detail-fitur" id="fitur">
+	<section class="detail-fitur" id="fitur" style="background-color: #D1B391;">
     <div class="fitur-container">
         <!-- Fitur 1 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-geo-alt-fill"></i> <!-- Ganti dengan ikon Bootstrap -->
+                <i class="bi bi-geo-alt-fill"></i>
             </div>
             <h2>Google Maps</h2>
             <p>Kami menyertakan Google Maps untuk mempermudah pencarian lokasi acara pernikahan Anda.</p>
@@ -358,7 +376,7 @@ display: none !important;
         <!-- Fitur 2 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-calendar-event"></i> <!-- Ganti dengan ikon Bootstrap -->
+                <i class="bi bi-calendar-event"></i>
             </div>
             <h2>Google Calendar</h2>
             <p>Tamu dapat menyimpan acara Anda dalam kalender mereka dengan pengingat otomatis.</p>
@@ -367,7 +385,7 @@ display: none !important;
         <!-- Fitur 3 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-hourglass-split"></i> <!-- Ganti dengan ikon Bootstrap -->
+                <i class="bi bi-hourglass-split"></i>
             </div>
             <h2>Hitung Mundur</h2>
             <p>Hitung mundur hari pernikahan Anda bersama tamu undangan.</p>
@@ -376,7 +394,7 @@ display: none !important;
         <!-- Fitur 4 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-chat-quote"></i> <!-- Ganti dengan ikon Bootstrap -->
+                <i class="bi bi-chat-quote"></i>
             </div>
             <h2>Kalimat Mutiara</h2>
             <p>Sertakan kalimat mutiara favorit Anda sebagai motivasi bagi tamu undangan.</p>
@@ -385,7 +403,7 @@ display: none !important;
         <!-- Fitur 5 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-images"></i> <!-- Ikon galeri -->
+                <i class="bi bi-images"></i>
             </div>
             <h2>Galeri</h2>
             <p>Unggah foto tanpa batasan jumlah.</p>
@@ -394,12 +412,13 @@ display: none !important;
         <!-- Fitur 6 -->
         <div class="fitur-card">
             <div class="fitur-icon">
-                <i class="bi bi-whatsapp"></i> <!-- Ganti dengan ikon Bootstrap -->
+                <i class="bi bi-whatsapp"></i>
             </div>
             <h2>RSVP via WhatsApp</h2>
             <p>Fitur konfirmasi kehadiran yang terhubung dengan Google Sheets dan WhatsApp.</p>
         </div>
-		 <!-- Fitur Baru 7: Customable -->
+
+        <!-- Fitur 7: Customable -->
         <div class="fitur-card">
             <div class="fitur-icon">
                 <i class="bi bi-palette-fill"></i>
@@ -408,13 +427,31 @@ display: none !important;
             <p>Desain sepenuhnya bisa disesuaikan dengan keinginan Anda, mulai dari warna, font, hingga layout.</p>
         </div>
         
-        <!-- Fitur Baru 8: Free Revisi -->
+        <!-- Fitur 8: Free Revisi -->
         <div class="fitur-card">
             <div class="fitur-icon">
                 <i class="bi bi-arrow-repeat"></i>
             </div>
             <h2>Free Revisi</h2>
             <p>Bebas revisi desain hingga Anda puas, tanpa biaya tambahan apapun.</p>
+        </div>
+
+        <!-- Fitur 9: Tidak Perlu Template -->
+        <div class="fitur-card">
+            <div class="fitur-icon">
+                <i class="bi bi-x-square-fill"></i>
+            </div>
+            <h2>Tidak Perlu Template</h2>
+            <p>Bebas dari template kaku, desain dibuat khusus sesuai kepribadian dan keinginan Anda.</p>
+        </div>
+        
+        <!-- Fitur 10: Gambar Ilustrasi -->
+        <div class="fitur-card">
+            <div class="fitur-icon">
+                <i class="bi bi-easel2-fill"></i>
+            </div>
+            <h2>Gambar Ilustrasi</h2>
+            <p>Tambahkan ilustrasi custom untuk membuat undangan Anda lebih personal dan berkarakter.</p>
         </div>
     </div>
 </section>
@@ -447,10 +484,10 @@ display: none !important;
         <script src="./css/custom.js.download"></script>
 
         <!-- Theme Initialization Files -->
-        <script src="./css/theme.init.js.download"></script><a class="scroll-to-top hidden-mobile" href="addakwa.com/#"><i class="fas fa-chevron-up"></i></a>
+        <script src="./css/theme.init.js.download"></script><a class="scroll-to-top hidden-mobile" href="addakwa.com/#"><i class="bi-arrow-up"></i></a>
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
-    var categories = ['Pernikahan', 'Acara Apapun', 'Ulang Tahun', 'Syukuran', 'Tunangan', 'Aqiqah', 'Tasmiyah', 'Natal', 'Launching', 'Perusahaan'];
+    var categories = ['Pernikahan', 'Acara Apapun', 'Rapat', 'Ulang Tahun', 'Syukuran', 'Tunangan', 'Aqiqah', 'Tasmi', 'Natal', 'Launching', 'Perusahaan', 'Khitanan', 'Wisuda', 'Reuni', 'Keluarga', 'Komunitas', 'Sekolah', 'Kampus'];
     var speed = 1200;
     let index = 1;
     function typeWriter() {
