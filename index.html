@@ -400,44 +400,44 @@ display: none !important;
 						</svg>
 					</a>
 				</div>
-				<div class="col-lg-4 pt-5 pt-lg-0 text-center">
+                <div class="col-lg-4 pt-5 pt-lg-0 text-center">
 
-					<div class="custom-carousel-1 m-auto">
+                    <div class="custom-carousel-1 m-auto" style="max-width: 260px;">
 
-						<div class="owl-carousel owl-theme stage-margin nav-style-1" data-plugin-options="{&#39;items&#39;: 1, &#39;margin&#39;: 10, &#39;loop&#39;: true, &#39;nav&#39;: false, &#39;dots&#39;: false, &#39;stagePadding&#39;: 45, &#39;autoplay&#39;: true, &#39;autoplayTimeout&#39;: 3000}" style="height: auto;">
-							<div>
-								<img alt="addakwa - theme 1" class="img-fluid" src="./css/slide-1.jpg" title="addakwa - Undangan Digital">
-							</div>
-							<div>
-								<img alt="addakwa - theme 2" class="img-fluid" src="./css/slide-2.jpg" title="addakwa - Undangan Online">
-							</div>
-							<div>
-								<img alt="addakwa - theme 3" class="img-fluid" src="./css/slide-3.jpg" title="addakwa - Undangan Pernikahan">
-							</div>
-							<div>
-								<img alt="addakwa - theme 4" class="img-fluid" src="./css/slide-4.jpg" title="addakwa - Digital Invitation">
-							</div>
-						</div>
-						<!-- Inline Prev/Next Buttons -->
-						<div class="owl-nav mt-3 text-center">
-							<button type="button" id="custom-owl-prev" class="btn btn-outline-secondary mx-1"><span class="fas fa-chevron-left"></span></button>
-							<button type="button" id="custom-owl-next" class="btn btn-outline-secondary mx-1"><span class="fas fa-chevron-right"></span></button>
-						</div>
-						<img src="./css/bg-smartphone.png" id="phone-frame-slider" alt="">
-					</div>
-					<script>
-					$(document).ready(function(){
-						var $owl = $('.owl-carousel');
-						$owl.owlCarousel($owl.data('plugin-options'));
-						$('#custom-owl-prev').click(function() {
-							$owl.trigger('prev.owl.carousel');
-						});
-						$('#custom-owl-next').click(function() {
-							$owl.trigger('next.owl.carousel');
-						});
-					});
-					</script>
-				</div>
+                        <div class="owl-carousel owl-theme stage-margin nav-style-1" data-plugin-options="{&#39;items&#39;: 1, &#39;margin&#39;: 10, &#39;loop&#39;: true, &#39;nav&#39;: false, &#39;dots&#39;: false, &#39;stagePadding&#39;: 25, &#39;autoplay&#39;: true, &#39;autoplayTimeout&#39;: 3000}" style="height: auto;">
+                            <div>
+                                <img alt="addakwa - theme 1" class="img-fluid" src="./css/slide-1.jpg" title="addakwa - Undangan Digital" style="max-width: 180px; margin: 0 auto;">
+                            </div>
+                            <div>
+                                <img alt="addakwa - theme 2" class="img-fluid" src="./css/slide-2.jpg" title="addakwa - Undangan Online" style="max-width: 180px; margin: 0 auto;">
+                            </div>
+                            <div>
+                                <img alt="addakwa - theme 3" class="img-fluid" src="./css/slide-3.jpg" title="addakwa - Undangan Pernikahan" style="max-width: 180px; margin: 0 auto;">
+                            </div>
+                            <div>
+                                <img alt="addakwa - theme 4" class="img-fluid" src="./css/slide-4.jpg" title="addakwa - Digital Invitation" style="max-width: 180px; margin: 0 auto;">
+                            </div>
+                        </div>
+                        <!-- Inline Prev/Next Buttons -->
+                        <div class="owl-nav mt-3 text-center">
+                            <button type="button" id="custom-owl-prev" class="btn btn-outline-secondary mx-1" style="padding: 2px 10px; font-size: 0.9rem;"><span class="fas fa-chevron-left"></span></button>
+                            <button type="button" id="custom-owl-next" class="btn btn-outline-secondary mx-1" style="padding: 2px 10px; font-size: 0.9rem;"><span class="fas fa-chevron-right"></span></button>
+                        </div>
+                        <img src="./css/bg-smartphone.png" id="phone-frame-slider" alt="" style="max-width: 220px; width: 100%; margin: 0 auto; display: block;">
+                    </div>
+                    <script>
+                    $(document).ready(function(){
+                        var $owl = $('.owl-carousel');
+                        $owl.owlCarousel($owl.data('plugin-options'));
+                        $('#custom-owl-prev').click(function() {
+                            $owl.trigger('prev.owl.carousel');
+                        });
+                        $('#custom-owl-next').click(function() {
+                            $owl.trigger('next.owl.carousel');
+                        });
+                    });
+                    </script>
+                </div>
 			</div>
 		</div>
 
