@@ -3,6 +3,10 @@
     {
       "source": "/undanganhaflah/(.*)",
       "destination": "/undanganhaflah/public/$1"
+    },
+    {
+      "source": "/proto/(.*)",
+      "destination": "/proto/public/$1"
     }
   ]
 }
