@@ -7,6 +7,10 @@
     {
       "source": "/proto/(.*)",
       "destination": "/proto/public/$1"
+    },
+    {
+      "source": "/:client",
+      "destination": "/index.html"
     }
   ]
 }
