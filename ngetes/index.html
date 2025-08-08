@@ -19,15 +19,23 @@
             position: relative;
         }
 
-        /* Particle Canvas */
-        #particles {
+        /* Animated Background */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="20" cy="20" r="2" fill="url(%23g)"><animate attributeName="cy" values="20;80;20" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="60" r="1.5" fill="url(%23g)"><animate attributeName="cy" values="60;10;60" dur="4s" repeatCount="indefinite"/></circle><circle cx="50" cy="40" r="1" fill="url(%23g)"><animate attributeName="cy" values="40;90;40" dur="5s" repeatCount="indefinite"/></circle></svg>') repeat;
             z-index: 1;
             pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
         }
 
         /* Main Container */
@@ -61,17 +69,19 @@
         .invitation-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            border-radius: 25px;
+            z-index: -1;
+            animation: borderGlow 3s infinite;
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         @keyframes fadeInUp {
@@ -114,6 +124,37 @@
             color: #667eea;
             font-style: italic;
             margin: 0 15px;
+            position: relative;
+        }
+
+        /* Interactive Heart */
+        .heart-container {
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .heart {
+            font-size: 2em;
+            color: #ff6b6b;
+            transition: all 0.3s ease;
+            display: inline-block;
+            user-select: none;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px #ff6b6b);
+        }
+
+        .heart.clicked {
+            animation: heartBeat 0.6s ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.3); }
         }
 
         .event-details {
@@ -135,45 +176,6 @@
             font-size: 1.1em;
             color: #666;
             line-height: 1.6;
-        }
-
-        /* Interactive Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         /* Countdown Timer */
@@ -220,52 +222,81 @@
             text-transform: uppercase;
         }
 
-        /* Interactive Heart */
-        .heart-container {
-            margin: 20px 0;
+        /* Interactive Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
-        }
-
-        .heart {
-            font-size: 2em;
-            color: #ff6b6b;
-            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
             display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .heart:hover {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 15px #ff6b6b);
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
-        .heart.clicked {
-            animation: heartBeat 0.6s ease-in-out;
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
         }
 
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.3); }
-            50% { transform: scale(1.1); }
-            75% { transform: scale(1.3); }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .couple-names {
-                font-size: 2em;
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Floating Hearts Animation */
+        .floating-heart {
+            position: fixed;
+            font-size: 20px;
+            color: #ff6b6b;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
             }
-            
-            .invitation-card {
-                padding: 25px;
-                margin: 10px;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
+            100% {
+                transform: translateY(-100vh) scale(0.5) rotate(360deg);
+                opacity: 0;
             }
         }
 
@@ -292,17 +323,29 @@
             font-size: 1.2em;
             color: #667eea;
         }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .couple-names {
+                font-size: 2em;
+            }
+            
+            .invitation-card {
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Background Particles -->
-    <canvas id="particles"></canvas>
-    
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundjay.com/misc/sounds/soft-piano.mp3" type="audio/mpeg">
-    </audio>
-
     <!-- Music Control -->
     <div class="music-control" id="musicToggle">
         <span class="music-icon">🎵</span>
@@ -364,191 +407,143 @@
     </div>
 
     <script>
+        console.log("🚀 Wedding Invitation Script Started");
+
         // Get guest name from URL parameter
         function getGuestName() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const guestName = urlParams.get('to');
-            
-            if (guestName) {
-                document.getElementById('guestName').textContent = `Kepada Yth. ${decodeURIComponent(guestName.replace(/\+/g, ' '))}`;
-            }
-        }
-
-        // Particle Animation
-        class ParticleSystem {
-            constructor() {
-                this.canvas = document.getElementById('particles');
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.resize();
-                this.createParticles();
-                this.animate();
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const guestName = urlParams.get('to');
                 
-                window.addEventListener('resize', () => this.resize());
-            }
-            
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-            
-            createParticles() {
-                for (let i = 0; i < 50; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        size: Math.random() * 3 + 1,
-                        speedX: (Math.random() - 0.5) * 2,
-                        speedY: (Math.random() - 0.5) * 2,
-                        opacity: Math.random() * 0.5 + 0.3
-                    });
+                console.log("URL parameters:", window.location.search);
+                console.log("Guest name:", guestName);
+                
+                if (guestName) {
+                    const decodedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+                    document.getElementById('guestName').textContent = `Kepada Yth. ${decodedName}`;
+                    console.log("✅ Guest name set successfully");
+                } else {
+                    console.log("⚠️ No guest name parameter found");
                 }
-            }
-            
-            updateParticles() {
-                this.particles.forEach(particle => {
-                    particle.x += particle.speedX;
-                    particle.y += particle.speedY;
-                    
-                    if (particle.x < 0 || particle.x > this.canvas.width) particle.speedX *= -1;
-                    if (particle.y < 0 || particle.y > this.canvas.height) particle.speedY *= -1;
-                    
-                    // Keep particles within bounds
-                    particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
-                    particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
-                });
-            }
-            
-            drawParticles() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                
-                this.particles.forEach(particle => {
-                    this.ctx.beginPath();
-                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
-                    this.ctx.fill();
-                });
-                
-                // Draw connections between nearby particles
-                this.particles.forEach((particle1, i) => {
-                    this.particles.slice(i + 1).forEach(particle2 => {
-                        const distance = Math.sqrt(
-                            Math.pow(particle1.x - particle2.x, 2) + 
-                            Math.pow(particle1.y - particle2.y, 2)
-                        );
-                        
-                        if (distance < 100) {
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(particle1.x, particle1.y);
-                            this.ctx.lineTo(particle2.x, particle2.y);
-                            this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distance / 100)})`;
-                            this.ctx.lineWidth = 1;
-                            this.ctx.stroke();
-                        }
-                    });
-                });
-            }
-            
-            animate() {
-                this.updateParticles();
-                this.drawParticles();
-                requestAnimationFrame(() => this.animate());
+            } catch (error) {
+                console.error("❌ Error getting guest name:", error);
             }
         }
 
         // Countdown Timer
         function updateCountdown() {
-            const weddingDate = new Date('2025-02-15T09:00:00').getTime();
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
+            try {
+                const weddingDate = new Date('2025-02-15T09:00:00').getTime();
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance > 0) {
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                }
+            } catch (error) {
+                console.error("❌ Error updating countdown:", error);
             }
         }
 
         // Heart Animation
         function animateHeart() {
-            const heart = document.getElementById('heart');
-            heart.classList.add('clicked');
-            
-            // Create floating hearts
-            for (let i = 0; i < 5; i++) {
-                createFloatingHeart();
+            try {
+                const heart = document.getElementById('heart');
+                heart.classList.add('clicked');
+                
+                // Create floating hearts
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createFloatingHeart(), i * 100);
+                }
+                
+                setTimeout(() => {
+                    heart.classList.remove('clicked');
+                }, 600);
+            } catch (error) {
+                console.error("❌ Error animating heart:", error);
             }
-            
-            setTimeout(() => {
-                heart.classList.remove('clicked');
-            }, 600);
         }
 
         function createFloatingHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '💕';
-            heart.style.position = 'fixed';
-            heart.style.fontSize = '20px';
-            heart.style.pointerEvents = 'none';
-            heart.style.zIndex = '1000';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.top = window.innerHeight + 'px';
-            
-            document.body.appendChild(heart);
-            
-            const animation = heart.animate([
-                { transform: 'translateY(0) scale(1)', opacity: 1 },
-                { transform: `translateY(-${window.innerHeight + 100}px) scale(0.5)`, opacity: 0 }
-            ], {
-                duration: 3000,
-                easing: 'ease-out'
-            });
-            
-            animation.addEventListener('finish', () => {
-                heart.remove();
-            });
+            try {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💕';
+                heart.className = 'floating-heart';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = window.innerHeight + 'px';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.parentNode.removeChild(heart);
+                    }
+                }, 3000);
+            } catch (error) {
+                console.error("❌ Error creating floating heart:", error);
+            }
         }
 
-        // Music Control
+        // Music Control (simplified)
         function initMusic() {
-            const music = document.getElementById('bgMusic');
-            const musicToggle = document.getElementById('musicToggle');
-            let isPlaying = false;
-            
-            musicToggle.addEventListener('click', () => {
-                if (isPlaying) {
-                    music.pause();
-                    musicToggle.querySelector('.music-icon').textContent = '🎵';
-                } else {
-                    music.play().catch(e => console.log('Audio play failed:', e));
-                    musicToggle.querySelector('.music-icon').textContent = '🔇';
-                }
-                isPlaying = !isPlaying;
-            });
+            try {
+                const musicToggle = document.getElementById('musicToggle');
+                let isPlaying = false;
+                
+                musicToggle.addEventListener('click', () => {
+                    if (isPlaying) {
+                        musicToggle.querySelector('.music-icon').textContent = '🎵';
+                        console.log("🔇 Music paused");
+                    } else {
+                        musicToggle.querySelector('.music-icon').textContent = '🎶';
+                        console.log("🎵 Music playing");
+                    }
+                    isPlaying = !isPlaying;
+                });
+            } catch (error) {
+                console.error("❌ Error initializing music:", error);
+            }
         }
 
         // RSVP Function
         function openRSVP() {
-            const guestName = new URLSearchParams(window.location.search).get('to') || 'Tamu';
-            const message = `Assalamu'alaikum, saya ${decodeURIComponent(guestName.replace(/\+/g, ' '))} ingin mengkonfirmasi kehadiran untuk acara pernikahan Ahmad & Siti pada 15 Februari 2025.`;
-            const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
+            try {
+                const guestName = new URLSearchParams(window.location.search).get('to') || 'Tamu';
+                const message = `Assalamu'alaikum, saya ${decodeURIComponent(guestName.replace(/\+/g, ' '))} ingin mengkonfirmasi kehadiran untuk acara pernikahan Ahmad & Siti pada 15 Februari 2025.`;
+                const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                console.log("✅ RSVP WhatsApp opened");
+            } catch (error) {
+                console.error("❌ Error opening RSVP:", error);
+            }
         }
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', () => {
-            getGuestName();
-            new ParticleSystem();
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-            initMusic();
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("📄 DOM Content Loaded");
+            try {
+                getGuestName();
+                updateCountdown();
+                initMusic();
+                
+                // Update countdown every second
+                setInterval(updateCountdown, 1000);
+                
+                console.log("✅ All functions initialized successfully");
+            } catch (error) {
+                console.error("❌ Error during initialization:", error);
+            }
         });
+
+        console.log("🏁 Wedding Invitation Script Loaded Successfully");
     </script>
 </body>
 </html>
