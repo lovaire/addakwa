@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Ahmad & Siti</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Canvas */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Invitation Card */
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        .guest-name {
+            font-size: 1.2em;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .invitation-title {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .couple-names {
+            font-size: 2.5em;
+            color: #333;
+            margin: 20px 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .ampersand {
+            color: #667eea;
+            font-style: italic;
+            margin: 0 15px;
+        }
+
+        .event-details {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .date-time {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .location {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Interactive Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .countdown-title {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            text-align: center;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 60px;
+        }
+
+        .time-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.8em;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        /* Interactive Heart */
+        .heart-container {
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .heart {
+            font-size: 2em;
+            color: #ff6b6b;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px #ff6b6b);
+        }
+
+        .heart.clicked {
+            animation: heartBeat 0.6s ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.3); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .couple-names {
+                font-size: 2em;
+            }
+            
+            .invitation-card {
+                padding: 25px;
+                margin: 10px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .music-icon {
+            font-size: 1.2em;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <canvas id="particles"></canvas>
+    
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundjay.com/misc/sounds/soft-piano.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Control -->
+    <div class="music-control" id="musicToggle">
+        <span class="music-icon">🎵</span>
+    </div>
+
+    <div class="container">
+        <div class="invitation-card">
+            <div class="guest-name" id="guestName">Kepada Yth.</div>
+            <div class="invitation-title">Dengan penuh sukacita, kami mengundang Anda untuk hadir dalam acara pernikahan</div>
+            
+            <div class="couple-names">
+                Ahmad <span class="ampersand">&</span> Siti
+            </div>
+            
+            <div class="heart-container" onclick="animateHeart()">
+                <span class="heart" id="heart">💕</span>
+            </div>
+            
+            <div class="event-details">
+                <div class="date-time">
+                    Sabtu, 15 Februari 2025<br>
+                    Pukul 09.00 WIB
+                </div>
+                <div class="location">
+                    Gedung Serbaguna Masjid Al-Ikhlas<br>
+                    Jl. Merdeka No. 123, Jakarta Selatan<br>
+                    📍 <strong>Akad Nikah & Resepsi</strong>
+                </div>
+            </div>
+            
+            <div class="countdown">
+                <div class="countdown-title">Menuju Hari Bahagia</div>
+                <div class="countdown-timer" id="countdown">
+                    <div class="time-unit">
+                        <span class="time-number" id="days">00</span>
+                        <span class="time-label">Hari</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="hours">00</span>
+                        <span class="time-label">Jam</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="minutes">00</span>
+                        <span class="time-label">Menit</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-number" id="seconds">00</span>
+                        <span class="time-label">Detik</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="https://maps.google.com/?q=Gedung+Serbaguna+Masjid+Al-Ikhlas+Jakarta" target="_blank" class="btn btn-primary">📍 Lokasi</a>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Ahmad+%26+Siti&dates=20250215T020000Z/20250215T080000Z" target="_blank" class="btn btn-secondary">📅 Simpan Tanggal</a>
+                <button class="btn btn-primary" onclick="openRSVP()">✉️ Konfirmasi Kehadiran</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get guest name from URL parameter
+        function getGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to');
+            
+            if (guestName) {
+                document.getElementById('guestName').textContent = `Kepada Yth. ${decodeURIComponent(guestName.replace(/\+/g, ' '))}`;
+            }
+        }
+
+        // Particle Animation
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particles');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                this.createParticles();
+                this.animate();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+            
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            
+            createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        size: Math.random() * 3 + 1,
+                        speedX: (Math.random() - 0.5) * 2,
+                        speedY: (Math.random() - 0.5) * 2,
+                        opacity: Math.random() * 0.5 + 0.3
+                    });
+                }
+            }
+            
+            updateParticles() {
+                this.particles.forEach(particle => {
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    
+                    if (particle.x < 0 || particle.x > this.canvas.width) particle.speedX *= -1;
+                    if (particle.y < 0 || particle.y > this.canvas.height) particle.speedY *= -1;
+                    
+                    // Keep particles within bounds
+                    particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
+                    particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
+                });
+            }
+            
+            drawParticles() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach(particle => {
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+                    this.ctx.fill();
+                });
+                
+                // Draw connections between nearby particles
+                this.particles.forEach((particle1, i) => {
+                    this.particles.slice(i + 1).forEach(particle2 => {
+                        const distance = Math.sqrt(
+                            Math.pow(particle1.x - particle2.x, 2) + 
+                            Math.pow(particle1.y - particle2.y, 2)
+                        );
+                        
+                        if (distance < 100) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(particle1.x, particle1.y);
+                            this.ctx.lineTo(particle2.x, particle2.y);
+                            this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distance / 100)})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.stroke();
+                        }
+                    });
+                });
+            }
+            
+            animate() {
+                this.updateParticles();
+                this.drawParticles();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            const weddingDate = new Date('2025-02-15T09:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+
+        // Heart Animation
+        function animateHeart() {
+            const heart = document.getElementById('heart');
+            heart.classList.add('clicked');
+            
+            // Create floating hearts
+            for (let i = 0; i < 5; i++) {
+                createFloatingHeart();
+            }
+            
+            setTimeout(() => {
+                heart.classList.remove('clicked');
+            }, 600);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💕';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = '20px';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '1000';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = window.innerHeight + 'px';
+            
+            document.body.appendChild(heart);
+            
+            const animation = heart.animate([
+                { transform: 'translateY(0) scale(1)', opacity: 1 },
+                { transform: `translateY(-${window.innerHeight + 100}px) scale(0.5)`, opacity: 0 }
+            ], {
+                duration: 3000,
+                easing: 'ease-out'
+            });
+            
+            animation.addEventListener('finish', () => {
+                heart.remove();
+            });
+        }
+
+        // Music Control
+        function initMusic() {
+            const music = document.getElementById('bgMusic');
+            const musicToggle = document.getElementById('musicToggle');
+            let isPlaying = false;
+            
+            musicToggle.addEventListener('click', () => {
+                if (isPlaying) {
+                    music.pause();
+                    musicToggle.querySelector('.music-icon').textContent = '🎵';
+                } else {
+                    music.play().catch(e => console.log('Audio play failed:', e));
+                    musicToggle.querySelector('.music-icon').textContent = '🔇';
+                }
+                isPlaying = !isPlaying;
+            });
+        }
+
+        // RSVP Function
+        function openRSVP() {
+            const guestName = new URLSearchParams(window.location.search).get('to') || 'Tamu';
+            const message = `Assalamu'alaikum, saya ${decodeURIComponent(guestName.replace(/\+/g, ' '))} ingin mengkonfirmasi kehadiran untuk acara pernikahan Ahmad & Siti pada 15 Februari 2025.`;
+            const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            getGuestName();
+            new ParticleSystem();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            initMusic();
+        });
+    </script>
+</body>
+</html>
