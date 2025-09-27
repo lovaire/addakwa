@@ -2,108 +2,429 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Undangan Islami</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan Digital</title>
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&family=Amiri&display=swap" rel="stylesheet">
+  
   <!-- AOS Animation CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+  
+  <!-- Swiper CSS for Carousel -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  
   <style>
-    body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfdfb; color: #333; }
-    header { text-align: center; padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://i.ibb.co/nPsJkq0/islamic-pattern.jpg'); background-size: cover; color: white; }
-    header h1 { font-family: 'Great Vibes', cursive; font-size: 48px; margin-bottom: 10px; }
-    header p { font-size: 18px; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #FFD700; /* Gold font color */
+      overflow-x: hidden;
+    }
 
-    section { padding: 60px 20px; text-align: center; }
-    h2 { font-family: 'Great Vibes', cursive; font-size: 36px; margin-bottom: 20px; color: #006400; }
+    /* Welcome Page */
+    .welcome-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/1200/800?random=1');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #FFD700;
+      z-index: 1000;
+      transition: transform 0.8s ease-in-out;
+    }
+    .welcome-page.hidden {
+      transform: translateY(-100%);
+    }
+    .welcome-page h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(32px, 8vw, 48px);
+      margin-bottom: 10px;
+    }
+    .welcome-page p {
+      font-size: clamp(16px, 5vw, 20px);
+      margin-bottom: 20px;
+    }
+    .welcome-page button {
+      padding: 12px 24px;
+      font-size: clamp(14px, 4vw, 16px);
+      font-weight: 600;
+      background: #800000; /* Maroon */
+      color: #FFD700;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .welcome-page button:hover {
+      background: #5c0000; /* Darker maroon */
+    }
 
-    .couple { display: flex; flex-direction: column; gap: 30px; max-width: 700px; margin: auto; }
-    .person img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid #006400; }
-    .person h3 { margin: 10px 0 5px; }
+    /* Header Section */
+    header {
+      text-align: center;
+      padding: clamp(40px, 10vw, 80px) 20px;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/1200/800?random=2');
+      background-size: cover;
+      background-position: center;
+      color: #FFD700;
+    }
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(32px, 8vw, 48px);
+      margin-bottom: 10px;
+    }
+    header p {
+      font-family: 'Amiri', serif;
+      font-size: clamp(16px, 5vw, 20px);
+      line-height: 1.5;
+    }
 
-    .countdown { font-size: 24px; font-weight: bold; margin-top: 20px; }
+    /* General Section Styling */
+    section {
+      padding: clamp(30px, 8vw, 60px) 20px;
+      text-align: center;
+      background: #000000; /* Black background for sections */
+    }
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(28px, 7vw, 36px);
+      margin-bottom: 20px;
+      color: #FFD700;
+    }
 
-    .map iframe { width: 100%; height: 300px; border: none; border-radius: 10px; }
+    /* Couple Section */
+    .couple {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .person img {
+      width: clamp(100px, 25vw, 150px);
+      height: clamp(100px, 25vw, 150px);
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #800000; /* Maroon border */
+    }
+    .person h3 {
+      margin: 10px 0 5px;
+      font-size: clamp(20px, 6vw, 24px);
+      color: #FFD700;
+    }
+    .person p {
+      font-size: clamp(14px, 4vw, 16px);
+    }
 
-    footer { background: #006400; color: white; text-align: center; padding: 30px 20px; }
+    /* Quran Verses */
+    .quran-verse {
+      font-family: 'Amiri', serif;
+      font-size: clamp(16px, 5vw, 20px);
+      margin: 20px 0;
+      line-height: 1.6;
+      color: #FFD700;
+    }
+
+    /* Love Story Section */
+    .love-story .story-item {
+      max-width: 700px;
+      margin: 20px auto;
+      text-align: left;
+    }
+    .love-story .story-item h3 {
+      color: #FFD700;
+      font-size: clamp(18px, 5vw, 20px);
+      margin-bottom: 10px;
+    }
+    .love-story .story-item p {
+      font-size: clamp(14px, 4vw, 16px);
+    }
+
+    /* Countdown */
+    .countdown {
+      font-size: clamp(20px, 6vw, 24px);
+      font-weight: bold;
+      margin-top: 20px;
+      color: #FFD700;
+    }
+
+    /* Map */
+    .map iframe {
+      width: 100%;
+      max-width: 800px;
+      height: clamp(200px, 50vw, 300px);
+      border: none;
+      border-radius: 10px;
+    }
+
+    /* Gallery Section */
+    .swiper {
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+    }
+    .swiper-slide img {
+      width: 100%;
+      height: clamp(200px, 50vw, 300px);
+      object-fit: cover;
+      border-radius: 10px;
+      opacity: 1 !important; /* Ensure images are visible */
+    }
+
+    /* Gift Section */
+    .gift-section {
+      max-width: 700px;
+      margin: auto;
+    }
+    .gift-section .gift-item {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .gift-section .gift-item h3 {
+      color: #FFD700;
+      font-size: clamp(16px, 4vw, 18px);
+    }
+    .gift-section .gift-item p {
+      font-size: clamp(14px, 4vw, 16px);
+    }
+
+    /* Footer */
+    footer {
+      background: #800000; /* Maroon */
+      color: #FFD700;
+      text-align: center;
+      padding: clamp(20px, 5vw, 30px) 20px;
+      font-family: 'Amiri', serif;
+    }
+    footer p {
+      font-size: clamp(14px, 4vw, 16px);
+      line-height: 1.5;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .couple {
+        gap: 20px;
+      }
+      .swiper-slide img {
+        height: 200px;
+      }
+      .map iframe {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .welcome-page h1, header h1 {
+        font-size: 28px;
+      }
+      .welcome-page p, header p {
+        font-size: 14px;
+      }
+      .person img {
+        width: 120px;
+        height: 120px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+      .countdown {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Welcome Page -->
+  <div class="welcome-page" id="welcomePage" data-aos="zoom-in">
+    <h1>Selamat Datang</h1>
+    <p id="tamu">Kepada Yth. Tamu Undangan</p>
+    <button onclick="openInvitation()">Buka Undangan</button>
+  </div>
+
+  <!-- Header -->
   <header data-aos="fade-down">
     <h1>Undangan Pernikahan</h1>
-    <p id="tamu">Kepada Yth. Tamu Undangan</p>
+    <p>
+      بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ<br>
+      Assalamualaikum Warahmatullahi Wabarakatuh<br>
+      Tanpa mengurangi rasa hormat, kami mengundang Anda untuk berkenan menghadiri acara pernikahan kami:
+    </p>
   </header>
 
+  <!-- Couple Section -->
   <section data-aos="fade-up">
     <h2>Pasangan</h2>
     <div class="couple">
       <div class="person">
-        <img src="https://i.ibb.co/yfQ1wX2/bride.jpg" alt="Mempelai Wanita">
-        <h3>Aisyah Putri</h3>
-        <p>Putri dari Bapak Ahmad & Ibu Fatimah</p>
+        <img src="https://picsum.photos/300/300?random=3" alt="Mempelai Wanita">
+        <h3>Riski Siapa</h3>
+        <p>Putri ke-2 dari Bapak Lorem Ipsum & Ibu Lorem Ipsum</p>
       </div>
       <div class="person">
-        <img src="https://i.ibb.co/kD4qVzn/groom.jpg" alt="Mempelai Pria">
-        <h3>Muhammad Rizky</h3>
-        <p>Putra dari Bapak Budi & Ibu Siti</p>
+        <img src="https://picsum.photos/300/300?random=4" alt="Mempelai Pria">
+        <h3>Wahyu Siapa</h3>
+        <p>Putra ke-1 dari Bapak Lorem Ipsum & Ibu Lorem Ipsum</p>
       </div>
+    </div>
+    <div class="quran-verse">
+      <p>Allah Subhanahu Wa Ta'ala berfirman:</p>
+      <p>"Dan segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat (kebesaran Allah)."<br>
+      <em>QS. Adh-Dhariyat: 49</em></p>
+      <p>"Dan sesungguhnya Dialah yang menciptakan pasangan laki-laki dan perempuan,"<br>
+      <em>QS. An-Najm: 45</em></p>
     </div>
   </section>
 
-  <section data-aos="zoom-in">
-    <h2>Acara</h2>
-    <p><strong>Akad Nikah:</strong><br> Minggu, 1 Januari 2026 - 09:00 WIB</p>
-    <p><strong>Resepsi:</strong><br> Minggu, 1 Januari 2026 - 11:00 WIB</p>
-    <p><strong>Lokasi:</strong><br> Gedung Serbaguna Jakarta</p>
-    <div class="countdown" id="countdown"></div>
+  <!-- Love Story Section -->
+  <section class="love-story" data-aos="fade-up">
+    <h2>Kisah Cinta</h2>
+    <div class="story-item">
+      <h3>💼 Awal Pertemuan Sederhana</h3>
+      <p>Pada Januari 2025, Wahyu, seorang desainer grafis berusia 28 tahun, bertemu Riski, copywriter yang dikenal cerdas dan pendiam, dalam proyek branding perusahaan. Interaksi mereka di ruang rapat terbatas pada urusan kerja, penuh adab dan profesional. Tanpa Wahyu ketahui, Riski sebenarnya pernah melihat karya desain Wahyu di lomba nasional dua tahun lalu dan kagum dengan bakatnya. Namun, sesuai prinsipnya, Riski menjaga jarak dan hanya fokus pada tugas, menghindari interaksi yang tidak perlu.</p>
+    </div>
+    <div class="story-item">
+      <h3>💞 Benih Cinta dalam Ujian</h3>
+      <p>Memasuki Februari 2025, proyek mereka menghadapi krisis: klien menolak konsep awal dan mengancam membatalkan kontrak. Di tengah tekanan, Riski tampil dengan solusi kreatif yang menyelamatkan proyek, membuat Wahyu terkesan dengan ketenangan dan kecerdasannya. Diam-diam, Wahyu mulai memperhatikan Riski lebih dalam, terutama melalui unggahan media sosialnya yang penuh dengan nilai keimanan dan kesabaran. Merasa ada kesamaan visi, Wahyu beristikharah dan memutuskan memulai taaruf. Ia menghubungi seorang ustaz terpercaya sebagai perantara. Kejutan muncul saat Riski mengaku bahwa ia juga telah lama memperhatikan Wahyu, namun menahan diri hingga ada niat yang jelas, sebuah pengakuan yang membuat hati Wahyu hangat.</p>
+    </div>
+    <div class="story-item">
+      <h3>💍 Langkah Menuju Ridha Allah</h3>
+      <p>Proses taaruf berjalan penuh keikhlasan, dengan pendamping yang memastikan setiap langkah sesuai syariat. Wahyu dan Riski saling terbuka tentang impian membangun keluarga yang diridhai Allah. Namun, sebuah ujian datang: keluarga Riski ragu karena latar belakang ekonomi Wahyu yang sederhana. Di sinilah plot twist terungkap—Wahyu mempresentasikan rencana usaha sosial berbasis seni yang telah ia kembangkan diam-diam, menunjukkan visinya untuk memberi manfaat bagi umat. Presentasi itu meluluhkan hati keluarga Riski. Pada Maret 2025, setelah istikharah dan mendapat restu keluarga, Wahyu melamar Riski dalam acara sederhana namun penuh makna. Dengan niat tulus, mereka melangkah menuju pernikahan, yakin bahwa Allah telah merajut kisah mereka dengan indah.</p>
+    </div>
   </section>
 
+  <!-- Event Section -->
+  <section data-aos="zoom-in">
+    <h2>Moment Bahagia</h2>
+    <div class="countdown" id="countdown"></div>
+    <p>Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, insyaAllah kami akan menyelenggarakan acara:</p>
+    <p><strong>Akad:</strong><br> Pukul 10:00 WIB - Selesai</p>
+    <p><strong>Resepsi:</strong><br> Pukul 13:00 WIB - Selesai</p>
+    <p><strong>Lokasi:</strong><br> RT 10 RW 02, Desa Pajerukan, Kec. Kalibagor, Kab. Banyumas, Jawa Tengah 53191</p>
+    <p><strong>Dress Code:</strong><br> Busana batik dan bersepatu</p>
+  </section>
+
+  <!-- Location Section -->
   <section data-aos="fade-up">
     <h2>Lokasi</h2>
     <div class="map">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.69584405693!2d106.82715311529415!3d-6.175392395529727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e8f2a11b6d%3A0x2a4a9f1db8d2c2b1!2sMonas!5e0!3m2!1sid!2sid!4v1700000000000"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.69284405693!2d109.123456!3d-7.456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655b3e8f2a11b6d%3A0x2a4a9f1db8d2c2b1!2sPajerukan%2C%20Kalibagor%2C%20Banyumas%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000"></iframe>
     </div>
   </section>
 
+  <!-- Gallery Section -->
+  <section data-aos="fade-up">
+    <h2>Galeri</h2>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=5" alt="Photo 1"></div>
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=6" alt="Photo 2"></div>
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=7" alt="Photo 3"></div>
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=8" alt="Photo 4"></div>
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=9" alt="Photo 5"></div>
+        <div class="swiper-slide"><img src="https://picsum.photos/800/600?random=10" alt="Photo 6"></div>
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- Gift Section -->
+  <section class="gift-section" data-aos="fade-up">
+    <h2>Love Gift</h2>
+    <div class="gift-item">
+      <h3>Transfer</h3>
+      <p>Riski Siapa? - [Bank Name] [Account Number]</p>
+    </div>
+    <div class="gift-item">
+      <h3>QRIS</h3>
+      <p>Wahyu Siapa? - [QRIS Details]</p>
+    </div>
+    <div class="gift-item">
+      <h3>Gift</h3>
+      <p>Wahyu Siapa? - [Gift Registry Details]</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer data-aos="fade-up">
-    <p>Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
-    <p><em>Wassalamu’alaikum Warahmatullahi Wabarakatuh</em></p>
+    <p>Terima kasih atas perhatian dan doa restu Anda, yang menjadi kebahagiaan serta kehormatan besar bagi kami.</p>
+    <p><em>Wassalamualaikum Warahmatullahi Wabarakatuh</em></p>
+    <p>اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ</p>
   </footer>
 
-  <!-- AOS Animation Script -->
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
+    // Initialize AOS
     AOS.init();
 
-    // Ambil nama tamu dari URL
+    // Welcome Page Animation
+    function openInvitation() {
+      const welcomePage = document.getElementById('welcomePage');
+      welcomePage.classList.add('hidden');
+      setTimeout(() => {
+        welcomePage.style.display = 'none';
+      }, 800);
+    }
+
+    // Get Guest Name from URL
     const params = new URLSearchParams(window.location.search);
-    const namaTamu = params.get("to");
-    if(namaTamu) {
-      document.getElementById("tamu").textContent = "Kepada Yth. " + decodeURIComponent(namaTamu);
+    const namaTamu = params.get('to');
+    if (namaTamu) {
+      document.getElementById('tamu').textContent = 'Kepada Yth. ' + decodeURIComponent(namaTamu);
     }
 
     // Countdown Timer
-    const eventDate = new Date("Jan 1, 2026 09:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-
+    const eventDate = new Date('Jan 1, 2026 10:00:00').getTime();
+    const countdownEl = document.getElementById('countdown');
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = eventDate - now;
 
       if (distance < 0) {
         clearInterval(interval);
-        countdownEl.textContent = "Acara sudah berlangsung";
+        countdownEl.textContent = 'Acara sudah berlangsung';
       } else {
-        const days = Math.floor(distance / (1000*60*60*24));
-        const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-        const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-        const seconds = Math.floor((distance % (1000*60))/1000);
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
         countdownEl.textContent = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
       }
     }, 1000);
+
+    // Initialize Swiper
+    new Swiper('.swiper', {
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-prev',
+        prevEl: '.swiper-button-next',
+      },
+      slidesPerView: 1,
+      spaceBetween: 10,
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
   </script>
 </body>
 </html>
