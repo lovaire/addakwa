@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Undangan Klien 1</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
+    h1 { color: #b33; }
+    .card { background: white; padding: 30px; border-radius: 10px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Undangan Spesial</h1>
+    <p id="tamu">Kepada Yth, Tamu Undangan</p>
+    <p>Dengan hormat, kami mengundang Anda untuk hadir di acara bahagia kami.</p>
+    <p><strong>Tanggal:</strong> 1 Januari 2026</p>
+    <p><strong>Lokasi:</strong> Gedung Serbaguna, Jakarta</p>
+  </div>
+
+  <script>
+    // Ambil parameter "to" dari URL
+    const params = new URLSearchParams(window.location.search);
+    const namaTamu = params.get("to");
+
+    if(namaTamu) {
+      document.getElementById("tamu").textContent = "Kepada Yth, " + decodeURIComponent(namaTamu);
+    }
+  </script>
+</body>
+</html>
