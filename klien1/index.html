@@ -2,30 +2,108 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Undangan Klien 1</title>
+  <title>Undangan Islami</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
-    h1 { color: #b33; }
-    .card { background: white; padding: 30px; border-radius: 10px; display: inline-block; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfdfb; color: #333; }
+    header { text-align: center; padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://i.ibb.co/nPsJkq0/islamic-pattern.jpg'); background-size: cover; color: white; }
+    header h1 { font-family: 'Great Vibes', cursive; font-size: 48px; margin-bottom: 10px; }
+    header p { font-size: 18px; }
+
+    section { padding: 60px 20px; text-align: center; }
+    h2 { font-family: 'Great Vibes', cursive; font-size: 36px; margin-bottom: 20px; color: #006400; }
+
+    .couple { display: flex; flex-direction: column; gap: 30px; max-width: 700px; margin: auto; }
+    .person img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid #006400; }
+    .person h3 { margin: 10px 0 5px; }
+
+    .countdown { font-size: 24px; font-weight: bold; margin-top: 20px; }
+
+    .map iframe { width: 100%; height: 300px; border: none; border-radius: 10px; }
+
+    footer { background: #006400; color: white; text-align: center; padding: 30px 20px; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Undangan Spesial</h1>
-    <p id="tamu">Kepada Yth, Tamu Undangan</p>
-    <p>Dengan hormat, kami mengundang Anda untuk hadir di acara bahagia kami.</p>
-    <p><strong>Tanggal:</strong> 1 Januari 2026</p>
-    <p><strong>Lokasi:</strong> Gedung Serbaguna, Jakarta</p>
-  </div>
+  <header data-aos="fade-down">
+    <h1>Undangan Pernikahan</h1>
+    <p id="tamu">Kepada Yth. Tamu Undangan</p>
+  </header>
 
+  <section data-aos="fade-up">
+    <h2>Pasangan</h2>
+    <div class="couple">
+      <div class="person">
+        <img src="https://i.ibb.co/yfQ1wX2/bride.jpg" alt="Mempelai Wanita">
+        <h3>Aisyah Putri</h3>
+        <p>Putri dari Bapak Ahmad & Ibu Fatimah</p>
+      </div>
+      <div class="person">
+        <img src="https://i.ibb.co/kD4qVzn/groom.jpg" alt="Mempelai Pria">
+        <h3>Muhammad Rizky</h3>
+        <p>Putra dari Bapak Budi & Ibu Siti</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-aos="zoom-in">
+    <h2>Acara</h2>
+    <p><strong>Akad Nikah:</strong><br> Minggu, 1 Januari 2026 - 09:00 WIB</p>
+    <p><strong>Resepsi:</strong><br> Minggu, 1 Januari 2026 - 11:00 WIB</p>
+    <p><strong>Lokasi:</strong><br> Gedung Serbaguna Jakarta</p>
+    <div class="countdown" id="countdown"></div>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>Lokasi</h2>
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.69584405693!2d106.82715311529415!3d-6.175392395529727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e8f2a11b6d%3A0x2a4a9f1db8d2c2b1!2sMonas!5e0!3m2!1sid!2sid!4v1700000000000"></iframe>
+    </div>
+  </section>
+
+  <footer data-aos="fade-up">
+    <p>Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
+    <p><em>Wassalamu’alaikum Warahmatullahi Wabarakatuh</em></p>
+  </footer>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Ambil parameter "to" dari URL
+    AOS.init();
+
+    // Ambil nama tamu dari URL
     const params = new URLSearchParams(window.location.search);
     const namaTamu = params.get("to");
-
     if(namaTamu) {
-      document.getElementById("tamu").textContent = "Kepada Yth, " + decodeURIComponent(namaTamu);
+      document.getElementById("tamu").textContent = "Kepada Yth. " + decodeURIComponent(namaTamu);
     }
+
+    // Countdown Timer
+    const eventDate = new Date("Jan 1, 2026 09:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        countdownEl.textContent = "Acara sudah berlangsung";
+      } else {
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+        const seconds = Math.floor((distance % (1000*60))/1000);
+        countdownEl.textContent = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
+      }
+    }, 1000);
   </script>
 </body>
 </html>
