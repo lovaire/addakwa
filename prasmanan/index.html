@@ -168,8 +168,11 @@
 
     /* Mobile */
     @media (max-width: 900px){
-    /* ...yang lain biarkan... */
-    .sidebar{
+      #burger{ display:inline-block }
+      .wrap{
+        flex-direction:column; gap:16px; margin:16px auto;
+      }
+      .sidebar{
         position: fixed;
         top: 72px;
         left: 0;
@@ -187,7 +190,6 @@
     }
     .sidebar.open{ transform: translateX(0) }
     }
-
 
     /* Tombol aksi di item plate */
     .actions{
