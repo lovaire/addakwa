@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Undangan Digital Prasmanan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -19,12 +20,17 @@
             margin: 20px auto;
             gap: 20px;
         }
-        .sections {
+        .sidebar {
             width: 30%;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;   /* biar bisa discroll */
+            max-height: 100vh;  /* batasi tinggi maksimal layar */
+            -webkit-overflow-scrolling: touch; /* smooth scroll di iOS */
         }
         .section-item {
             background-color: #e9e9e9;
@@ -35,6 +41,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
         .section-item img {
             width: 100%;
@@ -44,12 +51,27 @@
             margin-bottom: 5px;
         }
         .section-item span {
-            font-weight: bold;
+            font-weight: 500;
         }
         .section-item .price {
             color: green;
             font-size: 0.9em;
         }
+        /* Overlay hitam transparan untuk menutup sidebar */
+        #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1500;
+        }
+        #overlay.active {
+        display: block;
+        }
+
         .plate {
             width: 70%;
             background-color: #fff;
@@ -63,14 +85,22 @@
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 4px;
-            cursor: grab;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            position: relative;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
         .plate-item.fixed {
             background-color: #f0f0f0;
             cursor: default;
+        }
+        .plate-item .drag-handle {
+            cursor: grab;
+            padding-right: 10px;
+            font-size: 1.2em;
+        }
+        .plate-item .content {
+            flex-grow: 1;
         }
         .plate-item .remove {
             background: red;
@@ -83,12 +113,13 @@
         #total {
             margin-top: 20px;
             font-size: 1.2em;
-            font-weight: bold;
+            font-weight: 700;
         }
         #folder-name {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         #finish {
             background: blue;
@@ -97,50 +128,83 @@
             border: none;
             cursor: pointer;
             border-radius: 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background 0.2s ease;
         }
-        /* Responsif untuk mobile */
+        #finish:hover {
+            background: darkblue;
+        }
+        #burger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 2000;
+            transition: background 0.2s ease;
+        }
+        #burger:hover {
+            background: #0056b3;
+        }
+
+        /* ====== Perbaikan untuk mobile ====== */
         @media (max-width: 768px) {
             .container {
-                flex-direction: column;
+            flex-direction: column;
+            margin: 60px auto 20px;
             }
-            .sections {
-                width: 100%;
-                order: 2; /* Sidebar di bawah */
-                position: relative;
+            .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%;
+            height: 100%;
+            transform: translateX(-100%);
+            z-index: 1000;
+            }
+            .sidebar.open {
+            transform: translateX(0);
             }
             .plate {
-                width: 100%;
-                order: 1;
+            width: 100%;
             }
-            /* Simulasi sidebar seperti Canva mobile: gunakan toggle */
-            .sections {
-                display: none; /* Sembunyikan default */
-            }
-            .sections.open {
-                display: block;
-            }
-            #toggle-sidebar {
-                display: block;
-                background: #007bff;
-                color: white;
-                padding: 10px;
-                text-align: center;
-                cursor: pointer;
+            #burger {
+            display: block;
+            z-index: 2000;
             }
         }
-        /* Drag and drop styles */
+
         .dragging {
             opacity: 0.5;
+            transform: scale(0.95);
         }
         .over {
             border: 2px dashed #000;
         }
+        .plate-item.added {
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+            transform: translateY(-10px);
+            opacity: 0;
+            }
+            to {
+            transform: translateY(0);
+            opacity: 1;
+            }
+        }
     </style>
+
 </head>
 <body>
-    <div id="toggle-sidebar" style="display: none;">Buka Sidebar Section</div>
+    <div id="burger">☰</div> <div id="overlay"></div>
     <div class="container">
-        <div class="sections">
+        <div class="sidebar">
             <h2>Pilih Section (Drag ke Kotak)</h2>
             <div class="section-item" draggable="true" data-name="Nama 1 Orang" data-price="5000">
                 <img src="https://picsum.photos/200/150?random=1" alt="Contoh Nama 1 Orang">
@@ -190,9 +254,12 @@
         </div>
         <div class="plate" id="plate">
             <h2>Kotak Undangan Anda</h2>
-            <div class="plate-item fixed" data-name="Welcome Page" data-price="0">Welcome Page (Include)</div>
-            <!-- Tempat drop di sini -->
-            <div class="plate-item fixed" data-name="Penutup" data-price="0">Penutup (Include)</div>
+            <div class="plate-item fixed" data-name="Welcome Page" data-price="0">
+                <span class="content">Welcome Page (Include)</span>
+            </div>
+            <div class="plate-item fixed" data-name="Penutup" data-price="0">
+                <span class="content">Penutup (Include)</span>
+            </div>
         </div>
     </div>
     <div style="max-width: 1200px; margin: 20px auto;">
@@ -202,38 +269,76 @@
     </div>
 
     <script>
-        const sections = document.querySelectorAll('.section-item');
+        const burger = document.getElementById('burger');
+        const sidebar = document.querySelector('.sidebar');
         const plate = document.getElementById('plate');
         const totalElem = document.getElementById('total');
         const folderInput = document.getElementById('folder-name');
         const finishBtn = document.getElementById('finish');
-        const toggleSidebar = document.getElementById('toggle-sidebar');
-        const sectionsContainer = document.querySelector('.sections');
+        const sections = document.querySelectorAll('.section-item');
 
-        // Toggle sidebar for mobile
-        if (window.innerWidth <= 768) {
-            toggleSidebar.style.display = 'block';
-            toggleSidebar.addEventListener('click', () => {
-                sectionsContainer.classList.toggle('open');
-            });
-        }
-
-        // Drag and drop setup
-        sections.forEach(item => {
-            item.addEventListener('dragstart', dragStart);
+        // Toggle sidebar on mobile
+        burger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
         });
 
+        burger.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+        });
+
+        // Drag to close sidebar on mobile
+        let touchStartX = 0;
+        sidebar.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+        sidebar.addEventListener('touchmove', (e) => {
+            const touchX = e.touches[0].clientX;
+            if (touchStartX - touchX > 50) {
+            sidebar.classList.remove('open');
+            }
+        });
+
+        // Drag and drop from sidebar
+        sections.forEach(item => {
+            item.addEventListener('dragstart', dragStart);
+            item.addEventListener('dragend', dragEnd);
+            // Handle touchstart for mobile drag initiation
+            item.addEventListener('touchstart', (e) => {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
+            });
+        });
+
+        // Drag and drop events for plate
         plate.addEventListener('dragover', dragOver);
         plate.addEventListener('drop', drop);
         plate.addEventListener('dragenter', dragEnter);
         plate.addEventListener('dragleave', dragLeave);
 
         function dragStart(e) {
-            e.dataTransfer.setData('text/plain', JSON.stringify({
-                name: this.dataset.name,
-                price: this.dataset.price
+            e.dataTransfer.setData('application/json', JSON.stringify({
+            name: this.dataset.name,
+            price: this.dataset.price
             }));
+            e.dataTransfer.setData('text/plain', 'sidebar'); // Indicate source
             this.classList.add('dragging');
+            if (window.innerWidth <= 768) {
+            sidebar.classList.remove('open');
+            }
+        }
+
+        function dragStartPlate(e) {
+            const plateItem = this.closest('.plate-item');
+            if (plateItem.classList.contains('fixed')) return;
+            e.dataTransfer.setData('text/html', plateItem.outerHTML);
+            e.dataTransfer.setData('text/plain', 'plate'); // Indicate source
+            plateItem.classList.add('dragging');
+            setTimeout(() => plateItem.remove(), 0);
         }
 
         function dragOver(e) {
@@ -252,53 +357,55 @@
         function drop(e) {
             e.preventDefault();
             this.classList.remove('over');
-            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-            const newItem = document.createElement('div');
-            newItem.classList.add('plate-item');
-            newItem.dataset.name = data.name;
-            newItem.dataset.price = data.price;
-            newItem.innerHTML = `${data.name} (Rp. ${data.price}) <button class="remove">Hapus</button>`;
+            const source = e.dataTransfer.getData('text/plain');
+            const penutup = plate.querySelector('.plate-item.fixed:last-child');
+
+            if (source === 'sidebar') {
+            try {
+                const data = JSON.parse(e.dataTransfer.getData('application/json'));
+                const newItem = document.createElement('div');
+                newItem.classList.add('plate-item', 'added');
+                newItem.dataset.name = data.name;
+                newItem.dataset.price = data.price;
+                newItem.draggable = true;
+                newItem.innerHTML = `
+                <span class="drag-handle">⋮⋮</span>
+                <span class="content">${data.name} (Rp. ${parseInt(data.price).toLocaleString()})</span>
+                <button class="remove">Hapus</button>
+                `;
+                newItem.addEventListener('dragstart', dragStartPlate);
+                newItem.querySelector('.remove').addEventListener('click', removeItem);
+                plate.insertBefore(newItem, penutup);
+                updateTotal();
+                setTimeout(() => newItem.classList.remove('added'), 300);
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+            } else if (source === 'plate') {
+            const htmlData = e.dataTransfer.getData('text/html');
+            const temp = document.createElement('div');
+            temp.innerHTML = htmlData;
+            const newItem = temp.firstChild;
+            if (!newItem.classList.contains('plate-item')) return;
+            newItem.classList.add('added');
             newItem.draggable = true;
             newItem.addEventListener('dragstart', dragStartPlate);
             const removeBtn = newItem.querySelector('.remove');
-            removeBtn.addEventListener('click', removeItem);
-
-            // Insert before penutup
-            const penutup = plate.querySelector('.plate-item.fixed:last-child');
-            plate.insertBefore(newItem, penutup);
-
-            updateTotal();
-        }
-
-        // Allow reordering in plate
-        function dragStartPlate(e) {
-            e.dataTransfer.setData('text/plain', this.outerHTML);
-            this.classList.add('dragging');
-            setTimeout(() => this.remove(), 0); // Remove after drag
-        }
-
-        plate.addEventListener('drop', (e) => {
-            e.preventDefault();
-            plate.classList.remove('over');
-            const data = e.dataTransfer.getData('text/plain');
-            if (data.startsWith('<div')) { // Reorder
-                const temp = document.createElement('div');
-                temp.innerHTML = data;
-                const newItem = temp.firstChild;
-                const removeBtn = newItem.querySelector('.remove');
-                if (removeBtn) removeBtn.addEventListener('click', removeItem);
-                newItem.addEventListener('dragstart', dragStartPlate);
-                // Insert at drop position
-                let target = e.target.closest('.plate-item');
-                if (target && !target.classList.contains('fixed')) {
-                    plate.insertBefore(newItem, target.nextSibling);
-                } else {
-                    const penutup = plate.querySelector('.plate-item.fixed:last-child');
-                    plate.insertBefore(newItem, penutup);
-                }
-                updateTotal();
+            if (removeBtn) removeBtn.addEventListener('click', removeItem);
+            const target = e.target.closest('.plate-item');
+            if (target && !target.classList.contains('fixed')) {
+                plate.insertBefore(newItem, target.nextSibling);
+            } else {
+                plate.insertBefore(newItem, penutup);
             }
-        });
+            updateTotal();
+            setTimeout(() => newItem.classList.remove('added'), 300);
+            }
+        }
+
+        function dragEnd() {
+            this.classList.remove('dragging');
+        }
 
         function removeItem() {
             this.parentElement.remove();
@@ -308,7 +415,7 @@
         function updateTotal() {
             let total = 0;
             plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-                total += parseInt(item.dataset.price);
+            total += parseInt(item.dataset.price);
             });
             totalElem.textContent = `Total Harga: Rp. ${total.toLocaleString()}`;
         }
@@ -316,24 +423,26 @@
         finishBtn.addEventListener('click', () => {
             const folder = folderInput.value.trim();
             if (!folder) {
-                alert('Masukkan nama folder!');
-                return;
+            alert('Masukkan nama folder!');
+            return;
             }
             const items = plate.querySelectorAll('.plate-item:not(.fixed)');
             let message = `Nama Folder: ${folder}\n`;
             items.forEach((item, index) => {
-                message += `Urutan ${index + 1}: ${item.dataset.name}\n`;
+            message += `Urutan ${index + 1}: ${item.dataset.name}\n`;
             });
-            const total = parseInt(totalElem.textContent.match(/\d+/)[0]);
-            message += `Total harga: Rp.${total.toLocaleString()}`;
-            const waUrl = `https://wa.me/628123456789?text=${encodeURIComponent(message)}`; // Ganti nomor WA
+            const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, '')) || 0;
+            message += `Total harga: Rp. ${total.toLocaleString()}`;
+            const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
             window.open(waUrl, '_blank');
         });
 
-        // Cleanup dragging class
-        document.addEventListener('dragend', () => {
-            document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+        // Initialize dragstart for existing plate items
+        plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
+            item.draggable = true;
+            item.addEventListener('dragstart', dragStartPlate);
         });
-    </script>
+        </script>
+
 </body>
 </html>
