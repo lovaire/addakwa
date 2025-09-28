@@ -198,226 +198,320 @@
     </div>
 
     <script>
-        const burger = document.getElementById('burger');
-        const overlay = document.getElementById('overlay');
-        const sidebar = document.querySelector('.sidebar');
-        const plate = document.getElementById('plate');
-        const totalElem = document.getElementById('total');
-        const folderInput = document.getElementById('folder-name');
-        const finishBtn = document.getElementById('finish');
-        const sections = document.querySelectorAll('.section-item');
+  const burger = document.getElementById('burger');
+  const overlay = document.getElementById('overlay');
+  const sidebar = document.querySelector('.sidebar');
+  const plate = document.getElementById('plate');
+  const totalElem = document.getElementById('total');
+  const folderInput = document.getElementById('folder-name');
+  const finishBtn = document.getElementById('finish');
+  const sections = document.querySelectorAll('.section-item');
 
-        /* ===== Helpers sidebar + overlay ===== */
-        function openSidebar() {
-            sidebar.classList.add('open');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // kunci scroll background
-        }
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-            document.body.style.overflow = ''; // balikin scroll
-        }
-        function toggleSidebar() {
-            if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
-        }
+  /* ===== Sidebar + overlay helpers ===== */
+  function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function toggleSidebar() {
+    if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+  }
 
-        // Toggle sidebar (burger)
-        burger.addEventListener('click', (e) => {
-            e.preventDefault(); e.stopPropagation();
-            toggleSidebar();
-        });
-        burger.addEventListener('touchstart', (e) => {
-            e.preventDefault(); e.stopPropagation();
-            toggleSidebar();
-        });
+  burger.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleSidebar(); });
+  burger.addEventListener('touchstart', (e) => { e.preventDefault(); e.stopPropagation(); toggleSidebar(); });
+  overlay.addEventListener('click', closeSidebar);
 
-        // Klik overlay -> tutup
-        overlay.addEventListener('click', closeSidebar);
+  // Swipe ke kiri untuk menutup
+  let touchStartX = 0;
+  sidebar.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  sidebar.addEventListener('touchmove', (e) => {
+    const dx = e.touches[0].clientX - touchStartX;
+    if (dx < -50) closeSidebar();
+  }, {passive:true});
 
-        // Geser ke kiri untuk menutup (mobile)
-        let touchStartX = 0;
-        sidebar.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-        });
-        sidebar.addEventListener('touchmove', (e) => {
-            const dx = e.touches[0].clientX - touchStartX;
-            if (dx < -50) closeSidebar();
-        });
+  /* ===== Util: buat item di plate ===== */
+  function createPlateItem(name, price) {
+    const newItem = document.createElement('div');
+    newItem.classList.add('plate-item', 'added');
+    newItem.dataset.name = name;
+    newItem.dataset.price = price;
+    newItem.draggable = true;
+    newItem.innerHTML = `
+      <span class="drag-handle">⋮⋮</span>
+      <span class="content">${name} (Rp. ${parseInt(price, 10).toLocaleString()})</span>
+      <button class="remove">Hapus</button>
+    `;
+    newItem.addEventListener('dragstart', dragStartPlate);
+    newItem.querySelector('.remove').addEventListener('click', removeItem);
 
-        // ESC untuk menutup
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeSidebar();
-        });
+    const penutup = plate.querySelector('.plate-item.fixed:last-child');
+    plate.insertBefore(newItem, penutup);
+    setTimeout(() => newItem.classList.remove('added'), 300);
+    return newItem;
+  }
 
-        /* ====== Buat item plate reusable ====== */
-        function createPlateItem(name, price) {
-            const newItem = document.createElement('div');
-            newItem.classList.add('plate-item', 'added');
-            newItem.dataset.name = name;
-            newItem.dataset.price = price;
-            newItem.draggable = true;
-            newItem.innerHTML = `
-            <span class="drag-handle">⋮⋮</span>
-            <span class="content">${name} (Rp. ${parseInt(price, 10).toLocaleString()})</span>
-            <button class="remove">Hapus</button>
-            `;
-            newItem.addEventListener('dragstart', dragStartPlate);
-            newItem.querySelector('.remove').addEventListener('click', removeItem);
+  /* ===== Desktop drag dari sidebar ===== */
+  sections.forEach(item => {
+    item.addEventListener('dragstart', dragStart);
+    item.addEventListener('dragend', dragEnd);
+  });
 
-            const penutup = plate.querySelector('.plate-item.fixed:last-child');
-            plate.insertBefore(newItem, penutup);
-            setTimeout(() => newItem.classList.remove('added'), 300);
-            return newItem;
-        }
+  function dragStart(e) {
+    // desktop only
+    if (window.innerWidth <= 768) return;
+    e.dataTransfer.setData('application/json', JSON.stringify({
+      name: this.dataset.name,
+      price: this.dataset.price
+    }));
+    e.dataTransfer.setData('text/plain', 'sidebar');
+    this.classList.add('dragging');
+  }
+  function dragEnd() { this.classList.remove('dragging'); }
 
-        /* ====== Drag & drop dari sidebar (desktop) ====== */
-        sections.forEach(item => {
-            // Desktop drag
-            item.addEventListener('dragstart', dragStart);
-            item.addEventListener('dragend', dragEnd);
+  /* ===== Plate DnD (desktop) ===== */
+  plate.addEventListener('dragover', dragOver);
+  plate.addEventListener('drop', drop);
+  plate.addEventListener('dragenter', dragEnter);
+  plate.addEventListener('dragleave', dragLeave);
 
-            // Mobile: tap untuk add (tanpa menutup sidebar)
-            item.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                createPlateItem(item.dataset.name, item.dataset.price);
-                updateTotal();
-            }
-            });
-        });
+  function dragOver(e) { e.preventDefault(); }
+  function dragEnter(e) { e.preventDefault(); this.classList.add('over'); }
+  function dragLeave() { this.classList.remove('over'); }
 
-        function dragStart(e) {
-            e.dataTransfer.setData('application/json', JSON.stringify({
-            name: this.dataset.name,
-            price: this.dataset.price
-            }));
-            e.dataTransfer.setData('text/plain', 'sidebar');
-            this.classList.add('dragging');
-        }
-        function dragEnd() { this.classList.remove('dragging'); }
+  function dragStartPlate(e) {
+    const plateItem = this.closest('.plate-item');
+    if (plateItem.classList.contains('fixed')) return;
+    e.dataTransfer.setData('text/html', plateItem.outerHTML);
+    e.dataTransfer.setData('text/plain', 'plate');
+    plateItem.classList.add('dragging');
+    setTimeout(() => plateItem.remove(), 0);
+  }
 
-        /* ====== Drag & drop area plate ====== */
-        plate.addEventListener('dragover', dragOver);
-        plate.addEventListener('drop', drop);
-        plate.addEventListener('dragenter', dragEnter);
-        plate.addEventListener('dragleave', dragLeave);
+  function drop(e) {
+    e.preventDefault();
+    this.classList.remove('over');
+    const source = e.dataTransfer.getData('text/plain');
 
-        function dragOver(e) { e.preventDefault(); }
-        function dragEnter(e) { e.preventDefault(); this.classList.add('over'); }
-        function dragLeave() { this.classList.remove('over'); }
-
-        function dragStartPlate(e) {
-            const plateItem = this.closest('.plate-item');
-            if (plateItem.classList.contains('fixed')) return;
-            e.dataTransfer.setData('text/html', plateItem.outerHTML);
-            e.dataTransfer.setData('text/plain', 'plate');
-            plateItem.classList.add('dragging');
-            setTimeout(() => plateItem.remove(), 0);
-        }
-
-        function drop(e) {
-            e.preventDefault();
-            this.classList.remove('over');
-            const source = e.dataTransfer.getData('text/plain');
-
-            if (source === 'sidebar') {
-            try {
-                const data = JSON.parse(e.dataTransfer.getData('application/json'));
-                createPlateItem(data.name, data.price);
-                updateTotal();
-            } catch (err) { console.error('Error parsing JSON:', err); }
-            } else if (source === 'plate') {
-            const htmlData = e.dataTransfer.getData('text/html');
-            const temp = document.createElement('div');
-            temp.innerHTML = htmlData;
-            const newItem = temp.firstChild;
-            if (!newItem.classList.contains('plate-item')) return;
-            newItem.classList.add('added');
-            newItem.draggable = true;
-            newItem.addEventListener('dragstart', dragStartPlate);
-            const removeBtn = newItem.querySelector('.remove');
-            if (removeBtn) removeBtn.addEventListener('click', removeItem);
-
-            const penutup = plate.querySelector('.plate-item.fixed:last-child');
-            const target = e.target.closest('.plate-item');
-            if (target && !target.classList.contains('fixed')) {
-                plate.insertBefore(newItem, target.nextSibling);
-            } else {
-                plate.insertBefore(newItem, penutup);
-            }
-            updateTotal();
-            setTimeout(() => newItem.classList.remove('added'), 300);
-            }
-        }
-
-        function removeItem() { this.parentElement.remove(); updateTotal(); }
-
-        /* ====== Music input (otomatis muncul kalau ada "Music") ====== */
-        // Siapkan container input musik (buat otomatis kalau belum ada di HTML)
-        let musicContainer = document.getElementById('music-input-container');
-        if (!musicContainer) {
-            musicContainer = document.createElement('div');
-            musicContainer.id = 'music-input-container';
-            musicContainer.style.display = 'none';
-            musicContainer.style.marginTop = '10px';
-            const musicInput = document.createElement('input');
-            musicInput.type = 'text';
-            musicInput.id = 'music-link';
-            musicInput.placeholder = 'Masukkan Link YouTube Musik';
-            musicInput.style.width = '100%';
-            musicInput.style.padding = '10px';
-            musicContainer.appendChild(musicInput);
-            // sisipkan setelah tombol finish
-            finishBtn.parentElement.appendChild(musicContainer);
-        }
-        const musicInput = document.getElementById('music-link');
-
-        function updateMusicInputVisibility() {
-            const hasMusic = !!plate.querySelector('.plate-item:not(.fixed)[data-name="Music"]');
-            if (hasMusic) {
-            musicContainer.style.display = 'block';
-            } else {
-            musicContainer.style.display = 'none';
-            if (musicInput) musicInput.value = '';
-            }
-        }
-
-        /* ====== Total & WA ====== */
-        function updateTotal() {
-            let total = 0;
-            plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-            total += parseInt(item.dataset.price, 10);
-            });
-            totalElem.textContent = `Total Harga: Rp. ${total.toLocaleString()}`;
-            updateMusicInputVisibility();
-        }
-
-        finishBtn.addEventListener('click', () => {
-            const folder = folderInput.value.trim();
-            if (!folder) { alert('Masukkan nama folder!'); return; }
-
-            const items = plate.querySelectorAll('.plate-item:not(.fixed)');
-            let message = `Nama Folder: ${folder}\n`;
-            items.forEach((item, idx) => { message += `Urutan ${idx + 1}: ${item.dataset.name}\n`; });
-            const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, ''), 10) || 0;
-            message += `Total harga: Rp. ${total.toLocaleString()}`;
-
-            if (musicContainer.style.display === 'block' && musicInput.value.trim() !== '') {
-            message += `\nLink Musik: ${musicInput.value.trim()}`;
-            }
-
-            const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
-        });
-
-        // Init: enable drag on any existing non-fixed items (if any) dan hitung total
-        plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-            item.draggable = true;
-            item.addEventListener('dragstart', dragStartPlate);
-        });
+    if (source === 'sidebar') {
+      try {
+        const data = JSON.parse(e.dataTransfer.getData('application/json'));
+        createPlateItem(data.name, data.price);
         updateTotal();
-    </script>
+      } catch (err) { console.error('Error parsing JSON:', err); }
+    } else if (source === 'plate') {
+      const htmlData = e.dataTransfer.getData('text/html');
+      const temp = document.createElement('div');
+      temp.innerHTML = htmlData;
+      const newItem = temp.firstChild;
+      if (!newItem.classList.contains('plate-item')) return;
+      newItem.classList.add('added');
+      newItem.draggable = true;
+      newItem.addEventListener('dragstart', dragStartPlate);
+      const removeBtn = newItem.querySelector('.remove');
+      if (removeBtn) removeBtn.addEventListener('click', removeItem);
+
+      const penutup = plate.querySelector('.plate-item.fixed:last-child');
+      const target = e.target.closest('.plate-item');
+      if (target && !target.classList.contains('fixed')) {
+        plate.insertBefore(newItem, target.nextSibling);
+      } else {
+        plate.insertBefore(newItem, penutup);
+      }
+      updateTotal();
+      setTimeout(() => newItem.classList.remove('added'), 300);
+    }
+  }
+
+  function removeItem() { this.parentElement.remove(); updateTotal(); }
+
+  /* ===== Mobile long-press drag dari sidebar ===== */
+  let lpTimer = null;
+  let isTouchDragging = false;
+  let dragGhost = null;
+  let dragData = null;
+
+  sections.forEach(item => {
+    item.addEventListener('touchstart', onItemTouchStart, {passive:false});
+    item.addEventListener('touchmove', onItemTouchMove, {passive:false});
+    item.addEventListener('touchend', onItemTouchEnd, {passive:false});
+    item.addEventListener('touchcancel', cancelTouchDrag, {passive:false});
+  });
+
+  function onItemTouchStart(e) {
+    if (window.innerWidth > 768) return; // hanya mobile
+    // cegah scroll saat kita siap long-press
+    e.preventDefault();
+    const el = this;
+    const touch = e.touches[0];
+    const startX = touch.clientX;
+    const startY = touch.clientY;
+
+    dragData = { name: el.dataset.name, price: el.dataset.price, startX, startY, moved:false };
+
+    // long-press 200ms untuk mulai drag
+    lpTimer = setTimeout(() => {
+      startTouchDrag(startX, startY);
+    }, 200);
+  }
+
+  function onItemTouchMove(e) {
+    if (window.innerWidth > 768) return;
+    const touch = e.touches[0];
+    if (!dragData) return;
+
+    const dx = Math.abs(touch.clientX - dragData.startX);
+    const dy = Math.abs(touch.clientY - dragData.startY);
+    if (!isTouchDragging && (dx > 8 || dy > 8)) {
+      // jika belum mulai drag dan jari bergerak banyak -> batalkan long-press
+      dragData.moved = true;
+      clearTimeout(lpTimer);
+    }
+
+    if (isTouchDragging && dragGhost) {
+      e.preventDefault(); // hindari scroll saat dragging
+      positionGhost(touch.clientX, touch.clientY);
+    }
+  }
+
+  function onItemTouchEnd(e) {
+    if (window.innerWidth > 768) return;
+    clearTimeout(lpTimer);
+
+    if (isTouchDragging) {
+      e.preventDefault();
+      const touch = e.changedTouches[0];
+      finishTouchDrag(touch.clientX, touch.clientY);
+    }
+    dragData = null;
+  }
+
+  function cancelTouchDrag() {
+    clearTimeout(lpTimer);
+    cleanupTouchDrag();
+    dragData = null;
+  }
+
+  function startTouchDrag(x, y) {
+    if (!dragData) return;
+    isTouchDragging = true;
+
+    // Tutup sidebar BARU setelah drag beneran dimulai
+    closeSidebar();
+
+    // Buat ghost
+    dragGhost = document.createElement('div');
+    dragGhost.textContent = dragData.name;
+    Object.assign(dragGhost.style, {
+      position: 'fixed',
+      top: '0', left: '0',
+      transform: 'translate(-50%, -50%)',
+      padding: '10px 12px',
+      background: '#333',
+      color: '#fff',
+      borderRadius: '6px',
+      fontSize: '14px',
+      zIndex: '4000',
+      pointerEvents: 'none',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+    });
+    document.body.appendChild(dragGhost);
+    positionGhost(x, y);
+  }
+
+  function positionGhost(x, y) {
+    dragGhost.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  function finishTouchDrag(x, y) {
+    // Cek apakah lepas di atas plate
+    const rect = plate.getBoundingClientRect();
+    const inside =
+      x >= rect.left && x <= rect.right &&
+      y >= rect.top  && y <= rect.bottom;
+
+    if (inside && dragData) {
+      createPlateItem(dragData.name, dragData.price);
+      updateTotal();
+    }
+    cleanupTouchDrag();
+  }
+
+  function cleanupTouchDrag() {
+    isTouchDragging = false;
+    if (dragGhost && dragGhost.parentNode) dragGhost.parentNode.removeChild(dragGhost);
+    dragGhost = null;
+  }
+
+  /* ===== Music input (otomatis saat ada "Music") ===== */
+  let musicContainer = document.getElementById('music-input-container');
+  if (!musicContainer) {
+    musicContainer = document.createElement('div');
+    musicContainer.id = 'music-input-container';
+    musicContainer.style.display = 'none';
+    musicContainer.style.marginTop = '10px';
+    const musicInput = document.createElement('input');
+    musicInput.type = 'text';
+    musicInput.id = 'music-link';
+    musicInput.placeholder = 'Masukkan Link YouTube Musik';
+    musicInput.style.width = '100%';
+    musicInput.style.padding = '10px';
+    musicContainer.appendChild(musicInput);
+    // sisipkan setelah tombol finish
+    finishBtn.parentElement.appendChild(musicContainer);
+  }
+  const musicInput = document.getElementById('music-link');
+
+  function updateMusicInputVisibility() {
+    const hasMusic = !!plate.querySelector('.plate-item:not(.fixed)[data-name="Music"]');
+    if (hasMusic) {
+      musicContainer.style.display = 'block';
+    } else {
+      musicContainer.style.display = 'none';
+      if (musicInput) musicInput.value = '';
+    }
+  }
+
+  /* ===== Total & WhatsApp ===== */
+  function updateTotal() {
+    let total = 0;
+    plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
+      total += parseInt(item.dataset.price, 10);
+    });
+    totalElem.textContent = `Total Harga: Rp. ${total.toLocaleString()}`;
+    updateMusicInputVisibility();
+  }
+
+  finishBtn.addEventListener('click', () => {
+    const folder = folderInput.value.trim();
+    if (!folder) { alert('Masukkan nama folder!'); return; }
+
+    const items = plate.querySelectorAll('.plate-item:not(.fixed)');
+    let message = `Nama Folder: ${folder}\n`;
+    items.forEach((item, idx) => { message += `Urutan ${idx + 1}: ${item.dataset.name}\n`; });
+    const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, ''), 10) || 0;
+    message += `Total harga: Rp. ${total.toLocaleString()}`;
+
+    if (musicContainer.style.display === 'block' && musicInput.value.trim() !== '') {
+      message += `\nLink Musik: ${musicInput.value.trim()}`;
+    }
+
+    const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+  });
+
+  // Init
+  plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
+    item.draggable = true;
+    item.addEventListener('dragstart', dragStartPlate);
+  });
+  updateTotal();
+</script>
+
 
 
 </body>
