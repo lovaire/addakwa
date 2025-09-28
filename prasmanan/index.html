@@ -168,19 +168,26 @@
 
     /* Mobile */
     @media (max-width: 900px){
-      #burger{ display:inline-block }
-      .wrap{
-        flex-direction:column; gap:16px; margin:16px auto;
-      }
-      .sidebar{
-        position:fixed; top:72px; left:0; width:min(92vw, 380px);
-        height:calc(100vh - 80px);
-        transform:translateX(-110%); transition:transform .25s ease;
-        z-index:2001;
-      }
-      .sidebar.open{ transform:translateX(0) }
-      .plate{ width:100% }
+    /* ...yang lain biarkan... */
+    .sidebar{
+        position: fixed;
+        top: 72px;
+        left: 0;
+        width: min(92vw, 380px);
+        /* ❌ sebelumnya: height: calc(100vh - 80px); */
+        /* ✅ pakai dvh agar tidak kepotong di mobile */
+        height: calc(100dvh - 80px);
+        transform: translateX(-110%);
+        transition: transform .25s ease;
+        z-index: 2001;
+
+        /* pastikan scroll mulus di mobile */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
+    .sidebar.open{ transform: translateX(0) }
+    }
+
 
     /* Tombol aksi di item plate */
     .actions{
