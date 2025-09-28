@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script> <!-- Library untuk scan QR -->
+    <style>
+        #reader { width: 100%; height: 300px; }
+        #result { font-size: 24px; text-align: center; margin-top: 20px; }
+        .valid { color: green; }
+        .invalid { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Scan QR Code Tamu</h1>
+    <div id="reader"></div>
+    <div id="result"></div>
+
+    <script>
+        // Daftar kode unik (copy dari spreadsheet, hardcoded di sini)
+        const kodeUnikList = ["ACAB13", "XYZ456", "DEF789"]; // Tambahkan semua kode unik tamu di sini
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // decodedText adalah kode unik dari QR
+            const resultDiv = document.getElementById('result');
+            if (kodeUnikList.includes(decodedText)) {
+                resultDiv.innerHTML = "Selamat Datang! ✅";
+                resultDiv.className = "valid";
+                // Optional: Hentikan scanner setelah sukses
+                html5QrCode.stop();
+            } else {
+                resultDiv.innerHTML = "Kode Tidak Valid! ❌";
+                resultDiv.className = "invalid";
+            }
+        }
+
+        function onScanFailure(error) {
+            console.warn(`Scan error: ${error}`);
+        }
+
+        // Inisialisasi scanner
+        const html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+            { facingMode: "environment" }, // Pakai camera belakang
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            onScanSuccess,
+            onScanFailure
+        );
+    </script>
+</body>
+</html>
