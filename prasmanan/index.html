@@ -1,500 +1,430 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Undangan Digital Prasmanan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 20px auto;
-            gap: 20px;
-        }
-        .sidebar {
-            width: 30%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 2000; /* dinaikkan agar di atas overlay */
-            transition: transform 0.3s ease-in-out;
-            overflow-y: auto;   /* biar bisa discroll */
-            max-height: 100vh;  /* batasi tinggi maksimal layar */
-            -webkit-overflow-scrolling: touch; /* smooth scroll di iOS */
-        }
-        .section-item {
-            background-color: #e9e9e9;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: grab;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-        .section-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 5px;
-        }
-        .section-item span { font-weight: 500; }
-        .section-item .price { color: green; font-size: 0.9em; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buat Undangan Digital Prasmanan — Klik to Add</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#221C17;          /* utama (gelap) */
+      --sand:#D1B391;         /* aksen */
+      --sand-2:#E4CFB4;       /* aksen terang */
+      --cream:#F5EFE7;        /* latar lembut */
+      --paper:#FFFFFF;        /* kartu */
+      --muted:#8A7B6B;        /* teks sekunder */
+      --success:#2E7D32;
+      --danger:#C62828;
+      --shadow:0 10px 24px rgba(0,0,0,.08);
+      --radius:14px;
+    }
 
-        /* Overlay untuk menutup sidebar saat klik area kanan */
-        #overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1500; /* di bawah sidebar */
-        }
-        #overlay.active { display: block; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      color:var(--ink);
+      background:linear-gradient(180deg,var(--cream),#faf7f2 60%);
+    }
 
-        .plate {
-            width: 70%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            min-height: 400px;
-        }
-        .plate-item {
-            background-color: #d9f7d9;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            position: relative;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-        .plate-item.fixed { background-color: #f0f0f0; cursor: default; }
-        .plate-item .drag-handle { cursor: grab; padding-right: 10px; font-size: 1.2em; }
-        .plate-item .content { flex-grow: 1; }
-        .plate-item .remove {
-            background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;
-        }
+    /* Header / Burger */
+    .topbar{
+      position:sticky; top:0; z-index:3000;
+      display:flex; align-items:center; gap:12px;
+      padding:14px 16px;
+      background:linear-gradient(180deg,#fff,rgba(255,255,255,0.85));
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(34,28,23,.08);
+    }
+    .brand{
+      font-weight:700; letter-spacing:.4px;
+      color:var(--ink);
+    }
+    #burger{
+      display:none;
+      border:0; border-radius:10px;
+      padding:10px 12px; cursor:pointer;
+      background:var(--ink); color:#fff;
+      box-shadow:var(--shadow);
+    }
+    #burger:active{transform:translateY(1px)}
 
-        #total { margin-top: 20px; font-size: 1.2em; font-weight: 700; }
-        #folder-name {
-            width: 100%; padding: 10px; margin-bottom: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        #finish {
-            background: blue; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px;
-            font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s ease;
-        }
-        #finish:hover { background: darkblue; }
+    /* Layout */
+    .wrap{
+      max-width:1200px; margin:24px auto; padding:0 16px;
+      display:flex; gap:20px;
+      align-items:flex-start;
+    }
 
-        #burger {
-            display: none;
-            position: fixed;
-            top: 20px; left: 20px;
-            background: #007bff; color: white; padding: 10px; cursor: pointer; border-radius: 4px;
-            z-index: 3000; transition: background 0.2s ease;
-        }
-        #burger:hover { background: #0056b3; }
+    /* Sidebar */
+    .sidebar{
+      width:320px; max-height:calc(100vh - 80px);
+      background:#fff; border:1px solid rgba(34,28,23,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow-y:auto;
+      position:sticky; top:92px;
+    }
+    .sidebar__head{
+      position:sticky; top:0; z-index:1;
+      padding:16px 18px;
+      background:linear-gradient(180deg,var(--sand),var(--sand-2));
+      color:#2c241c; font-weight:700;
+      border-top-left-radius:var(--radius);
+      border-top-right-radius:var(--radius);
+      border-bottom:1px solid rgba(34,28,23,.12);
+      letter-spacing:.3px;
+    }
+    .list{
+      padding:12px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    .item{
+      display:flex; gap:12px; align-items:center;
+      padding:10px; border-radius:12px;
+      border:1px solid rgba(34,28,23,.08);
+      background:linear-gradient(180deg,#fff,#fffdf8);
+      cursor:pointer; transition:.15s ease transform, .15s ease box-shadow;
+    }
+    .item:hover{ box-shadow:0 6px 16px rgba(34,28,23,.08); transform:translateY(-1px) }
+    .item:active{ transform:translateY(0) }
+    .thumb{
+      width:84px; height:64px; border-radius:10px; object-fit:cover;
+      border:1px solid rgba(34,28,23,.08);
+      background:#f1e8dc;
+    }
+    .meta{ flex:1; min-width:0 }
+    .name{ font-weight:600 }
+    .price{ font-size:.92rem; color:var(--muted) }
 
-        /* ====== Tata letak mobile ====== */
-        @media (max-width: 768px) {
-            .container { flex-direction: column; margin: 60px auto 20px; }
-            .sidebar {
-            position: fixed; top: 0; left: 0; width: 80%; height: 100%;
-            transform: translateX(-100%); /* hidden default */
-            }
-            .sidebar.open { transform: translateX(0); }
-            .plate { width: 100%; }
-            #burger { display: block; }
-        }
+    /* Plate / Canvas */
+    .plate{
+      flex:1; min-width:0;
+      background:#fff; border:1px solid rgba(34,28,23,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .plate h2{
+      margin:0 0 12px; font-size:1.15rem; letter-spacing:.2px;
+      color:var(--ink);
+    }
+    .plate-zone{
+      display:flex; flex-direction:column; gap:10px;
+      min-height:180px; padding:8px;
+      background:linear-gradient(180deg,#fffdf8,#fff);
+      border:1px dashed rgba(34,28,23,.15);
+      border-radius:12px;
+    }
+    .pitem{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:10px;
+      background:linear-gradient(180deg,#f6efe6,#fff);
+      border:1px solid rgba(34,28,23,.1);
+    }
+    .pitem.fixed{
+      background:linear-gradient(180deg,#f0ebe4,#fff);
+      border-style:solid;
+    }
+    .pname{ font-weight:600 }
+    .pprice{ margin-left:auto; font-weight:600; color:#2c4b2f }
+    .remove{
+      margin-left:6px; border:0; cursor:pointer;
+      background:var(--danger); color:#fff; border-radius:8px;
+      padding:6px 10px;
+    }
 
-        .dragging { opacity: 0.5; transform: scale(0.95); }
-        .over { border: 2px dashed #000; }
-        .plate-item.added { animation: slideIn 0.3s ease; }
-        @keyframes slideIn {
-            from { transform: translateY(-10px); opacity: 0; }
-            to   { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+    /* Summary & Inputs */
+    .panel{
+      margin-top:16px; display:grid; gap:10px;
+    }
+    .total{
+      padding:12px; border-radius:10px;
+      background:linear-gradient(180deg,var(--sand-2),#f7ead7);
+      border:1px solid rgba(34,28,23,.1);
+      font-weight:700;
+    }
+    .input, .btn{
+      width:100%; padding:12px 14px; border-radius:10px;
+      border:1px solid rgba(34,28,23,.15); font:inherit;
+      background:#fff;
+    }
+    .btn{
+      background:var(--ink); color:#fff; border-color:transparent;
+      font-weight:700; cursor:pointer; box-shadow:var(--shadow);
+    }
+    .btn:hover{ filter:brightness(1.05) }
+    .hint{ font-size:.92rem; color:var(--muted) }
 
+    /* Overlay (klik area kanan untuk nutup sidebar di mobile) */
+    .overlay{
+      position:fixed; inset:0; background:rgba(0,0,0,.45);
+      display:none; z-index:1900;
+    }
+    .overlay.active{ display:block }
 
+    /* Mobile */
+    @media (max-width: 900px){
+      #burger{ display:inline-block }
+      .wrap{
+        flex-direction:column; gap:16px; margin:16px auto;
+      }
+      .sidebar{
+        position:fixed; top:72px; left:0; width:min(92vw, 380px);
+        height:calc(100vh - 80px);
+        transform:translateX(-110%); transition:transform .25s ease;
+        z-index:2001;
+      }
+      .sidebar.open{ transform:translateX(0) }
+      .plate{ width:100% }
+    }
+
+    /* Tombol aksi di item plate */
+    .actions{
+    display:flex; gap:6px; margin-left:8px;
+    }
+    .btn-icon{
+    border:0; cursor:pointer; border-radius:8px;
+    padding:6px 10px; font-weight:700; line-height:1;
+    background:#e9e2d9; color:#221C17;
+    }
+    .btn-icon:hover{ filter:brightness(1.05) }
+    .btn-up, .btn-down{ background:#E4CFB4; }     /* aksen sesuai palet */
+    .btn-remove{ background:#C62828; color:#fff; }
+
+  </style>
 </head>
 <body>
-    <div id="burger">☰</div> <div id="overlay"></div>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Pilih Section (Drag ke Kotak)</h2>
-            <div class="section-item" draggable="true" data-name="Nama 1 Orang" data-price="5000">
-                <img src="https://picsum.photos/200/150?random=1" alt="Contoh Nama 1 Orang">
-                <span>Nama 1 Orang</span>
-                <span class="price">Rp. 5.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Nama 2 Orang" data-price="8000">
-                <img src="https://picsum.photos/200/150?random=2" alt="Contoh Nama 2 Orang">
-                <span>Nama 2 Orang</span>
-                <span class="price">Rp. 8.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Galeri Carousel Model 1" data-price="10000">
-                <img src="https://picsum.photos/200/150?random=3" alt="Contoh Galeri Model 1">
-                <span>Galeri Carousel Model 1 (Unlimited Foto)</span>
-                <span class="price">Rp. 10.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Galeri Carousel Model 2" data-price="12000">
-                <img src="https://picsum.photos/200/150?random=4" alt="Contoh Galeri Model 2">
-                <span>Galeri Carousel Model 2 (Unlimited Foto)</span>
-                <span class="price">Rp. 12.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Maps" data-price="7000">
-                <img src="https://picsum.photos/200/150?random=5" alt="Contoh Maps">
-                <span>Maps</span>
-                <span class="price">Rp. 7.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Live Stream" data-price="15000">
-                <img src="https://picsum.photos/200/150?random=6" alt="Contoh Live Stream">
-                <span>Live Stream</span>
-                <span class="price">Rp. 15.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Gift" data-price="10000">
-                <img src="https://picsum.photos/200/150?random=7" alt="Contoh Gift">
-                <span>Gift</span>
-                <span class="price">Rp. 10.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="Music" data-price="6000">
-                <img src="https://picsum.photos/200/150?random=8" alt="Contoh Music">
-                <span>Music</span>
-                <span class="price">Rp. 6.000</span>
-            </div>
-            <div class="section-item" draggable="true" data-name="RSVP" data-price="9000">
-                <img src="https://picsum.photos/200/150?random=9" alt="Contoh RSVP">
-                <span>RSVP</span>
-                <span class="price">Rp. 9.000</span>
-            </div>
-        </div>
-        <div class="plate" id="plate">
-            <h2>Kotak Undangan Anda</h2>
-            <div class="plate-item fixed" data-name="Welcome Page" data-price="0">
-                <span class="content">Welcome Page (Include)</span>
-            </div>
-            <div class="plate-item fixed" data-name="Penutup" data-price="0">
-                <span class="content">Penutup (Include)</span>
-            </div>
-        </div>
-    </div>
-    <div style="max-width: 1200px; margin: 20px auto;">
-        <div id="total">Total Harga: Rp. 0</div>
-        <input type="text" id="folder-name" placeholder="Masukkan Nama Folder (e.g., namaklien)">
-        <button id="finish">Selesai</button>
-    </div>
+  <header class="topbar">
+    <button id="burger" aria-label="Buka menu">☰</button>
+    <div class="brand">Undangan Digital · Prasmanan</div>
+  </header>
 
-    <script>
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Pilih Section">
+      <div class="sidebar__head">Pilih Section (klik untuk menambah)</div>
+      <div class="list" id="list">
+        <!-- Item contoh -->
+        <button class="item" data-name="Nama 1 Orang" data-price="5000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=1" alt="">
+          <div class="meta">
+            <div class="name">Nama 1 Orang</div>
+            <div class="price">Rp 5.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Nama 2 Orang" data-price="8000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=2" alt="">
+          <div class="meta">
+            <div class="name">Nama 2 Orang</div>
+            <div class="price">Rp 8.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Galeri Carousel Model 1" data-price="10000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=3" alt="">
+          <div class="meta">
+            <div class="name">Galeri Carousel Model 1 (Unlimited Foto)</div>
+            <div class="price">Rp 10.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Galeri Carousel Model 2" data-price="12000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=4" alt="">
+          <div class="meta">
+            <div class="name">Galeri Carousel Model 2 (Unlimited Foto)</div>
+            <div class="price">Rp 12.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Maps" data-price="7000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=5" alt="">
+          <div class="meta">
+            <div class="name">Maps</div>
+            <div class="price">Rp 7.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Live Stream" data-price="15000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=6" alt="">
+          <div class="meta">
+            <div class="name">Live Stream</div>
+            <div class="price">Rp 15.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Gift" data-price="10000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=7" alt="">
+          <div class="meta">
+            <div class="name">Gift</div>
+            <div class="price">Rp 10.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="Music" data-price="6000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=8" alt="">
+          <div class="meta">
+            <div class="name">Music</div>
+            <div class="price">Rp 6.000</div>
+          </div>
+        </button>
+        <button class="item" data-name="RSVP" data-price="9000">
+          <img class="thumb" src="https://picsum.photos/200/150?random=9" alt="">
+          <div class="meta">
+            <div class="name">RSVP</div>
+            <div class="price">Rp 9.000</div>
+          </div>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Plate / Canvas -->
+    <section class="plate" id="plate">
+      <h2>Kotak Undangan Anda</h2>
+      <div class="plate-zone" id="plateZone">
+        <div class="pitem fixed" data-name="Welcome Page" data-price="0">
+          <div class="pname">Welcome Page (Include)</div>
+          <div class="pprice">Rp 0</div>
+        </div>
+        <!-- Item dinamis akan masuk di sini -->
+        <div class="pitem fixed" data-name="Penutup" data-price="0">
+          <div class="pname">Penutup (Include)</div>
+          <div class="pprice">Rp 0</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="total" id="total">Total Harga: Rp 0</div>
+        <input class="input" id="folder-name" type="text" placeholder="Masukkan Nama Folder (e.g., namaklien)" />
+        <div id="music-input-container" style="display:none;">
+          <input class="input" id="music-link" type="text" placeholder="Masukkan Link YouTube Musik" />
+          <div class="hint">Input ini muncul otomatis jika menu <b>Music</b> ada di kotak.</div>
+        </div>
+        <button class="btn" id="finish">Selesai</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  // Elemen dasar
   const burger = document.getElementById('burger');
+  const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
-  const sidebar = document.querySelector('.sidebar');
-  const plate = document.getElementById('plate');
+  const plateZone = document.getElementById('plateZone');
   const totalElem = document.getElementById('total');
-  const folderInput = document.getElementById('folder-name');
   const finishBtn = document.getElementById('finish');
-  const sections = document.querySelectorAll('.section-item');
+  const folderInput = document.getElementById('folder-name');
+  const musicContainer = document.getElementById('music-input-container');
+  const musicInput = document.getElementById('music-link');
 
-  /* ===== Sidebar + overlay helpers ===== */
-  function openSidebar() {
+  // Sidebar helpers
+  const openSidebar = () => {
     sidebar.classList.add('open');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-  }
-  function closeSidebar() {
+  };
+  const closeSidebar = () => {
     sidebar.classList.remove('open');
     overlay.classList.remove('active');
     document.body.style.overflow = '';
-  }
-  function toggleSidebar() {
-    if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
-  }
-
-  burger.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleSidebar(); });
-  burger.addEventListener('touchstart', (e) => { e.preventDefault(); e.stopPropagation(); toggleSidebar(); });
+  };
+  const toggleSidebar = () => (sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+  burger.addEventListener('click', toggleSidebar);
   overlay.addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
 
-  // Swipe ke kiri untuk menutup
-  let touchStartX = 0;
-  sidebar.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, {passive:true});
-  sidebar.addEventListener('touchmove', (e) => {
-    const dx = e.touches[0].clientX - touchStartX;
-    if (dx < -50) closeSidebar();
-  }, {passive:true});
+  // Util: temukan item bergerak (bukan .fixed)
+  const movableItems = () => [...plateZone.querySelectorAll('.pitem:not(.fixed)')];
 
-  /* ===== Util: buat item di plate ===== */
-  function createPlateItem(name, price) {
-    const newItem = document.createElement('div');
-    newItem.classList.add('plate-item', 'added');
-    newItem.dataset.name = name;
-    newItem.dataset.price = price;
-    newItem.draggable = true;
-    newItem.innerHTML = `
-      <span class="drag-handle">⋮⋮</span>
-      <span class="content">${name} (Rp. ${parseInt(price, 10).toLocaleString()})</span>
-      <button class="remove">Hapus</button>
+  // Tambah item ke plate (di atas Penutup)
+  function addItemToPlate(name, price) {
+    const row = document.createElement('div');
+    row.className = 'pitem';
+    row.dataset.name = name;
+    row.dataset.price = String(price);
+
+    row.innerHTML = `
+      <div class="pname">${name}</div>
+      <div class="pprice">Rp ${Number(price).toLocaleString('id-ID')}</div>
+      <div class="actions">
+        <button class="btn-icon btn-up" aria-label="Naik">↑</button>
+        <button class="btn-icon btn-down" aria-label="Turun">↓</button>
+        <button class="btn-icon btn-remove" aria-label="Hapus">Hapus</button>
+      </div>
     `;
-    newItem.addEventListener('dragstart', dragStartPlate);
-    newItem.querySelector('.remove').addEventListener('click', removeItem);
 
-    const penutup = plate.querySelector('.plate-item.fixed:last-child');
-    plate.insertBefore(newItem, penutup);
-    setTimeout(() => newItem.classList.remove('added'), 300);
-    return newItem;
-  }
+    // sisipkan sebelum item fixed terakhir (Penutup)
+    const fixedEnd = plateZone.querySelector('.pitem.fixed:last-of-type');
+    plateZone.insertBefore(row, fixedEnd);
 
-  /* ===== Desktop drag dari sidebar ===== */
-  sections.forEach(item => {
-    item.addEventListener('dragstart', dragStart);
-    item.addEventListener('dragend', dragEnd);
-  });
-
-  function dragStart(e) {
-    // desktop only
-    if (window.innerWidth <= 768) return;
-    e.dataTransfer.setData('application/json', JSON.stringify({
-      name: this.dataset.name,
-      price: this.dataset.price
-    }));
-    e.dataTransfer.setData('text/plain', 'sidebar');
-    this.classList.add('dragging');
-  }
-  function dragEnd() { this.classList.remove('dragging'); }
-
-  /* ===== Plate DnD (desktop) ===== */
-  plate.addEventListener('dragover', dragOver);
-  plate.addEventListener('drop', drop);
-  plate.addEventListener('dragenter', dragEnter);
-  plate.addEventListener('dragleave', dragLeave);
-
-  function dragOver(e) { e.preventDefault(); }
-  function dragEnter(e) { e.preventDefault(); this.classList.add('over'); }
-  function dragLeave() { this.classList.remove('over'); }
-
-  function dragStartPlate(e) {
-    const plateItem = this.closest('.plate-item');
-    if (plateItem.classList.contains('fixed')) return;
-    e.dataTransfer.setData('text/html', plateItem.outerHTML);
-    e.dataTransfer.setData('text/plain', 'plate');
-    plateItem.classList.add('dragging');
-    setTimeout(() => plateItem.remove(), 0);
-  }
-
-  function drop(e) {
-    e.preventDefault();
-    this.classList.remove('over');
-    const source = e.dataTransfer.getData('text/plain');
-
-    if (source === 'sidebar') {
-      try {
-        const data = JSON.parse(e.dataTransfer.getData('application/json'));
-        createPlateItem(data.name, data.price);
-        updateTotal();
-      } catch (err) { console.error('Error parsing JSON:', err); }
-    } else if (source === 'plate') {
-      const htmlData = e.dataTransfer.getData('text/html');
-      const temp = document.createElement('div');
-      temp.innerHTML = htmlData;
-      const newItem = temp.firstChild;
-      if (!newItem.classList.contains('plate-item')) return;
-      newItem.classList.add('added');
-      newItem.draggable = true;
-      newItem.addEventListener('dragstart', dragStartPlate);
-      const removeBtn = newItem.querySelector('.remove');
-      if (removeBtn) removeBtn.addEventListener('click', removeItem);
-
-      const penutup = plate.querySelector('.plate-item.fixed:last-child');
-      const target = e.target.closest('.plate-item');
-      if (target && !target.classList.contains('fixed')) {
-        plate.insertBefore(newItem, target.nextSibling);
-      } else {
-        plate.insertBefore(newItem, penutup);
-      }
-      updateTotal();
-      setTimeout(() => newItem.classList.remove('added'), 300);
-    }
-  }
-
-  function removeItem() { this.parentElement.remove(); updateTotal(); }
-
-  /* ===== Mobile long-press drag dari sidebar ===== */
-  let lpTimer = null;
-  let isTouchDragging = false;
-  let dragGhost = null;
-  let dragData = null;
-
-  sections.forEach(item => {
-    item.addEventListener('touchstart', onItemTouchStart, {passive:false});
-    item.addEventListener('touchmove', onItemTouchMove, {passive:false});
-    item.addEventListener('touchend', onItemTouchEnd, {passive:false});
-    item.addEventListener('touchcancel', cancelTouchDrag, {passive:false});
-  });
-
-  function onItemTouchStart(e) {
-    if (window.innerWidth > 768) return; // hanya mobile
-    // cegah scroll saat kita siap long-press
-    e.preventDefault();
-    const el = this;
-    const touch = e.touches[0];
-    const startX = touch.clientX;
-    const startY = touch.clientY;
-
-    dragData = { name: el.dataset.name, price: el.dataset.price, startX, startY, moved:false };
-
-    // long-press 200ms untuk mulai drag
-    lpTimer = setTimeout(() => {
-      startTouchDrag(startX, startY);
-    }, 200);
-  }
-
-  function onItemTouchMove(e) {
-    if (window.innerWidth > 768) return;
-    const touch = e.touches[0];
-    if (!dragData) return;
-
-    const dx = Math.abs(touch.clientX - dragData.startX);
-    const dy = Math.abs(touch.clientY - dragData.startY);
-    if (!isTouchDragging && (dx > 8 || dy > 8)) {
-      // jika belum mulai drag dan jari bergerak banyak -> batalkan long-press
-      dragData.moved = true;
-      clearTimeout(lpTimer);
-    }
-
-    if (isTouchDragging && dragGhost) {
-      e.preventDefault(); // hindari scroll saat dragging
-      positionGhost(touch.clientX, touch.clientY);
-    }
-  }
-
-  function onItemTouchEnd(e) {
-    if (window.innerWidth > 768) return;
-    clearTimeout(lpTimer);
-
-    if (isTouchDragging) {
-      e.preventDefault();
-      const touch = e.changedTouches[0];
-      finishTouchDrag(touch.clientX, touch.clientY);
-    }
-    dragData = null;
-  }
-
-  function cancelTouchDrag() {
-    clearTimeout(lpTimer);
-    cleanupTouchDrag();
-    dragData = null;
-  }
-
-  function startTouchDrag(x, y) {
-    if (!dragData) return;
-    isTouchDragging = true;
-
-    // Tutup sidebar BARU setelah drag beneran dimulai
-    closeSidebar();
-
-    // Buat ghost
-    dragGhost = document.createElement('div');
-    dragGhost.textContent = dragData.name;
-    Object.assign(dragGhost.style, {
-      position: 'fixed',
-      top: '0', left: '0',
-      transform: 'translate(-50%, -50%)',
-      padding: '10px 12px',
-      background: '#333',
-      color: '#fff',
-      borderRadius: '6px',
-      fontSize: '14px',
-      zIndex: '4000',
-      pointerEvents: 'none',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+    // aksi hapus
+    row.querySelector('.btn-remove').addEventListener('click', () => {
+      row.remove();
+      updateTotalAndMusic();
     });
-    document.body.appendChild(dragGhost);
-    positionGhost(x, y);
+
+    // aksi naik
+    row.querySelector('.btn-up').addEventListener('click', () => {
+      const items = movableItems();
+      const idx = items.indexOf(row);
+      if (idx > 0) {
+        plateZone.insertBefore(row, items[idx - 1]); // pindah di atas tetangga sebelumnya
+      }
+      updateTotalAndMusic();
+    });
+
+    // aksi turun
+    row.querySelector('.btn-down').addEventListener('click', () => {
+      const items = movableItems();
+      const idx = items.indexOf(row);
+      if (idx !== -1 && idx < items.length - 1) {
+        const after = items[idx + 1].nextSibling;
+        plateZone.insertBefore(row, after); // pindah di bawah tetangga berikutnya
+      }
+      updateTotalAndMusic();
+    });
+
+    updateTotalAndMusic();
   }
 
-  function positionGhost(x, y) {
-    dragGhost.style.transform = `translate(${x}px, ${y}px)`;
-  }
+  // Klik item sidebar -> tambah
+  document.getElementById('list').addEventListener('click', (e) => {
+    const btn = e.target.closest('.item');
+    if (!btn) return;
+    const name = btn.getAttribute('data-name');
+    const price = parseInt(btn.getAttribute('data-price'), 10) || 0;
+    addItemToPlate(name, price);
+    if (window.innerWidth <= 900) closeSidebar(); // auto-close di mobile
+  });
 
-  function finishTouchDrag(x, y) {
-    // Cek apakah lepas di atas plate
-    const rect = plate.getBoundingClientRect();
-    const inside =
-      x >= rect.left && x <= rect.right &&
-      y >= rect.top  && y <= rect.bottom;
+  // Hitung total & visibilitas music input
+  function updateTotalAndMusic() {
+    let total = 0;
+    let hasMusic = false;
+    movableItems().forEach(el => {
+      total += parseInt(el.dataset.price, 10) || 0;
+      if (el.dataset.name === 'Music') hasMusic = true;
+    });
+    totalElem.textContent = `Total Harga: Rp ${total.toLocaleString('id-ID')}`;
 
-    if (inside && dragData) {
-      createPlateItem(dragData.name, dragData.price);
-      updateTotal();
-    }
-    cleanupTouchDrag();
-  }
-
-  function cleanupTouchDrag() {
-    isTouchDragging = false;
-    if (dragGhost && dragGhost.parentNode) dragGhost.parentNode.removeChild(dragGhost);
-    dragGhost = null;
-  }
-
-  /* ===== Music input (otomatis saat ada "Music") ===== */
-  let musicContainer = document.getElementById('music-input-container');
-  if (!musicContainer) {
-    musicContainer = document.createElement('div');
-    musicContainer.id = 'music-input-container';
-    musicContainer.style.display = 'none';
-    musicContainer.style.marginTop = '10px';
-    const musicInput = document.createElement('input');
-    musicInput.type = 'text';
-    musicInput.id = 'music-link';
-    musicInput.placeholder = 'Masukkan Link YouTube Musik';
-    musicInput.style.width = '100%';
-    musicInput.style.padding = '10px';
-    musicContainer.appendChild(musicInput);
-    // sisipkan setelah tombol finish
-    finishBtn.parentElement.appendChild(musicContainer);
-  }
-  const musicInput = document.getElementById('music-link');
-
-  function updateMusicInputVisibility() {
-    const hasMusic = !!plate.querySelector('.plate-item:not(.fixed)[data-name="Music"]');
     if (hasMusic) {
       musicContainer.style.display = 'block';
     } else {
       musicContainer.style.display = 'none';
-      if (musicInput) musicInput.value = '';
+      musicInput.value = '';
     }
   }
 
-  /* ===== Total & WhatsApp ===== */
-  function updateTotal() {
-    let total = 0;
-    plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-      total += parseInt(item.dataset.price, 10);
-    });
-    totalElem.textContent = `Total Harga: Rp. ${total.toLocaleString()}`;
-    updateMusicInputVisibility();
-  }
-
+  // Kirim WA
   finishBtn.addEventListener('click', () => {
-    const folder = folderInput.value.trim();
-    if (!folder) { alert('Masukkan nama folder!'); return; }
+    const folder = (folderInput.value || '').trim();
+    if (!folder) { alert('Masukkan nama folder!'); folderInput.focus(); return; }
 
-    const items = plate.querySelectorAll('.plate-item:not(.fixed)');
+    const items = movableItems();
     let message = `Nama Folder: ${folder}\n`;
-    items.forEach((item, idx) => { message += `Urutan ${idx + 1}: ${item.dataset.name}\n`; });
-    const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, ''), 10) || 0;
-    message += `Total harga: Rp. ${total.toLocaleString()}`;
+    items.forEach((el, i) => { message += `Urutan ${i + 1}: ${el.dataset.name}\n`; });
+
+    const total = totalElem.textContent.replace(/[^\d]/g,'');
+    message += `Total harga: Rp ${Number(total||0).toLocaleString('id-ID')}`;
 
     if (musicContainer.style.display === 'block' && musicInput.value.trim() !== '') {
       message += `\nLink Musik: ${musicInput.value.trim()}`;
@@ -505,14 +435,8 @@
   });
 
   // Init
-  plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-    item.draggable = true;
-    item.addEventListener('dragstart', dragStartPlate);
-  });
-  updateTotal();
+  updateTotalAndMusic();
 </script>
-
-
 
 </body>
 </html>
