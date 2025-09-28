@@ -26,7 +26,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+            z-index: 2000; /* dinaikkan agar di atas overlay */
             transition: transform 0.3s ease-in-out;
             overflow-y: auto;   /* biar bisa discroll */
             max-height: 100vh;  /* batasi tinggi maksimal layar */
@@ -50,27 +50,18 @@
             border-radius: 4px;
             margin-bottom: 5px;
         }
-        .section-item span {
-            font-weight: 500;
-        }
-        .section-item .price {
-            color: green;
-            font-size: 0.9em;
-        }
-        /* Overlay hitam transparan untuk menutup sidebar */
+        .section-item span { font-weight: 500; }
+        .section-item .price { color: green; font-size: 0.9em; }
+
+        /* Overlay untuk menutup sidebar saat klik area kanan */
         #overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1500;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500; /* di bawah sidebar */
         }
-        #overlay.active {
-        display: block;
-        }
+        #overlay.active { display: block; }
 
         .plate {
             width: 70%;
@@ -90,115 +81,53 @@
             position: relative;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
-        .plate-item.fixed {
-            background-color: #f0f0f0;
-            cursor: default;
-        }
-        .plate-item .drag-handle {
-            cursor: grab;
-            padding-right: 10px;
-            font-size: 1.2em;
-        }
-        .plate-item .content {
-            flex-grow: 1;
-        }
+        .plate-item.fixed { background-color: #f0f0f0; cursor: default; }
+        .plate-item .drag-handle { cursor: grab; padding-right: 10px; font-size: 1.2em; }
+        .plate-item .content { flex-grow: 1; }
         .plate-item .remove {
-            background: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 4px;
+            background: red; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;
         }
-        #total {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: 700;
-        }
+
+        #total { margin-top: 20px; font-size: 1.2em; font-weight: 700; }
         #folder-name {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            width: 100%; padding: 10px; margin-bottom: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
         }
         #finish {
-            background: blue;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background 0.2s ease;
+            background: blue; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px;
+            font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s ease;
         }
-        #finish:hover {
-            background: darkblue;
-        }
+        #finish:hover { background: darkblue; }
+
         #burger {
             display: none;
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #007bff;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            z-index: 2000;
-            transition: background 0.2s ease;
+            top: 20px; left: 20px;
+            background: #007bff; color: white; padding: 10px; cursor: pointer; border-radius: 4px;
+            z-index: 3000; transition: background 0.2s ease;
         }
-        #burger:hover {
-            background: #0056b3;
-        }
+        #burger:hover { background: #0056b3; }
 
-        /* ====== Perbaikan untuk mobile ====== */
+        /* ====== Tata letak mobile ====== */
         @media (max-width: 768px) {
-            .container {
-            flex-direction: column;
-            margin: 60px auto 20px;
-            }
+            .container { flex-direction: column; margin: 60px auto 20px; }
             .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 80%;
-            height: 100%;
-            transform: translateX(-100%);
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 80%; height: 100%;
+            transform: translateX(-100%); /* hidden default */
             }
-            .sidebar.open {
-            transform: translateX(0);
-            }
-            .plate {
-            width: 100%;
-            }
-            #burger {
-            display: block;
-            z-index: 2000;
-            }
+            .sidebar.open { transform: translateX(0); }
+            .plate { width: 100%; }
+            #burger { display: block; }
         }
 
-        .dragging {
-            opacity: 0.5;
-            transform: scale(0.95);
-        }
-        .over {
-            border: 2px dashed #000;
-        }
-        .plate-item.added {
-            animation: slideIn 0.3s ease;
-        }
+        .dragging { opacity: 0.5; transform: scale(0.95); }
+        .over { border: 2px dashed #000; }
+        .plate-item.added { animation: slideIn 0.3s ease; }
         @keyframes slideIn {
-            from {
-            transform: translateY(-10px);
-            opacity: 0;
-            }
-            to {
-            transform: translateY(0);
-            opacity: 1;
-            }
+            from { transform: translateY(-10px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
         }
     </style>
+
 
 </head>
 <body>
@@ -270,6 +199,7 @@
 
     <script>
         const burger = document.getElementById('burger');
+        const overlay = document.getElementById('overlay');
         const sidebar = document.querySelector('.sidebar');
         const plate = document.getElementById('plate');
         const totalElem = document.getElementById('total');
@@ -277,110 +207,126 @@
         const finishBtn = document.getElementById('finish');
         const sections = document.querySelectorAll('.section-item');
 
-        // Toggle sidebar on mobile
+        /* ===== Helpers sidebar + overlay ===== */
+        function openSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // kunci scroll background
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // balikin scroll
+        }
+        function toggleSidebar() {
+            if (sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+        }
+
+        // Toggle sidebar (burger)
         burger.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            sidebar.classList.toggle('open');
+            e.preventDefault(); e.stopPropagation();
+            toggleSidebar();
         });
-
         burger.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            sidebar.classList.toggle('open');
+            e.preventDefault(); e.stopPropagation();
+            toggleSidebar();
         });
 
-        // Drag to close sidebar on mobile
+        // Klik overlay -> tutup
+        overlay.addEventListener('click', closeSidebar);
+
+        // Geser ke kiri untuk menutup (mobile)
         let touchStartX = 0;
         sidebar.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
         });
         sidebar.addEventListener('touchmove', (e) => {
-            const touchX = e.touches[0].clientX;
-            if (touchStartX - touchX > 50) {
-            sidebar.classList.remove('open');
-            }
+            const dx = e.touches[0].clientX - touchStartX;
+            if (dx < -50) closeSidebar();
         });
 
-        // Drag and drop from sidebar
+        // ESC untuk menutup
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
+
+        /* ====== Buat item plate reusable ====== */
+        function createPlateItem(name, price) {
+            const newItem = document.createElement('div');
+            newItem.classList.add('plate-item', 'added');
+            newItem.dataset.name = name;
+            newItem.dataset.price = price;
+            newItem.draggable = true;
+            newItem.innerHTML = `
+            <span class="drag-handle">⋮⋮</span>
+            <span class="content">${name} (Rp. ${parseInt(price, 10).toLocaleString()})</span>
+            <button class="remove">Hapus</button>
+            `;
+            newItem.addEventListener('dragstart', dragStartPlate);
+            newItem.querySelector('.remove').addEventListener('click', removeItem);
+
+            const penutup = plate.querySelector('.plate-item.fixed:last-child');
+            plate.insertBefore(newItem, penutup);
+            setTimeout(() => newItem.classList.remove('added'), 300);
+            return newItem;
+        }
+
+        /* ====== Drag & drop dari sidebar (desktop) ====== */
         sections.forEach(item => {
+            // Desktop drag
             item.addEventListener('dragstart', dragStart);
             item.addEventListener('dragend', dragEnd);
-            // Handle touchstart for mobile drag initiation
-            item.addEventListener('touchstart', (e) => {
+
+            // Mobile: tap untuk add (tanpa menutup sidebar)
+            item.addEventListener('click', (e) => {
             if (window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
+                e.preventDefault();
+                createPlateItem(item.dataset.name, item.dataset.price);
+                updateTotal();
             }
             });
         });
-
-        // Drag and drop events for plate
-        plate.addEventListener('dragover', dragOver);
-        plate.addEventListener('drop', drop);
-        plate.addEventListener('dragenter', dragEnter);
-        plate.addEventListener('dragleave', dragLeave);
 
         function dragStart(e) {
             e.dataTransfer.setData('application/json', JSON.stringify({
             name: this.dataset.name,
             price: this.dataset.price
             }));
-            e.dataTransfer.setData('text/plain', 'sidebar'); // Indicate source
+            e.dataTransfer.setData('text/plain', 'sidebar');
             this.classList.add('dragging');
-            if (window.innerWidth <= 768) {
-            sidebar.classList.remove('open');
-            }
         }
+        function dragEnd() { this.classList.remove('dragging'); }
+
+        /* ====== Drag & drop area plate ====== */
+        plate.addEventListener('dragover', dragOver);
+        plate.addEventListener('drop', drop);
+        plate.addEventListener('dragenter', dragEnter);
+        plate.addEventListener('dragleave', dragLeave);
+
+        function dragOver(e) { e.preventDefault(); }
+        function dragEnter(e) { e.preventDefault(); this.classList.add('over'); }
+        function dragLeave() { this.classList.remove('over'); }
 
         function dragStartPlate(e) {
             const plateItem = this.closest('.plate-item');
             if (plateItem.classList.contains('fixed')) return;
             e.dataTransfer.setData('text/html', plateItem.outerHTML);
-            e.dataTransfer.setData('text/plain', 'plate'); // Indicate source
+            e.dataTransfer.setData('text/plain', 'plate');
             plateItem.classList.add('dragging');
             setTimeout(() => plateItem.remove(), 0);
-        }
-
-        function dragOver(e) {
-            e.preventDefault();
-        }
-
-        function dragEnter(e) {
-            e.preventDefault();
-            this.classList.add('over');
-        }
-
-        function dragLeave() {
-            this.classList.remove('over');
         }
 
         function drop(e) {
             e.preventDefault();
             this.classList.remove('over');
             const source = e.dataTransfer.getData('text/plain');
-            const penutup = plate.querySelector('.plate-item.fixed:last-child');
 
             if (source === 'sidebar') {
             try {
                 const data = JSON.parse(e.dataTransfer.getData('application/json'));
-                const newItem = document.createElement('div');
-                newItem.classList.add('plate-item', 'added');
-                newItem.dataset.name = data.name;
-                newItem.dataset.price = data.price;
-                newItem.draggable = true;
-                newItem.innerHTML = `
-                <span class="drag-handle">⋮⋮</span>
-                <span class="content">${data.name} (Rp. ${parseInt(data.price).toLocaleString()})</span>
-                <button class="remove">Hapus</button>
-                `;
-                newItem.addEventListener('dragstart', dragStartPlate);
-                newItem.querySelector('.remove').addEventListener('click', removeItem);
-                plate.insertBefore(newItem, penutup);
+                createPlateItem(data.name, data.price);
                 updateTotal();
-                setTimeout(() => newItem.classList.remove('added'), 300);
-            } catch (error) {
-                console.error('Error parsing JSON:', error);
-            }
+            } catch (err) { console.error('Error parsing JSON:', err); }
             } else if (source === 'plate') {
             const htmlData = e.dataTransfer.getData('text/html');
             const temp = document.createElement('div');
@@ -392,6 +338,8 @@
             newItem.addEventListener('dragstart', dragStartPlate);
             const removeBtn = newItem.querySelector('.remove');
             if (removeBtn) removeBtn.addEventListener('click', removeItem);
+
+            const penutup = plate.querySelector('.plate-item.fixed:last-child');
             const target = e.target.closest('.plate-item');
             if (target && !target.classList.contains('fixed')) {
                 plate.insertBefore(newItem, target.nextSibling);
@@ -403,46 +351,74 @@
             }
         }
 
-        function dragEnd() {
-            this.classList.remove('dragging');
+        function removeItem() { this.parentElement.remove(); updateTotal(); }
+
+        /* ====== Music input (otomatis muncul kalau ada "Music") ====== */
+        // Siapkan container input musik (buat otomatis kalau belum ada di HTML)
+        let musicContainer = document.getElementById('music-input-container');
+        if (!musicContainer) {
+            musicContainer = document.createElement('div');
+            musicContainer.id = 'music-input-container';
+            musicContainer.style.display = 'none';
+            musicContainer.style.marginTop = '10px';
+            const musicInput = document.createElement('input');
+            musicInput.type = 'text';
+            musicInput.id = 'music-link';
+            musicInput.placeholder = 'Masukkan Link YouTube Musik';
+            musicInput.style.width = '100%';
+            musicInput.style.padding = '10px';
+            musicContainer.appendChild(musicInput);
+            // sisipkan setelah tombol finish
+            finishBtn.parentElement.appendChild(musicContainer);
+        }
+        const musicInput = document.getElementById('music-link');
+
+        function updateMusicInputVisibility() {
+            const hasMusic = !!plate.querySelector('.plate-item:not(.fixed)[data-name="Music"]');
+            if (hasMusic) {
+            musicContainer.style.display = 'block';
+            } else {
+            musicContainer.style.display = 'none';
+            if (musicInput) musicInput.value = '';
+            }
         }
 
-        function removeItem() {
-            this.parentElement.remove();
-            updateTotal();
-        }
-
+        /* ====== Total & WA ====== */
         function updateTotal() {
             let total = 0;
             plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
-            total += parseInt(item.dataset.price);
+            total += parseInt(item.dataset.price, 10);
             });
             totalElem.textContent = `Total Harga: Rp. ${total.toLocaleString()}`;
+            updateMusicInputVisibility();
         }
 
         finishBtn.addEventListener('click', () => {
             const folder = folderInput.value.trim();
-            if (!folder) {
-            alert('Masukkan nama folder!');
-            return;
-            }
+            if (!folder) { alert('Masukkan nama folder!'); return; }
+
             const items = plate.querySelectorAll('.plate-item:not(.fixed)');
             let message = `Nama Folder: ${folder}\n`;
-            items.forEach((item, index) => {
-            message += `Urutan ${index + 1}: ${item.dataset.name}\n`;
-            });
-            const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, '')) || 0;
+            items.forEach((item, idx) => { message += `Urutan ${idx + 1}: ${item.dataset.name}\n`; });
+            const total = parseInt(totalElem.textContent.replace(/[^0-9]/g, ''), 10) || 0;
             message += `Total harga: Rp. ${total.toLocaleString()}`;
+
+            if (musicContainer.style.display === 'block' && musicInput.value.trim() !== '') {
+            message += `\nLink Musik: ${musicInput.value.trim()}`;
+            }
+
             const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
             window.open(waUrl, '_blank');
         });
 
-        // Initialize dragstart for existing plate items
+        // Init: enable drag on any existing non-fixed items (if any) dan hitung total
         plate.querySelectorAll('.plate-item:not(.fixed)').forEach(item => {
             item.draggable = true;
             item.addEventListener('dragstart', dragStartPlate);
         });
-        </script>
+        updateTotal();
+    </script>
+
 
 </body>
 </html>
