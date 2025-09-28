@@ -1,58 +1,69 @@
-let stream;
-let video = document.getElementById('video');
-let resultDiv = document.getElementById('result');
+let jumlahSoal = 30;
+let kunci = [];
 
-async function startCamera() {
-    try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        requestAnimationFrame(processFrame);
-    } catch (err) {
-        alert('Gagal mengakses kamera: ' + err);
-    }
-}
-
-function stopCamera() {
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
-        resultDiv.innerHTML = '';
-    }
-}
-
-async function processFrame() {
-    const keyInput = document.getElementById('keyAnswers').value.toUpperCase();
-    if (keyInput.length !== 30) {
-        resultDiv.innerHTML = 'Kunci jawaban harus 30 huruf (A/B/C/D)!';
-        return;
-    }
-
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0);
-
-    const { data: { text } } = await Tesseract.recognize(canvas, 'eng', {
-        logger: info => console.log(info)
+// Buat form kunci jawaban dinamis
+function renderKunci() {
+  const container = document.getElementById("kunciContainer");
+  container.innerHTML = "";
+  for (let i = 1; i <= jumlahSoal; i++) {
+    const label = document.createElement("label");
+    label.textContent = i + ". ";
+    const select = document.createElement("select");
+    ["A","B","C","D"].forEach(opt => {
+      const option = document.createElement("option");
+      option.value = opt;
+      option.textContent = opt;
+      select.appendChild(option);
     });
-
-    const studentAnswers = extractAnswers(text);
-    const score = compareAnswers(keyInput, studentAnswers);
-    resultDiv.innerHTML = `Skor: ${score}/30<br>Jawaban Siswa: ${studentAnswers}<br>Kunci: ${keyInput}`;
-
-    if (video.srcObject) requestAnimationFrame(processFrame);
+    container.appendChild(label);
+    container.appendChild(select);
+    container.appendChild(document.createElement("br"));
+  }
 }
 
-function extractAnswers(text) {
-    const answers = text.match(/[ABCD]/g) || [];
-    return answers.slice(0, 30).join('');
+// Update jumlah soal
+document.getElementById("jumlahSoal").addEventListener("change", e => {
+  jumlahSoal = parseInt(e.target.value);
+  renderKunci();
+});
+
+// Simpan kunci
+document.getElementById("simpanKunci").addEventListener("click", () => {
+  kunci = Array.from(document.querySelectorAll("#kunciContainer select"))
+               .map(s => s.value);
+  alert("Kunci tersimpan!");
+});
+
+// Setup kamera
+const video = document.getElementById("video");
+navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+  .then(stream => { video.srcObject = stream; })
+  .catch(err => alert("Tidak bisa akses kamera: " + err));
+
+// Capture foto
+document.getElementById("capture").addEventListener("click", () => {
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0);
+
+  // Proses OpenCV
+  let src = cv.imread(canvas);
+  cv.cvtColor(src, src, cv.COLOR_RGBA2GRAY);
+  cv.threshold(src, src, 120, 255, cv.THRESH_BINARY_INV);
+  
+  // TODO: crop grid (40x4), deteksi kotak isi, tentukan jawaban siswa
+  
+  document.getElementById("hasil").textContent = 
+    "Foto diambil & diproses. Deteksi jawaban belum diimplementasi penuh.";
+  
+  src.delete();
+});
+
+function onOpenCvReady() {
+  console.log("OpenCV.js siap!");
 }
 
-function compareAnswers(key, student) {
-    let correct = 0;
-    for (let i = 0; i < 30; i++) {
-        if (key[i] === student[i]) correct++;
-    }
-    return correct;
-}
+// Render awal
+renderKunci();

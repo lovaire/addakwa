@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Korektor Real-Time</title>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.0/dist/tesseract.min.js"></script>
-    <script src="script.js" defer></script>
-    <style>
-        video { border: 2px solid black; }
-        #result { margin-top: 10px; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8">
+  <title>LJK Corrector</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Korektor Lembar Jawaban Real-Time</h1>
-    <label>Masukkan Kunci Jawaban (30 soal, A/B/C/D): </label><br>
-    <input type="text" id="keyAnswers" placeholder="Contoh: ABCD..."><br><br>
-    <video id="video" width="640" height="480" autoplay></video>
-    <div id="result"></div>
-    <button onclick="startCamera()">Mulai Kamera</button>
-    <button onclick="stopCamera()">Hentikan Kamera</button>
+  <h1>Alat Koreksi LJK</h1>
+
+  <!-- Input jumlah soal -->
+  <label>Jumlah Soal: </label>
+  <input type="number" id="jumlahSoal" value="30" min="1" max="40">
+
+  <!-- Input kunci jawaban -->
+  <h3>Kunci Jawaban</h3>
+  <div id="kunciContainer"></div>
+  <button id="simpanKunci">Simpan Kunci</button>
+
+  <h3>Ambil Foto LJK</h3>
+  <video id="video" autoplay playsinline></video>
+  <button id="capture">📷 Ambil Foto</button>
+  <canvas id="canvas"></canvas>
+
+  <h3>Hasil Koreksi</h3>
+  <pre id="hasil"></pre>
+
+  <script async src="opencv.js" onload="onOpenCvReady();"></script>
+  <script src="script.js"></script>
 </body>
 </html>
