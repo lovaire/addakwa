@@ -96,6 +96,16 @@
       border:1px solid rgba(34,28,23,.08);
       background:#f1e8dc;
     }
+    .thumb-bg{
+      width:64px; height:113px; /* Rasio 16:9 portrait (64 * 9/16 ≈ 113) */
+      border-radius:10px; object-fit:cover;
+      border:1px solid rgba(34,28,23,.08);
+      background:#f1e8dc;
+    }
+    .item.selected{
+      border-color:var(--success);
+      background:linear-gradient(180deg,#e8f5e9,#fff);
+    }
     .meta{ flex:1; min-width:0 }
     .name{ font-weight:600 }
     .price{ font-size:.92rem; color:var(--muted) }
@@ -131,11 +141,17 @@
     }
     .pname{ font-weight:600 }
     .pprice{ margin-left:auto; font-weight:600; color:#2c4b2f }
-    .remove{
-      margin-left:6px; border:0; cursor:pointer;
-      background:var(--danger); color:#fff; border-radius:8px;
-      padding:6px 10px;
+    .actions{
+      display:flex; gap:6px; margin-left:8px;
     }
+    .btn-icon{
+      border:0; cursor:pointer; border-radius:8px;
+      padding:6px 10px; font-weight:700; line-height:1;
+      background:#e9e2d9; color:#221C17;
+    }
+    .btn-icon:hover{ filter:brightness(1.05) }
+    .btn-up, .btn-down{ background:#E4CFB4; }
+    .btn-remove{ background:#C62828; color:#fff; }
 
     /* Summary & Inputs */
     .panel{
@@ -159,7 +175,19 @@
     .btn:hover{ filter:brightness(1.05) }
     .hint{ font-size:.92rem; color:var(--muted) }
 
-    /* Overlay (klik area kanan untuk nutup sidebar di mobile) */
+    /* Background Section */
+    .bg-selected{
+      padding:12px; border-radius:10px;
+      background:linear-gradient(180deg,#e8f5e9,#fff);
+      border:1px solid rgba(34,28,23,.1);
+      display:flex; align-items:center; gap:10px;
+    }
+    .bg-selected img{
+      width:64px; height:113px; border-radius:8px; object-fit:cover;
+    }
+    .bg-selected .name{ font-weight:600 }
+
+    /* Overlay */
     .overlay{
       position:fixed; inset:0; background:rgba(0,0,0,.45);
       display:none; z-index:1900;
@@ -177,33 +205,15 @@
         top: 72px;
         left: 0;
         width: min(92vw, 380px);
-        /* ❌ sebelumnya: height: calc(100vh - 80px); */
-        /* ✅ pakai dvh agar tidak kepotong di mobile */
         height: calc(100dvh - 80px);
         transform: translateX(-110%);
         transition: transform .25s ease;
         z-index: 2001;
-
-        /* pastikan scroll mulus di mobile */
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+      }
+      .sidebar.open{ transform: translateX(0) }
     }
-    .sidebar.open{ transform: translateX(0) }
-    }
-
-    /* Tombol aksi di item plate */
-    .actions{
-    display:flex; gap:6px; margin-left:8px;
-    }
-    .btn-icon{
-    border:0; cursor:pointer; border-radius:8px;
-    padding:6px 10px; font-weight:700; line-height:1;
-    background:#e9e2d9; color:#221C17;
-    }
-    .btn-icon:hover{ filter:brightness(1.05) }
-    .btn-up, .btn-down{ background:#E4CFB4; }     /* aksen sesuai palet */
-    .btn-remove{ background:#C62828; color:#fff; }
-
   </style>
 </head>
 <body>
@@ -216,10 +226,9 @@
 
   <main class="wrap">
     <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar" aria-label="Pilih Section">
+    <aside class="sidebar" id="sidebar" aria-label="Pilih Section dan Background">
       <div class="sidebar__head">Pilih Section (klik untuk menambah)</div>
       <div class="list" id="list">
-        <!-- Item contoh -->
         <button class="item" data-name="Nama 1 Orang" data-price="5000">
           <img class="thumb" src="https://picsum.photos/200/150?random=1" alt="">
           <div class="meta">
@@ -284,6 +293,27 @@
           </div>
         </button>
       </div>
+      <div class="sidebar__head">Pilih Background (klik untuk memilih)</div>
+      <div class="list" id="bg-list">
+        <button class="item" data-bg-name="Background 1" data-bg-url="https://picsum.photos/400/225?random=10">
+          <img class="thumb-bg" src="https://picsum.photos/400/225?random=10" alt="">
+          <div class="meta">
+            <div class="name">Background 1</div>
+          </div>
+        </button>
+        <button class="item" data-bg-name="Background 2" data-bg-url="https://picsum.photos/400/225?random=11">
+          <img class="thumb-bg" src="https://picsum.photos/400/225?random=11" alt="">
+          <div class="meta">
+            <div class="name">Background 2</div>
+          </div>
+        </button>
+        <button class="item" data-bg-name="Background 3" data-bg-url="https://picsum.photos/400/225?random=12">
+          <img class="thumb-bg" src="https://picsum.photos/400/225?random=12" alt="">
+          <div class="meta">
+            <div class="name">Background 3</div>
+          </div>
+        </button>
+      </div>
     </aside>
 
     <!-- Plate / Canvas -->
@@ -294,7 +324,6 @@
           <div class="pname">Welcome Page (Include)</div>
           <div class="pprice">Rp 0</div>
         </div>
-        <!-- Item dinamis akan masuk di sini -->
         <div class="pitem fixed" data-name="Penutup" data-price="0">
           <div class="pname">Penutup (Include)</div>
           <div class="pprice">Rp 0</div>
@@ -302,6 +331,9 @@
       </div>
 
       <div class="panel">
+        <div class="bg-selected" id="bg-selected">
+          <div class="name">Belum ada background dipilih</div>
+        </div>
         <div class="total" id="total">Total Harga: Rp 0</div>
         <input class="input" id="folder-name" type="text" placeholder="Masukkan Nama Folder (e.g., namaklien)" />
         <div id="music-input-container" style="display:none;">
@@ -324,6 +356,8 @@
   const folderInput = document.getElementById('folder-name');
   const musicContainer = document.getElementById('music-input-container');
   const musicInput = document.getElementById('music-link');
+  const bgList = document.getElementById('bg-list');
+  const bgSelected = document.getElementById('bg-selected');
 
   // Sidebar helpers
   const openSidebar = () => {
@@ -361,33 +395,29 @@
       </div>
     `;
 
-    // sisipkan sebelum item fixed terakhir (Penutup)
     const fixedEnd = plateZone.querySelector('.pitem.fixed:last-of-type');
     plateZone.insertBefore(row, fixedEnd);
 
-    // aksi hapus
     row.querySelector('.btn-remove').addEventListener('click', () => {
       row.remove();
       updateTotalAndMusic();
     });
 
-    // aksi naik
     row.querySelector('.btn-up').addEventListener('click', () => {
       const items = movableItems();
       const idx = items.indexOf(row);
       if (idx > 0) {
-        plateZone.insertBefore(row, items[idx - 1]); // pindah di atas tetangga sebelumnya
+        plateZone.insertBefore(row, items[idx - 1]);
       }
       updateTotalAndMusic();
     });
 
-    // aksi turun
     row.querySelector('.btn-down').addEventListener('click', () => {
       const items = movableItems();
       const idx = items.indexOf(row);
       if (idx !== -1 && idx < items.length - 1) {
         const after = items[idx + 1].nextSibling;
-        plateZone.insertBefore(row, after); // pindah di bawah tetangga berikutnya
+        plateZone.insertBefore(row, after);
       }
       updateTotalAndMusic();
     });
@@ -402,7 +432,30 @@
     const name = btn.getAttribute('data-name');
     const price = parseInt(btn.getAttribute('data-price'), 10) || 0;
     addItemToPlate(name, price);
-    if (window.innerWidth <= 900) closeSidebar(); // auto-close di mobile
+    if (window.innerWidth <= 900) closeSidebar();
+  });
+
+  // Pilih background
+  let selectedBg = null;
+  bgList.addEventListener('click', (e) => {
+    const btn = e.target.closest('.item');
+    if (!btn) return;
+    const name = btn.getAttribute('data-bg-name');
+    const url = btn.getAttribute('data-bg-url');
+
+    // Hapus class selected dari semua item
+    bgList.querySelectorAll('.item').forEach(item => item.classList.remove('selected'));
+    // Tambah class selected ke item yang diklik
+    btn.classList.add('selected');
+    selectedBg = { name, url };
+
+    // Update tampilan background terpilih
+    bgSelected.innerHTML = `
+      <img src="${url}" alt="${name}">
+      <div class="name">${name}</div>
+    `;
+
+    if (window.innerWidth <= 900) closeSidebar();
   });
 
   // Hitung total & visibilitas music input
@@ -430,13 +483,20 @@
 
     const items = movableItems();
     let message = `Nama Folder: ${folder}\n`;
+
+    if (selectedBg) {
+      message += `Background: ${selectedBg.name} (${selectedBg.url})\n`;
+    } else {
+      message += `Background: Tidak ada\n`;
+    }
+
     items.forEach((el, i) => { message += `Urutan ${i + 1}: ${el.dataset.name}\n`; });
 
     const total = totalElem.textContent.replace(/[^\d]/g,'');
-    message += `Total harga: Rp ${Number(total||0).toLocaleString('id-ID')}`;
+    message += `Total Harga: Rp ${Number(total||0).toLocaleString('id-ID')}\n`;
 
     if (musicContainer.style.display === 'block' && musicInput.value.trim() !== '') {
-      message += `\nLink Musik: ${musicInput.value.trim()}`;
+      message += `Link Musik: ${musicInput.value.trim()}`;
     }
 
     const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
@@ -445,7 +505,6 @@
 
   // Init
   updateTotalAndMusic();
-</script>
-
+  </script>
 </body>
 </html>

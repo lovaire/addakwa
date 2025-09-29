@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Invitation Designer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #canvas {
+      width: 1080px;
+      height: 1920px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #221C17;
+    }
+    .draggable {
+      position: absolute;
+      cursor: move;
+      user-select: none;
+    }
+    .draggable.selected {
+      border: 2px dashed #D1B391;
+    }
+    .frame {
+      border: 2px solid #221C17;
+      background-size: cover;
+      background-position: center;
+    }
+    .control-panel {
+      background-color: #221C17;
+      color: #D1B391;
+    }
+    .control-panel input, .control-panel select, .control-panel textarea {
+      background-color: #D1B391;
+      color: #221C17;
+      border: 1px solid #221C17;
+    }
+    .control-panel button {
+      background-color: #D1B391;
+      color: #221C17;
+      transition: background-color 0.3s;
+    }
+    .control-panel button:hover {
+      background-color: #b89a7a;
+    }
+  </style>
+</head>
+<body class="flex bg-gray-100">
+  <!-- Control Panel -->
+  <div class="w-1/4 p-6 control-panel shadow-lg h-screen overflow-y-auto">
+    <h2 class="text-2xl font-bold mb-6 text-[#D1B391]">Design Controls</h2>
+    
+    <!-- Text Controls -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Add Text</h3>
+      <input id="textInput" type="text" placeholder="Enter text" class="w-full p-2 rounded mb-2">
+      <input id="textColor" type="color" value="#000000" class="w-full mb-2">
+      <input id="textSize" type="number" value="16" min="10" max="100" placeholder="Font Size (px)" class="w-full p-2 rounded mb-2">
+      <button onclick="addText()" class="w-full p-2 rounded font-semibold">Add Text</button>
+    </div>
+    
+    <!-- Frame Controls -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Add Frame</h3>
+      <select id="frameShape" class="w-full p-2 rounded mb-2">
+        <option value="rectangle">Rectangle</option>
+        <option value="circle">Circle</option>
+      </select>
+      <input id="frameWidth" type="number" value="200" min="50" max="500" placeholder="Width (px)" class="w-full p-2 rounded mb-2">
+      <input id="frameHeight" type="number" value="200" min="50" max="500" placeholder="Height (px)" class="w-full p-2 rounded mb-2">
+      <input id="frameImage" type="file" accept="image/*" class="w-full mb-2">
+      <button onclick="addFrame()" class="w-full p-2 rounded font-semibold">Add Frame</button>
+    </div>
+    
+    <!-- Delete Element -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Delete Element</h3>
+      <button onclick="deleteSelected()" class="w-full p-2 rounded font-semibold">Delete Selected</button>
+    </div>
+    
+    <!-- Background Image -->
+    <div class="mb-6">
+      <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Background Image</h3>
+      <input id="bgImage" type="file" accept="image/*" class="w-full mb-2">
+      <button onclick="setBackground()" class="w-full p-2 rounded font-semibold">Set Background</button>
+    </div>
+    
+    <!-- Generate Code -->
+    <div>
+      <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Generate Code</h3>
+      <button onclick="generateCode()" class="w-full p-2 rounded font-semibold">Generate HTML/CSS</button>
+      <textarea id="codeOutput" class="w-full h-40 p-2 rounded mt-2" readonly></textarea>
+    </div>
+  </div>
+  
+  <!-- Canvas -->
+  <div class="w-3/4 p-6 flex justify-center">
+    <div id="canvas" class="bg-white shadow-lg"></div>
+  </div>
+
+  <script>
+    let elements = [];
+    let selectedElement = null;
+    
+    // Make elements draggable and selectable
+    function makeDraggable(element, index) {
+      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+      element.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+        selectElement(element, index);
+      }
+
+      function elementDrag(e) {
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+        elements[index].top = parseInt(element.style.top) || elements[index].top;
+        elements[index].left = parseInt(element.style.left) || elements[index].left;
+      }
+
+      function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+
+    // Select element
+    function selectElement(element, index) {
+      document.querySelectorAll('.draggable').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedElement = { element, index };
+    }
+
+    // Delete selected element
+    function deleteSelected() {
+      if (selectedElement) {
+        selectedElement.element.remove();
+        elements.splice(selectedElement.index, 1);
+        selectedElement = null;
+        document.querySelectorAll('.draggable').forEach((el, i) => {
+          el.onmousedown = null;
+          makeDraggable(el, i);
+        });
+      }
+    }
+
+    // Add Text to Canvas
+    function addText() {
+      const text = document.getElementById('textInput').value;
+      const color = document.getElementById('textColor').value;
+      const size = document.getElementById('textSize').value;
+      if (!text) return;
+
+      const textElement = document.createElement('div');
+      textElement.className = 'draggable';
+      textElement.style.color = color;
+      textElement.style.fontSize = `${size}px`;
+      textElement.style.left = '50px';
+      textElement.style.top = '50px';
+      textElement.innerText = text;
+      document.getElementById('canvas').appendChild(textElement);
+      const index = elements.length;
+      makeDraggable(textElement, index);
+      elements.push({ type: 'text', text, color, size, top: 50, left: 50 });
+      document.getElementById('textInput').value = '';
+    }
+
+    // Add Frame to Canvas
+    function addFrame() {
+      const shape = document.getElementById('frameShape').value;
+      const width = document.getElementById('frameWidth').value;
+      const height = document.getElementById('frameHeight').value;
+      const file = document.getElementById('frameImage').files[0];
+
+      const frame = document.createElement('div');
+      frame.className = `draggable frame ${shape === 'circle' ? 'rounded-full' : ''}`;
+      frame.style.width = `${width}px`;
+      frame.style.height = `${height}px`;
+      frame.style.left = '50px';
+      frame.style.top = '50px';
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          frame.style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      document.getElementById('canvas').appendChild(frame);
+      const index = elements.length;
+      makeDraggable(frame, index);
+      elements.push({ type: 'frame', shape, width, height, top: 50, left: 50, image: file ? URL.createObjectURL(file) : null });
+      document.getElementById('frameImage').value = '';
+    }
+
+    // Set Background Image
+    function setBackground() {
+      const file = document.getElementById('bgImage').files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('canvas').style.backgroundImage = `url(${e.target.result})`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Generate HTML/CSS Code
+    function generateCode() {
+      let html = `<section class="py-5" id="section1" style="background-size: cover; background-position: center; min-height: 100vh; width: 1080px; height: 1920px; position: relative;">\n`;
+      elements.forEach((el, index) => {
+        if (el.type === 'text') {
+          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; color: ${el.color}; font-size: ${el.size}px;">${el.text}</div>\n`;
+        } else if (el.type === 'frame') {
+          const borderRadius = el.shape === 'circle' ? 'border-radius: 50%;' : '';
+          const bgImage = el.image ? `background-image: url('${el.image}'); background-size: cover; background-position: center;` : '';
+          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; width: ${el.width}px; height: ${el.height}px; border: 2px solid #221C17; ${borderRadius} ${bgImage}"></div>\n`;
+        }
+      });
+      html += `</section>`;
+      document.getElementById('codeOutput').value = html;
+    }
+
+    // Update element positions on drag
+    document.addEventListener('mouseup', () => {
+      const draggableElements = document.querySelectorAll('.draggable');
+      elements = elements.map((el, index) => {
+        if (draggableElements[index]) {
+          el.top = parseInt(draggableElements[index].style.top) || el.top;
+          el.left = parseInt(draggableElements[index].style.left) || el.left;
+        }
+        return el;
+      });
+    });
+  </script>
+</body>
+</html>
