@@ -7,18 +7,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     #canvas {
-      width: 1080px;
-      height: 1920px;
+      width: 540px;
+      height: 960px;
       background-size: cover;
       background-position: center;
       position: relative;
       overflow: hidden;
       border: 2px solid #221C17;
+      transform: scale(1);
+      transform-origin: top left;
     }
     .draggable {
       position: absolute;
       cursor: move;
       user-select: none;
+      transform: scale(0.5);
+      transform-origin: top left;
     }
     .draggable.selected {
       border: 2px dashed #D1B391;
@@ -126,8 +130,8 @@
         pos4 = e.clientY;
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
-        elements[index].top = parseInt(element.style.top) || elements[index].top;
-        elements[index].left = parseInt(element.style.left) || elements[index].left;
+        elements[index].top = parseInt(element.style.top) * 2 || elements[index].top;
+        elements[index].left = parseInt(element.style.left) * 2 || elements[index].left;
       }
 
       function closeDragElement() {
@@ -167,8 +171,8 @@
       textElement.className = 'draggable';
       textElement.style.color = color;
       textElement.style.fontSize = `${size}px`;
-      textElement.style.left = '50px';
-      textElement.style.top = '50px';
+      textElement.style.left = '25px';
+      textElement.style.top = '25px';
       textElement.innerText = text;
       document.getElementById('canvas').appendChild(textElement);
       const index = elements.length;
@@ -186,10 +190,10 @@
 
       const frame = document.createElement('div');
       frame.className = `draggable frame ${shape === 'circle' ? 'rounded-full' : ''}`;
-      frame.style.width = `${width}px`;
-      frame.style.height = `${height}px`;
-      frame.style.left = '50px';
-      frame.style.top = '50px';
+      frame.style.width = `${width / 2}px`;
+      frame.style.height = `${height / 2}px`;
+      frame.style.left = '25px';
+      frame.style.top = '25px';
 
       if (file) {
         const reader = new FileReader();
@@ -239,8 +243,8 @@
       const draggableElements = document.querySelectorAll('.draggable');
       elements = elements.map((el, index) => {
         if (draggableElements[index]) {
-          el.top = parseInt(draggableElements[index].style.top) || el.top;
-          el.left = parseInt(draggableElements[index].style.left) || el.left;
+          el.top = parseInt(draggableElements[index].style.top) * 2 || el.top;
+          el.left = parseInt(draggableElements[index].style.left) * 2 || el.left;
         }
         return el;
       });
