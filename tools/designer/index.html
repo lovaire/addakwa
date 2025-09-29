@@ -24,9 +24,14 @@
       user-select: none;
       transform: scale(0.3333);
       transform-origin: top left;
+      white-space: nowrap; /* Prevent text wrapping for wider textboxes */
     }
     .draggable.selected {
       border: 2px dashed #D1B391;
+    }
+    .text {
+      position: relative;
+      display: inline-block; /* Allow text to expand based on content or set size */
     }
     .frame {
       border: 2px solid #221C17;
@@ -83,6 +88,8 @@
       <button onclick="loadCustomFont()" class="w-full p-2 rounded font-semibold mb-2">Load Custom Font</button>
       <input id="textColor" type="color" value="#000000" class="w-full mb-2">
       <input id="textSize" type="number" value="16" min="10" max="100" placeholder="Font Size (px)" class="w-full p-2 rounded mb-2">
+      <input id="textWidth" type="number" value="200" min="50" max="500" placeholder="Text Width (px)" class="w-full p-2 rounded mb-2">
+      <input id="textHeight" type="number" value="50" min="20" max="200" placeholder="Text Height (px)" class="w-full p-2 rounded mb-2">
       <button onclick="addText()" class="w-full p-2 rounded font-semibold">Add Text</button>
     </div>
     
@@ -203,8 +210,8 @@
         e.preventDefault();
         startX = e.clientX;
         startY = e.clientY;
-        startWidth = parseInt(element.style.width) || elements[index].width / 3;
-        startHeight = parseInt(element.style.height) || elements[index].height / 3;
+        startWidth = parseInt(element.style.width) || (elements[index].type === 'text' ? elements[index].width / 3 : elements[index].width / 3);
+        startHeight = parseInt(element.style.height) || (elements[index].type === 'text' ? elements[index].height / 3 : elements[index].height / 3);
         document.onmousemove = doResize;
         document.onmouseup = stopResize;
         selectElement(element, index);
@@ -217,7 +224,7 @@
           element.style.width = `${newWidth}px`;
           elements[index].width = newWidth * 3;
         }
-        if (newHeight >= 50 / 3) {
+        if (newHeight >= (elements[index].type === 'text' ? 20 / 3 : 50 / 3)) {
           element.style.height = `${newHeight}px`;
           elements[index].height = newHeight * 3;
         }
@@ -245,7 +252,7 @@
         document.querySelectorAll('.draggable').forEach((el, i) => {
           el.onmousedown = null;
           makeDraggable(el, i);
-          if (el.classList.contains('frame')) makeResizable(el, i);
+          makeResizable(el, i);
         });
       }
     }
@@ -256,20 +263,30 @@
       const font = document.getElementById('textFont').value;
       const color = document.getElementById('textColor').value;
       const size = document.getElementById('textSize').value;
+      const width = document.getElementById('textWidth').value;
+      const height = document.getElementById('textHeight').value;
       if (!text) return;
 
       const textElement = document.createElement('div');
-      textElement.className = 'draggable';
+      textElement.className = 'draggable text';
       textElement.style.color = color;
       textElement.style.fontSize = `${size}px`;
       textElement.style.fontFamily = font;
+      textElement.style.width = `${width / 3}px`;
+      textElement.style.height = `${height / 3}px`;
       textElement.style.left = '17px';
       textElement.style.top = '17px';
       textElement.innerText = text;
+
+      const resizeHandle = document.createElement('div');
+      resizeHandle.className = 'resize-handle';
+      textElement.appendChild(resizeHandle);
+
       document.getElementById('canvas').appendChild(textElement);
       const index = elements.length;
       makeDraggable(textElement, index);
-      elements.push({ type: 'text', text, font, color, size, top: 50, left: 50 });
+      makeResizable(textElement, index);
+      elements.push({ type: 'text', text, font, color, size, width, height, top: 50, left: 50 });
       document.getElementById('textInput').value = '';
     }
 
@@ -324,7 +341,7 @@
       let html = `<section class="py-5" id="section1" style="background-size: cover; background-position: center; min-height: 100vh; width: 1080px; height: 1920px; position: relative;">\n`;
       elements.forEach((el, index) => {
         if (el.type === 'text') {
-          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; color: ${el.color}; font-size: ${el.size}px; font-family: '${el.font}', sans-serif;">${el.text}</div>\n`;
+          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; color: ${el.color}; font-size: ${el.size}px; font-family: '${el.font}', sans-serif; width: ${el.width}px; height: ${el.height}px; white-space: nowrap;">${el.text}</div>\n`;
         } else if (el.type === 'frame') {
           const borderRadius = el.shape === 'circle' ? 'border-radius: 50%;' : '';
           const bgImage = el.image ? `background-image: url('${el.image}'); background-size: cover; background-position: center;` : '';
