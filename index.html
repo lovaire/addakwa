@@ -31,12 +31,12 @@
 
         @keyframes cardPop {
             from {
-                transform: scale(0.95) rotate(1deg);
+                transform: scale(0.95) rotate(1deg) translateY(30px);
                 opacity: 0;
                 box-shadow: 0 0 0 rgba(0, 0, 0, 0);
             }
             to {
-                transform: scale(1) rotate(0deg);
+                transform: scale(1) rotate(0deg) translateY(0);
                 opacity: 1;
                 box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             }
@@ -141,6 +141,9 @@
             text-align: center;
             padding: 4rem 5%;
             background-color: var(--accent-color);
+            background-image: url('https://picsum.photos/1920/1080');
+            background-size: cover;
+            background-position: center;
         }
 
         .hero h1 {
@@ -206,8 +209,9 @@
 
         .partner-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1.5rem;
+            justify-items: center;
         }
 
         .partner-card {
@@ -215,6 +219,7 @@
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
+            width: 150px;
         }
 
         .partner-logo {
@@ -436,7 +441,9 @@
         <h2 class="fade-in-text">Partnership</h2>
         <div class="partner-cards">
             <div class="partner-card card fade-in" style="animation-delay: 0.3s;">
-                <img href="https://instagram.com/da_graphic_" src="https://blogger.googleusercontent.com/img/a/AVvXsEgnZIH5Q6XjZeycA-ATfVJ4qip-6BPKX_F8LgTZCB7D6CmKPOwq1TWUhhVOPJ-z5A_pjU5ZDWByJvo5OR7XBjJkne6oqOTHNPXAiD8qQjKRA8CcmUTyxkieqFW_AlRvOY0v8so_kbrdKPACl3n9KsfHW72meXEt6MVldnMFGMjplTzzHmzqIzc3_NaJx3c" alt="Addakwa Logo" class="logo-img" />
+                <a href="https://instagram.com/da_graphic_">
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgnZIH5Q6XjZeycA-ATfVJ4qip-6BPKX_F8LgTZCB7D6CmKPOwq1TWUhhVOPJ-z5A_pjU5ZDWByJvo5OR7XBjJkne6oqOTHNPXAiD8qQjKRA8CcmUTyxkieqFW_AlRvOY0v8so_kbrdKPACl3n9KsfHW72meXEt6MVldnMFGMjplTzzHmzqIzc3_NaJx3c" alt="Da Graphic Logo" class="logo-img" />
+                </a>
                 <p class="fade-in-text" style="animation-delay: 0.5s;">Da Graphic</p>
             </div>
         </div>
@@ -462,11 +469,14 @@
                     entry.target.querySelectorAll('.fade-in-text').forEach(text => {
                         text.style.animationPlayState = 'running';
                     });
+                    entry.target.querySelectorAll('.card').forEach(card => {
+                        card.style.animationPlayState = 'running';
+                    });
                 }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.fade-in, .card').forEach(el => {
+        document.querySelectorAll('.fade-in, .features, .packages, .partnership, .cta, .footer').forEach(el => {
             observer.observe(el);
         });
 
