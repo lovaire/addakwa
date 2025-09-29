@@ -79,6 +79,8 @@
         <option value="Lora">Lora</option>
         <option value="Poppins">Poppins</option>
       </select>
+      <input id="customFont" type="text" placeholder="Custom Google Font (e.g., Montserrat)" class="w-full p-2 rounded mb-2">
+      <button onclick="loadCustomFont()" class="w-full p-2 rounded font-semibold mb-2">Load Custom Font</button>
       <input id="textColor" type="color" value="#000000" class="w-full mb-2">
       <input id="textSize" type="number" value="16" min="10" max="100" placeholder="Font Size (px)" class="w-full p-2 rounded mb-2">
       <button onclick="addText()" class="w-full p-2 rounded font-semibold">Add Text</button>
@@ -136,6 +138,24 @@
       const canvasHeight = canvasWidth / 0.5625;
       canvas.style.height = `${Math.min(panelHeight, canvasHeight)}px`;
     });
+
+    // Load custom Google Font
+    function loadCustomFont() {
+      const fontName = document.getElementById('customFont').value.trim();
+      if (!fontName) return;
+
+      const fontLink = document.createElement('link');
+      fontLink.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}&display=swap`;
+      fontLink.rel = 'stylesheet';
+      document.head.appendChild(fontLink);
+
+      const fontOption = document.createElement('option');
+      fontOption.value = fontName;
+      fontOption.text = fontName;
+      document.getElementById('textFont').appendChild(fontOption);
+      document.getElementById('textFont').value = fontName;
+      document.getElementById('customFont').value = '';
+    }
 
     // Make elements draggable and selectable
     function makeDraggable(element, index) {
