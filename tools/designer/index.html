@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Digital Invitation Designer</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Roboto&family=Open+Sans&family=Lora&family=Poppins&display=swap" rel="stylesheet">
   <style>
     #canvas {
       width: 360px;
-      height: 640px;
+      height: 640px; /* Will be adjusted dynamically to match control panel */
       background-size: cover;
       background-position: center;
       position: relative;
@@ -64,13 +65,20 @@
 </head>
 <body class="flex bg-gray-100">
   <!-- Control Panel -->
-  <div class="w-1/4 p-6 control-panel shadow-lg h-screen overflow-y-auto">
+  <div class="w-1/4 p-6 control-panel shadow-lg h-screen overflow-y-auto" id="control-panel">
     <h2 class="text-2xl font-bold mb-6 text-[#D1B391]">Design Controls</h2>
     
     <!-- Text Controls -->
     <div class="mb-6">
       <h3 class="text-lg font-semibold text-[#D1B391] mb-2">Add Text</h3>
       <input id="textInput" type="text" placeholder="Enter text" class="w-full p-2 rounded mb-2">
+      <select id="textFont" class="w-full p-2 rounded mb-2">
+        <option value="Amiri">Amiri</option>
+        <option value="Roboto">Roboto</option>
+        <option value="Open Sans">Open Sans</option>
+        <option value="Lora">Lora</option>
+        <option value="Poppins">Poppins</option>
+      </select>
       <input id="textColor" type="color" value="#000000" class="w-full mb-2">
       <input id="textSize" type="number" value="16" min="10" max="100" placeholder="Font Size (px)" class="w-full p-2 rounded mb-2">
       <button onclick="addText()" class="w-full p-2 rounded font-semibold">Add Text</button>
@@ -119,6 +127,16 @@
     let elements = [];
     let selectedElement = null;
     
+    // Adjust canvas height to match control panel
+    window.addEventListener('load', () => {
+      const controlPanel = document.getElementById('control-panel');
+      const canvas = document.getElementById('canvas');
+      const panelHeight = controlPanel.clientHeight;
+      const canvasWidth = 360; // Maintain aspect ratio (1080/1920 = 0.5625)
+      const canvasHeight = canvasWidth / 0.5625;
+      canvas.style.height = `${Math.min(panelHeight, canvasHeight)}px`;
+    });
+
     // Make elements draggable and selectable
     function makeDraggable(element, index) {
       let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -215,6 +233,7 @@
     // Add Text to Canvas
     function addText() {
       const text = document.getElementById('textInput').value;
+      const font = document.getElementById('textFont').value;
       const color = document.getElementById('textColor').value;
       const size = document.getElementById('textSize').value;
       if (!text) return;
@@ -223,13 +242,14 @@
       textElement.className = 'draggable';
       textElement.style.color = color;
       textElement.style.fontSize = `${size}px`;
+      textElement.style.fontFamily = font;
       textElement.style.left = '17px';
       textElement.style.top = '17px';
       textElement.innerText = text;
       document.getElementById('canvas').appendChild(textElement);
       const index = elements.length;
       makeDraggable(textElement, index);
-      elements.push({ type: 'text', text, color, size, top: 50, left: 50 });
+      elements.push({ type: 'text', text, font, color, size, top: 50, left: 50 });
       document.getElementById('textInput').value = '';
     }
 
@@ -284,7 +304,7 @@
       let html = `<section class="py-5" id="section1" style="background-size: cover; background-position: center; min-height: 100vh; width: 1080px; height: 1920px; position: relative;">\n`;
       elements.forEach((el, index) => {
         if (el.type === 'text') {
-          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; color: ${el.color}; font-size: ${el.size}px;">${el.text}</div>\n`;
+          html += `  <div style="position: absolute; top: ${el.top}px; left: ${el.left}px; color: ${el.color}; font-size: ${el.size}px; font-family: '${el.font}', sans-serif;">${el.text}</div>\n`;
         } else if (el.type === 'frame') {
           const borderRadius = el.shape === 'circle' ? 'border-radius: 50%;' : '';
           const bgImage = el.image ? `background-image: url('${el.image}'); background-size: cover; background-position: center;` : '';
