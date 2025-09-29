@@ -7,8 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     #canvas {
-      width: 540px;
-      height: 960px;
+      width: 360px;
+      height: 640px;
       background-size: cover;
       background-position: center;
       position: relative;
@@ -21,7 +21,7 @@
       position: absolute;
       cursor: move;
       user-select: none;
-      transform: scale(0.5);
+      transform: scale(0.3333);
       transform-origin: top left;
     }
     .draggable.selected {
@@ -31,6 +31,17 @@
       border: 2px solid #221C17;
       background-size: cover;
       background-position: center;
+      position: relative;
+    }
+    .resize-handle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background-color: #D1B391;
+      cursor: se-resize;
+      transform: scale(3);
     }
     .control-panel {
       background-color: #221C17;
@@ -114,6 +125,7 @@
       element.onmousedown = dragMouseDown;
 
       function dragMouseDown(e) {
+        if (e.target.classList.contains('resize-handle')) return;
         e.preventDefault();
         pos3 = e.clientX;
         pos4 = e.clientY;
@@ -130,13 +142,52 @@
         pos4 = e.clientY;
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
-        elements[index].top = parseInt(element.style.top) * 2 || elements[index].top;
-        elements[index].left = parseInt(element.style.left) * 2 || elements[index].left;
+        elements[index].top = parseInt(element.style.top) * 3 || elements[index].top;
+        elements[index].left = parseInt(element.style.left) * 3 || elements[index].left;
       }
 
       function closeDragElement() {
         document.onmouseup = null;
         document.onmousemove = null;
+      }
+    }
+
+    // Make elements resizable
+    function makeResizable(element, index) {
+      const handle = element.querySelector('.resize-handle');
+      if (!handle) return;
+
+      let startX, startY, startWidth, startHeight;
+
+      handle.onmousedown = startResize;
+
+      function startResize(e) {
+        e.preventDefault();
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = parseInt(element.style.width) || elements[index].width / 3;
+        startHeight = parseInt(element.style.height) || elements[index].height / 3;
+        document.onmousemove = doResize;
+        document.onmouseup = stopResize;
+        selectElement(element, index);
+      }
+
+      function doResize(e) {
+        const newWidth = startWidth + (e.clientX - startX);
+        const newHeight = startHeight + (e.clientY - startY);
+        if (newWidth >= 50 / 3) {
+          element.style.width = `${newWidth}px`;
+          elements[index].width = newWidth * 3;
+        }
+        if (newHeight >= 50 / 3) {
+          element.style.height = `${newHeight}px`;
+          elements[index].height = newHeight * 3;
+        }
+      }
+
+      function stopResize() {
+        document.onmousemove = null;
+        document.onmouseup = null;
       }
     }
 
@@ -156,6 +207,7 @@
         document.querySelectorAll('.draggable').forEach((el, i) => {
           el.onmousedown = null;
           makeDraggable(el, i);
+          if (el.classList.contains('frame')) makeResizable(el, i);
         });
       }
     }
@@ -171,8 +223,8 @@
       textElement.className = 'draggable';
       textElement.style.color = color;
       textElement.style.fontSize = `${size}px`;
-      textElement.style.left = '25px';
-      textElement.style.top = '25px';
+      textElement.style.left = '17px';
+      textElement.style.top = '17px';
       textElement.innerText = text;
       document.getElementById('canvas').appendChild(textElement);
       const index = elements.length;
@@ -190,10 +242,10 @@
 
       const frame = document.createElement('div');
       frame.className = `draggable frame ${shape === 'circle' ? 'rounded-full' : ''}`;
-      frame.style.width = `${width / 2}px`;
-      frame.style.height = `${height / 2}px`;
-      frame.style.left = '25px';
-      frame.style.top = '25px';
+      frame.style.width = `${width / 3}px`;
+      frame.style.height = `${height / 3}px`;
+      frame.style.left = '17px';
+      frame.style.top = '17px';
 
       if (file) {
         const reader = new FileReader();
@@ -203,9 +255,14 @@
         reader.readAsDataURL(file);
       }
 
+      const resizeHandle = document.createElement('div');
+      resizeHandle.className = 'resize-handle';
+      frame.appendChild(resizeHandle);
+
       document.getElementById('canvas').appendChild(frame);
       const index = elements.length;
       makeDraggable(frame, index);
+      makeResizable(frame, index);
       elements.push({ type: 'frame', shape, width, height, top: 50, left: 50, image: file ? URL.createObjectURL(file) : null });
       document.getElementById('frameImage').value = '';
     }
@@ -243,8 +300,8 @@
       const draggableElements = document.querySelectorAll('.draggable');
       elements = elements.map((el, index) => {
         if (draggableElements[index]) {
-          el.top = parseInt(draggableElements[index].style.top) * 2 || el.top;
-          el.left = parseInt(draggableElements[index].style.left) * 2 || el.left;
+          el.top = parseInt(draggableElements[index].style.top) * 3 || el.top;
+          el.left = parseInt(draggableElements[index].style.left) * 3 || el.left;
         }
         return el;
       });
