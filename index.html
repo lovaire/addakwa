@@ -1,808 +1,626 @@
-<!DOCTYPE html>
-	<meta charset="utf-8">
-        <title>Addakwa | Desain dan Revisi Suka-Suka, Bayar Seikhlasnya!</title>
-        <meta name="description" content="Buat undangan digital pernikahan custom tanpa template, gratis revisi sampai puas. Fitur lengkap: Google Maps, RSVP WhatsApp, Galeri Foto, Hitung Mundur. Bayar seikhlasnya!">
-        <meta name="keywords" content="undangan digital, undangan pernikahan online, buat undangan digital, website undangan nikah, undangan custom, contoh undangan digital">
-        
-        <!-- Structured Data -->
-        <script type="application/ld+json">
-        {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Addakwa - Pembuat Undangan Digital",
-        "description": "Jasa pembuatan undangan digital pernikahan custom dengan desain unik dan fitur lengkap",
-        "serviceType": "Undangan digital pernikahan",
-        "provider": {
-            "@type": "Organization",
-            "name": "Addakwa"
-        },
-        "areaServed": {
-            "@type": "Country",
-            "name": "Indonesia"
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Addakwa - Undangan Digital</title>
+    <meta name="description" content="Promo 100++ Pilihan Tema yang cantik elegan juga animasi imut membuat undangan semakin cantik harga murah dengan kualitas dan Pelayanan Premium" />
+    <link rel="canonical" href="https://addakwa.com/" />
+    <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png" sizes="192x192">
+
+    <!-- Font: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+    <style>
+        :root {
+            --primary-color: #221C17;
+            --secondary-color: #D1B391;
+            --accent-color: #E6D8C7;
+            --dark-accent: #3E332D;
+            --text-color: #333;
+            --white: #fff;
         }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
         }
-        </script>	
 
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="./assets/images/icon-192x192.png" type="image/x-icon">
-		<link rel="icon" type="image/png" sizes="192x192" href="./assets/images/icon-192x192.png">
-		<link rel="manifest" href="addakwa.com/favicon/manifest.json">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-		
-		<!-- Mobile Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-		
+        h1, h2, h3, p, ul {
+            text-align: center;
+        }
 
-		<!-- Web Fonts  -->
-		<link id="googleFonts" href="./css/css" rel="stylesheet" type="text/css">
-
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<link rel="stylesheet" href="./css/all.min.css">
-		<link rel="stylesheet" href="./css/animate.compat.css">
-		<link rel="stylesheet" href="./css/simple-line-icons.min.css">
-		<link rel="stylesheet" href="./css/owl.carousel.min.css">
-		<link rel="stylesheet" href="./css/owl.theme.default.min.css">
-		<link rel="stylesheet" href="./css/magnific-popup.min.css">
-
-        <!-- Theme CSS -->
-        <link rel="stylesheet" href="./css/theme.css">
-        <link rel="stylesheet" href="./css/theme-elements.css">
-        <link rel="stylesheet" href="./css/theme-blog.css">
-        <link rel="stylesheet" href="./css/theme-shop.css">
-
-        <!-- Revolution Slider CSS -->
-        <link rel="stylesheet" href="./css/settings.css">
-        <link rel="stylesheet" href="./css/layers.css">
-        <link rel="stylesheet" href="./css/navigation.css">
-
-        <!-- Demo CSS -->
-        <link rel="stylesheet" href="./css/demo-app-landing.css">
-
-        <!-- Skin CSS -->
-        <link id="skinCSS" rel="stylesheet" href="./css/skin-app-landing.css">
-
-        <!-- Theme Custom CSS -->
-        <link rel="stylesheet" href="./css/custom.css">
-
-        <style>
-            
-		.custom-svg-1 {
-			position: absolute;
-			right: 0;
-			top: -60%;
-		}
-		 /* Section Styles */
-        .detail-fitur {
-            padding: 60px 20px;
+        .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .detail-fitur h1 {
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-left: 20px;
+        }
+
+        nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--secondary-color);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://addakwa.com/hero-bg.jpg') center/cover no-repeat;
+            color: var(--white);
+            padding: 150px 0 100px;
             text-align: center;
-            font-size: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3em;
             margin-bottom: 20px;
-            color: #333;
-            position: relative;
-            padding-bottom: 15px;
+            color: var(--secondary-color);
         }
 
-        .detail-fitur h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: #d4af37;
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
         }
 
-        /* Grid Container */
-        .fitur-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
+        .button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
         }
 
-        /* Fitur Card */
-        .fitur-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .button:hover {
+            background-color: var(--dark-accent);
         }
 
-        .fitur-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .fitur-icon {
-            font-size: 2.5rem;
-            color: #d4af37;
-            margin-bottom: 20px;
-        }
-
-        .fitur-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .fitur-card p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 900px) {
-            .fitur-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        .fitur-container {
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            padding: 20px;
         }
 
-        .fitur-card {
-            background: rgba(255, 255, 255, 0.8);
+        .item, .package, .theme {
+            background: var(--white);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
 
-        .fitur-card:hover {
+        .item:hover, .package:hover {
             transform: translateY(-5px);
         }
-        .partner-logo {
-            transition: transform 0.3s ease;
-        }
-        .partner-logo:hover {
-            transform: scale(1.05);
-        }
-        .comparison-table {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .comparison-table th {
-            padding: 15px;
-            text-align: center;
-            font-weight: 600;
-            background-color: #221C17;
-            color: white;
-        }
-        
-        .comparison-table td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .comparison-table tr:nth-child(even) td {
-            background-color: #f9f9f9;
-        }
-        
-        .comparison-table tr:hover td {
-            background-color: #f1f1f1;
-        }
-        
-        .bi-check-circle-fill.text-success {
-            color: #28a745;
-            font-size: 1.2rem;
-        }
-        
-        .bi-x-circle-fill.text-danger {
-            color: #dc3545;
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .comparison-table th, 
-            .comparison-table td {
-                padding: 10px 8px;
-                font-size: 0.9rem;
-            }
-        }
 
-        @media (max-width: 600px) {
-            .detail-fitur h1 {
-                font-size: 2rem;
-            }
-            
-            .fitur-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .fitur-card {
-                padding: 20px;
-            }
-        </style>
-        <!-- Head Libs -->
-        <script src="./css/twk-main.js.download" charset="UTF-8" crossorigin="*"></script><script src="./css/twk-vendor.js.download" charset="UTF-8" crossorigin="*"></script><script src="./css/twk-chunk-vendors.js.download" charset="UTF-8" crossorigin="*"></script><script src="./css/twk-chunk-common.js.download" charset="UTF-8" crossorigin="*"></script><script src="./css/twk-runtime.js.download" charset="UTF-8" crossorigin="*"></script><script src="./css/twk-app.js.download" charset="UTF-8" crossorigin="*"></script><script async="" src="./css/1fp971vfh" charset="UTF-8" crossorigin="*"></script><script src="./css/modernizr.min.js.download"></script>
-			<style>
-		.owl-carousel .owl-nav {
-			top: 60%;
-			left: -5%;
-			position: absolute;
-			width: 110%;
-			margin-top: 0;
-			transform: translate3d(0, -50%, 0);
-		}
-	</style>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async="" src="./css/js"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-14K2D9YSV5');
-        </script>
-	<script charset="utf-8" src="./css/twk-chunk-2d0d2b7c.js.download"></script><script charset="utf-8" src="./css/twk-chunk-2d224aff.js.download"></script><script charset="utf-8" src="./css/twk-chunk-2d0aef27.js.download"></script><script charset="utf-8" src="./css/twk-chunk-2d0b383d.js.download"></script><script charset="utf-8" src="./css/twk-chunk-2d0da3af.js.download"></script><script charset="utf-8" src="./css/twk-chunk-4fe9d5dd.js.download"></script><script charset="utf-8" src="./css/twk-chunk-7941cc06.js.download"></script><script charset="utf-8" src="./css/twk-chunk-51872844.js.download"></script><script charset="utf-8" src="./css/twk-chunk-2d0c8092.js.download"></script><style type="text/css">#cfcevdtv5s51748562045012 {outline:none !important;
-visibility:visible !important;
-resize:none !important;
-box-shadow:none !important;
-overflow:visible !important;
-background:none !important;
-opacity:1 !important;
-filter:alpha(opacity=100) !important;
--ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important;
--mz-opacity:1 !important;
--khtml-opacity:1 !important;
-top:auto !important;
-right:auto !important;
-bottom:0px !important;
-left:0px !important;
-position:fixed !important;
-border:0 !important;
-min-height:0px  !important;
-min-width:0px  !important;
-max-height:none  !important;
-max-width:none  !important;
-padding:0px !important;
-margin:0px !important;
--moz-transition-property:none !important;
--webkit-transition-property:none !important;
--o-transition-property:none !important;
-transition-property:none !important;
-transform:none !important;
--webkit-transform:none !important;
--ms-transform:none !important;
-width:auto !important;
-height:auto  !important;
-display:none !important;
-z-index:2000000000 !important;
-background-color:transparent !important;
-cursor:none !important;
-float:none !important;
-border-radius:unset !important;
-pointer-events:auto !important;
-clip:auto !important;
-color-scheme:light !important;}#cfcevdtv5s51748562045012.widget-hidden {display: none !important;}#cfcevdtv5s51748562045012.widget-visible {display: block !important;}
-@media print{
- #cfcevdtv5s51748562045012.widget-visible { 
-display: none !important;
- }
-}</style><style type="text/css">.tawk-button-hover[data-v-70fc860f]:focus,.tawk-button-hover[data-v-70fc860f]:hover{background-color:hsla(0,0%,100%,.2)!important;border-radius:5px!important}</style><style type="text/css">@keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-moz-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}@-webkit-keyframes tawkMaxOpen{0%{opacity:0;transform:translate(0, 30px);;}to{opacity:1;transform:translate(0, 0px);}}#eejlbsl89m7s1748562045073.open{animation : tawkMaxOpen .25s ease!important;}@keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-moz-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}@-webkit-keyframes tawkMaxClose{from{opacity: 1;transform:translate(0, 0px);;}to{opacity: 0;transform:translate(0, 30px);;}}#eejlbsl89m7s1748562045073.closed{animation: tawkMaxClose .25s ease!important}</style></head>
-
-    <body data-plugin-scroll-spy="" data-plugin-options="{&#39;target&#39;: &#39;#header&#39;}">
-
-        <div class="body">
-
-
-            <div class="opacity-2"><div class="custom-el custom-el-circle border-color-primary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="0" data-appear-animation-duration="1s" style="top: 20%; left: 50%; width: 38px; height: 38px; animation-duration: 1s; animation-delay: 0ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-circle border-color-secondary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="50" data-appear-animation-duration="1s" style="top: 27%; left: 55%; width: 15px; height: 15px; animation-duration: 1s; animation-delay: 50ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-circle border-color-secondary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="100" data-appear-animation-duration="1s" style="top: 54%; left: 50%; width: 15px; height: 15px; animation-duration: 1s; animation-delay: 100ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-circle custom-el-blur-1 border-color-primary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="100" data-appear-animation-duration="1s" style="top: 70%; left: 47%; width: 48px; height: 48px; animation-duration: 1s; animation-delay: 100ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-rounded-rectangle custom-rotate-45 custom-el-blur-2 border-color-primary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="50" data-appear-animation-duration="1s" style="top: 60%; left: 42%; width: 27px; height: 27px; animation-duration: 1s; animation-delay: 50ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-rounded-rectangle custom-rotate-45 custom-el-blur-1 border-color-primary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="50" data-appear-animation-duration="1s" style="top: 64%; left: 56%; width: 18px; height: 18px; animation-duration: 1s; animation-delay: 50ms;"></div></div>
-
-            <div class="opacity-2"><div class="custom-el custom-el-circle border-color-primary appear-animation animated fadeIn appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="100" data-appear-animation-duration="1s" style="top: 75%; left: 96%; width: 38px; height: 38px; animation-duration: 1s; animation-delay: 100ms;"></div></div>
-
-            <header id="header" class="header-transparent header-transparent-light-bottom-border header-transparent-light-bottom-border-1 header-effect-shrink" data-plugin-options="{&#39;stickyEnabled&#39;: true, &#39;stickyEffect&#39;: &#39;shrink&#39;, &#39;stickyEnableOnBoxed&#39;: true, &#39;stickyEnableOnMobile&#39;: true, &#39;stickyChangeLogo&#39;: true, &#39;stickyStartAt&#39;: 30, &#39;stickyHeaderContainerHeight&#39;: 56}" style="height: 60px; background-color: #D1B391; color: #221C17;">
-                <div class="header-body border-top-0 header-body-bottom-border" style="position: fixed; background-color: #D1B391; color: #221C17; width: 100%;">
-                    <div class="header-container container" style="height: 56px;">
-                        <div class="header-row align-items-center" style="height: 56px;">
-                            <div class="header-column">
-                                <div class="header-row">
-                                    <div class="header-logo" style="height: 56px; display: flex; align-items: center;"></div>
-                                        <a href="addakwa.com/" style="height: 100%; display: flex; align-items: center;">
-                                            <img src="./assets/images/Addakwa.png" class="img-fluid" style="height: 100%; width: auto; max-height: 56px;" alt="wevitation.com" title="Wevitation">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="header-column justify-content-end">
-                                <div class="header-row">
-                                    <div class="header-nav header-nav-links">
-                                        <div class="header-nav-main header-nav-main-text-capitalize header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                                            <nav class="collapse">
-                                                <ul class="nav nav-pills" id="mainNav">
-                                                    <li><a href="addakwa.com/#home" class="nav-link current-page-active active" data-hash="" data-hash-offset="0" data-hash-offset-lg="56" style="color: #221C17;">Home</a></li>
-                                                    <li><a href="addakwa.com/#fitur" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="56" style="color: #221C17;">Fitur</a></li>
-                                                    <li><a href="addakwa.com/#harga" class="nav-link" data-hash="" data-hash-offset="0" data-hash-offset-lg="56" style="color: #221C17;">Harga</a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                    <ul class="header-social-icons social-icons social-icons-clean social-icons-medium ms-0 ms-xl-3 d-none d-md-inline-flex">
-                                        <li class="social-icons-instagram">
-                                            <a href="https://www.instagram.com/addakwa" target="_blank" title="Instagram" style="color: #221C17;">
-                                                <i class="bi-instagram"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav" style="color: #221C17;">
-                                        <i class="bi-dropdown"></i>
-                                    </button>
-                                    <a href="https://wa.me/6285697833911" class="btn btn-primary ms-2" style="background-color: #221C17; color: #D1B391; border: none; padding: 6px 16px; font-size: 0.95rem;"><i class="bi-sign"></i> Order Here!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-            <style>
-                #header {
-                    min-height: 56px !important;
-                }
-                .header-body {
-                    min-height: 56px !important;
-                }
-                .header-container {
-                    min-height: 56px !important;
-                }
-                .main {
-                    padding-top: 70px !important; /* Jarak aman dari navbar ke konten */
-                }
-            </style>
-            <div role="main" class="main" style="background-color: #221C17;">
-
-    <section id="home" class="section bg-transparent border-0 py-5 m-0 p-relative">
-
-        <div class="container pt-lg-5">
-            <div class="row pt-lg-5">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <h1 class="hero-title font-weight-bold mb-4 text-white">Buat Undangan Online Digital Untuk <span style="color: #D1B391" id="typing">Pernikahan</span></h1>
-                    <p class="mb-4 text-white" style="font-weight: 200;">Buat segala jenis undangan apapun, tanpa terikat dengan template, kamu bisa bebas berekspresi melalui desain yang kamu buat sendiri. Bebas revisi sampai jadi!</p>
-                    <a href="https://wa.me/6285697833911" title="buat undangan online digital" class="btn-register position-relative btn btn-lg rounded-pill d-block d-md-inline-flex mb-2 mb-md-0 mr-md-2" style="background-color: #D1B391; color: #221C17; border: none;">
-                        <span class="pr-1" style="color: #221C17;">Pesan Sekarang</span>
-                        <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12h14M13 18l6-6M13 6l6 6" stroke="#221C17" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-                </div>
-                <div class="col-lg-4 pt-5 pt-lg-0 text-center">
-
-                    <div class="custom-carousel-1 m-auto">
-
-                        <div class="owl-carousel owl-theme stage-margin nav-style-1" data-plugin-options="{&#39;items&#39;: 1, &#39;margin&#39;: 10, &#39;loop&#39;: true, &#39;nav&#39;: false, &#39;dots&#39;: false, &#39;stagePadding&#39;: 45, &#39;autoplay&#39;: true, &#39;autoplayTimeout&#39;: 3000}" style="height: auto;">
-                            <div>
-                                <img alt="wevitation - theme 1" class="img-fluid" src="./css/slide-1.jpg" title="Wevitation - Undangan Digital">
-                            </div>
-                            <div>
-                                <img alt="wevitation - theme 2" class="img-fluid" src="./css/slide-2.jpg" title="Wevitation - Undangan Online">
-                            </div>
-                            <div>
-                                <img alt="wevitation - theme 3" class="img-fluid" src="./css/slide-3.jpg" title="Wevitation - Undangan Pernikahan">
-                            </div>
-                            <div>
-                                <img alt="wevitation - theme 4" class="img-fluid" src="./css/slide-4.jpg" title="Wevitation - Digital Invitation">
-                            </div>
-                        </div>
-                        <!-- Inline Prev/Next Buttons -->
-                        <div class="owl-nav mt-3 text-center">
-                            <button type="button" id="custom-owl-prev" class="btn btn-outline-secondary mx-1"><span class="fas fa-chevron-left"></span></button>
-                            <button type="button" id="custom-owl-next" class="btn btn-outline-secondary mx-1"><span class="fas fa-chevron-right"></span></button>
-                        </div>
-                        <img src="./css/bg-smartphone.png" id="phone-frame-slider" alt="">
-                    </div>
-                    <script>
-                    $(document).ready(function(){
-                        var $owl = $('.owl-carousel');
-                        $owl.owlCarousel($owl.data('plugin-options'));
-                        $('#custom-owl-prev').click(function() {
-                            $owl.trigger('prev.owl.carousel');
-                        });
-                        $('#custom-owl-next').click(function() {
-                            $owl.trigger('next.owl.carousel');
-                        });
-                    });
-                    </script>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    
-    <section class="detail-fitur" id="fitur" style="background-color: #D1B391;">
-        <div style="max-width: 700px; margin: 0 auto 16px auto; text-align: center;">
-            <span style="display: inline-block; color: #a67c2c; font-size: 1.05rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 2px;">FITUR UNGGULAN</span>
-            <h1 style="font-size: 2rem; color: #221C17; margin-bottom: 0.7em; font-weight: 700; letter-spacing: 0.5px;">Apa Saja yang Bisa Kamu Dapatkan?</h1>
-        </div>
-        <div class="fitur-container fitur-unggulan-narrow">
-            <!-- Fitur 1 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-geo-alt-fill"></i>
-                </div>
-                <h2>Google Maps</h2>
-                <p>Kami menyertakan Google Maps untuk mempermudah pencarian lokasi acara pernikahan Anda.</p>
-            </div>
-            <!-- Fitur 2 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-calendar-event"></i>
-                </div>
-                <h2>Google Calendar</h2>
-                <p>Tamu dapat menyimpan acara Anda dalam kalender mereka dengan pengingat otomatis.</p>
-            </div>
-            <!-- Fitur 3 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-hourglass-split"></i>
-                </div>
-                <h2>Hitung Mundur</h2>
-                <p>Hitung mundur hari pernikahan Anda bersama tamu undangan.</p>
-            </div>
-            <!-- Fitur 4 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-chat-quote"></i>
-                </div>
-                <h2>Kalimat Mutiara</h2>
-                <p>Sertakan kalimat mutiara favorit Anda sebagai motivasi bagi tamu undangan.</p>
-            </div>
-            <!-- Fitur 5 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-images"></i>
-                </div>
-                <h2>Galeri</h2>
-                <p>Unggah foto tanpa batasan jumlah.</p>
-            </div>
-            <!-- Fitur 6 -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-clipboard-check"></i>
-                </div>
-                <h2>RSVP</h2>
-                <p>Fitur konfirmasi kehadiran yang terhubung dengan sistem kami untuk memudahkan tracking tamu undangan.</p>
-            </div>
-            <!-- Fitur 7: Customable -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-palette-fill"></i>
-                </div>
-                <h2>Customable</h2>
-                <p>Desain sepenuhnya bisa disesuaikan dengan keinginan Anda, mulai dari warna, font, hingga layout.</p>
-            </div>
-            <!-- Fitur 8: Free Revisi -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-arrow-repeat"></i>
-                </div>
-                <h2>Free Revisi</h2>
-                <p>Bebas revisi desain hingga Anda puas, tanpa biaya tambahan apapun.</p>
-            </div>
-            <!-- Fitur 9: Tidak Perlu Template -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-x-square-fill"></i>
-                </div>
-                <h2>Tidak Perlu Template</h2>
-                <p>Bebas dari template kaku, desain dibuat khusus sesuai kepribadian dan keinginan Anda.</p>
-            </div>
-            <!-- Fitur 10: Gambar Ilustrasi -->
-            <div class="fitur-card fitur-fade">
-                <div class="fitur-icon">
-                    <i class="bi bi-easel2-fill"></i>
-                </div>
-                <h2>Gambar Ilustrasi</h2>
-                <p>Tambahkan ilustrasi custom untuk membuat undangan Anda lebih personal dan berkarakter.</p>
-            </div>
-        </div>
-        <style>
-        /* Responsive grid: 2 kolom mobile, 3 kolom desktop, lebih kecil */
-        .fitur-container.fitur-unggulan-narrow {
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .fitur-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-            padding: 10px;
-        }
-        .fitur-card {
-            background: rgba(255,255,255,0.85);
-            border-radius: 8px;
-            padding: 14px 10px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
-            min-width: 0;
-            max-width: 100%;
-        }
-        .fitur-card:hover {
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.13);
-        }
-        .fitur-icon {
-            font-size: 1.5rem;
+        .item img, .theme img {
+            max-width: 100px;
             margin-bottom: 10px;
-            color: #d4af37;
         }
-        .fitur-card h2 {
-            font-size: 1.05rem;
-            margin-bottom: 7px;
-            color: #333;
+
+        .accordion .item {
+            margin-bottom: 10px;
+            border: 1px solid var(--secondary-color);
+            border-radius: 5px;
         }
-        .fitur-card p {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 0;
+
+        .accordion h3 {
+            cursor: pointer;
+            padding: 10px;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            margin: 0;
         }
-        @media (max-width: 900px) {
-            .fitur-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            .fitur-card {
-                padding: 12px 7px;
-            }
-            .fitur-icon {
-                font-size: 1.2rem;
-            }
-            .fitur-card h2 {
-                font-size: 0.98rem;
-            }
-            .fitur-card p {
-                font-size: 0.8rem;
-            }
-            .fitur-container.fitur-unggulan-narrow {
-                max-width: 98vw;
-            }
+
+        .accordion h3:hover {
+            background: var(--dark-accent);
         }
-        @media (max-width: 600px) {
-            .fitur-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 7px;
-                padding: 4px;
-            }
-            .fitur-card {
-                padding: 8px 4px;
-            }
-            .fitur-icon {
-                font-size: 1.1rem;
-            }
-            .fitur-card h2 {
-                font-size: 0.93rem;
-            }
-            .fitur-card p {
-                font-size: 0.75rem;
-            }
-            .fitur-container.fitur-unggulan-narrow {
-                max-width: 99vw;
-            }
+
+        .accordion p {
+            padding: 10px;
+            display: none;
+            background: var(--accent-color);
         }
-        </style>
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cards = document.querySelectorAll('.fitur-fade');
-            cards.forEach((card, i) => {
-                card.style.opacity = 0;
-                card.style.transform = "translateY(30px)";
-                setTimeout(() => {
-                    card.style.transition = "opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1)";
-                    card.style.opacity = 1;
-                    card.style.transform = "translateY(0)";
-                }, 200 + i * 90);
-            });
-        });
-        </script>
-    </section>
-<section class="comparison-section" style="background-color: #221C17; padding: 60px 0;">
-    <div class="container">
-        <h2 class="text-center mb-5" style="color: #D1B391; font-weight: 700;">Mengapa Addakwa?</h2>
-        
-        <div class="comparison-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width: 40%; background-color: #800000; color: #fff;">Fitur</th>
-                        <th style="width: 30%; background-color: #800000; color: #fff;">Kompetitor</th>
-                        <th style="width: 30%; background-color: #D1B391; color: #221C17;">Addakwa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Domain Kustom (.com/nama-klien)</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Tidak Tersedia</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Tersedia</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Batasan Jumlah Tamu</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Ada Batasan</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Tanpa Batas</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Personalisasi Nama Tamu</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Tersedia</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Tersedia</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Jumlah Foto di Galeri</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Terbatas</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Tanpa Batas</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Aktif Selamanya</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> 1 Tahun</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Ya</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Desain Custom Tanpa Template</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Tidak</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Ya</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Revisi Tanpa Batas</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Tidak</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Ya</td>
-                    </tr>
-                    <tr>
-                        <td style="background: #fff; color: #000;">Harga Bayar Seikhlasnya</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-x-circle-fill text-danger"></i> Tidak</td>
-                        <td style="background: #fff; color: #000;"><i class="bi bi-check-circle-fill text-success"></i> Ya</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <style>
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .comparison-table th, .comparison-table td {
-            padding: 15px;
+
+        footer {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 50px 0 20px;
             text-align: center;
-            border: 1px solid #ddd;
         }
-        .comparison-table th {
-            font-weight: 700;
+
+        footer ul {
+            list-style: none;
+            padding: 0;
         }
-        /* Semua sel body tabel putih polos */
-        .comparison-table td {
-            background: #fff !important;
-            color: #000 !important;
+
+        footer a {
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
         }
-        /* Header tetap warna khusus */
-        .comparison-table th:nth-child(1),
-        .comparison-table th:nth-child(2) {
-            background-color: #800000 !important;
-            color: #fff !important;
+
+        footer a:hover {
+            color: var(--accent-color);
         }
-        .comparison-table th:nth-child(3) {
-            background-color: #D1B391 !important;
-            color: #221C17 !important;
+
+        /* AOS settings improvement */
+        [data-aos] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition-property: opacity, transform;
+            transition-duration: 1s;
+            transition-timing-function: ease-out;
         }
-        /* Responsive */
+
+        [data-aos].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 768px) {
-            .comparison-table th, 
-            .comparison-table td {
-                padding: 10px 8px;
-                font-size: 0.9rem;
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-color);
+                flex-direction: column;
+                padding: 20px 0;
+                transform: translateY(-20px);
+                opacity: 0;
+                transition: transform 0.5s ease, opacity 0.5s ease;
+            }
+
+            nav ul.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            nav li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero {
+                padding: 100px 0 50px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .logo-text {
+                font-size: 18px;
             }
         }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* hilangkan underline */
+        }
+
+        .logo-img {
+            height: 32px; /* sesuaikan dengan ukuran logomu */
+            width: auto;
+        }
+
+        .logo-text {
+            margin-left: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #d1b391; /* atau warna yang kamu mau */
+        }
+
+        .logo-wrap:hover .logo-text {
+            color: #f5f5f5; /* biar tidak berubah saat hover */
+        }
+
+
+
     </style>
-</section>
-
-<section class="partnership-section" style="background-color: #221C17; padding: 16px 0; text-align: center;">
-    <div class="container">
-        <h3 style="color: #D1B391; margin-bottom: 12px; font-size: 0.9rem; letter-spacing: 0.5px;">PARTNERSHIP</h3>
-        <div class="partner-logo" style="max-width: 50px; margin: 0 auto;"> <!-- Edit angka 50px untuk ubah ukuran logo -->
-            <a href="https://instagram.com/da_graphic_" target="_blank" rel="noopener">
-                <img src="./assets/images/logo_da_graphic.jpg" alt="DA Graphic Partnership Logo" 
-                     style="width: 100%; height: auto; display: block;"> <!-- width:100% akan mengikuti max-width parent -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="https://addakwa.com/" class="logo-wrap">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX28evTjHL360F9n7dqCgAZw1vmzQrU3fW0SG-DrEF2jXHiwSzeHSyTP4JHUIKrNERJsze0jE3EJ0cPFu-mk2dSXHKgSZXmAISA2hdF7JJXyRTwwSLK6g39E5qaR_FRFH1k1hRAaTwQai0EDfZfuiaixdecb3gdrBsPvUh6sW3IqOoQ8FfhPdyvD6IWTA/s320/Brand%20Design.png" alt="Addakwa Logo" class="logo-img">
+                <span class="logo-text">AdDakwa</span>
             </a>
+
+            <nav>
+                <div class="hamburger" id="hamburger">&#9776;</div>
+                <ul id="nav-menu">
+                    <li><a href="https://addakwa.com/">Home</a></li>
+                    <li><a href="https://addakwa.com/katalog/">Katalog</a></li>
+                    <li><a href="https://addakwa.com/acaralain/">Acara Lain</a></li>
+                    <li><a href="https://addakwa.com/testimoni/">Klien Kami</a></li>
+                    <li><a href="https://addakwa.com/fitur/">Fitur</a></li>
+                    <li><a href="https://addakwa.com/order/">Form Order</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-</section>
+    </header>
+    <main>
+        <section class="hero" data-aos="fade-in">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-aos="fade-up">Bagikan Momen Terindahmu Dengan Undangan Website</h1>
+                    <p data-aos="fade-up" data-aos-delay="200">Solusi pernikahan lebih hemat, praktis, dan kekinian dengan undangan online yang disebar tanpa batas. <b>Promo spesial segera berakhir. Order sekarang!</b></p>
+                    <a href="https://addakwa.com/katalog/" class="button" data-aos="fade-up" data-aos-delay="300">Lihat Tema</a>
+                    <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button" data-aos="fade-up" data-aos-delay="400">Tanya-tanya dulu</a>
+                    <a href="https://addakwa.com/testimoni/" class="button" data-aos="fade-up" data-aos-delay="500">Klien Kami</a>
+                </div>
+                <img src="https://addakwa.com/hero-image.png" alt="Hero Image" data-aos="zoom-in" data-aos-delay="600">
+            </div>
+        </section>
+        <section class="why-us" data-aos="fade-up">
+            <div class="container">
+                <h2 data-aos="fade-down">Kenapa Harus Menggunakan Undangan Digital</h2>
+                <div class="grid">
+                    <div class="item" data-aos="flip-left">
+                        <img src="https://addakwa.com/clock.png" alt="Hemat">
+                        <h3>Hemat Biaya, Waktu, dan Tenaga</h3>
+                    </div>
+                    <div class="item" data-aos="flip-left" data-aos-delay="100">
+                        <img src="https://addakwa.com/chat.png" alt="Praktis">
+                        <h3>Lebih Praktis dan Efisien</h3>
+                    </div>
+                    <div class="item" data-aos="flip-left" data-aos-delay="200">
+                        <img src="https://addakwa.com/planet-earth.png" alt="Ramah Lingkungan">
+                        <h3>Ramah Lingkungan, Tanpa Sampah</h3>
+                    </div>
+                </div>
+                <h2 data-aos="fade-down" data-aos-delay="300">Penawaran Terbaik</h2>
+            </div>
+        </section>
+        <section class="pricing" data-aos="fade-up">
+            <div class="container">
+                <div class="grid">
+                    <div class="package" data-aos="zoom-in">
+                        <h3>Basic</h3>
+                        <p>RP. 40K</p>
+                        <ul>
+                            <li>Tema Basic</li>
+                            <li>Gallery Foto (Max 6)</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Cover Pembuka</li>
+                            <li>Hitung Mundur Ke Tanggal Acara</li>
+                            <li>Data Profil Mempelai</li>
+                            <li>Detail Info Acara (Akad & Resepsi)</li>
+                            <li>Navigasi Lokasi Acara (Google Maps)</li>
+                            <li>Fitur Ucapan</li>
+                            <li>Kutipan Ayat / Qoutes</li>
+                            <li>Request Backsound / Music</li>
+                            <li>Bebas Revisi (Unlimited)</li>
+                            <li>Amplop Digital</li>
+                            <li>Link Ke Social Media</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                    <div class="package" data-aos="zoom-in" data-aos-delay="100">
+                        <h3>Intermediate</h3>
+                        <p>RP. 50K</p>
+                        <ul>
+                            <li>Tema Intermediate</li>
+                            <li>Gallery Foto (Max 10)</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Cover Pembuka</li>
+                            <li>Hitung Mundur Ke Tanggal Acara</li>
+                            <li>Data Profil Mempelai</li>
+                            <li>Detail Info Acara (Akad & Resepsi)</li>
+                            <li>Navigasi Lokasi Acara (Google Maps)</li>
+                            <li>Fitur Ucapan</li>
+                            <li>Kutipan Ayat / Qoutes</li>
+                            <li>Request Backsound / Music</li>
+                            <li>Bebas Revisi (Unlimited)</li>
+                            <li>Video Prewed</li>
+                            <li>Link Ke Social Media</li>
+                            <li>Fitur Live Streaming</li>
+                            <li>Love Story / Story Line</li>
+                            <li>Tambah Acara Lainnya</li>
+                            <li>Amplop Digital</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                    <div class="package" data-aos="zoom-in" data-aos-delay="200">
+                        <h3>Standard</h3>
+                        <p>RP. 80K</p>
+                        <ul>
+                            <li>Tema Standard</li>
+                            <li>Gallery Foto (Max 15)</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Cover Pembuka</li>
+                            <li>Hitung Mundur Ke Tanggal Acara</li>
+                            <li>Data Profil Mempelai</li>
+                            <li>Detail Info Acara (Akad & Resepsi)</li>
+                            <li>Navigasi Lokasi Acara (Google Maps)</li>
+                            <li>Fitur Ucapan</li>
+                            <li>Kutipan Ayat / Qoutes</li>
+                            <li>Request Backsound / Music</li>
+                            <li>Bebas Revisi (Unlimited)</li>
+                            <li>Video Prewed</li>
+                            <li>Link Ke Social Media</li>
+                            <li>Fitur Live Streaming</li>
+                            <li>Love Story / Story Line</li>
+                            <li>Tambah Acara Lainnya</li>
+                            <li>Amplop Digital</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                    <div class="package" data-aos="zoom-in" data-aos-delay="300">
+                        <h3>Premium</h3>
+                        <p>RP. 100K</p>
+                        <ul>
+                            <li>Tema Premium</li>
+                            <li>Gallery Foto (Max 15)</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Cover Pembuka</li>
+                            <li>Hitung Mundur Ke Tanggal Acara</li>
+                            <li>Data Profil Mempelai</li>
+                            <li>Detail Info Acara (Akad & Resepsi)</li>
+                            <li>Navigasi Lokasi Acara (Google Maps)</li>
+                            <li>Fitur Ucapan</li>
+                            <li>Kutipan Ayat / Qoutes</li>
+                            <li>Request Backsound / Music</li>
+                            <li>Bebas Revisi (Unlimited)</li>
+                            <li>Video Prewed</li>
+                            <li>Link Ke Social Media</li>
+                            <li>Fitur Live Streaming</li>
+                            <li>Love Story / Story Line</li>
+                            <li>Tambah Acara Lainnya</li>
+                            <li>Amplop Digital</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                    <div class="package" data-aos="zoom-in" data-aos-delay="400">
+                        <h3>Platinum</h3>
+                        <p>RP. 150K</p>
+                        <ul>
+                            <li>Tema Platinum</li>
+                            <li>Gallery Foto (Max 20)</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Cover Pembuka</li>
+                            <li>Hitung Mundur Ke Tanggal Acara</li>
+                            <li>Data Profil Mempelai</li>
+                            <li>Detail Info Acara (Akad & Resepsi)</li>
+                            <li>Navigasi Lokasi Acara (Google Maps)</li>
+                            <li>Fitur Ucapan</li>
+                            <li>Kutipan Ayat / Qoutes</li>
+                            <li>Request Backsound / Music</li>
+                            <li>Bebas Revisi (Unlimited)</li>
+                            <li>Video Prewed</li>
+                            <li>Link Ke Social Media</li>
+                            <li>Fitur Live Streaming</li>
+                            <li>Love Story / Story Line</li>
+                            <li>Tambah Acara Lainnya</li>
+                            <li>Amplop Digital</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                    <div class="package" data-aos="zoom-in" data-aos-delay="500">
+                        <h3>Prasmanan (Bebas Pilih Fitur)</h3>
+                        <p>Harga Disesuaikan</p>
+                        <ul>
+                            <li>Bebas pilih fitur sesuai kebutuhan</li>
+                            <li>Tema custom</li>
+                            <li>Gallery Foto custom</li>
+                            <li>Aktif 1 Tahun</li>
+                            <li>Dan fitur lain sesuai permintaan</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=6285703047283&text=Halo%20ka%2C%20saya%20mau%20tanya-tanya%20dulu%20seputar%20undangan%20digital%20yang%20versi%20website%20%F0%9F%98%8D%F0%9F%A4%A9" class="button">Hubungi Kami</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="features" data-aos="fade-up">
+            <div class="container">
+                <h2>Fitur Undangan Website</h2>
+                <div class="grid">
+                    <div class="item" data-aos="fade-right">
+                        <img src="https://addakwa.com/calendar-1.png" alt="Hitung Mundur">
+                        <h3>Hitung Mundur</h3>
+                        <p>Jangan sampai terlewatkan moment indah kamu, hitung mundur tanggal acara pernikahanmu.</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="100">
+                        <img src="https://addakwa.com/mobile-video.png" alt="Desain Modern">
+                        <h3>Desain Modern</h3>
+                        <p>Dukungan teknis dan support untuk memastikan pengelolaan website berjalan dengan lancar setelah dibuat.</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="200">
+                        <img src="https://addakwa.com/drawing-book.png" alt="Doa & Ucapan">
+                        <h3>Doa & Ucapan (Buku Tamu)</h3>
+                        <p>Beri ruang ke tamu undangan untuk dapat memberikan doa dan harapan atas pernikahanmu.</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="300">
+                        <img src="https://addakwa.com/gallery.png" alt="Gallery Foto">
+                        <h3>Gallery Foto</h3>
+                        <p>Share moment moment indah kamu dengan slideshow yang keren</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="400">
+                        <img src="https://addakwa.com/location.png" alt="Navigasi Lokasi">
+                        <h3>Navigasi Lokasi</h3>
+                        <p>All in one navigasi lengkap, agar tamu tidak tersesat saat ke tempat kamu</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="500">
+                        <img src="https://addakwa.com/music.png" alt="Background Music">
+                        <h3>Background Music</h3>
+                        <p>Iringi undangan terbaikmu dengan alunan musik syahdu sesuai keinginan kamu</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="600">
+                        <img src="https://addakwa.com/diary.png" alt="Love Stories">
+                        <h3>Love Stories</h3>
+                        <p>Ceritakan Kisah Cinta kamu dengan leluasa.</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="700">
+                        <img src="https://addakwa.com/live.png" alt="Live Streaming">
+                        <h3>Live Streaming</h3>
+                        <p>Temui acara secara virtual agar jarak tidak membuat keterbatasan.</p>
+                    </div>
+                    <div class="item" data-aos="fade-right" data-aos-delay="800">
+                        <img src="https://addakwa.com/wish-list.png" alt="Detail Acara">
+                        <h3>Detail Acara</h3>
+                        <p>Menampilkan detail acara (akad & resepsi) mulai dari tanggal, jam dan lokasi acara.</p>
+                    </div>
+                </div>
+                <a href="https://addakwa.com/fitur/" class="button">Lihat Fitur Selengkapnya</a>
+            </div>
+        </section>
+        <section class="themes" data-aos="fade-up">
+            <div class="container">
+                <h2>Tema Pilihan</h2>
+                <div class="grid">
+                    <div class="theme" data-aos="zoom-in">
+                        <img src="https://addakwa.com/AN2.jpg" alt="AN#02">
+                        <h3>AN#02</h3>
+                        <a href="https://addakwa.com/an2/?to=Nama+Tamu" class="button">Preview Demo</a>
+                    </div>
+                    <div class="theme" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="https://addakwa.com/da1n_50.jpeg" alt="DA#01">
+                        <h3>DA#01</h3>
+                        <a href="https://addakwa.com/da1/?to=Nama+Tamu" class="button">Preview Demo</a>
+                    </div>
+                    <!-- Tambahkan tema lain sesuai source asli -->
+                </div>
+                <a href="https://addakwa.com/katalog/" class="button">Lihat Tema Lainnya</a>
+            </div>
+        </section>
+        <section class="faq" data-aos="fade-up">
+            <div class="container">
+                <h2>FAQ</h2>
+                <div class="accordion">
+                    <div class="item" data-aos="fade-left">
+                        <h3 onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';">Berapa Lama Proses Pembuatannya?</h3>
+                        <p>Proses pembuatan kurang dari 24jam setelah data lengkap setelah data lengkap kak setelah konfirmasi pembayaran dan data lengkap.</p>
+                    </div>
+                    <div class="item" data-aos="fade-left" data-aos-delay="100">
+                        <h3 onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';">Apakah Boleh Revisi?</h3>
+                        <p>Boleh kak, dan jumlah revisi bebas tidak terbatas dan Gratis sampai hari H.</p>
+                    </div>
+                    <!-- Tambahkan FAQ lain dari source asli -->
+                </div>
+                <a href="https://addakwa.com/pertanyaan/" class="button">Lihat Lainnya</a>
+            </div>
+        </section>
+    </main>
+    <footer data-aos="fade-up">
+        <div class="container">
+            <div class="grid">
+                <div class="col">
+                    <h3>Menu</h3>
+                    <ul>
+                        <li><a href="https://addakwa.com/katalog/">Katalog</a></li>
+                        <li><a href="https://addakwa.com/acaralain/">Acara Lain</a></li>
+                        <li><a href="https://addakwa.com/testimoni/">Klien Kami</a></li>
+                        <li><a href="https://addakwa.com/fitur/">Fitur</a></li>
+                        <li><a href="https://addakwa.com/order/">Form Order</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>Layanan</h3>
+                    <ul>
+                        <li>Undangan Online - Website</li>
+                        <li>Undangan Video</li>
+                        <li>Undangan Gambar</li>
+                        <li>Undangan Cetak</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>Layanan Lainnya</h3>
+                    <ul>
+                        <li>Jasa Pembuatan Website (Coming Soon)</li>
+                        <li><a href="http://wa.me/6283873364863">Jasa Desain Grafis</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <img src="https://addakwa.com/logo.png" alt="Addakwa">
+                    <p>Addakwa adalah sebuah website yang memberikan layanan utama berupa pembuatan website pernikahan dengan berbagai fitur yang menarik.</p>
+                    <p>WhatsApp: 085703047283<br>
+                    Instagram: @addakwa<br>
+                    Email: addakwa@gmail.com</p>
+                    <a href="https://www.facebook.com/addakwa"><svg><!-- SVG Facebook --></svg></a>
+                    <a href="https://www.instagram.com/addakwa/"><svg><!-- SVG Instagram --></svg></a>
+                    <a href="https://wa.me/+6285703047283"><svg><!-- SVG WhatsApp --></svg></a>
+                </div>
+            </div>
+            <hr>
+            <p>Copyright ©2025 | Addakwa</p>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            offset: 100, // Offset diperbesar agar animasi muncul tepat saat elemen masuk ke tengah layar
+            once: false, // agar fade-out terjadi saat keluar layar
+            mirror: true, // fade out saat scroll keluar
+            easing: 'ease-in-out'
+        });
 
-		<!-- Vendor -->
-		<script src="./css/jquery.min.js.download"></script>
-		<script src="./css/jquery.appear.min.js.download"></script>
-		<script src="./css/jquery.easing.min.js.download"></script>
-		<script src="./css/jquery.cookie.min.js.download"></script>
-		<script src="./css/bootstrap.bundle.min.js.download"></script>
-		<script src="./css/jquery.validate.min.js.download"></script>
-		<script src="./css/jquery.easypiechart.min.js.download"></script>
-		<script src="./css/jquery.gmap.min.js.download"></script>
-		<script src="./css/lazysizes.min.js.download"></script>
-		<script src="./css/jquery.isotope.min.js.download"></script>
-		<script src="./css/owl.carousel.min.js.download"></script>
-		<script src="./css/jquery.magnific-popup.min.js.download"></script>
-		<script src="./css/jquery.vide.min.js.download"></script>
-		<script src="./css/vivus.min.js.download"></script>
-        <!-- Theme Base, Components and Settings -->
-        <script src="./css/theme.js.download"></script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
 
-        <!-- Current Page Vendor and Views -->
-        <script src="./css/view.contact.js.download"></script>
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
 
-        <!-- Demo -->
-        <script src="./css/demo-app-landing.js.download"></script>
-
-        <!-- Theme Custom -->
-        <script src="./css/custom.js.download"></script>
-
-        <!-- Theme Initialization Files -->
-        <script src="./css/theme.init.js.download"></script><a class="scroll-to-top hidden-mobile" href="https://addakwa.com/#"><i class="bi-arrow-up"></i></a>
-        <!--Start of Tawk.to Script-->
-        <script type="text/javascript">
-    var categories = ['Pernikahan', 'Acara Apapun', 'Rapat', 'Ulang Tahun', 'Syukuran', 'Tunangan', 'Aqiqah', 'Tasmi Quran', 'Natal', 'Launching', 'Perusahaan', 'Khitanan', 'Wisuda', 'Reuni', 'Keluarga', 'Komunitas', 'Sekolah', 'Kampus'];
-    var speed = 1200;
-    let index = 1;
-    function typeWriter() {
-        setTimeout(() => {
-            var el = document.getElementById('typing');
-            el.innerHTML = categories[index];
-            if (index + 1 < categories.length) {
-                index++
-            } else {
-                index = 0
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                navMenu.classList.remove('active');
             }
-            typeWriter()
-        }, speed);
-    }
-
-    typeWriter()
-</script>
-        <!--End of Tawk.to Script-->
-			<script>
-		$( document ).ready(function() {
-			$('#statistic-event').html(nFormatter(90601)+'+');
-			$('#statistic-guest').html(nFormatter(1879338)+'+');
-			$('#statistic-wish').html(nFormatter(361049)+'+');
-
-			function nFormatter(num) {
-				if (num >= 1000000000) {
-					return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
-				}
-				if (num >= 1000000) {
-					return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-				}
-				if (num >= 1000) {
-					return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-				}
-				return num;
-			}
-		});
-	</script>
-	<script defer="" src="./css/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;9479d6a5e8f9fdc8&quot;,&quot;version&quot;:&quot;2025.4.0-1-g37f21b1&quot;,&quot;r&quot;:1,&quot;token&quot;:&quot;a6bd98b833ef45e9a5e90a0f09ece1fe&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}}}" crossorigin="anonymous"></script>
-
-<div id="cfcevdtv5s51748562045012" class="widget-hidden"><iframe src="./css/saved_resource.html" frameborder="0" scrolling="no" width="130px" height="44px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:auto !important; bottom:0px !important; left:10px !important; position:fixed !important; border:0 !important; min-height:44px !important; min-width:130px !important; max-height:44px !important; max-width:130px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:130px !important; height:44px !important; display:block !important; z-index:1000003 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="xf22m41djehk1748562045032" class="" title="chat widget"></iframe><iframe src="./css/saved_resource(1).html" frameborder="0" scrolling="no" width="350px" height="520px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:auto !important; bottom:0px !important; left:10px !important; position:fixed !important; border:0 !important; min-height:520px !important; min-width:350px !important; max-height:520px !important; max-width:350px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:350px !important; height:520px !important; display:none !important; z-index:1000002 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:18px 18px  0 0 !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="eejlbsl89m7s1748562045073" class="" title="chat widget"></iframe><!----><iframe src="./css/saved_resource(2).html" frameborder="0" scrolling="no" width="360px" height="145px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:auto !important; bottom:50px; left:10px !important; position:fixed !important; border:0 !important; min-height:145px !important; min-width:360px !important; max-height:145px !important; max-width:360px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:360px !important; height:145px !important; display:none !important; z-index:auto !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="zbbqqv1q9t981748562045057" class="" title="chat widget"></iframe><iframe src="./css/saved_resource(3).html" frameborder="0" scrolling="no" width="200px" height="160px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:auto !important; bottom:36px !important; left:10px !important; position:fixed !important; border:0 !important; min-height:160px !important; min-width:200px !important; max-height:160px !important; max-width:200px !important; padding:0 !important; margin:0px 0 0 0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:rotate(0deg) translateZ(0); -webkit-transform:rotate(0deg) translateZ(0); -ms-transform:rotate(0deg) translateZ(0); width:200px !important; height:160px !important; display:none !important; z-index:1000004 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important; -moz-transform:rotate(0deg) translateZ(0); -o-transform:rotate(0deg) translateZ(0); transform-origin:0; -moz-transform-origin:0; -webkit-transform-origin:0; -o-transform-origin:0; -ms-transform-origin:0;" id="xsv91ln6nj8s1748562045047" class="" title="chat widget"></iframe></div></body></html> -->
+        });
+    </script>
+</body>
+</html>
