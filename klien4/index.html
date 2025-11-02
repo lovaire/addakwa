@@ -109,17 +109,14 @@
       scroll-snap-type: y mandatory; /* swipe per section */
       scroll-behavior: smooth;
     }
-    .section {
-        position: relative;
-        width: 100%;
-        /* Ubah height dan min-height agar section menyesuaikan konten */
-        height: auto;
-        min-height: 100%;
-        scroll-snap-align: start;
-        background: #222 center/cover no-repeat;
-        display: grid;
-        place-items: center;
-        padding: var(--pad); /* Sudah sesuai, biarkan untuk jarak kecil dari tepi */
+    .section{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      scroll-snap-align: start;
+      /* Background 9:16 dari picsum, ganti via data-bg / inline style */
+      background: #222 center/cover no-repeat;
     }
     .section::after{
       /* overlay gelap tipis agar teks kebaca */
@@ -218,23 +215,24 @@
     }
 
     /* ===================== CARD GENERIC ===================== */
-    .card {
-        background: var(--clr-card);
-        border: 1px solid rgba(255,255,255,.08);
-        box-shadow: var(--shadow-md);
-        border-radius: var(--radius-lg);
-        backdrop-filter: blur(6px);
-        /* overflow: hidden; <-- Biarkan untuk mencegah konten keluar card */
-        animation: fadeIn var(--fade-time) both;
-        position: relative;
-        z-index: 1;
-        max-width: 90%;
-        width: 100%;
-        height: auto;
-        /* Tambahkan max-height agar card tidak melebihi section */
-        max-height: calc(100vh - (var(--pad) * 2) - 48px); /* 48px untuk navbar dan margin */
-        overflow-y: auto; /* Aktifkan scroll jika konten melebihi */
-        margin: 8px 0;
+    .stack{
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      display: grid;
+      gap: var(--gap);
+      align-content: start;
+      height: 100%;
+      overflow: hidden; /* biar header stay, isi bisa scroll */
+    }
+    .card{
+      background: var(--clr-card);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow-md);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+      animation: fadeIn var(--fade-time) both;
     }
     .card-header{
       background: var(--clr-card-header);
@@ -244,9 +242,12 @@
     }
     .card-body{
       padding: 14px;
-      /* max-height: 45vh; /* kalau konten kepanjangan, body scroll */
-      /* overflow-y: auto; */
+      max-height: 45vh; /* kalau konten kepanjangan, body scroll */
+      overflow-y: auto;
     }
+
+    /* Beri jarak supaya card tidak mepet tepi layar */
+    .stack > .card{ margin: 0 6px; }
 
     /* ===================== GRIDS & MEDIA ===================== */
     .grid-2{
@@ -302,20 +303,6 @@
       color: #fff;
     }
     .nav-icon{ width: 22px; height: 22px; }
-
-    /* ===================== FOOTER ===================== */
-    .footer{
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 4;
-      padding: 12px;
-      background: rgba(0,0,0,.65);
-      text-align: center;
-      font-size: 12px;
-      color: var(--clr-muted);
-    }
 
     /* ===================== MUSIC BUTTON (FLOAT) ===================== */
     .music-fab{
@@ -406,211 +393,215 @@
                 <h2 class="home-title">Alya &amp; Fajar</h2>
                 <p class="home-sub">Sabtu, 25 Januari 2026 • Bandung</p>
               </div>
+
+              <div class="stack">
+                <!-- contoh card ringkas -->
+                <article class="card fade-in">
+                  <div class="card-header">Informasi Singkat</div>
+                  <div class="card-body">
+                    <p>Dengan memohon rahmat Allah SWT, kami bermaksud menyelenggarakan pernikahan:</p>
+                    <ul>
+                      <li><strong>Akad:</strong> 09.00 WIB</li>
+                      <li><strong>Resepsi:</strong> 11.00 – 14.00 WIB</li>
+                      <li><strong>Lokasi:</strong> The Lodge, Bandung</li>
+                    </ul>
+                    <p>Reservasi kehadiran &amp; ucapan dapat disampaikan pada bagian <em>Gift &amp; RSVP</em>.</p>
+                  </div>
+                </article>
+
+                <!-- card kedua -->
+                <article class="card fade-in">
+                  <div class="card-header">Quote</div>
+                  <div class="card-body">
+                    <em>“Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan
+                      dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya…” (QS. Ar-Rum: 21)</em>
+                  </div>
+                </article>
+
+                <!-- NAVBAR -->
+                <nav class="navbar">
+                  <div class="nav-btn active" data-target="#home" title="Home">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l9 8h-3v9h-12v-9h-3z"/></svg>
+                    Home
+                  </div>
+                  <div class="nav-btn" data-target="#mempelai" title="Mempelai">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.79 2.99-4S17.66 3 16 3s-3 1.79-3 4 1.34 4 3 4zM8 11c1.66 0 2.99-1.79 2.99-4S9.66 3 8 3 5 4.79 5 7s1.34 4 3 4zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h7v-3.5c0-2.33-4.67-3.5-8-3.5z"/></svg>
+                    Mempelai
+                  </div>
+                  <div class="nav-btn" data-target="#galeri" title="Galeri">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5C3.9 3 3 3.9 3 5v14h18zM5 5h14v9l-3-3-4 4-2-2-5 5V5z"/></svg>
+                    Galeri
+                  </div>
+                  <div class="nav-btn" data-target="#gift" title="Gift">
+                    <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 7h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.97.54-2.5 1.35C10.97 3.54 10.05 3 9 3 7.34 3 6 4.34 6 6c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v3h20V9c0-1.1-.9-2-2-2zM9 5c.55 0 1 .45 1 1v1H8V6c0-.55.45-1 1-1zm6 0c.55 0 1 .45 1 1v1h-2V6c0-.55.45-1 1-1zM2 14v5c0 1.1.9 2 2 2h7v-7H2zm11 7h7c1.1 0 2-.9 2-2v-5h-9v7z"/></svg>
+                    Gift
+                  </div>
+                </nav>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: INFORMASI SINGKAT (1 CARD) ===================== -->
-            <section class="section" id="info-singkat"
-              style="background-image:url('https://picsum.photos/720/1280?random=23')">
-              <article class="card fade-in">
-                <div class="card-header">Informasi Singkat</div>
-                <div class="card-body">
-                  <p>Dengan memohon rahmat Allah SWT, kami bermaksud menyelenggarakan pernikahan:</p>
-                  <ul>
-                    <li><strong>Akad:</strong> 09.00 WIB</li>
-                    <li><strong>Resepsi:</strong> 11.00 – 14.00 WIB</li>
-                    <li><strong>Lokasi:</strong> The Lodge, Bandung</li>
-                  </ul>
-                </div>
-              </article>
-            </section>
-
-            <!-- ===================== SECTION: QUOTE (1 CARD) ===================== -->
-            <section class="section" id="quote"
-              style="background-image:url('https://picsum.photos/720/1280?random=24')">
-              <article class="card fade-in">
-                <div class="card-header">Quote</div>
-                <div class="card-body">
-                  <em>“Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan
-                    dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya…” (QS. Ar-Rum: 21)</em>
-                </div>
-              </article>
-            </section>
-
-            <!-- ===================== SECTION: MEMPELAI (1 CARD) ===================== -->
+            <!-- ===================== SECTION: MEMPELAI ===================== -->
             <section class="section" id="mempelai"
               style="background-image:url('https://picsum.photos/720/1280?random=33')">
-              <article class="card fade-in">
-                <div class="card-header">Mempelai</div>
-                <div class="card-body">
-                  <div class="grid-2">
-                    <div>
-                      <img class="avatar" src="https://picsum.photos/600/600?random=101" alt="Foto Mempelai Wanita">
-                      <h3 style="margin:.6rem 0 .2rem; font-family:var(--font-script); font-size:28px;">Alya Rahma</h3>
-                      <p>Putri dari Bpk. Rudi &amp; Ibu Siti</p>
-                    </div>
-                    <div>
-                      <img class="avatar" src="https://picsum.photos/600/600?random=102" alt="Foto Mempelai Pria">
-                      <h3 style="margin:.6rem 0 .2rem; font-family:var(--font-script); font-size:28px;">Fajar Pratama</h3>
-                      <p>Putra dari Bpk. Ahmad &amp; Ibu Lina</p>
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Mempelai</div>
+                  <div class="card-body">
+                    <div class="grid-2">
+                      <div>
+                        <img class="avatar" src="https://picsum.photos/600/600?random=101" alt="Foto Mempelai Wanita">
+                        <h3 style="margin:.6rem 0 .2rem; font-family:var(--font-script); font-size:28px;">Alya Rahma</h3>
+                        <p>Putri dari Bpk. Rudi &amp; Ibu Siti</p>
+                      </div>
+                      <div>
+                        <img class="avatar" src="https://picsum.photos/600/600?random=102" alt="Foto Mempelai Pria">
+                        <h3 style="margin:.6rem 0 .2rem; font-family:var(--font-script); font-size:28px;">Fajar Pratama</h3>
+                        <p>Putra dari Bpk. Ahmad &amp; Ibu Lina</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
+                </article>
+
+                <article class="card fade-in">
+                  <div class="card-header">Love Story</div>
+                  <div class="card-body">
+                    <ol>
+                      <li><strong>2018 – Bertemu:</strong> Satu kantor, beda divisi.</li>
+                      <li><strong>2020 – Komitmen:</strong> Mulai serius setelah lulus S2.</li>
+                      <li><strong>2025 – Lamaran:</strong> 14 Mei 2025, disaksikan keluarga.</li>
+                    </ol>
+                  </div>
+                </article>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: LOVE STORY (1 CARD) ===================== -->
-            <section class="section" id="love-story"
-              style="background-image:url('https://picsum.photos/720/1280?random=34')">
-              <article class="card fade-in">
-                <div class="card-header">Love Story</div>
-                <div class="card-body">
-                  <ol>
-                    <li><strong>2018 – Bertemu:</strong> Satu kantor, beda divisi.</li>
-                    <li><strong>2020 – Komitmen:</strong> Mulai serius setelah lulus S2.</li>
-                    <li><strong>2025 – Lamaran:</strong> 14 Mei 2025, disaksikan keluarga.</li>
-                  </ol>
-                </div>
-              </article>
-            </section>
-
-            <!-- ===================== SECTION: DETAIL ACARA (1 CARD) ===================== -->
+            <!-- ===================== SECTION: DETAIL ACARA & MAPS ===================== -->
             <section class="section" id="acara"
               style="background-image:url('https://picsum.photos/720/1280?random=44')">
-              <article class="card fade-in">
-                <div class="card-header">Detail Acara</div>
-                <div class="card-body">
-                  <ul>
-                    <li><strong>Tanggal:</strong> Sabtu, 25 Januari 2026</li>
-                    <li><strong>Akad:</strong> 09.00 WIB</li>
-                    <li><strong>Resepsi:</strong> 11.00 – 14.00 WIB</li>
-                    <li><strong>Alamat:</strong> The Lodge, Jl. Raya Maribaya No. 149, Bandung</li>
-                  </ul>
-                </div>
-              </article>
-            </section>
-
-            <!-- ===================== SECTION: LOKASI MAPS (1 CARD) ===================== -->
-            <section class="section" id="lokasi"
-              style="background-image:url('https://picsum.photos/720/1280?random=45')">
-              <article class="card fade-in">
-                <div class="card-header">Lokasi (Maps)</div>
-                <div class="card-body">
-                  <!-- GANTI src EMBED MAP KE ALAMAT ANDA -->
-                  <div style="position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden;">
-                    <iframe title="Google Maps"
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63335.09367912216!2d107.612!3d-6.903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7b6f12b0a3b%3A0x401576d14fed610!2sBandung!5e0!3m2!1sen!2sid!4v1700000000000"
-                      style="position:absolute; inset:0; border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Detail Acara</div>
+                  <div class="card-body">
+                    <ul>
+                      <li><strong>Tanggal:</strong> Sabtu, 25 Januari 2026</li>
+                      <li><strong>Akad:</strong> 09.00 WIB</li>
+                      <li><strong>Resepsi:</strong> 11.00 – 14.00 WIB</li>
+                      <li><strong>Alamat:</strong> The Lodge, Jl. Raya Maribaya No. 149, Bandung</li>
+                    </ul>
                   </div>
-                  <p style="margin-top:10px"><a class="btn" href="https://maps.google.com?q=The+Lodge+Bandung" target="_blank" rel="noopener">Buka di Google Maps</a></p>
-                </div>
-              </article>
+                </article>
+
+                <article class="card fade-in">
+                  <div class="card-header">Lokasi (Maps)</div>
+                  <div class="card-body">
+                    <!-- GANTI src EMBED MAP KE ALAMAT ANDA -->
+                    <div style="position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden;">
+                      <iframe title="Google Maps"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63335.09367912216!2d107.612!3d-6.903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7b6f12b0a3b%3A0x401576d14fed610!2sBandung!5e0!3m2!1sen!2sid!4v1700000000000"
+                        style="position:absolute; inset:0; border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p style="margin-top:10px"><a class="btn" href="https://maps.google.com?q=The+Lodge+Bandung" target="_blank" rel="noopener">Buka di Google Maps</a></p>
+                  </div>
+                </article>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: GALERI (1 CARD) ===================== -->
+            <!-- ===================== SECTION: GALERI ===================== -->
             <section class="section" id="galeri"
               style="background-image:url('https://picsum.photos/720/1280?random=55')">
-              <article class="card fade-in">
-                <div class="card-header">Galeri</div>
-                <div class="card-body">
-                  <div class="gallery" id="gallery">
-                    <!-- Ganti dengan foto-foto anda -->
-                    <img src="https://picsum.photos/500/500?random=1" alt="foto 1">
-                    <img src="https://picsum.photos/500/500?random=2" alt="foto 2">
-                    <img src="https://picsum.photos/500/500?random=3" alt="foto 3">
-                    <img src="https://picsum.photos/500/500?random=4" alt="foto 4">
-                    <img src="https://picsum.photos/500/500?random=5" alt="foto 5">
-                    <img src="https://picsum.photos/500/500?random=6" alt="foto 6">
-                    <img src="https://picsum.photos/500/500?random=7" alt="foto 7">
-                    <img src="https://picsum.photos/500/500?random=8" alt="foto 8">
-                    <img src="https://picsum.photos/500/500?random=9" alt="foto 9">
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Galeri</div>
+                  <div class="card-body">
+                    <div class="gallery" id="gallery">
+                      <!-- Ganti dengan foto-foto anda -->
+                      <img src="https://picsum.photos/500/500?random=1" alt="foto 1">
+                      <img src="https://picsum.photos/500/500?random=2" alt="foto 2">
+                      <img src="https://picsum.photos/500/500?random=3" alt="foto 3">
+                      <img src="https://picsum.photos/500/500?random=4" alt="foto 4">
+                      <img src="https://picsum.photos/500/500?random=5" alt="foto 5">
+                      <img src="https://picsum.photos/500/500?random=6" alt="foto 6">
+                      <img src="https://picsum.photos/500/500?random=7" alt="foto 7">
+                      <img src="https://picsum.photos/500/500?random=8" alt="foto 8">
+                      <img src="https://picsum.photos/500/500?random=9" alt="foto 9">
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: GIFT & RSVP (1 CARD) ===================== -->
+            <!-- ===================== SECTION: GIFT & RSVP ===================== -->
             <section class="section" id="gift"
               style="background-image:url('https://picsum.photos/720/1280?random=66')">
-              <article class="card fade-in">
-                <div class="card-header">Online Gift &amp; RSVP</div>
-                <div class="card-body">
-                  <p>Terima kasih atas doa dan kehadirannya. Bagi yang berkenan memberikan tanda kasih, berikut rekening:</p>
-                  <ul>
-                    <li><strong>BCA</strong> 123456789 a.n. Alya Rahma
-                      <button class="btn" data-copy="BCA 123456789 a.n. Alya Rahma" style="margin-left:8px">Salin</button>
-                    </li>
-                    <li><strong>QRIS</strong> (scan pada gambar di bawah)
-                      <button class="btn" data-copy="QRIS Alya & Fajar">Salin</button>
-                    </li>
-                  </ul>
-                  <img src="https://picsum.photos/600/800?random=77" alt="QRIS" style="width:60%; margin:12px auto; border-radius:12px">
-                  <hr style="border-color:rgba(255,255,255,.15)">
-                </div>
-              </article>
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Online Gift &amp; RSVP</div>
+                  <div class="card-body">
+                    <p>Terima kasih atas doa dan kehadirannya. Bagi yang berkenan memberikan tanda kasih, berikut rekening:</p>
+                    <ul>
+                      <li><strong>BCA</strong> 123456789 a.n. Alya Rahma
+                        <button class="btn" data-copy="BCA 123456789 a.n. Alya Rahma" style="margin-left:8px">Salin</button>
+                      </li>
+                      <li><strong>QRIS</strong> (scan pada gambar di bawah)
+                        <button class="btn" data-copy="QRIS Alya & Fajar">Salin</button>
+                      </li>
+                    </ul>
+                    <img src="https://picsum.photos/600/800?random=77" alt="QRIS" style="width:60%; margin:12px auto; border-radius:12px">
+                    <hr style="border-color:rgba(255,255,255,.15)">
+                    <p><strong>Konfirmasi Kehadiran (RSVP):</strong></p>
+                    <p>
+                      <a class="btn" href="https://forms.gle/" target="_blank" rel="noopener">Isi Form RSVP</a>
+                      <a class="btn" href="https://wa.me/6281234567890?text=Konfirmasi%20kehadiran" target="_blank" rel="noopener">Konfirmasi via WA</a>
+                    </p>
+                  </div>
+                </article>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: DOA (1 CARD) ===================== -->
+            <!-- ===================== SECTION: DOA / QUOTES ===================== -->
             <section class="section" id="doa"
               style="background-image:url('https://picsum.photos/720/1280?random=77')">
-              <article class="card fade-in">
-                <div class="card-header">Doa &amp; Harapan</div>
-                <div class="card-body">
-                  <p style="font-style: italic;">Semoga Allah SWT senantiasa melimpahkan rahmat, keberkahan, dan kasih sayang kepada kami dalam membina rumah tangga. Aamiin.</p>
-                </div>
-              </article>
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Doa &amp; Harapan</div>
+                  <div class="card-body">
+                    <p style="font-style: italic;">Semoga Allah SWT senantiasa melimpahkan rahmat, keberkahan, dan kasih sayang kepada kami dalam membina rumah tangga. Aamiin.</p>
+                  </div>
+                </article>
+              </div>
             </section>
 
-            <!-- ===================== SECTION: PENUTUP (1 CARD) ===================== -->
+            <!-- ===================== SECTION: PENUTUP ===================== -->
             <section class="section" id="penutup"
               style="background-image:url('https://picsum.photos/720/1280?random=88')">
-              <article class="card fade-in">
-                <div class="card-header">Penutup</div>
-                <div class="card-body">
-                  <p>Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara(i) berkenan hadir memberikan doa restu.</p>
-                  <p>Terima kasih.</p>
-                </div>
-              </article>
+              <div class="stack">
+                <article class="card fade-in">
+                  <div class="card-header">Penutup</div>
+                  <div class="card-body">
+                    <p>Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara(i) berkenan hadir memberikan doa restu.</p>
+                    <p>Terima kasih.</p>
+                    <p style="margin-top:18px;">
+                      <strong>Built with love</strong>
+                      <span aria-hidden="true">❤️</span>
+                    </p>
+                    <p style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                      <!-- Media sosial -->
+                      <a href="https://www.tiktok.com/@addakwa" target="_blank" rel="noopener" aria-label="TikTok">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.9 2h3.1c.2 1.2.8 2.3 1.7 3.2s2 1.5 3.2 1.7v3.2c-1.7 0-3.3-.5-4.7-1.5v6.9c0 3.7-3 6.7-6.7 6.7S3.8 19.4 3.8 15.7c0-3.7 3-6.7 6.7-6.7.4 0 .8 0 1.2.1v3.4c-.4-.1-.8-.2-1.2-.2-1.8 0-3.3 1.5-3.3 3.3S8.7 19 10.5 19s3.3-1.5 3.3-3.3V2z"/></svg>
+                      </a>
+                      <a href="https://instagram.com/addakwa" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106.5 13 5.51 5.51 0 0012 7.5zm0 2A3.5 3.5 0 118.5 13 3.5 3.5 0 0112 9.5zm5.25-2.75a1 1 0 11-1 1 1 1 0 011-1z"/></svg>
+                      </a>
+                      <a href="https://x.com/addakwa" target="_blank" rel="noopener" aria-label="X">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.1l-6.8 7.8L22 21h-5.9l-4.6-5.9-5.3 5.9H3.1l7.3-8.2L2 3h6.1l4.2 5.5L17.5 3z"/></svg>
+                      </a>
+                    </p>
+                  </div>
+                </article>
+              </div>
             </section>
 
           </div><!-- /sections -->
-
-          <!-- NAVBAR GLOBAL (STICKY) -->
-          <nav class="navbar">
-            <div class="nav-btn active" data-target="#home" title="Home">
-              <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l9 8h-3v9h-12v-9h-3z"/></svg>
-              Home
-            </div>
-            <div class="nav-btn" data-target="#mempelai" title="Mempelai">
-              <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.79 2.99-4S17.66 3 16 3s-3 1.79-3 4 1.34 4 3 4zM8 11c1.66 0 2.99-1.79 2.99-4S9.66 3 8 3 5 4.79 5 7s1.34 4 3 4zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.95 1.97 3.45V20h7v-3.5c0-2.33-4.67-3.5-8-3.5z"/></svg>
-              Mempelai
-            </div>
-            <div class="nav-btn" data-target="#galeri" title="Galeri">
-              <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5C3.9 3 3 3.9 3 5v14h18zM5 5h14v9l-3-3-4 4-2-2-5 5V5z"/></svg>
-              Galeri
-            </div>
-            <div class="nav-btn" data-target="#gift" title="Gift">
-              <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 7h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.97.54-2.5 1.35C10.97 3.54 10.05 3 9 3 7.34 3 6 4.34 6 6c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v3h20V9c0-1.1-.9-2-2-2zM9 5c.55 0 1 .45 1 1v1H8V6c0-.55.45-1 1-1zm6 0c.55 0 1 .45 1 1v1h-2V6c0-.55.45-1 1-1zM2 14v5c0 1.1.9 2 2 2h7v-7H2zm11 7h7c1.1 0 2-.9 2-2v-5h-9v7z"/></svg>
-              Gift
-            </div>
-          </nav>
-
-          <!-- FOOTER GLOBAL -->
-          <footer class="footer">
-            <p><strong>Built with love</strong> ❤️</p>
-            <p style="display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap;">
-              <!-- Media sosial -->
-              <a href="https://www.tiktok.com/@addakwa" target="_blank" rel="noopener" aria-label="TikTok">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12.9 2h3.1c.2 1.2.8 2.3 1.7 3.2s2 1.5 3.2 1.7v3.2c-1.7 0-3.3-.5-4.7-1.5v6.9c0 3.7-3 6.7-6.7 6.7S3.8 19.4 3.8 15.7c0-3.7 3-6.7 6.7-6.7.4 0 .8 0 1.2.1v3.4c-.4-.1-.8-.2-1.2-.2-1.8 0-3.3 1.5-3.3 3.3S8.7 19 10.5 19s3.3-1.5 3.3-3.3V2z"/></svg>
-              </a>
-              <a href="https://instagram.com/addakwa" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm5 3.5A5.5 5.5 0 106.5 13 5.51 5.51 0 0012 7.5zm0 2A3.5 3.5 0 118.5 13 3.5 3.5 0 0112 9.5zm5.25-2.75a1 1 0 11-1 1 1 1 0 011-1z"/></svg>
-              </a>
-              <a href="https://x.com/addakwa" target="_blank" rel="noopener" aria-label="X">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 3h3.1l-6.8 7.8L22 21h-5.9l-4.6-5.9-5.3 5.9H3.1l7.3-8.2L2 3h6.1l4.2 5.5L17.5 3z"/></svg>
-              </a>
-            </p>
-          </footer>
-
         </div><!-- /app -->
       </div><!-- /phone -->
     </div><!-- /phone-wrap -->
@@ -723,6 +714,22 @@
     },{ root: sections, threshold: .6 });
     secEls.forEach(s=> activeObs.observe(s));
 
+    /* ===================== QUICK COMMANDS (UNTUK MODIF CEPAT DI KONSOL) =====================
+      window.UX = {
+        setNames: (a='Alya', b='Fajar') => {
+          document.querySelectorAll('.home-title, .welcome-names').forEach(el => el.textContent = `${a} & ${b}`);
+        },
+        setDatePlace: (d='Sabtu, 25 Januari 2026 • Bandung') => {
+          document.querySelectorAll('.home-sub').forEach(el => el.textContent = d);
+        },
+        setSectionBG: (id, url) => {
+          document.querySelector(id).style.backgroundImage = `url('${url}')`;
+        },
+        setPalette: (accent='#be8b6a') => {
+          document.documentElement.style.setProperty('--clr-accent', accent);
+        }
+      };
+    ======================================================================================== */
   </script>
 </body>
 </html>
