@@ -24,7 +24,7 @@
       font-family: 'Poppins', sans-serif;
       background: var(--bg);
       color: #333;
-      overflow: hidden;
+      overflow: hidden; /* Tetap hidden untuk slide-effect */
     }
     .container {
       max-width: var(--max-width);
@@ -38,7 +38,8 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      padding: 60px 20px var(--nav-height); /* Tambah padding-bottom biar gak ketutup navbar */
+      /* Padding bottom ini penting agar konten terakhir tidak tertutup navbar */
+      padding: 60px 20px var(--nav-height); 
       background: url('https://satumomen.com/themes/green-pink/bg.webp') center/cover no-repeat;
       display: flex;
       flex-direction: column;
@@ -47,7 +48,7 @@
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
       pointer-events: none;
-      overflow-y: auto;
+      overflow-y: auto; /* Konten yang panjang bisa di-scroll */
     }
     .slide.active {
       opacity: 1;
@@ -97,7 +98,7 @@
 
     /* Bottom Navigation */
     .bottom-nav {
-      position: fixed;
+      position: fixed; /* Tetap fixed agar selalu terlihat */
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
@@ -108,7 +109,7 @@
       display: flex;
       justify-content: space-around;
       padding: 14px 0;
-      z-index: 1000;
+      z-index: 1000; /* Di atas segalanya */
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
@@ -158,8 +159,15 @@
     .animate-in {
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transition: all 0.8s ease-out; /* Durasi default untuk teks */
     }
+    
+    /* === PERBAIKAN: Animasi 3 Detik untuk Gambar === */
+    img.animate-in,
+    iframe.animate-in {
+      transition: all 3s ease-out; /* Durasi 3 detik (fade + slide) */
+    }
+    
     .slide.active .animate-in {
       opacity: 1;
       transform: translateY(0);
@@ -202,7 +210,7 @@
     /* Responsif - Perbaiki desktop */
     @media (min-width: 768px) {
       .slide { 
-        padding: 80px 30px calc(var(--nav-height) + 20px); /* Extra padding di desktop */
+        padding: 80px 30px calc(var(--nav-height) + 20px);
       }
       .btn { font-size: 18px; padding: 14px 28px; }
       .countdown-item { min-width: 80px; }
@@ -211,13 +219,12 @@
       .bottom-nav { padding: 16px 0; }
       .nav-item { width: 70px; font-size: 12px; }
       .nav-icon { width: 28px; height: 28px; }
-      .container { max-width: 800px; } /* Lebar lebih di desktop biar gak sempit */
+      .container { max-width: 800px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Slide 0: Cover -->
     <section class="slide active" id="slide-0">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -240,7 +247,6 @@
       </div>
     </section>
 
-    <!-- Slide 1: Mempelai -->
     <section class="slide" id="slide-1">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -257,7 +263,6 @@
       </div>
     </section>
 
-    <!-- Slide 2: Detail Mempelai -->
     <section class="slide" id="slide-2">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -285,7 +290,6 @@
       </div>
     </section>
 
-    <!-- Slide 3: Acara -->
     <section class="slide" id="slide-3">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -325,7 +329,6 @@
       </div>
     </section>
 
-    <!-- Slide 4: Maps -->
     <section class="slide" id="slide-4">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -344,7 +347,6 @@
       </div>
     </section>
 
-    <!-- Slide 5: RSVP -->
     <section class="slide" id="slide-5">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -363,7 +365,6 @@
       </div>
     </section>
 
-    <!-- Slide 6: Gift -->
     <section class="slide" id="slide-6">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -391,7 +392,6 @@
       </div>
     </section>
 
-    <!-- Slide 7: Thanks -->
     <section class="slide" id="slide-7">
       <div class="frame">
         <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
@@ -400,7 +400,7 @@
         <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="bottom:0;left:0;width:30%;">
         <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="bottom:0;right:0;width:30%;">
       </div>
-      <div class="content" style="display:flex;flex-direction:column;justify-content:space-between;min-height:100vh;padding-top:60px;">
+      <div class="content" style="display:flex;flex-direction:column;justify-content:space-between;min-height:100%;padding-top:60px;">
         <div></div>
         <div>
           <div class="animate-in" style="margin:25px 0;font-size:16px;line-height:1.8;">
@@ -419,30 +419,24 @@
     </section>
   </div>
 
-  <!-- Bottom Navigation (6 item, tanpa "Buka") -->
   <div class="bottom-nav" id="bottomNav">
     <div class="nav-item" data-slide="1">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
       <span>Mempelai</span>
     </div>
-    <div class="nav-item" data-slide="2">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+    <div class="nav-item" data-slide="3"> <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
       <span>Acara</span>
     </div>
-    <div class="nav-item" data-slide="3">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    <div class="nav-item" data-slide="4"> <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
       <span>Maps</span>
     </div>
-    <div class="nav-item" data-slide="4">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    <div class="nav-item" data-slide="5"> <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
       <span>RSVP</span>
     </div>
-    <div class="nav-item" data-slide="5">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.67a2.997 2.997 0 0 0-5.35 1.33 3 3 0 0 0-2.5 2.82C4 7.31 4 7 4 7H2c-.55 0-1 .45-1 1 0 .27.09.52.25.72l6.07 6.07c.3.3.7.5 1.08.5h9l5.5 5.5c.14.13.33.21.53.21.4 0 .74-.24.88-.6l1.47-4.33c.01-.03.01-.07.01-.1V8c0-.55-.45-1-1-1h-2z"/></svg>
+    <div class="nav-item" data-slide="6"> <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.67a2.997 2.997 0 0 0-5.35 1.33 3 3 0 0 0-2.5 2.82C4 7.31 4 7 4 7H2c-.55 0-1 .45-1 1 0 .27.09.52.25.72l6.07 6.07c.3.3.7.5 1.08.5h9l5.5 5.5c.14.13.33.21.53.21.4 0 .74-.24.88-.6l1.47-4.33c.01-.03.01-.07.01-.1V8c0-.55-.45-1-1-1h-2z"/></svg>
       <span>Gift</span>
     </div>
-    <div class="nav-item" data-slide="6">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-6.88-.55L12 3 8.88 8.69 2 9.24l5.46 4.73L5.82 21z"/></svg>
+    <div class="nav-item" data-slide="7"> <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-6.88-.55L12 3 8.88 8.69 2 9.24l5.46 4.73L5.82 21z"/></svg>
       <span>Thanks</span>
     </div>
   </div>
@@ -468,59 +462,102 @@
       bottomNav.classList.add('visible');
     });
 
-    // Navigasi via navbar
-    navItems.forEach((item, index) => {
+    // === PERBAIKAN: Navigasi via navbar berdasarkan data-slide ===
+    navItems.forEach((item) => {
       item.addEventListener('click', () => {
-        const targetSlide = index + 1; // slide-1 = index 0
+        // Ambil target slide dari atribut data-slide
+        const targetSlide = parseInt(item.dataset.slide, 10);
         scrollToSlide(targetSlide);
       });
     });
 
-    // Fungsi pindah slide (FIX: Bisa balik dari slide 7 ke sebelumnya)
+    // === PERBAIKAN: Fungsi pindah slide yang lebih robust ===
     function scrollToSlide(index) {
       if (!isOpen && index !== 0) return;
+      if (index < 0 || index >= slides.length) return; // Batas aman
 
       // Hapus active dari slide lama
       slides[currentSlide].classList.remove('active');
-      if (currentSlide >= 1) {
-        navItems[currentSlide - 1].classList.remove('active');
-      }
+      // Hapus active dari SEMUA nav items (lebih aman)
+      navItems.forEach(item => item.classList.remove('active'));
 
       // Set slide baru
       currentSlide = index;
       slides[currentSlide].classList.add('active');
 
-      // Aktifkan navbar sesuai slide (kecuali slide 0)
+      // Aktifkan navbar yang sesuai dengan slide saat ini (jika ada)
       if (currentSlide >= 1) {
-        navItems[currentSlide - 1].classList.add('active');
+        // Cari nav item yang data-slide-nya == currentSlide
+        const activeNavItem = document.querySelector(`.nav-item[data-slide="${currentSlide}"]`);
+        if (activeNavItem) {
+          activeNavItem.classList.add('active');
+        }
       }
     }
 
-    // Scroll & Touch Navigation (FIX: Bisa balik dari akhir)
+    // Scroll & Touch Navigation (FIX: Logika swipe sekarang berfungsi di semua slide)
     let isScrolling = false;
     function handleScroll(direction) {
       if (isScrolling || !isOpen) return;
-      isScrolling = true;
-      setTimeout(() => isScrolling = false, 800);
+      
+      const currentSlideElement = slides[currentSlide];
+      
+      // Cek apakah slide internal sedang di scroll
+      const atTop = currentSlideElement.scrollTop === 0;
+      const atBottom = currentSlideElement.scrollHeight - currentSlideElement.scrollTop === currentSlideElement.clientHeight;
 
-      if (direction > 0 && currentSlide < slides.length - 1) { // Next
-        scrollToSlide(currentSlide + 1);
-      } else if (direction < 0 && currentSlide > 1) { // Prev - FIXED: >1 biar gak balik ke cover kecuali dari slide 1
-        scrollToSlide(currentSlide - 1);
-      } else if (direction < 0 && currentSlide === 1) { // Dari slide 1 balik ke cover (opsional, tapi gak di-open state)
-        if (!isOpen) scrollToSlide(0);
+      let targetSlide = currentSlide;
+
+      if (direction > 0 && atBottom && currentSlide < slides.length - 1) { // Next
+        targetSlide = currentSlide + 1;
+      } else if (direction < 0 && atTop && currentSlide > 0) { // Prev
+         // Blokir swipe kembali ke cover (slide 0) jika sudah terbuka
+        if (currentSlide === 1) {
+          return; 
+        }
+        targetSlide = currentSlide - 1;
+      }
+
+      if (targetSlide !== currentSlide) {
+        isScrolling = true;
+        setTimeout(() => isScrolling = false, 800); // Cooldown
+        scrollToSlide(targetSlide);
       }
     }
 
     // Mouse wheel
-    window.addEventListener('wheel', e => handleScroll(e.deltaY));
+    window.addEventListener('wheel', e => {
+       // Hanya handle scroll 'halaman' jika tidak ada scrollbar vertikal di konten
+       const currentSlideElement = slides[currentSlide];
+       const hasInternalScroll = currentSlideElement.scrollHeight > currentSlideElement.clientHeight;
+       
+       if (!hasInternalScroll) {
+         e.preventDefault(); // Mencegah scroll default browser
+         handleScroll(e.deltaY);
+       } else {
+         // Biarkan user scroll konten internal dulu
+         const atTop = currentSlideElement.scrollTop === 0;
+         const atBottom = Math.ceil(currentSlideElement.scrollHeight - currentSlideElement.scrollTop) === currentSlideElement.clientHeight;
+
+         if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+           // Jika sudah di ujung, trigger pindah slide
+           handleScroll(e.deltaY);
+         }
+         // Jika di tengah, biarkan default scroll (overflow-y: auto) bekerja
+       }
+    }, { passive: false }); // passive: false diperlukan untuk preventDefault
 
     // Touch swipe
     let touchStartY = 0;
-    window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY);
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    });
+    
     window.addEventListener('touchend', e => {
       const diff = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) > 50) handleScroll(diff);
+      if (Math.abs(diff) > 50) { // Ambang batas swipe
+        handleScroll(diff);
+      }
     });
 
     // Countdown
