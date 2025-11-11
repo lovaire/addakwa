@@ -16,7 +16,7 @@
       --accent: #dd787f;
       --border: #c1d6a1;
       --max-width: 600px;
-      --nav-height: 80px; /* Untuk padding bottom & posisi frame */
+      --nav-height: 80px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
@@ -26,14 +26,29 @@
       color: #333;
       overflow: hidden;
     }
+    
+    /* PERBAIKAN: Body styling untuk desktop */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      background: linear-gradient(135deg, #f4dad7 0%, #e8c9c5 100%);
+    }
+    
     .container {
       max-width: var(--max-width);
+      width: 100%;
       margin: 0 auto;
       position: relative;
       height: 100vh;
+      max-height: 800px;
       overflow: hidden;
       box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      border-radius: 20px;
     }
+    
     .slide {
       position: absolute;
       top: 0; left: 0;
@@ -104,12 +119,10 @@
 
     /* Bottom Navigation */
     .bottom-nav {
-      position: fixed;
+      position: absolute;
       bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 100%;
-      max-width: var(--max-width);
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       display: flex;
@@ -123,7 +136,7 @@
       box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
       opacity: 0;
       visibility: hidden;
-      transform: translateX(-50%) translateY(20px);
+      transform: translateY(20px);
       transition: all 0.4s ease;
       -ms-overflow-style: none;
       scrollbar-width: none;
@@ -134,7 +147,7 @@
     .bottom-nav.visible {
       opacity: 1;
       visibility: visible;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
     .nav-item {
       display: flex;
@@ -216,6 +229,17 @@
       border: none;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* PERBAIKAN: Media query untuk desktop */
+    @media (min-width: 768px) {
+      body {
+        padding: 40px;
+      }
+      .container {
+        height: 90vh;
+        max-height: 700px;
+      }
     }
   </style>
 </head>
@@ -486,16 +510,12 @@
         if (activeNavItem) {
           activeNavItem.classList.add('active');
           
-          // === PERBAIKAN: Logika scroll navbar "timbul" ===
           if (currentSlide === 1 || currentSlide === 2) {
-            // Scroll ke paling kiri
             bottomNav.scrollTo({ left: 0, behavior: 'smooth' });
           } else if (currentSlide === 3 || currentSlide === 4 || currentSlide === 5) {
-            // Scroll ke tengah
             const scrollTarget = activeNavItem.offsetLeft - (bottomNav.clientWidth / 2) + (activeNavItem.clientWidth / 2);
             bottomNav.scrollTo({ left: scrollTarget, behavior: 'smooth' });
           } else if (currentSlide === 6 || currentSlide === 7) {
-            // Scroll ke paling kanan
             bottomNav.scrollTo({ left: bottomNav.scrollWidth, behavior: 'smooth' });
           }
         }
