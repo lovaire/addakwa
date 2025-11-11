@@ -16,7 +16,7 @@
       --accent: #dd787f;
       --border: #c1d6a1;
       --max-width: 600px;
-      --nav-height: 80px; /* Untuk padding bottom & posisi frame */
+      --nav-height: 80px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
@@ -39,7 +39,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      padding: 60px 20px var(--nav-height);
+      padding: 60px 20px calc(var(--nav-height) + 20px); /* Tambah ruang agar konten tidak mepet */
       background: url('https://satumomen.com/themes/green-pink/bg.webp') center/cover no-repeat;
       display: flex;
       flex-direction: column;
@@ -48,14 +48,11 @@
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
       pointer-events: none;
-      
       overflow-y: auto;
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    .slide::-webkit-scrollbar {
-      display: none;
-    }
+    .slide::-webkit-scrollbar { display: none; }
     .slide.active {
       opacity: 1;
       transform: translateY(0);
@@ -83,12 +80,41 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 3; /* Frame di atas konten, tapi di bawah navbar */
     }
     .frame img {
       max-width: 100%;
       position: absolute;
+      opacity: 0;
+      transition: all 3s ease-out;
     }
+
+    /* Animasi masuk dari atas (tm, tl, tr) */
+    .frame-tm, .frame-tl, .frame-tr {
+      transform: translateY(-100px);
+    }
+    /* Animasi masuk dari bawah (bl, br) */
+    .frame-bl, .frame-br {
+      transform: translateY(100px);
+      bottom: calc(var(--nav-height) + 10px); /* Sedikit naik agar tidak tertutup navbar */
+    }
+
+    .slide.active .frame-tm,
+    .slide.active .frame-tl,
+    .slide.active .frame-tr,
+    .slide.active .frame-bl,
+    .slide.active .frame-br {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Delay animasi */
+    .slide.active .frame-tm { transition-delay: 0.1s; }
+    .slide.active .frame-tl { transition-delay: 0.3s; }
+    .slide.active .frame-tr { transition-delay: 0.3s; }
+    .slide.active .frame-bl { transition-delay: 0.5s; }
+    .slide.active .frame-br { transition-delay: 0.5s; }
+
     @keyframes wave-left {
       0% { transform: rotate(-8deg); }
       100% { transform: rotate(8deg); }
@@ -117,7 +143,7 @@
       overflow-x: auto;
       white-space: nowrap;
       padding: 14px 10px;
-      z-index: 1000;
+      z-index: 1000; /* Pastikan navbar di atas semua */
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
@@ -128,9 +154,7 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-    .bottom-nav::-webkit-scrollbar {
-      display: none;
-    }
+    .bottom-nav::-webkit-scrollbar { display: none; }
     .bottom-nav.visible {
       opacity: 1;
       visibility: visible;
@@ -175,8 +199,7 @@
       transform: translateY(30px);
       transition: all 0.8s ease-out;
     }
-    img.animate-in,
-    iframe.animate-in {
+    img.animate-in, iframe.animate-in {
       transition: all 3s ease-out;
     }
     .slide.active .animate-in {
@@ -221,13 +244,14 @@
 </head>
 <body>
   <div class="container">
+    <!-- Slide 0: Cover -->
     <section class="slide active" id="slide-0">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in" style="font-size:90px;margin:20px 0;">
@@ -243,13 +267,14 @@
       </div>
     </section>
 
+    <!-- Slide 1: The Wedding Of -->
     <section class="slide" id="slide-1">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in" style="font-size:16px;margin:15px 0;">The Wedding Of</div>
@@ -259,13 +284,14 @@
       </div>
     </section>
 
+    <!-- Slide 2: Mempelai -->
     <section class="slide" id="slide-2">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in" style="font-style:italic;margin:15px 0;">Bismillahirrahmanirrahim</div>
@@ -286,13 +312,14 @@
       </div>
     </section>
 
+    <!-- Slide 3: Acara -->
     <section class="slide" id="slide-3">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in" style="font-weight:bold;color:var(--accent);margin:15px 0;font-size:18px;">Akad Nikah<br>Sabtu, 17 Februari 2024</div>
@@ -325,13 +352,14 @@
       </div>
     </section>
 
+    <!-- Slide 4: Maps -->
     <section class="slide" id="slide-4">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <iframe class="animate-in" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCpV55KNPo55TuxnDFd_dR3MD0luBrN1Gc&q=-2.717779967242039,111.16773068904877"></iframe>
@@ -343,13 +371,14 @@
       </div>
     </section>
 
+    <!-- Slide 5: RSVP -->
     <section class="slide" id="slide-5">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in font-latin" style="font-size:30px;color:var(--accent);margin:25px 0;">Do'a Untuk Pengantin</div>
@@ -361,13 +390,14 @@
       </div>
     </section>
 
+    <!-- Slide 6: Gift -->
     <section class="slide" id="slide-6">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content">
         <div class="animate-in font-latin" style="font-size:32px;color:var(--accent);margin:25px 0;">Tanda Kasih</div>
@@ -388,13 +418,14 @@
       </div>
     </section>
 
+    <!-- Slide 7: Thanks -->
     <section class="slide" id="slide-7">
       <div class="frame">
-        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm animate-in" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
-        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl animate-in delay-1" style="top:0;left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr animate-in delay-1" style="top:0;right:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl animate-in delay-2" style="bottom: var(--nav-height);left:0;width:30%;">
-        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br animate-in delay-2" style="bottom: var(--nav-height);right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tm.webp" class="frame-tm" style="top:0;left:50%;transform:translateX(-50%);width:80%;">
+        <img src="https://satumomen.com/themes/green-pink/tl.webp" class="frame-tl" style="top:0;left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/tr.webp" class="frame-tr" style="top:0;right:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/bl.webp" class="frame-bl" style="left:0;width:30%;">
+        <img src="https://satumomen.com/themes/green-pink/br.webp" class="frame-br" style="right:0;width:30%;">
       </div>
       <div class="content" style="display:flex;flex-direction:column;justify-content:space-between;min-height:100%;padding-top:60px;">
         <div></div>
@@ -415,6 +446,7 @@
     </section>
   </div>
 
+  <!-- Bottom Navigation -->
   <div class="bottom-nav" id="bottomNav">
     <div class="nav-item" data-slide="1">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -485,17 +517,12 @@
         const activeNavItem = document.querySelector(`.nav-item[data-slide="${currentSlide}"]`);
         if (activeNavItem) {
           activeNavItem.classList.add('active');
-          
-          // === PERBAIKAN: Logika scroll navbar "timbul" ===
           if (currentSlide === 1 || currentSlide === 2) {
-            // Scroll ke paling kiri
             bottomNav.scrollTo({ left: 0, behavior: 'smooth' });
           } else if (currentSlide === 3 || currentSlide === 4 || currentSlide === 5) {
-            // Scroll ke tengah
             const scrollTarget = activeNavItem.offsetLeft - (bottomNav.clientWidth / 2) + (activeNavItem.clientWidth / 2);
             bottomNav.scrollTo({ left: scrollTarget, behavior: 'smooth' });
           } else if (currentSlide === 6 || currentSlide === 7) {
-            // Scroll ke paling kanan
             bottomNav.scrollTo({ left: bottomNav.scrollWidth, behavior: 'smooth' });
           }
         }
@@ -515,9 +542,7 @@
       if (direction > 0 && atBottom && currentSlide < slides.length - 1) {
         targetSlide = currentSlide + 1;
       } else if (direction < 0 && atTop && currentSlide > 0) {
-        if (currentSlide === 1) {
-          return;
-        }
+        if (currentSlide === 1) return;
         targetSlide = currentSlide - 1;
       }
 
@@ -528,35 +553,30 @@
       }
     }
 
-    // Mouse wheel
     window.addEventListener('wheel', e => {
-       const currentSlideElement = slides[currentSlide];
-       const hasInternalScroll = currentSlideElement.scrollHeight > currentSlideElement.clientHeight;
-       
-       if (isOpen) {
-         e.preventDefault();
-         
-         if (hasInternalScroll) {
-           const atTop = currentSlideElement.scrollTop === 0;
-           const atBottom = Math.ceil(currentSlideElement.scrollHeight - currentSlideElement.scrollTop) >= currentSlideElement.clientHeight - 2;
-
-           if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
-             handleScroll(e.deltaY);
-           } else {
-             currentSlideElement.scrollTop += e.deltaY;
-           }
-         } else {
-           handleScroll(e.deltaY);
-         }
-       }
+      const currentSlideElement = slides[currentSlide];
+      const hasInternalScroll = currentSlideElement.scrollHeight > currentSlideElement.clientHeight;
+      
+      if (isOpen) {
+        e.preventDefault();
+        if (hasInternalScroll) {
+          const atTop = currentSlideElement.scrollTop === 0;
+          const atBottom = Math.ceil(currentSlideElement.scrollHeight - currentSlideElement.scrollTop) >= currentSlideElement.clientHeight - 2;
+          if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+            handleScroll(e.deltaY);
+          } else {
+            currentSlideElement.scrollTop += e.deltaY;
+          }
+        } else {
+          handleScroll(e.deltaY);
+        }
+      }
     }, { passive: false });
 
-    // Touch swipe
     let touchStartY = 0;
     window.addEventListener('touchstart', e => {
       touchStartY = e.touches[0].clientY;
     });
-    
     window.addEventListener('touchend', e => {
       const diff = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(diff) > 50) {
@@ -564,7 +584,6 @@
       }
     });
 
-    // Countdown
     const countdownDate = new Date('2025-02-15T10:00:00').getTime();
     setInterval(() => {
       const now = new Date().getTime();
@@ -584,58 +603,42 @@
     }, 1000);
 
     function isSmartphone() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone|iemobile|mobile safari/i.test(userAgent);
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isSmallScreen = window.innerWidth <= 768; // batas layar smartphone
-
-    return isMobile && isTouch && isSmallScreen;
-  }
-
-  // Cek saat halaman dimuat
-  window.addEventListener('load', () => {
-    if (!isSmartphone()) {
-      // Sembunyikan semua konten
-      document.body.innerHTML = `
-        <div style="
-          font-family: 'Poppins', sans-serif;
-          text-align: center;
-          padding: 60px 20px;
-          background: #f4dad7;
-          color: #333;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        ">
-          <h1 style="font-size: 28px; color: #dd787f; margin-bottom: 16px;">Maaf!</h1>
-          <p style="font-size: 18px; max-width: 400px; line-height: 1.6;">
-            Undangan ini <strong>hanya dapat dibuka di SmartPhone</strong>.<br>
-            Silakan buka menggunakan ponsel Anda.
-          </p>
-          <div style="margin-top: 30px;">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="#dd787f">
-              <path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-1 20h-6v-1h6v1zm3.25-3H5.75V4h12.5v14z"/>
-            </svg>
-          </div>
-        </div>
-      `;
-      // Hentikan semua animasi & script lain
-      document.documentElement.style.overflow = 'hidden';
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone|iemobile|mobile safari/i.test(userAgent);
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth <= 768;
+      return isMobile && isTouch && isSmallScreen;
     }
-  });
 
-  // Cek juga saat resize (jika user buka dev tools)
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      if (!isSmartphone() && document.body.children.length > 0) {
-        location.reload(); // reload agar muncul pesan
+    window.addEventListener('load', () => {
+      if (!isSmartphone()) {
+        document.body.innerHTML = `
+          <div style="font-family: 'Poppins', sans-serif; text-align: center; padding: 60px 20px; background: #f4dad7; color: #333; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1 style="font-size: 28px; color: #dd787f; margin-bottom: 16px;">Maaf!</h1>
+            <p style="font-size: 18px; max-width: 400px; line-height: 1.6;">
+              Undangan ini <strong>hanya dapat dibuka di SmartPhone</strong>.<br>
+              Silakan buka menggunakan ponsel Anda.
+            </p>
+            <div style="margin-top: 30px;">
+              <svg width="80" height="80" viewBox="0 0 24 24" fill="#dd787f">
+                <path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-1 20h-6v-1h6v1zm3.25-3H5.75V4h12.5v14z"/>
+              </svg>
+            </div>
+          </div>
+        `;
+        document.documentElement.style.overflow = 'hidden';
       }
-    }, 500);
-  });
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (!isSmartphone() && document.body.children.length > 0) {
+          location.reload();
+        }
+      }, 500);
+    });
   </script>
 </body>
 </html>
