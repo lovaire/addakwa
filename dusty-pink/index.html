@@ -26,6 +26,7 @@
       color: #333;
       overflow: hidden;
     }
+    /* PERBAIKAN: Container untuk desktop */
     .container {
       max-width: var(--max-width);
       margin: 0 auto;
@@ -33,6 +34,15 @@
       height: 100vh;
       overflow: hidden;
       box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+    /* PERBAIKAN: Background untuk area di luar container */
+    body {
+      background: linear-gradient(135deg, #f4dad7 0%, #e8c9c5 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
     .slide {
       position: absolute;
@@ -437,151 +447,4 @@
       <span>RSVP</span>
     </div>
     <div class="nav-item" data-slide="6">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.67a2.997 2.997 0 0 0-5.35 1.33 3 3 0 0 0-2.5 2.82C4 7.31 4 7 4 7H2c-.55 0-1 .45-1 1 0 .27.09.52.25.72l6.07 6.07c.3.3.7.5 1.08.5h9l5.5 5.5c.14.13.33.21.53.21.4 0 .74-.24.88-.6l1.47-4.33c.01-.03.01-.07.01-.1V8c0-.55-.45-1-1-1h-2z"/></svg>
-      <span>Gift</span>
-    </div>
-    <div class="nav-item" data-slide="7">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-6.88-.55L12 3 8.88 8.69 2 9.24l5.46 4.73L5.82 21z"/></svg>
-      <span>Thanks</span>
-    </div>
-  </div>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const to = urlParams.get('to') || 'Tamu Undangan';
-    document.getElementById('guestName').textContent = decodeURIComponent(to);
-
-    let currentSlide = 0;
-    let isOpen = false;
-    const slides = document.querySelectorAll('.slide');
-    const navItems = document.querySelectorAll('.nav-item');
-    const bottomNav = document.getElementById('bottomNav');
-    const openBtn = document.getElementById('openInvitation');
-
-    openBtn.addEventListener('click', () => {
-      isOpen = true;
-      scrollToSlide(1);
-      bottomNav.classList.add('visible');
-    });
-
-    navItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        const targetSlide = parseInt(item.dataset.slide, 10);
-        scrollToSlide(targetSlide);
-      });
-    });
-
-    function scrollToSlide(index) {
-      if (!isOpen && index !== 0) return;
-      if (index < 0 || index >= slides.length) return;
-
-      slides[currentSlide].classList.remove('active');
-      navItems.forEach(item => item.classList.remove('active'));
-
-      currentSlide = index;
-      slides[currentSlide].classList.add('active');
-
-      if (currentSlide >= 1) {
-        const activeNavItem = document.querySelector(`.nav-item[data-slide="${currentSlide}"]`);
-        if (activeNavItem) {
-          activeNavItem.classList.add('active');
-          
-          // === PERBAIKAN: Logika scroll navbar "timbul" ===
-          if (currentSlide === 1 || currentSlide === 2) {
-            // Scroll ke paling kiri
-            bottomNav.scrollTo({ left: 0, behavior: 'smooth' });
-          } else if (currentSlide === 3 || currentSlide === 4 || currentSlide === 5) {
-            // Scroll ke tengah
-            const scrollTarget = activeNavItem.offsetLeft - (bottomNav.clientWidth / 2) + (activeNavItem.clientWidth / 2);
-            bottomNav.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-          } else if (currentSlide === 6 || currentSlide === 7) {
-            // Scroll ke paling kanan
-            bottomNav.scrollTo({ left: bottomNav.scrollWidth, behavior: 'smooth' });
-          }
-        }
-      }
-    }
-
-    let isScrolling = false;
-    function handleScroll(direction) {
-      if (isScrolling || !isOpen) return;
-      
-      const currentSlideElement = slides[currentSlide];
-      const atTop = currentSlideElement.scrollTop === 0;
-      const atBottom = Math.ceil(currentSlideElement.scrollHeight - currentSlideElement.scrollTop) === currentSlideElement.clientHeight;
-
-      let targetSlide = currentSlide;
-
-      if (direction > 0 && atBottom && currentSlide < slides.length - 1) {
-        targetSlide = currentSlide + 1;
-      } else if (direction < 0 && atTop && currentSlide > 0) {
-        if (currentSlide === 1) {
-          return;
-        }
-        targetSlide = currentSlide - 1;
-      }
-
-      if (targetSlide !== currentSlide) {
-        isScrolling = true;
-        setTimeout(() => isScrolling = false, 800);
-        scrollToSlide(targetSlide);
-      }
-    }
-
-    // Mouse wheel
-    window.addEventListener('wheel', e => {
-       const currentSlideElement = slides[currentSlide];
-       const hasInternalScroll = currentSlideElement.scrollHeight > currentSlideElement.clientHeight;
-       
-       if (isOpen) {
-         e.preventDefault();
-         
-         if (hasInternalScroll) {
-           const atTop = currentSlideElement.scrollTop === 0;
-           const atBottom = Math.ceil(currentSlideElement.scrollHeight - currentSlideElement.scrollTop) >= currentSlideElement.clientHeight - 2;
-
-           if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
-             handleScroll(e.deltaY);
-           } else {
-             currentSlideElement.scrollTop += e.deltaY;
-           }
-         } else {
-           handleScroll(e.deltaY);
-         }
-       }
-    }, { passive: false });
-
-    // Touch swipe
-    let touchStartY = 0;
-    window.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-    });
-    
-    window.addEventListener('touchend', e => {
-      const diff = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) > 50) {
-        handleScroll(diff);
-      }
-    });
-
-    // Countdown
-    const countdownDate = new Date('2025-02-15T10:00:00').getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const diff = countdownDate - now;
-      if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-        document.querySelectorAll('#countdown .number')[0].textContent = String(days).padStart(2, '0');
-        document.querySelectorAll('#countdown .number')[1].textContent = String(hours).padStart(2, '0');
-        document.querySelectorAll('#countdown .number')[2].textContent = String(mins).padStart(2, '0');
-        document.querySelectorAll('#countdown .number')[3].textContent = String(secs).padStart(2, '0');
-      } else {
-        document.querySelector('#countdown').innerHTML = '<div style="grid-column:1/-1;font-size:18px;color:var(--accent);">Acara Telah Dimulai!</div>';
-      }
-    }, 1000);
-  </script>
-</body>
-</html>
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.67a2.997 2.997 0 0 0-5.35 1.33 3 3 0 0 0-2.5 2.82C4 7.31 4 7 4 7H2c-.55 0-1 .45-1 1 0 .27.09.52.25.72l6.07 6.07c.3.3.7.5 1.08.5h9l5.5 5.5c.14.
