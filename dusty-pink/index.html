@@ -80,23 +80,23 @@
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
-      z-index: 3; /* Frame di atas konten, tapi di bawah navbar */
+      z-index: 1; /* Frame di bawah navbar (navbar z-index: 1000) */
     }
     .frame img {
       max-width: 100%;
       position: absolute;
       opacity: 0;
-      transition: all 3s ease-out;
+      transition: opacity 3s ease-out, transform 3s ease-out;
     }
 
     /* Animasi masuk dari atas (tm, tl, tr) */
+     /* Animasi masuk dari atas (tm, tl, tr) */
     .frame-tm, .frame-tl, .frame-tr {
       transform: translateY(-100px);
     }
     /* Animasi masuk dari bawah (bl, br) */
     .frame-bl, .frame-br {
       transform: translateY(100px);
-      bottom: calc(var(--nav-height) + 10px); /* Sedikit naik agar tidak tertutup navbar */
     }
 
     .slide.active .frame-tm,
@@ -108,7 +108,7 @@
       transform: translateY(0);
     }
 
-    /* Delay animasi */
+     /* Delay animasi */
     .slide.active .frame-tm { transition-delay: 0.1s; }
     .slide.active .frame-tl { transition-delay: 0.3s; }
     .slide.active .frame-tr { transition-delay: 0.3s; }
