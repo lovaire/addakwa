@@ -802,12 +802,34 @@
             }
         }
         checkBrowser()
+        // Ambil parameter 'to' dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const toParam = urlParams.get('to');
+
+        if (toParam) {
+          // Decode URL (misal: Rifqi+Rahmat → Rifqi Rahmat)
+          const guestName = decodeURIComponent(toParam.replace(/\+/g, ' '));
+          // Tampilkan di elemen dengan id="guestNameSlot"
+          document.getElementById('guestNameSlot').textContent = guestName;
+        }
+        //  // Blokir klik kanan
+        // document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // // Blokir shortcut inspect (F12, Ctrl+Shift+I, dll)
+        // document.addEventListener('keydown', (e) => {
+        //   if (
+        //     e.key === 'F12' ||
+        //     (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        //     (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        //     (e.ctrlKey && e.key === 'U')
+        //   ) {
+        //     e.preventDefault();
+        //   }
+        // });
     </script>
         <!-- end script -->
     <script type="text/javascript">
         
     </script>
-<script defer="" src="/preview/template2/assets/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;bb94421b81454f668eb9cf5cf8e9f0cb&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
-
 
 <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>
