@@ -1316,6 +1316,16 @@
              }
          }
          checkBrowser()
+         // Ambil parameter 'to' dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const toParam = urlParams.get('to');
+
+        if (toParam) {
+          // Decode URL (misal: Rifqi+Rahmat → Rifqi Rahmat)
+          const guestName = decodeURIComponent(toParam.replace(/\+/g, ' '));
+          // Tampilkan di elemen dengan id="guestNameSlot"
+          document.getElementById('guestNameSlot').textContent = guestName;
+        }
         //  // Blokir klik kanan
         // document.addEventListener('contextmenu', (e) => e.preventDefault());
 
