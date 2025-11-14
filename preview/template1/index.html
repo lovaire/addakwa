@@ -1316,20 +1316,20 @@
              }
          }
          checkBrowser()
-         // Blokir klik kanan
-        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        //  // Blokir klik kanan
+        // document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        // Blokir shortcut inspect (F12, Ctrl+Shift+I, dll)
-        document.addEventListener('keydown', (e) => {
-          if (
-            e.key === 'F12' ||
-            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-            (e.ctrlKey && e.key === 'U')
-          ) {
-            e.preventDefault();
-          }
-        });
+        // // Blokir shortcut inspect (F12, Ctrl+Shift+I, dll)
+        // document.addEventListener('keydown', (e) => {
+        //   if (
+        //     e.key === 'F12' ||
+        //     (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        //     (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        //     (e.ctrlKey && e.key === 'U')
+        //   ) {
+        //     e.preventDefault();
+        //   }
+        // });
       </script>
       <!-- end script -->
       <script type="text/javascript"></script>
