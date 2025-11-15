@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Addakwa - Undangan Digital</title>
-    <meta name="description" content="Promo 100++ Pilihan Tema yang cantik elegan juga animasi imut membuat undangan semakin cantik harga murah dengan kualitas dan Pelayanan Premium" />
+    <title>Addakwa - Undangan Digital Profesional & Elegan</title>
+    <meta name="description" content="Buat undangan digital website yang premium dengan fitur lengkap. Pilihan tema elegan, RSVP, buku tamu digital QR Code, dan revisi sepuasnya." />
     <link rel="canonical" href="https://addakwa.com/" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png" sizes="192x192">
 
-    <!-- Font: Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- AOS Animation -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
     <style>
@@ -34,20 +32,23 @@
             line-height: 1.6;
             scroll-behavior: smooth;
         }
-        .package ul {
-            list-style: none;
-            padding: 0;
+        
+        h1, h2, h3 {
+            font-weight: 700;
         }
 
-        footer .col ul li a {
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
+        h2 {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 40px;
         }
 
-        h1, h2, h3, p, ul {
+        h1, h2, h3, p {
             text-align: center;
+        }
+
+        section {
+            padding: 60px 0;
         }
 
         .container {
@@ -62,6 +63,7 @@
             position: fixed;
             width: 100%;
             z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         header .container {
@@ -89,6 +91,11 @@
             color: var(--secondary-color);
             text-decoration: none;
             font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: var(--white);
         }
 
         .hamburger {
@@ -101,72 +108,199 @@
         .hero {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg4rGoKZnlAX6JuOAmGh2SJhVl2ayeav0BNFOj4hmiRpP6y76C1TYUuJrBoGUq9tvGhskfdZc2IGIclkBz7fwM7-2oNxDJeLuEXiXDV6DEVeZpn7p2SeRebhwhJFBNwQT-sQT6QH88UQ48IdS5HdWKLSjIReF1ukvt1k2I3V57qODEj5I31azpthp35oK8/s320/Tanpa%20judul%20(1920%20x%20800%20piksel).png') center/cover no-repeat;
             color: var(--white);
-            padding: 150px 0 100px;
+            padding: 180px 0 120px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3em;
+            font-size: 3.2em;
             margin-bottom: 20px;
             color: var(--secondary-color);
+            font-weight: 800;
         }
 
         .hero p {
             font-size: 1.2em;
             margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .button {
             background-color: var(--secondary-color);
             color: var(--primary-color);
-            padding: 10px 20px;
+            padding: 12px 25px;
             text-decoration: none;
             border-radius: 5px;
             margin: 10px;
             display: inline-block;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            border: 2px solid var(--secondary-color);
         }
 
         .button:hover {
-            background-color: var(--primary-color); color: var(--secondary-color);
+            background-color: transparent;
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
         }
+        
+        .button.outline {
+             background-color: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .button.outline:hover {
+             background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .item, .package, .theme {
             background: var(--white);
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 2s ease-in-out;
         }
 
         .item:hover, .package:hover {
-            transform: translateY(-5px);
+            transform: translateY(-15px) scale(1.08); /* Dibuat lebih naik dan lebih besar */
+            box-shadow: 0 20px 35px rgba(0,0,0,0.25); /* Bayangan dibuat lebih tebal/gelap */
         }
 
         .item img, .theme img {
-            max-width: 100px;
-            margin-bottom: 10px;
+            max-width: 80px; /* Icon lebih kecil agar lebih elegan */
+            margin-bottom: 15px;
         }
+        
+        .item h3 {
+            color: var(--primary-color);
+        }
+        
+        /* --- Pricing Table Styling --- */
+        .pricing {
+             background-color: var(--white); /* Section Pricing dibuat beda */
+        }
+        
+        .package {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package h3 {
+            font-size: 1.5em;
+            color: var(--primary-color);
+        }
+        
+        .package .price {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+        
+        .package .price span {
+            font-size: 0.5em;
+            font-weight: 400;
+            color: #777;
+        }
+
+        .package ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+            flex-grow: 1; /* Membuat UL mengisi ruang */
+        }
+        
+        .package ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .package ul .fas {
+            color: var(--secondary-color);
+            margin-right: 12px;
+            width: 18px; /* Menyamakan lebar icon */
+            text-align: center;
+        }
+        
+        .package ul li.disabled {
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .package ul li.disabled .fa-check {
+             display: none; /* Sembunyikan ceklis */
+        }
+        
+        .package ul li.disabled .fa-times {
+            color: #ccc;
+        }
+        
+        /* Highlight Paket Populer */
+        .package.popular {
+            border: 3px solid var(--secondary-color);
+            transform: translateY(-15px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .package.popular h3 {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            margin: -30px -30px 20px -30px; /* Style banner */
+            padding: 15px 30px;
+            font-size: 1.7em;
+        }
+        
+        /* --- End Pricing Table --- */
+
 
         .accordion .item {
             margin-bottom: 10px;
             border: 1px solid var(--secondary-color);
             border-radius: 5px;
+            background: var(--white);
+            text-align: left; /* FAQ sebaiknya rata kiri */
+            box-shadow: none;
+        }
+        
+        .accordion .item:hover {
+            transform: none; /* Hilangkan hover di FAQ item */
         }
 
         .accordion h3 {
             cursor: pointer;
-            padding: 10px;
+            padding: 15px 20px;
             background: var(--primary-color);
             color: var(--secondary-color);
             margin: 0;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion h3::after {
+            content: '\f078'; /* FontAwesome chevron-down */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion h3.active::after {
+             transform: rotate(180deg);
         }
 
         .accordion h3:hover {
@@ -174,9 +308,12 @@
         }
 
         .accordion p {
-            padding: 10px;
+            padding: 20px;
             display: none;
             background: var(--accent-color);
+            text-align: left;
+            margin: 0;
+            border-top: 1px solid var(--secondary-color);
         }
 
         footer {
@@ -199,11 +336,18 @@
         footer a:hover {
             color: var(--accent-color);
         }
+        
+        footer .col ul li a {
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
 
         /* AOS settings improvement */
         [data-aos] {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px);
             transition-property: opacity, transform;
             transition-duration: 1s;
             transition-timing-function: ease-out;
@@ -218,7 +362,7 @@
             nav ul {
                 display: none;
                 position: absolute;
-                top: 70px;
+                top: 70px; /* Disesuaikan dengan tinggi header */
                 left: 0;
                 width: 100%;
                 background: var(--primary-color);
@@ -245,15 +389,23 @@
             }
 
             .hero {
-                padding: 100px 0 50px;
+                padding: 120px 0 70px;
             }
 
             .hero h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
 
             .logo-text {
                 font-size: 18px;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr; /* 1 kolom di HP */
+            }
+            
+            .package.popular {
+                 transform: translateY(0); /* Hilangkan efek 'naik' di HP */
             }
         }
 
@@ -280,8 +432,6 @@
             color: #f5f5f5; /* biar tidak berubah saat hover */
         }
 
-
-
     </style>
 </head>
 <body>
@@ -295,188 +445,181 @@
             <nav>
                 <div class="hamburger" id="hamburger">&#9776;</div>
                 <ul id="nav-menu">
-                    <li><a href="https://addakwa.com/">Home</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#fitur">Fitur</a></li>
+                    <li><a href="#harga">Harga</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="https://addakwa.com/katalog/">Katalog</a></li>
-                    <li><a href="https://addakwa.com/acaralain/">Acara Lain</a></li>
-                    <li><a href="https://addakwa.com/testimoni/">Klien Kami</a></li>
-                    <li><a href="https://addakwa.com/fitur/">Fitur</a></li>
-                    <li><a href="https://addakwa.com/order/">Form Order</a></li>
+                    <li><a href="https://addakwa.com/order/" class="button" style="padding: 5px 15px; margin-left: 15px;">Order</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <main>
-        <section class="hero" data-aos="fade-in">
+        <section class="hero" id="home" data-aos="fade-in">
             <div class="container">
                 <div class="hero-content">
                     <h1 data-aos="fade-up">Bagikan Momen Terindahmu Dengan Undangan Website</h1>
-                    <p data-aos="fade-up" data-aos-delay="200">Solusi pernikahan lebih hemat, praktis, dan kekinian dengan undangan online yang disebar tanpa batas. <b>Promo spesial segera berakhir. Order sekarang!</b></p>
-                    <a href="https://addakwa.com/katalog/" class="button" data-aos="fade-up" data-aos-delay="300">Lihat Tema</a>
-                    <a href="wa.me/6285697833911" class="button" data-aos="fade-up" data-aos-delay="400">Tanya-tanya dulu</a>
-                    <a href="https://addakwa.com/testimoni/" class="button" data-aos="fade-up" data-aos-delay="500">Klien Kami</a>
+                    <p data-aos="fade-up" data-aos-delay="200">Solusi pernikahan lebih hemat, praktis, dan kekinian dengan undangan online premium. Fitur lengkap, desain elegan, dan layanan terbaik.</p>
+                    <a href="#harga" class="button" data-aos="fade-up" data-aos-delay="300">Lihat Paket Harga</a>
+                    <a href="https://addakwa.com/katalog/" class="button outline" data-aos="fade-up" data-aos-delay="400">Lihat Katalog Tema</a>
                 </div>
             </div>
         </section>
+        
         <section class="why-us" data-aos="fade-up">
             <div class="container">
-                <h2 data-aos="fade-down">Kenapa Harus Menggunakan Undangan Digital</h2>
+                <h2 data-aos="fade-down">Kenapa Memilih Addakwa?</h2>
                 <div class="grid">
                     <div class="item" data-aos="flip-left">
                         <img src="https://cdn-icons-png.flaticon.com/128/9262/9262113.png" alt="Hemat">
-                        <h3>Hemat Biaya, Waktu, dan Tenaga</h3>
+                        <h3>Hemat & Efisien</h3>
+                        <p>Tanpa biaya cetak dan bisa disebar tanpa batas ke ribuan tamu secara instan.</p>
                     </div>
                     <div class="item" data-aos="flip-left" data-aos-delay="100">
-                        <img src="https://cdn-icons-png.flaticon.com/128/686/686308.png" alt="Praktis">
-                        <h3>Lebih Praktis dan Efisien</h3>
+                        <img src="https://cdn-icons-png.flaticon.com/128/10435/10435317.png" alt="Fitur Lengkap">
+                        <h3>Fitur Premium</h3>
+                        <p>Mulai dari RSVP, Buku Tamu Online, hingga QR Code Scanner untuk manajemen tamu.</p>
                     </div>
                     <div class="item" data-aos="flip-left" data-aos-delay="200">
-                        <img src="https://cdn-icons-png.flaticon.com/128/11472/11472762.png" alt="Ramah Lingkungan">
-                        <h3>Modern dan Kekinian</h3>
-                    </div>
-                </div>
-                <h2 data-aos="fade-down" data-aos-delay="300">Pilihan Paket</h2>
-            </div>
-        </section>
-        <section class="pricing" data-aos="fade-up">
-            <div class="container">
-                <div class="grid">
-                    <div class="package" data-aos="zoom-in">
-                        <h3>Basic</h3>
-                        <p>Rp. 35K</p>
-                        <ul>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Tema Basic</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Gallery Foto Unlimited</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Aktif Selamanya</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Cover Pembuka</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Hitung Mundur Ke Tanggal Acara</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Data Profil</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Detail Acara</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Navigasi Lokasi Acara (Google Maps)</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Unlimited Jumlah Tamu</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Kutipan Ayat / Qoutes</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Request Backsound / Music</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Bebas Revisi (Unlimited)</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Amplop Digital</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Link Ke Social Media</li>
-                        </ul>
-                        <a href="wa.me/6285697833911" class="button">Hubungi Kami</a>
-                    </div>
-                    <div class="package" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>Intermediate</h3>
-                        <p>Rp. 50K</p>
-                        <ul>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Tema Basic</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Gallery Foto Unlimited</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Aktif Selamanya</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Cover Pembuka</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Hitung Mundur Ke Tanggal Acara</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Data Profil</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Detail Acara</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Navigasi Lokasi Acara (Google Maps)</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Unlimited Jumlah Tamu</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Kutipan Ayat / Qoutes</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Request Backsound / Music</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Bebas Revisi (Unlimited)</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Amplop Digital</li>
-                            <li><i class="fas fa-check" style="color: var(--secondary-color); margin-right: 8px;"></i>Link Ke Social Media</li>
-                            <li><i class="fas fa-star" style="color: gold; margin-right: 8px;"></i><b>QR Code Tamu</b></li>
-                        </ul>
-                        <a href="wa.me/6285697833911" class="button">Hubungi Kami</a>
-                    </div>
-                    <div class="package" data-aos="zoom-in" data-aos-delay="100">
-                        <h3>Prasmanan</h3>
-                        <p>Start From Rp. 5K</p>
-                        <p>Sesuaikan undangan dengan budget anda! No Worry dengan biaya!</p>
-                        <a href="wa.me/6285697833911" class="button">Hubungi Kami</a>
+                        <img src="https://cdn-icons-png.flaticon.com/128/11472/11472762.png" alt="Modern">
+                        <h3>Modern & Kekinian</h3>
+                        <p>Tampilan elegan dan interaktif yang mewakili hari spesial Anda dengan sempurna.</p>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="features" data-aos="fade-up">
+
+        <section class="pricing" id="harga" data-aos="fade-up">
             <div class="container">
-                <h2>Fitur Undangan Website</h2>
+                <h2 data-aos="fade-down">Pilihan Paket Sesuai Kebutuhan Anda</h2>
                 <div class="grid">
-                    <div class="item" data-aos="fade-right">
+                    
+                    <div class="package" data-aos="zoom-in" data-aos-delay="0">
+                        <h3>Hemat</h3>
+                        <p class="price">Rp 50.000</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Detail Acara & Peta Lokasi</li>
+                            <li><i class="fas fa-check"></i>Hitung Mundur Acara</li>
+                            <li><i class="fas fa-check"></i>Galeri Foto (Maks. 10)</li>
+                            <li><i class="fas fa-check"></i>Amplop Digital</li>
+                            <li><i class="fas fa-check"></i>Tema Pilihan Basic</li>
+                            <li><i class="fas fa-check"></i>Aktif 6 Bulan</li>
+                            <li><i class="fas fa-check"></i>Revisi Maks. 2x</li>
+                            <li class="disabled"><i class="fas fa-times"></i>RSVP Konfirmasi Hadir</li>
+                            <li class="disabled"><i class="fas fa-times"></i>Buku Tamu Online (Ucapan)</li>
+                            <li class="disabled"><i class="fas fa-times"></i>Request Musik</li>
+                            <li class="disabled"><i class="fas fa-times"></i>QR Code Scanner (Buku Tamu)</li>
+                        </ul>
+                        <a href="wa.me/6285697833911" class="button outline">Pilih Paket Ini</a>
+                    </div>
+                    
+                    <div class="package popular" data-aos="zoom-in" data-aos-delay="100">
+                        <h3>Standar</h3>
+                        <p style="margin-top: -10px; font-weight: 700; color: var(--dark-accent); font-size: 1.1em;">(Paling Populer)</p>
+                        <p class="price">Rp 120.000</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Semua Fitur Paket Hemat</li>
+                            <li><i class="fas fa-star" style="color: gold;"></i><b>RSVP Konfirmasi Hadir</b></li>
+                            <li><i class="fas fa-star" style="color: gold;"></i><b>Buku Tamu Online (Ucapan)</b></li>
+                            <li><i class="fas fa-check"></i>Request Musik</li>
+                            <li><i class="fas fa-check"></i>Galeri Foto Unlimited</li>
+                            <li><i class="fas fa-check"></i>Bebas Pilih Semua Tema</li>
+                            <li><i class="fas fa-check"></i>Aktif 12 Bulan</li>
+                            <li><i class="fas fa-check"></i>Revisi Maks. 5x</li>
+                            <li class="disabled"><i class="fas fa-times"></i>QR Code Scanner (Buku Tamu)</li>
+                            <li class="disabled"><i class="fas fa-times"></i>Revisi Sepuasnya</li>
+                        </ul>
+                        <a href="wa.me/6285697833911" class="button">Pilih Paket Populer</a>
+                    </div>
+
+                    <div class="package" data-aos="zoom-in" data-aos-delay="200">
+                        <h3>Premium</h3>
+                        <p class="price">Rp 200.000</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i>Semua Fitur Paket Standar</li>
+                            <li><i class="fas fa-star" style="color: gold;"></i><b>QR Code Scanner (Buku Tamu)</b></li>
+                            <li><i class="fas fa-star" style="color: gold;"></i><b>Revisi Sepuasnya</b></li>
+                            <li><i class="fas fa-star" style="color: gold;"></i><b>Aktif Selamanya</b></li>
+                            <li><i class="fas fa-check"></i>Fitur Love Story</li>
+                            <li><i class="fas fa-check"></i>Fitur Live Streaming</li>
+                            <li><i class="fas fa-check"></i>Layanan Konsultasi Penuh</li>
+                        </ul>
+                        <a href="wa.me/6285697833911" class="button outline">Pilih Paket Premium</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="features" id="fitur" data-aos="fade-up">
+            <div class="container">
+                <h2>Fitur Unggulan Undangan</h2>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"> <div class="item" data-aos="fade-right">
                         <img src="https://cdn-icons-png.flaticon.com/128/1341/1341632.png" alt="QR Code Tamu">
                         <h3>QRCode Tamu</h3>
-                        <p>Memastikan hanya tamu yang doundang yang dapat masuk demi kehidmatan acara.</p>
+                        <p>Manajemen buku tamu digital di hari-H. Lebih cepat, praktis, dan bebas antri.</p>
                     </div>
-                    <div class="item" data-aos="fade-right" data-aos-delay="100">
-                        <img src="https://cdn-icons-png.flaticon.com/128/5715/5715832.png" alt="Hitung Mundur">
-                        <h3>Hitung Mundur</h3>
-                        <p>Jangan sampai terlewatkan moment indah kamu, hitung mundur tanggal acara pernikahanmu.</p>
+                     <div class="item" data-aos="fade-right" data-aos-delay="100">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1534/1534102.png" alt="RSVP">
+                        <h3>Konfirmasi Hadir (RSVP)</h3>
+                        <p>Dapatkan data perkiraan jumlah tamu yang akan hadir (via WA/Form).</p>
                     </div>
-                    <div class="item" data-aos="fade-right" data-aos-delay="200">
-                        <img src="https://cdn-icons-png.flaticon.com/128/2939/2939047.png" alt="Desain Modern">
-                        <h3>Desain Modern</h3>
-                        <p>Dukungan teknis dan support untuk memastikan pengelolaan website berjalan dengan lancar setelah dibuat.</p>
+                     <div class="item" data-aos="fade-right" data-aos-delay="200">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2991/2991113.png" alt="Buku Tamu">
+                        <h3>Buku Tamu Online</h3>
+                        <p>Tamu dapat menulis doa dan ucapan langsung di website undangan Anda.</p>
                     </div>
                     <div class="item" data-aos="fade-right" data-aos-delay="300">
                         <img src="https://cdn-icons-png.flaticon.com/128/7888/7888787.png" alt="Gallery Foto">
-                        <h3>Gallery Foto</h3>
-                        <p>Share moment moment indah kamu dengan slideshow yang keren</p>
+                        <h3>Gallery Foto & Video</h3>
+                        <p>Bagikan momen pre-wedding Anda dalam galeri foto (slide) dan video YouTube.</p>
                     </div>
                     <div class="item" data-aos="fade-right" data-aos-delay="400">
                         <img src="https://cdn-icons-png.flaticon.com/128/7509/7509192.png" alt="Navigasi Lokasi">
                         <h3>Navigasi Lokasi</h3>
-                        <p>All in one navigasi lengkap, agar tamu tidak tersesat saat ke tempat kamu</p>
+                        <p>Tamu bisa langsung klik tombol peta (Google Maps) menuju lokasi acara.</p>
                     </div>
                     <div class="item" data-aos="fade-right" data-aos-delay="500">
                         <img src="https://cdn-icons-png.flaticon.com/128/461/461146.png" alt="Background Music">
-                        <h3>Background Music</h3>
-                        <p>Iringi undangan terbaikmu dengan alunan musik syahdu sesuai keinginan kamu</p>
+                        <h3>Request Musik</h3>
+                        <p>Pilih lagu spesial yang paling menggambarkan kisah cinta Anda.</p>
                     </div>
                     <div class="item" data-aos="fade-right" data-aos-delay="600">
-                        <img src="https://cdn-icons-png.flaticon.com/128/6532/6532987.png" alt="Love Stories">
-                        <h3>Love Stories</h3>
-                        <p>Ceritakan Kisah Cinta kamu dengan leluasa.</p>
+                        <img src="https://cdn-icons-png.flaticon.com/128/1997/1997410.png" alt="Amplop Digital">
+                        <h3>Amplop Digital</h3>
+                        <p>Memudahkan tamu yang ingin mengirimkan hadiah secara non-tunai (transfer).</p>
                     </div>
                     <div class="item" data-aos="fade-right" data-aos-delay="700">
-                        <img src="https://cdn-icons-png.flaticon.com/128/8191/8191668.png" alt="Live Streaming">
-                        <h3>Live Streaming</h3>
-                        <p>Temui acara secara virtual agar jarak tidak membuat keterbatasan.</p>
-                    </div>
-                    <div class="item" data-aos="fade-right" data-aos-delay="800">
-                        <img src="https://cdn-icons-png.flaticon.com/128/151/151917.png" alt="Detail Acara">
-                        <h3>Detail Acara</h3>
-                        <p>Menampilkan detail acara mulai dari tanggal, jam dan lokasi acara.</p>
+                        <img src="https://cdn-icons-png.flaticon.com/128/5715/5715832.png" alt="Hitung Mundur">
+                        <h3>Hitung Mundur</h3>
+                        <p>Menampilkan hitung mundur yang elegan menuju hari spesial Anda.</p>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- <section class="themes" data-aos="fade-up">
-            <div class="container">
-                <h2>Tema Pilihan</h2>
-                <div class="grid">
-                    <div class="theme" data-aos="zoom-in">
-                        <img src="https://addakwa.com/AN2.jpg" alt="AN#02">
-                        <h3>AN#02</h3>
-                        <a href="https://addakwa.com/an2/?to=Nama+Tamu" class="button">Preview Demo</a>
-                    </div>
-                    <div class="theme" data-aos="zoom-in" data-aos-delay="100">
-                        <img src="https://addakwa.com/da1n_50.jpeg" alt="DA#01">
-                        <h3>DA#01</h3>
-                        <a href="https://addakwa.com/da1/?to=Nama+Tamu" class="button">Preview Demo</a>
-                    </div>
-               </div>
-                <a href="https://addakwa.com/katalog/" class="button">Lihat Tema Lainnya</a>
-            </div>
-        </section> -->
-        <section class="faq" data-aos="fade-up">
-            <div class="container">
-                <h2>FAQ</h2>
+
+        <section class="faq" id="faq" data-aos="fade-up">
+            <div class="container" style="max-width: 900px;"> <h2>Frequently Asked Questions (FAQ)</h2>
                 <div class="accordion">
                     <div class="item" data-aos="fade-left">
-                        <h3 onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';">Berapa Lama Proses Pembuatannya?</h3>
-                        <p>Proses pembuatan kurang dari 24jam setelah data lengkap setelah data lengkap kak setelah konfirmasi pembayaran dan data lengkap.</p>
+                        <h3>Berapa Lama Proses Pembuatannya?</h3>
+                        <p>Proses pembuatan sangat cepat, <b>kurang dari 24 jam</b> setelah data lengkap kami terima dan pembayaran dikonfirmasi.</p>
                     </div>
+                    
                     <div class="item" data-aos="fade-left" data-aos-delay="100">
-                        <h3 onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block';">Apakah Boleh Revisi?</h3>
-                        <p>Boleh kak, dan jumlah revisi bebas tidak terbatas dan Gratis sampai hari H.</p>
+                        <h3>Apakah Boleh Revisi?</h3>
+                        <p><b>Tentu!</b> Jumlah revisi tergantung paket yang Anda pilih. Paket <b>Hemat</b> mendapat 2x revisi, Paket <b>Standar</b> 5x revisi, dan Paket <b>Premium</b> kami menawarkan <b>Revisi Sepuasnya (Unlimited)</b>.</p>
                     </div>
-                    <!-- Tambahkan FAQ lain dari source asli -->
+                    <div class="item" data-aos="fade-left" data-aos-delay="200">
+                        <h3>Berapa lama undangan akan aktif?</h3>
+                        <p>Tergantung paket Anda. Kami menyediakan paket Aktif 6 Bulan, 12 Bulan, hingga <b>Aktif Selamanya</b> (selama website addakwa.com aktif) untuk Paket Premium.</p>
+                    </div>
+                    <div class="item" data-aos="fade-left" data-aos-delay="300">
+                        <h3>Bagaimana cara memesannya?</h3>
+                        <p>Sangat mudah. Anda bisa klik tombol "Pilih Paket" atau "Order" di website ini, lalu Anda akan diarahkan ke WhatsApp admin kami untuk pengisian data dan konsultasi.</p>
+                    </div>
                 </div>
-                <a href="https://addakwa.com/pertanyaan/" class="button">Lihat Lainnya</a>
+                <a href="https://addakwa.com/pertanyaan/" class="button" style="margin-top: 30px;">Lihat Pertanyaan Lain</a>
             </div>
         </section>
     </main>
@@ -484,12 +627,13 @@
         <div class="container">
             <div class="grid">
                 <div class="col">
-                    <h3>Menu</h3>
+                    <h3>Menu Utama</h3>
                     <ul>
-                        <li><a href="https://addakwa.com/katalog/">Katalog</a></li>
-                        <li><a href="https://addakwa.com/acaralain/">Acara Lain</a></li>
-                        <li><a href="https://addakwa.com/testimoni/">Klien Kami</a></li>
-                        <li><a href="https://addakwa.com/fitur/">Fitur</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#fitur">Fitur</a></li>
+                        <li><a href="#harga">Harga</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="https://addakwa.com/katalog/">Katalog Tema</a></li>
                         <li><a href="https://addakwa.com/order/">Form Order</a></li>
                     </ul>
                 </div>
@@ -501,26 +645,26 @@
                 </div>
                 <div class="col">
                     <img style="height: 50px; width: auto;" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png" alt="Addakwa">
-                    <p>Addakwa adalah sebuah website yang memberikan layanan utama berupa pembuatan undangan dengan berbagai fitur yang menarik.</p>
+                    <p>Addakwa adalah layanan pembuatan undangan digital premium dengan fitur lengkap untuk momen spesial Anda.</p>
                     <p>WhatsApp: 085697833911<br>
-                    Instagram: @addakwa<br>
-                    Email: admin@addakwa.com</p>
+                        Instagram: @addakwa<br>
+                        Email: admin@addakwa.com</p>
                     <a href="https://www.instagram.com/addakwa/"><i class="fab fa-instagram" style="font-size: 24px; color: var(--secondary-color); margin: 0 10px;"></i></a>
                     <a href="https://wa.me/6285697833911"><i class="fab fa-whatsapp" style="font-size: 24px; color: var(--secondary-color); margin: 0 10px;"></i></a>
                 </div>
             </div>
-            <hr>
+            <hr style="border-color: var(--dark-accent); margin-top: 30px;">
             <p>Copyright ©2025 | Addakwa</p>
         </div>
     </footer>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         AOS.init({
-            duration: 800,
-            offset: 100, // Offset diperbesar agar animasi muncul tepat saat elemen masuk ke tengah layar
-            once: false, // agar fade-out terjadi saat keluar layar
-            mirror: true, // fade out saat scroll keluar
-            easing: 'ease-in-out'
+            duration: 600,  /* LEBIH CEPAT */
+            offset: 100, 
+            once: false, 
+            mirror: true, 
+            easing: 'ease-out-back' /* EFEK 'WAH' */
         });
 
         const hamburger = document.getElementById('hamburger');
@@ -530,10 +674,42 @@
             navMenu.classList.toggle('active');
         });
 
+        // Close menu saat klik di luar
         document.addEventListener('click', (event) => {
             if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
                 navMenu.classList.remove('active');
             }
+        });
+        
+        // Close menu saat klik link (untuk navigasi 1 halaman)
+        document.querySelectorAll('#nav-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                 navMenu.classList.remove('active'); // Tutup menu
+                
+                // Hapus 'button' class check agar tidak scroll
+                if (!this.classList.contains('button')) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Script untuk Accordion (FAQ)
+        document.querySelectorAll('.accordion h3').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                
+                // Tutup semua dulu (jika ingin model 1 saja yg terbuka)
+                // document.querySelectorAll('.accordion p').forEach(p => {
+                //    if (p !== content) p.style.display = 'none';
+                // });
+
+                // Toggle yg diklik
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                header.classList.toggle('active');
+            });
         });
     </script>
 </body>
