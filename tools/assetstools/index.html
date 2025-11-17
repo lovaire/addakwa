@@ -168,13 +168,17 @@
           <input type="radio" id="typeTopBottom" name="outputType" value="topbottom" />
           <label for="typeTopBottom">Atas & Bawah Saja</label>
         </div>
+        <div class="radio-option">
+          <input type="radio" id="typeConvert" name="outputType" value="convert" />
+          <label for="typeConvert">Hanya Konversi ke WebP</label>
+        </div>
       </div>
     </div>
 
     <div class="section">
       <label for="baseName">Nama Dasar File:</label>
       <input type="text" id="baseName" placeholder="misal: undangan-1" value="undangan-1" />
-      <div class="info">Hasil: undangan-1-tl.webp, undangan-1-br.webp, dll.</div>
+      <div class="info">Hasil: undangan-1-tl.webp, undangan-1.webp, dll.</div>
     </div>
 
     <div class="section">
@@ -207,8 +211,10 @@
         URL.revokeObjectURL(img.src);
         if (outputType === 'corner') {
           generateCorners(img, baseName);
-        } else {
+        } else if (outputType === 'topbottom') {
           generateTopBottom(img, baseName);
+        } else if (outputType === 'convert') {
+          convertToWebP(img, baseName);
         }
       };
 
@@ -293,6 +299,19 @@
       downloadWebP(canvas, `${baseName}-top.webp`);
 
       alert('✅ 2 file WebP (top & bottom) telah diunduh!');
+    }
+
+    function convertToWebP(img, baseName) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+      downloadWebP(canvas, `${baseName}.webp`);
+
+      alert('✅ Gambar berhasil dikonversi ke WebP!');
     }
   </script>
 </body>
