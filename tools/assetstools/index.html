@@ -1,94 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WebP Corner Generator</title>
+  <title>WebP Corner Decor Generator</title>
   <style>
+    :root {
+      --bg-dark: #221c17;
+      --accent: #d1b391;
+      --text-light: #f8f4ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 800px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      padding: 30px 20px;
+      max-width: 700px;
       margin: 0 auto;
-      background: #f9f9f9;
+      line-height: 1.6;
     }
-    h2 {
+
+    h1 {
       text-align: center;
+      margin-bottom: 24px;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.8rem;
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
     }
+
+    .card {
+      background: rgba(34, 28, 23, 0.8);
+      border: 1px solid rgba(209, 179, 145, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.6s forwards 0.2s;
+    }
+
     .section {
       margin: 20px 0;
     }
+
     label {
       display: block;
-      margin: 8px 0 4px;
+      margin: 12px 0 8px;
+      font-weight: 500;
+      color: var(--accent);
     }
-    input, button, select {
-      padding: 8px;
-      margin: 5px 0;
+
+    input[type="file"],
+    input[type="text"],
+    button {
       width: 100%;
-      box-sizing: border-box;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(209, 179, 145, 0.3);
+      background: rgba(20, 15, 10, 0.6);
+      color: var(--text-light);
+      font-size: 1rem;
     }
+
+    input[type="file"]::file-selector-button {
+      background: var(--accent);
+      color: var(--bg-dark);
+      border: none;
+      padding: 6px 12px;
+      margin-right: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: #e0c4a5;
+    }
+
     .radio-group {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
     }
+
     .radio-option {
       display: flex;
       align-items: center;
       gap: 6px;
     }
+
+    input[type="radio"] {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+    }
+
     button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
+      background: var(--accent);
+      color: var(--bg-dark);
       font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+      border: none;
     }
+
     button:hover {
-      background: #45a049;
+      background: #e0c4a5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
+
+    button:active {
+      transform: translateY(0);
+    }
+
     canvas {
       display: none;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info {
+      font-size: 0.9rem;
+      color: #b8a28a;
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
-  <h2>WebP Corner Generator</h2>
+  <h1>WebP Corner Decor Generator</h1>
 
-  <div class="section">
-    <label for="imageUpload">Upload Gambar (PNG, JPG, dll):</label>
-    <input type="file" id="imageUpload" accept="image/*" />
-  </div>
+  <div class="card">
+    <div class="section">
+      <label for="imageUpload">Upload Gambar Dekorasi (asumsi: Bottom-Left)</label>
+      <input type="file" id="imageUpload" accept="image/*" />
+      <div class="info">Contoh: elemen dekoratif di sudut kiri bawah undangan</div>
+    </div>
 
-  <div class="section">
-    <label>Pilih Jenis Output:</label>
-    <div class="radio-group">
-      <div class="radio-option">
-        <input type="radio" id="typeCorner" name="outputType" value="corner" checked />
-        <label for="typeCorner">Corner (4 sudut)</label>
+    <div class="section">
+      <label>Pilih Jenis Output:</label>
+      <div class="radio-group">
+        <div class="radio-option">
+          <input type="radio" id="typeCorner" name="outputType" value="corner" checked />
+          <label for="typeCorner">4 Sudut (TL, TR, BR, BL)</label>
+        </div>
+        <div class="radio-option">
+          <input type="radio" id="typeTopBottom" name="outputType" value="topbottom" />
+          <label for="typeTopBottom">Atas & Bawah Saja</label>
+        </div>
       </div>
-      <div class="radio-option">
-        <input type="radio" id="typeTopBottom" name="outputType" value="topbottom" />
-        <label for="typeTopBottom">Top & Bottom (2 gambar)</label>
-      </div>
+    </div>
+
+    <div class="section">
+      <label for="baseName">Nama Dasar File:</label>
+      <input type="text" id="baseName" placeholder="misal: undangan-1" value="undangan-1" />
+      <div class="info">Hasil: undangan-1-tl.webp, undangan-1-br.webp, dll.</div>
+    </div>
+
+    <div class="section">
+      <button id="processBtn">→ Proses & Unduh WebP</button>
     </div>
   </div>
 
-  <div class="section">
-    <label for="baseName">Nama Dasar File (tanpa ekstensi):</label>
-    <input type="text" id="baseName" placeholder="misal: website1" value="website1" />
-  </div>
-
-  <div class="section">
-    <button id="processBtn">Proses & Unduh WebP</button>
-  </div>
-
-  <!-- Canvas tersembunyi untuk manipulasi gambar -->
   <canvas id="canvas"></canvas>
 
   <script>
-    document.getElementById('processBtn').addEventListener('click', async () => {
+    document.getElementById('processBtn').addEventListener('click', () => {
       const fileInput = document.getElementById('imageUpload');
       const baseName = document.getElementById('baseName').value.trim();
       const outputType = document.querySelector('input[name="outputType"]:checked').value;
@@ -107,12 +204,11 @@
       img.src = URL.createObjectURL(file);
 
       img.onload = () => {
-        URL.revokeObjectURL(img.src); // Bersihkan URL sementara
-
+        URL.revokeObjectURL(img.src);
         if (outputType === 'corner') {
-          processCorner(img, baseName);
-        } else if (outputType === 'topbottom') {
-          processTopBottom(img, baseName);
+          generateCorners(img, baseName);
+        } else {
+          generateTopBottom(img, baseName);
         }
       };
 
@@ -123,6 +219,7 @@
 
     function downloadWebP(canvas, filename) {
       canvas.toBlob(blob => {
+        if (!blob) return;
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -131,74 +228,71 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-      }, 'image/webp', 0.95);
+      }, 'image/webp', 0.92);
     }
 
-    function processCorner(img, baseName) {
+    function generateCorners(img, baseName) {
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
-
-      // Pastikan canvas seukuran gambar asli
       canvas.width = img.width;
       canvas.height = img.height;
 
-      // TL: rotate 0° (asli)
+      // BL: asli (bottom-left)
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
-      downloadWebP(canvas, `${baseName}-tl.webp`);
+      downloadWebP(canvas, `${baseName}-bl.webp`);
 
-      // TR: rotate 90° (searah jarum jam)
+      // BR: mirror horizontal → bottom-right
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.translate(canvas.width, 0);
-      ctx.rotate(Math.PI / 2);
-      ctx.drawImage(img, 0, 0);
-      ctx.restore();
-      downloadWebP(canvas, `${baseName}-tr.webp`);
-
-      // BR: rotate 180°
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(canvas.width, canvas.height);
-      ctx.rotate(Math.PI);
+      ctx.scale(-1, 1);
       ctx.drawImage(img, 0, 0);
       ctx.restore();
       downloadWebP(canvas, `${baseName}-br.webp`);
 
-      // BL: rotate 270° (atau -90°)
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(0, canvas.height);
-      ctx.rotate(-Math.PI / 2);
-      ctx.drawImage(img, 0, 0);
-      ctx.restore();
-      downloadWebP(canvas, `${baseName}-bl.webp`);
-
-      alert('4 file WebP untuk sudut telah diunduh!');
-    }
-
-    function processTopBottom(img, baseName) {
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Top: asli (tanpa rotasi)
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      downloadWebP(canvas, `${baseName}-top.webp`);
-
-      // Bottom: rotate 180°
+      // TR: mirror horizontal + vertical → top-right
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.translate(canvas.width, canvas.height);
-      ctx.rotate(Math.PI);
+      ctx.scale(-1, -1);
       ctx.drawImage(img, 0, 0);
       ctx.restore();
+      downloadWebP(canvas, `${baseName}-tr.webp`);
+
+      // TL: mirror vertical → top-left
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(0, canvas.height);
+      ctx.scale(1, -1);
+      ctx.drawImage(img, 0, 0);
+      ctx.restore();
+      downloadWebP(canvas, `${baseName}-tl.webp`);
+
+      alert('✅ 4 file WebP sudut telah diunduh!\n(bl, br, tr, tl)');
+    }
+
+    function generateTopBottom(img, baseName) {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Bottom: asli = bottom-left style
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
       downloadWebP(canvas, `${baseName}-bottom.webp`);
 
-      alert('2 file WebP (top & bottom) telah diunduh!');
+      // Top: mirror vertical
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(0, canvas.height);
+      ctx.scale(1, -1);
+      ctx.drawImage(img, 0, 0);
+      ctx.restore();
+      downloadWebP(canvas, `${baseName}-top.webp`);
+
+      alert('✅ 2 file WebP (top & bottom) telah diunduh!');
     }
   </script>
 </body>
