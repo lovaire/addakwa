@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PNG to WebP Corner Generator</title>
+  <title>PNG to WebP Rotator (Corner & Center)</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -27,6 +27,7 @@
       text-align: center;
       margin-bottom: 20px;
       color: #2c3e50;
+      font-size: 1.5em;
     }
     .form-group {
       margin-bottom: 20px;
@@ -54,7 +55,7 @@
       gap: 6px;
     }
     button {
-      background: #3498db;
+      background: #e74c3c;
       color: white;
       border: none;
       padding: 12px 20px;
@@ -66,7 +67,7 @@
       transition: background 0.3s;
     }
     button:hover {
-      background: #2980b9;
+      background: #c0392b;
     }
     button:disabled {
       background: #95a5a6;
@@ -99,11 +100,18 @@
     .download-links a:hover {
       background: #219653;
     }
+    .info {
+      font-size: 0.9em;
+      color: #7f8c8d;
+      text-align: center;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>PNG → WebP Corner Generator</h1>
+    <h1>PNG → WebP Rotator</h1>
+    <p class="info">Upload gambar (misal: bottom-left) → rotasi otomatis → download 4/2 WebP</p>
 
     <div class="form-group">
       <label for="fileInput">Upload Gambar PNG</label>
@@ -111,12 +119,12 @@
     </div>
 
     <div class="preview" id="previewContainer" style="display:none;">
-      <p><strong>Preview:</strong></p>
+      <p><strong>Preview Asli:</strong></p>
       <img id="previewImg" />
     </div>
 
     <div class="form-group">
-      <label>Pilih Posisi Asal</label>
+      <label>Pilih Posisi Asal Gambar</label>
       <div class="radio-group">
         <div class="radio-item">
           <input type="radio" name="position" id="posBL" value="bl" checked />
@@ -131,10 +139,10 @@
 
     <div class="form-group">
       <label for="baseName">Nama File Dasar</label>
-      <input type="text" id="baseName" placeholder="contoh: website 1" />
+      <input type="text" id="baseName" placeholder="contoh: logo website" />
     </div>
 
-    <button id="processBtn" disabled>Proses & Download</button>
+    <button id="processBtn" disabled>Proses & Download WebP</button>
 
     <div id="result" class="download-links" style="display:none;"></div>
   </div>
@@ -146,11 +154,10 @@
     const baseNameInput = document.getElementById('baseName');
     const processBtn = document.getElementById('processBtn');
     const resultDiv = document.getElementById('result');
-    const positionRadios = document.querySelectorAll('input[name="position"]');
 
     let originalImg = null;
 
-    // Load image preview
+    // Preview saat upload
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file || !file.type.includes('png')) {
@@ -171,33 +178,62 @@
       reader.readAsDataURL(file);
     });
 
-    // Process button
+    // Fungsi rotasi + posisi
+    function drawRotatedImage(ctx, img, degrees, posX, posY, canvasSize) {
+      ctx.clearRect(0, 0, canvasSize, canvasSize);
+      ctx.save();
+      ctx.translate(posX + img.width / 2, posY + img.height / 2);
+      ctx.rotate(degrees * Math.PI / 180);
+      ctx.drawImage(img, -img.width / 2, -img.height / 2);
+      ctx.restore();
+    }
+
+    // Proses
     processBtn.addEventListener('click', () => {
       if (!originalImg) return;
 
-      const baseName = (baseNameInput.value || 'gambar').trim().replace(/[^a-z0-9]/gi, ' ');
+      const baseName = (baseNameInput.value || 'gambar').trim().replace(/[^a-z0-9\s-]/gi, '');
       const position = document.querySelector('input[name="position"]:checked').value;
       resultDiv.innerHTML = '';
       resultDiv.style.display = 'none';
 
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = 300;
-      canvas.height = 300;
+      const size = 300;
+      canvas.width = size;
+      canvas.height = size;
 
-      const configs = position === 'bl' ? [
-        { suffix: 'tl', x: 0, y: 0 },
-        { suffix: 'tr', x: 300 - originalImg.width, y: 0 },
-        { suffix: 'bl', x: 0, y: 300 - originalImg.height },
-        { suffix: 'br', x: 300 - originalImg.width, y: 300 - originalImg.height }
-      ] : [
-        { suffix: 'top', x: (300 - originalImg.width) / 2, y: 0 },
-        { suffix: 'bottom', x: (300 - originalImg.width) / 2, y: 300 - originalImg.height }
-      ];
+      let configs = [];
+
+      if (position === 'bl') {
+        // Bottom Left → rotasi 0, 90, 180, 270 → posisi sesuai
+        configs = [
+          { suffix: 'tl', deg: 0,   x: 0,           y: 0 },
+          { suffix: 'tr', deg: 90,  x: size,        y: 0 },
+          { suffix: 'br', deg: 180, x: size,        y: size },
+          { suffix: 'bl', deg: 270, x: 0,           y: size }
+        ];
+      } else {
+        // Bottom Center → rotasi 0 (top), 180 (bottom)
+        const centerX = (size - originalImg.width) / 2;
+        configs = [
+          { suffix: 'top',    deg: 0,   x: centerX, y: 0 },
+          { suffix: 'bottom', deg: 180, x: centerX, y: size }
+        ];
+      }
 
       configs.forEach((cfg, i) => {
-        ctx.clearRect(0, 0, 300, 300);
-        ctx.drawImage(originalImg, cfg.x, cfg.y);
+        // Hitung posisi akhir setelah rotasi
+        let drawX = cfg.x;
+        let drawY = cfg.y;
+
+        // Sesuaikan posisi agar tetap di sudut/center setelah rotasi
+        if (cfg.deg === 90 || cfg.deg === 270) {
+          drawX -= originalImg.height;
+          drawY += (originalImg.height - originalImg.width) / 2;
+        }
+
+        drawRotatedImage(ctx, originalImg, cfg.deg, drawX, drawY, size);
 
         canvas.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
@@ -211,11 +247,8 @@
 
           if (i === configs.length - 1) {
             resultDiv.style.display = 'flex';
-            // Auto download all
             setTimeout(() => {
-              resultDiv.querySelectorAll('a').forEach(link => {
-                link.click();
-              });
+              resultDiv.querySelectorAll('a').forEach(link => link.click());
             }, 500);
           }
         }, 'image/webp', 0.9);
