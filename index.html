@@ -1,682 +1,447 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Addakwa - Undangan Digital Profesional & Elegan</title>
-    <meta name="description" content="Buat undangan digital website yang premium dengan fitur lengkap. Pilihan tema elegan, RSVP, buku tamu digital QR Code, dan revisi sepuasnya." />
-    <link rel="canonical" href="https://addakwa.com/" />
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS Animation -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    
-    <style>
-        :root {
-            --primary: #221C17;
-            --secondary: #D1B391;
-            --accent: #E6D8C7;
-            --dark-accent: #3E332D;
-            --text-dark: #2D2D2D;
-            --text-light: #666666;
-            --white: #FFFFFF;
-            --bg-light: #F9F7F4;
-        }
-        
-        * {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-        
-        body {
-            background-color: var(--white);
-            color: var(--text-dark);
-            scroll-behavior: smooth;
-        }
-        
-        /* Glassmorphism Header */
-        header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(209, 179, 145, 0.2);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-        }
-        
-        /* Smooth Scrolling */
-        [data-aos] {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        [data-aos].aos-animate {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        
-        /* Button Styles */
-        .btn-primary {
-            background-color: var(--secondary);
-            color: var(--primary);
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--secondary);
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .btn-primary:hover {
-            background-color: transparent;
-            color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(209, 179, 145, 0.3);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            color: var(--secondary);
-            padding: 12px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid var(--secondary);
-            display: inline-block;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--secondary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--white) 0%, var(--bg-light) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(209, 179, 145, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            top: -100px;
-            right: -100px;
-        }
-        
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(209, 179, 145, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--primary);
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            max-width: 700px;
-        }
-        
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 600px;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        
-        /* Cards Hover Effect */
-        .card {
-            background: var(--white);
-            border: 1px solid rgba(209, 179, 145, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-align: center;
-        }
-        
-        .card:hover {
-            transform: translateY(-12px);
-            border-color: var(--secondary);
-            box-shadow: 0 20px 40px rgba(209, 179, 145, 0.15);
-        }
-        
-        .card img {
-            height: 60px;
-            width: auto;
-            margin: 0 auto 1rem;
-        }
-        
-        /* Pricing Card */
-        .pricing-card {
-            background: var(--white);
-            border: 1px solid rgba(209, 179, 145, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .pricing-card.popular {
-            border: 2px solid var(--secondary);
-            transform: scale(1.05);
-            box-shadow: 0 20px 50px rgba(209, 179, 145, 0.25);
-        }
-        
-        .pricing-card h3 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .pricing-card .price {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--secondary);
-            margin: 1rem 0;
-        }
-        
-        .pricing-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 1.5rem 0;
-            text-align: left;
-            flex-grow: 1;
-        }
-        
-        .pricing-card li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(209, 179, 145, 0.1);
-            font-size: 0.95rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-        }
-        
-        .pricing-card li:last-child {
-            border-bottom: none;
-        }
-        
-        .pricing-card i {
-            margin-right: 0.75rem;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .pricing-card i.fa-check {
-            color: var(--secondary);
-        }
-        
-        .pricing-card li.disabled {
-            color: #ccc;
-            opacity: 0.5;
-        }
-        
-        /* Accordion */
-        .accordion-item {
-            border: 1px solid rgba(209, 179, 145, 0.2);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .accordion-header {
-            background: var(--primary);
-            color: var(--secondary);
-            padding: 1.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        
-        .accordion-header:hover {
-            background: var(--dark-accent);
-        }
-        
-        .accordion-header::after {
-            content: '▼';
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .accordion-header.active::after {
-            transform: rotate(180deg);
-        }
-        
-        .accordion-content {
-            background: var(--bg-light);
-            padding: 1.5rem;
-            display: none;
-            color: var(--text-light);
-            line-height: 1.8;
-            border-top: 1px solid rgba(209, 179, 145, 0.2);
-        }
-        
-        .accordion-content.show {
-            display: block;
-        }
-        
-        /* Section Spacing */
-        section {
-            padding: 80px 20px;
-        }
-        
-        section h2 {
-            font-size: 2.8rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-        
-        /* Hamburger Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 6px;
-        }
-        
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--primary);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Mobile Menu */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Addakwa - Undangan Digital Profesional & Elegan</title>
+  <meta name="description" content="Buat undangan digital website yang premium dengan fitur lengkap. Pilihan tema elegan, RSVP, buku tamu digital QR Code, dan revisi sepuasnya." />
+  <link rel="canonical" href="https://addakwa.com/" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#221C17',
+            secondary: '#D1B391',
+            accent: '#E6D8C7',
+            'dark-accent': '#3E332D',
+            'bg-light': '#F9F7F4'
+          },
+          fontFamily: {
+            heading: ['"Playfair Display"', 'serif'],
+            body: ['"Plus Jakarta Sans"', 'sans-serif']
+          },
+          animation: {
+            'float': 'float 8s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-12px)' }
             }
-            
-            nav ul {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                flex-direction: column;
-                padding: 20px 0;
-                display: none;
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav li {
-                margin: 10px 0;
-                text-align: center;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            section h2 {
-                font-size: 2rem;
-            }
-            
-            .pricing-card.popular {
-                transform: scale(1);
-            }
+          }
         }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: white;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    /* Fade-in animation */
+    .fade-in-element {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in-element.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Smooth FAQ */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+      opacity: 0;
+    }
+    .faq-content.show {
+      opacity: 1;
+    }
+
+    /* Smooth card hover */
+    .hover-card {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+    .hover-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(209, 179, 145, 0.15);
+      border-color: #D1B391;
+    }
+  </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX28evTjHL360F9n7dqCgAZw1vmzQrU3fW0SG-DrEF2jXHiwSzeHSyTP4JHUIKrNERJsze0jE3EJ0cPFu-mk2dSXHKgSZXmAISA2hdF7JJXyRTwwSLK6g39E5qaR_FRFH1k1hRAaTwQai0EDfZfuiaixdecb3gdrBsPvUh6sW3IqOoQ8FfhPdyvD6IWTA/s320/Brand%20Design.png" alt="Addakwa" class="h-10">
-                <span style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; color: var(--secondary);">AdDakwa</span>
-            </a>
-            
-            <nav class="hidden md:flex gap-8">
-                <a href="#home" class="text-sm font-500 transition hover:text-opacity-70" style="color: var(--primary);">Home</a>
-                <a href="#features" class="text-sm font-500 transition hover:text-opacity-70" style="color: var(--primary);">Fitur</a>
-                <a href="#pricing" class="text-sm font-500 transition hover:text-opacity-70" style="color: var(--primary);">Harga</a>
-                <a href="#faq" class="text-sm font-500 transition hover:text-opacity-70" style="color: var(--primary);">FAQ</a>
-                <a href="https://addakwa.com/katalog/" class="text-sm font-500 transition hover:text-opacity-70" style="color: var(--primary);">Katalog</a>
-                <a href="https://addakwa.com/order/" class="btn-primary text-xs px-4 py-2">Order</a>
-            </nav>
-            
-            <div class="hamburger md:hidden" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+<body class="text-gray-800 antialiased">
+
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white/80 border-b border-secondary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-2">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX28evTjHL360F9n7dqCgAZw1vmzQrU3fW0SG-DrEF2jXHiwSzeHSyTP4JHUIKrNERJsze0jE3EJ0cPFu-mk2dSXHKgSZXmAISA2hdF7JJXyRTwwSLK6g39E5qaR_FRFH1k1hRAaTwQai0EDfZfuiaixdecb3gdrBsPvUh6sW3IqOoQ8FfhPdyvD6IWTA/s320/Brand%20Design.png" alt="Addakwa" class="h-8 sm:h-10">
+        <span class="text-secondary font-heading text-xl font-bold">AdDakwa</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6">
+        <a href="#home" class="text-primary hover:text-secondary transition">Home</a>
+        <a href="#features" class="text-primary hover:text-secondary transition">Fitur</a>
+        <a href="#pricing" class="text-primary hover:text-secondary transition">Harga</a>
+        <a href="#faq" class="text-primary hover:text-secondary transition">FAQ</a>
+        <a href="https://addakwa.com/katalog/" class="text-primary hover:text-secondary transition">Katalog</a>
+        <a href="https://addakwa.com/order/" class="ml-4 px-5 py-2 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition-all duration-300">Order</a>
+      </nav>
+
+      <button id="mobileMenuButton" class="md:hidden text-primary focus:outline-none">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-secondary/20 px-4 py-4 flex flex-col gap-4">
+      <a href="#home" class="text-primary">Home</a>
+      <a href="#features" class="text-primary">Fitur</a>
+      <a href="#pricing" class="text-primary">Harga</a>
+      <a href="#faq" class="text-primary">FAQ</a>
+      <a href="https://addakwa.com/katalog/" class="text-primary">Katalog</a>
+      <a href="https://addakwa.com/order/" class="px-5 py-2 bg-secondary text-primary font-semibold rounded-full text-center">Order</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="pt-32 pb-20 px-4 bg-[#E6D8C7]/20 min-h-screen flex items-center">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 fade-in-element" data-delay="0">
+        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-primary leading-tight">
+          Bagikan Momen Terindahmu Dengan Undangan Website
+        </h1>
+        <p class="text-lg text-gray-600 max-w-lg fade-in-element" data-delay="100">
+          Solusi pernikahan lebih hemat, praktis, dan kekinian dengan undangan online premium. Fitur lengkap, desain elegan, dan layanan terbaik.
+        </p>
+        <div class="flex flex-wrap gap-4 fade-in-element" data-delay="200">
+          <a href="#pricing" class="px-6 py-3 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition-all duration-300 shadow-md hover:shadow-lg">
+            Lihat Paket Harga
+          </a>
+          <a href="https://addakwa.com/katalog/" class="px-6 py-3 bg-transparent text-secondary border border-secondary font-semibold rounded-full hover:bg-secondary hover:text-primary transition-all duration-300">
+            Lihat Katalog Tema
+          </a>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="max-w-4xl mx-auto px-4 text-center hero-content" data-aos="fade-up">
-            <h1 data-aos="fade-up">Bagikan Momen Terindahmu Dengan Undangan Website</h1>
-            <p data-aos="fade-up" data-aos-delay="100">Solusi pernikahan lebih hemat, praktis, dan kekinian dengan undangan online premium. Fitur lengkap, desain elegan, dan layanan terbaik.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-                <a href="#pricing" class="btn-primary">Lihat Paket Harga</a>
-                <a href="https://addakwa.com/katalog/" class="btn-outline">Lihat Katalog Tema</a>
+      </div>
+      <div class="relative hidden lg:block fade-in-element" data-delay="300">
+        <div class="bg-white p-8 rounded-3xl shadow-xl border border-secondary/20">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-heart text-secondary text-xl"></i>
             </div>
+            <p class="font-heading text-primary text-xl italic">"Kami akan ada di hati setiap tamu"</p>
+            <p class="text-sm text-gray-500 mt-3">Contoh undangan digital Addakwa</p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Why Us Section -->
-    <section class="bg-white">
-        <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
-            <h2>Kenapa Memilih Addakwa?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card" data-aos="flip-left">
-                    <img src="https://cdn-icons-png.flaticon.com/128/9262/9262113.png" alt="Hemat">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0;">Hemat & Efisien</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Tanpa biaya cetak dan bisa disebar tanpa batas ke ribuan tamu secara instan.</p>
-                </div>
-                <div class="card" data-aos="flip-left" data-aos-delay="100">
-                    <img src="https://cdn-icons-png.flaticon.com/128/10435/10435317.png" alt="Fitur">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0;">Fitur Premium</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Mulai dari RSVP, Buku Tamu Online, hingga QR Code Scanner untuk manajemen tamu.</p>
-                </div>
-                <div class="card" data-aos="flip-left" data-aos-delay="200">
-                    <img src="https://cdn-icons-png.flaticon.com/128/11472/11472762.png" alt="Modern">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0;">Modern & Kekinian</h3>
-                    <p style="color: var(--text-light); font-size: 0.95rem;">Tampilan elegan dan interaktif yang mewakili hari spesial Anda dengan sempurna.</p>
-                </div>
-            </div>
+  <!-- Why Us -->
+  <section class="py-20 bg-white px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-16 fade-in-element" data-delay="0">Kenapa Memilih Addakwa?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="hover-card bg-white p-8 rounded-2xl border border-secondary/20 group fade-in-element" data-delay="100">
+          <div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-secondary group-hover:text-primary transition">
+            <i class="fas fa-piggy-bank text-secondary group-hover:text-primary"></i>
+          </div>
+          <h3 class="font-heading text-xl text-primary mb-3">Hemat & Efisien</h3>
+          <p class="text-gray-600">Tanpa biaya cetak dan bisa disebar tanpa batas ke ribuan tamu secara instan.</p>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" style="background-color: var(--bg-light);">
-        <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
-            <h2>Fitur Unggulan Undangan</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="card" data-aos="fade-right">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1341/1341632.png" alt="QR">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">QRCode Tamu</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Manajemen buku tamu digital di hari-H. Lebih cepat, praktis, dan bebas antri.</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="100">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1534/1534102.png" alt="RSVP">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">RSVP</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Dapatkan data perkiraan jumlah tamu yang akan hadir (via WA/Form).</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="200">
-                    <img src="https://cdn-icons-png.flaticon.com/128/2991/2991113.png" alt="Buku Tamu">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Buku Tamu Online</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Tamu dapat menulis doa dan ucapan langsung di website undangan Anda.</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="300">
-                    <img src="https://cdn-icons-png.flaticon.com/128/7888/7888787.png" alt="Gallery">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Gallery Foto</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Bagikan momen pre-wedding Anda dalam galeri foto dan video YouTube.</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="400">
-                    <img src="https://cdn-icons-png.flaticon.com/128/7509/7509192.png" alt="Maps">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Navigasi Lokasi</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Tamu bisa langsung klik tombol peta (Google Maps) menuju lokasi acara.</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="500">
-                    <img src="https://cdn-icons-png.flaticon.com/128/461/461146.png" alt="Musik">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Request Musik</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Pilih lagu spesial yang paling menggambarkan kisah cinta Anda.</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="600">
-                    <img src="https://cdn-icons-png.flaticon.com/128/1997/1997410.png" alt="Amplop">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Amplop Digital</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Memudahkan tamu yang ingin mengirimkan hadiah secara non-tunai (transfer).</p>
-                </div>
-                <div class="card" data-aos="fade-right" data-aos-delay="700">
-                    <img src="https://cdn-icons-png.flaticon.com/128/5715/5715832.png" alt="Countdown">
-                    <h3 style="font-family: 'Playfair Display', serif; color: var(--primary); margin: 1rem 0; font-size: 1.1rem;">Hitung Mundur</h3>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">Menampilkan hitung mundur yang elegan menuju hari spesial Anda.</p>
-                </div>
-            </div>
+        <div class="hover-card bg-white p-8 rounded-2xl border border-secondary/20 group fade-in-element" data-delay="200">
+          <div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-secondary group-hover:text-primary transition">
+            <i class="fas fa-crown text-secondary group-hover:text-primary"></i>
+          </div>
+          <h3 class="font-heading text-xl text-primary mb-3">Fitur Premium</h3>
+          <p class="text-gray-600">Mulai dari RSVP, Buku Tamu Online, hingga QR Code Scanner untuk manajemen tamu.</p>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing">
-        <div class="max-w-6xl mx-auto px-4" data-aos="fade-up">
-            <h2>Pilihan Paket Sesuai Kebutuhan Anda</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Paket Hemat -->
-                <div class="pricing-card" data-aos="zoom-in">
-                    <h3>Hemat</h3>
-                    <div class="price">Rp 50.000</div>
-                    <ul>
-                        <li><i class="fas fa-check"></i>Detail Acara & Peta Lokasi</li>
-                        <li><i class="fas fa-check"></i>Hitung Mundur Acara</li>
-                        <li><i class="fas fa-check"></i>Galeri Foto (Maks. 10)</li>
-                        <li><i class="fas fa-check"></i>Amplop Digital</li>
-                        <li><i class="fas fa-check"></i>Tema Pilihan Basic</li>
-                        <li><i class="fas fa-check"></i>Aktif 6 Bulan</li>
-                        <li><i class="fas fa-check"></i>Revisi Maks. 2x</li>
-                        <li class="disabled"><i class="fas fa-times"></i>RSVP Konfirmasi</li>
-                        <li class="disabled"><i class="fas fa-times"></i>Buku Tamu Online</li>
-                        <li class="disabled"><i class="fas fa-times"></i>Request Musik</li>
-                    </ul>
-                    <a href="https://wa.me/6285697833911" class="btn-outline mt-auto">Pilih Paket Ini</a>
-                </div>
-
-                <!-- Paket Standar (Popular) -->
-                <div class="pricing-card popular" data-aos="zoom-in" data-aos-delay="100">
-                    <h3>Standar</h3>
-                    <p style="font-weight: 700; color: var(--secondary); font-size: 1rem;">(Paling Populer)</p>
-                    <div class="price">Rp 120.000</div>
-                    <ul>
-                        <li><i class="fas fa-check"></i>Semua Fitur Hemat</li>
-                        <li><i class="fas fa-star" style="color: gold;"></i><b>RSVP Konfirmasi Hadir</b></li>
-                        <li><i class="fas fa-star" style="color: gold;"></i><b>Buku Tamu Online</b></li>
-                        <li><i class="fas fa-check"></i>Request Musik</li>
-                        <li><i class="fas fa-check"></i>Galeri Foto Unlimited</li>
-                        <li><i class="fas fa-check"></i>Bebas Pilih Tema</li>
-                        <li><i class="fas fa-check"></i>Aktif 12 Bulan</li>
-                        <li><i class="fas fa-check"></i>Revisi Maks. 5x</li>
-                    </ul>
-                    <a href="https://wa.me/6285697833911" class="btn-primary mt-auto">Pilih Paket Populer</a>
-                </div>
-
-                <!-- Paket Premium -->
-                <div class="pricing-card" data-aos="zoom-in" data-aos-delay="200">
-                    <h3>Premium</h3>
-                    <div class="price">Rp 200.000</div>
-                    <ul>
-                        <li><i class="fas fa-check"></i>Semua Fitur Standar</li>
-                        <li><i class="fas fa-star" style="color: gold;"></i><b>QR Code Scanner</b></li>
-                        <li><i class="fas fa-star" style="color: gold;"></i><b>Revisi Sepuasnya</b></li>
-                        <li><i class="fas fa-star" style="color: gold;"></i><b>Aktif Selamanya</b></li>
-                        <li><i class="fas fa-check"></i>Fitur Love Story</li>
-                        <li><i class="fas fa-check"></i>Fitur Live Streaming</li>
-                        <li><i class="fas fa-check"></i>Konsultasi Penuh</li>
-                    </ul>
-                    <a href="https://wa.me/6285697833911" class="btn-outline mt-auto">Pilih Paket Premium</a>
-                </div>
-            </div>
+        <div class="hover-card bg-white p-8 rounded-2xl border border-secondary/20 group fade-in-element" data-delay="300">
+          <div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-secondary group-hover:text-primary transition">
+            <i class="fas fa-mobile-alt text-secondary group-hover:text-primary"></i>
+          </div>
+          <h3 class="font-heading text-xl text-primary mb-3">Modern & Kekinian</h3>
+          <p class="text-gray-600">Tampilan elegan dan interaktif yang mewakili hari spesial Anda dengan sempurna.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" style="background-color: var(--bg-light);">
-        <div class="max-w-3xl mx-auto px-4" data-aos="fade-up">
-            <h2>Frequently Asked Questions</h2>
-            <div class="space-y-4">
-                <div class="accordion-item" data-aos="fade-left">
-                    <div class="accordion-header">Berapa Lama Proses Pembuatannya?</div>
-                    <div class="accordion-content">Proses pembuatan sangat cepat, <b>kurang dari 24 jam</b> setelah data lengkap kami terima dan pembayaran dikonfirmasi.</div>
-                </div>
-
-                <div class="accordion-item" data-aos="fade-left" data-aos-delay="100">
-                    <div class="accordion-header">Apakah Boleh Revisi?</div>
-                    <div class="accordion-content"><b>Tentu!</b> Jumlah revisi tergantung paket yang Anda pilih. Paket <b>Hemat</b> mendapat 2x revisi, Paket <b>Standar</b> 5x revisi, dan Paket <b>Premium</b> kami menawarkan <b>Revisi Sepuasnya (Unlimited)</b>.</div>
-                </div>
-
-                <div class="accordion-item" data-aos="fade-left" data-aos-delay="200">
-                    <div class="accordion-header">Berapa lama undangan akan aktif?</div>
-                    <div class="accordion-content">Tergantung paket Anda. Kami menyediakan paket Aktif 6 Bulan, 12 Bulan, hingga <b>Aktif Selamanya</b> (selama website addakwa.com aktif) untuk Paket Premium.</div>
-                </div>
-
-                <div class="accordion-item" data-aos="fade-left" data-aos-delay="300">
-                    <div class="accordion-header">Bagaimana cara memesannya?</div>
-                    <div class="accordion-content">Sangat mudah. Anda bisa klik tombol "Pilih Paket" atau "Order" di website ini, lalu Anda akan diarahkan ke WhatsApp admin kami untuk pengisian data dan konsultasi.</div>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <a href="https://addakwa.com/pertanyaan/" class="btn-primary">Lihat Pertanyaan Lain</a>
-            </div>
+  <!-- Features -->
+  <section id="features" class="py-20 bg-[#E6D8C7]/30 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-16 fade-in-element" data-delay="0">Fitur Unggulan Undangan</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Generate 8 feature cards -->
+        <!-- You can loop these in real app; here we duplicate with increasing delay -->
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="100">
+          <i class="fas fa-qrcode text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">QRCode Tamu</h3>
+          <p class="text-sm text-gray-600">Manajemen buku tamu digital di hari-H. Lebih cepat, praktis, dan bebas antri.</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer style="background-color: var(--primary); color: var(--secondary); padding: 60px 20px 30px;">
-        <div class="max-w-6xl mx-auto mb-8" data-aos="fade-up">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Menu Utama</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li><a href="#home" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" class="hover:opacity-70">Home</a></li>
-                        <li><a href="#features" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" class="hover:opacity-70">Fitur</a></li>
-                        <li><a href="#pricing" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" class="hover:opacity-70">Harga</a></li>
-                        <li><a href="#faq" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s;" class="hover:opacity-70">FAQ</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Partnership</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li><a href="https://instagram.com/da_graphic_" target="_blank" style="color: var(--secondary); text-decoration: none; transition: opacity 0.3s; display: flex; align-items: center; gap: 0.5rem;" class="hover:opacity-70"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEgnZIH5Q6XjZeycA-ATfVJ4qip-6BPKX_F8LgTZCB7D6CmKPOwq1TWUhhVOPJ-z5A_pjU5ZDWByJvo5OR7XBjJkne6oqOTHNPXAiD8qQjKRA8CcmUTyxkieqFW_AlRvOY0v8so_kbrdKPACl3n9KsfHW72meXEt6MVldnMFGMjplTzzHmzqIzc3_NaJx3c" alt="Da Graphic" style="height: 30px; width: auto;">Da Graphic</a></li>
-                    </ul>
-                </div>
-                <div colspan="2">
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 1rem;">Hubungi Kami</h3>
-                    <p style="color: var(--secondary); font-size: 0.9rem; line-height: 1.8;">
-                        WhatsApp: 085697833911<br>
-                        Instagram: @addakwa<br>
-                        Email: admin@addakwa.com
-                    </p>
-                    <div class="flex gap-4 mt-3">
-                        <a href="https://www.instagram.com/addakwa/" style="color: var(--secondary); font-size: 1.5rem; transition: opacity 0.3s;" class="hover:opacity-70"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/6285697833911" style="color: var(--secondary); font-size: 1.5rem; transition: opacity 0.3s;" class="hover:opacity-70"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="200">
+          <i class="fas fa-envelope-open-text text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">RSVP</h3>
+          <p class="text-sm text-gray-600">Dapatkan data perkiraan jumlah tamu yang akan hadir (via WA/Form).</p>
         </div>
-        <div style="border-top: 1px solid rgba(209, 179, 145, 0.3); padding-top: 2rem; text-align: center; color: rgba(209, 179, 145, 0.7); font-size: 0.9rem;">
-            <p>Copyright ©2025 | Addakwa - Undangan Digital Premium</p>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="300">
+          <i class="fas fa-book text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Buku Tamu Online</h3>
+          <p class="text-sm text-gray-600">Tamu dapat menulis doa dan ucapan langsung di website undangan Anda.</p>
         </div>
-    </footer>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="400">
+          <i class="fas fa-images text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Gallery Foto</h3>
+          <p class="text-sm text-gray-600">Bagikan momen pre-wedding Anda dalam galeri foto dan video YouTube.</p>
+        </div>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="500">
+          <i class="fas fa-map-marked-alt text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Navigasi Lokasi</h3>
+          <p class="text-sm text-gray-600">Tamu bisa langsung klik tombol peta (Google Maps) menuju lokasi acara.</p>
+        </div>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="600">
+          <i class="fas fa-music text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Request Musik</h3>
+          <p class="text-sm text-gray-600">Pilih lagu spesial yang paling menggambarkan kisah cinta Anda.</p>
+        </div>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="700">
+          <i class="fas fa-envelope text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Amplop Digital</h3>
+          <p class="text-sm text-gray-600">Memudahkan tamu yang ingin mengirimkan hadiah secara non-tunai (transfer).</p>
+        </div>
+        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="800">
+          <i class="fas fa-clock text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Hitung Mundur</h3>
+          <p class="text-sm text-gray-600">Menampilkan hitung mundur yang elegan menuju hari spesial Anda.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            offset: 100,
-            once: false,
-            mirror: true,
-            easing: 'ease-out-cubic'
+  <!-- Pricing -->
+  <section id="pricing" class="py-20 bg-white px-4">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-16 fade-in-element" data-delay="0">Pilihan Paket Sesuai Kebutuhan Anda</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="hover-card bg-white p-8 rounded-2xl border border-secondary/20 flex flex-col h-full fade-in-element" data-delay="100">
+          <h3 class="font-heading text-2xl text-primary mb-1">Hemat</h3>
+          <div class="text-4xl font-bold text-secondary my-4">Rp 50.000</div>
+          <ul class="space-y-3 mt-4 flex-grow">
+            <li class="flex items-start"><i class="fas fa-check text-secondary mt-1 mr-2"></i> Detail Acara & Peta Lokasi</li>
+            <!-- ... other items unchanged ... -->
+            <li class="flex items-start text-gray-400"><i class="fas fa-times mt-1 mr-2"></i> Request Musik</li>
+          </ul>
+          <a href="https://wa.me/6285697833911" class="mt-6 px-5 py-2.5 border border-secondary text-secondary font-semibold rounded-full text-center hover:bg-secondary hover:text-primary transition">Pilih Paket Ini</a>
+        </div>
+
+        <div class="hover-card bg-white p-8 rounded-2xl border-2 border-secondary shadow-lg scale-105 flex flex-col h-full relative fade-in-element" data-delay="200">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-secondary text-primary px-4 py-1 rounded-full text-sm font-bold">Paling Populer</div>
+          <h3 class="font-heading text-2xl text-primary mt-6 mb-1">Standar</h3>
+          <div class="text-4xl font-bold text-secondary my-4">Rp 120.000</div>
+          <ul class="space-y-3 mt-4 flex-grow">
+            <li class="flex items-start"><i class="fas fa-check text-secondary mt-1 mr-2"></i> Semua Fitur Hemat</li>
+            <!-- ... etc ... -->
+          </ul>
+          <a href="https://wa.me/6285697833911" class="mt-6 px-5 py-2.5 bg-secondary text-primary font-semibold rounded-full text-center hover:bg-transparent hover:text-secondary border border-secondary transition">Pilih Paket Populer</a>
+        </div>
+
+        <div class="hover-card bg-white p-8 rounded-2xl border border-secondary/20 flex flex-col h-full fade-in-element" data-delay="300">
+          <h3 class="font-heading text-2xl text-primary mb-1">Premium</h3>
+          <div class="text-4xl font-bold text-secondary my-4">Rp 200.000</div>
+          <ul class="space-y-3 mt-4 flex-grow">
+            <!-- ... items ... -->
+          </ul>
+          <a href="https://wa.me/6285697833911" class="mt-6 px-5 py-2.5 border border-secondary text-secondary font-semibold rounded-full text-center hover:bg-secondary hover:text-primary transition">Pilih Paket Premium</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-20 bg-[#E6D8C7]/20 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-12 fade-in-element" data-delay="0">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-secondary/20 fade-in-element" data-delay="100">
+          <div class="font-semibold text-primary flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+            Berapa Lama Proses Pembuatannya?
+            <i class="fas fa-chevron-down text-secondary transition-transform"></i>
+          </div>
+          <div class="faq-content mt-4 text-gray-600 pl-1">
+            Proses pembuatan sangat cepat, <b>kurang dari 24 jam</b> setelah data lengkap kami terima dan pembayaran dikonfirmasi.
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-secondary/20 fade-in-element" data-delay="200">
+          <div class="font-semibold text-primary flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+            Apakah Boleh Revisi?
+            <i class="fas fa-chevron-down text-secondary transition-transform"></i>
+          </div>
+          <div class="faq-content mt-4 text-gray-600 pl-1">
+            <b>Tentu!</b> Jumlah revisi tergantung paket yang Anda pilih. Paket <b>Hemat</b> mendapat 2x revisi, Paket <b>Standar</b> 5x revisi, dan Paket <b>Premium</b> kami menawarkan <b>Revisi Sepuasnya (Unlimited)</b>.
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-secondary/20 fade-in-element" data-delay="300">
+          <div class="font-semibold text-primary flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+            Berapa lama undangan akan aktif?
+            <i class="fas fa-chevron-down text-secondary transition-transform"></i>
+          </div>
+          <div class="faq-content mt-4 text-gray-600 pl-1">
+            Tergantung paket Anda. Kami menyediakan paket Aktif 6 Bulan, 12 Bulan, hingga <b>Aktif Selamanya</b> (selama website addakwa.com aktif) untuk Paket Premium.
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-secondary/20 fade-in-element" data-delay="400">
+          <div class="font-semibold text-primary flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+            Bagaimana cara memesannya?
+            <i class="fas fa-chevron-down text-secondary transition-transform"></i>
+          </div>
+          <div class="faq-content mt-4 text-gray-600 pl-1">
+            Sangat mudah. Anda bisa klik tombol "Pilih Paket" atau "Order" di website ini, lalu Anda akan diarahkan ke WhatsApp admin kami untuk pengisian data dan konsultasi.
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-10 fade-in-element" data-delay="500">
+        <a href="https://addakwa.com/pertanyaan/" class="px-6 py-3 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition">Lihat Pertanyaan Lain</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-secondary py-16 px-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div>
+          <h3 class="font-heading text-lg mb-4">Menu Utama</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="hover:opacity-75 transition">Home</a></li>
+            <li><a href="#features" class="hover:opacity-75 transition">Fitur</a></li>
+            <li><a href="#pricing" class="hover:opacity-75 transition">Harga</a></li>
+            <li><a href="#faq" class="hover:opacity-75 transition">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-heading text-lg mb-4">Partnership</h3>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2">
+              <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgnZIH5Q6XjZeycA-ATfVJ4qip-6BPKX_F8LgTZCB7D6CmKPOwq1TWUhhVOPJ-z5A_pjU5ZDWByJvo5OR7XBjJkne6oqOTHNPXAiD8qQjKRA8CcmUTyxkieqFW_AlRvOY0v8so_kbrdKPACl3n9KsfHW72meXEt6MVldnMFGMjplTzzHmzqIzc3_NaJx3c" alt="Da Graphic" class="h-8">
+              <a href="https://instagram.com/da_graphic_" target="_blank" class="hover:opacity-75 transition">Da Graphic</a>
+            </li>
+          </ul>
+        </div>
+        <div class="md:col-span-2">
+          <h3 class="font-heading text-lg mb-4">Hubungi Kami</h3>
+          <p class="text-sm leading-relaxed">
+            WhatsApp: 085697833911<br>
+            Instagram: @addakwa<br>
+            Email: admin@addakwa.com
+          </p>
+          <div class="flex gap-4 mt-4">
+            <a href="https://www.instagram.com/addakwa/" class="text-secondary hover:text-white text-xl transition"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/6285697833911" class="text-secondary hover:text-white text-xl transition"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-secondary/30 pt-6 text-center text-sm text-secondary/70">
+        <p>Copyright © 2025 | Addakwa - Undangan Digital Premium</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeElements = document.querySelectorAll('.fade-in-element');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.dataset.delay ? parseInt(entry.target.dataset.delay) : 0;
+            setTimeout(() => {
+              entry.target.classList.add('appear');
+            }, delay);
+            observer.unobserve(entry.target);
+          }
         });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
 
-        // Hamburger Menu
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.querySelector('nav ul');
+      fadeElements.forEach(el => {
+        observer.observe(el);
+      });
 
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
+      // Mobile menu
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenuButton?.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
 
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                }
-            });
-        }
-
-        // Smooth Scroll & Close Menu
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const href = anchor.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        if (navMenu) navMenu.classList.remove('active');
-                    }
-                }
-            });
-        });
-
-        // Accordion
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                const isActive = content.classList.contains('show');
-
-                // Close all
-                document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('show'));
-                document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
-
-                // Open clicked
-                if (!isActive) {
-                    content.classList.add('show');
-                    header.classList.add('active');
-                }
-            });
-        });
-
-        // Fixed Header on Scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href !== '#' && href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: 'smooth'
+              });
+              if (mobileMenu.classList.contains('hidden') === false) {
+                mobileMenu.classList.add('hidden');
+              }
             }
+          }
         });
-    </script>
+      });
+    });
+
+    // FAQ toggle with smooth animation
+    function toggleFAQ(summary) {
+      const content = summary.nextElementSibling;
+      const icon = summary.querySelector('i');
+      
+      if (content.classList.contains('show')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        // Trigger reflow
+        setTimeout(() => {
+          content.style.maxHeight = '0';
+          content.classList.remove('show');
+          icon.classList.remove('rotate-180');
+        }, 10);
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        content.classList.add('show');
+        icon.classList.add('rotate-180');
+        // Reset maxHeight after transition for dynamic content
+        setTimeout(() => {
+          content.style.maxHeight = 'none';
+        }, 500);
+      }
+    }
+  </script>
 </body>
 </html>
