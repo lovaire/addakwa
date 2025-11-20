@@ -142,13 +142,25 @@
         </div>
       </div>
       <div class="relative hidden lg:block fade-in-element" data-delay="300">
-        <div class="bg-white p-8 rounded-3xl shadow-xl border border-secondary/20">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i class="fas fa-heart text-secondary text-xl"></i>
+        <div class="relative w-64 mx-auto">
+          <div class="relative w-full pt-[200%] rounded-[32px] border-8 border-black/10 shadow-2xl overflow-hidden bg-black">
+            <div class="absolute inset-0 bg-white">
+              <!-- Notch -->
+              <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-3 bg-black/80 rounded-b-lg z-10"></div>
+
+              <!-- Slideshow -->
+              <div class="h-full w-full relative overflow-hidden pt-3">
+                <div id="mockup-slide-1" class="absolute inset-0 opacity-100 transition-opacity duration-700 ease-in-out">
+                  <img src="https://picsum.photos/id/1011/400/700" alt="Slide 1" class="w-full h-full object-cover">
+                </div>
+                <div id="mockup-slide-2" class="absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
+                  <img src="https://picsum.photos/id/1025/400/700" alt="Slide 2" class="w-full h-full object-cover">
+                </div>
+                <div id="mockup-slide-3" class="absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out">
+                  <img src="https://picsum.photos/id/1062/400/700" alt="Slide 3" class="w-full h-full object-cover">
+                </div>
+              </div>
             </div>
-            <p class="font-heading text-primary text-xl italic">"Kami akan ada di hati setiap tamu"</p>
-            <p class="text-sm text-gray-500 mt-3">Contoh undangan digital Addakwa</p>
           </div>
         </div>
       </div>
@@ -188,29 +200,29 @@
   <!-- Features -->
   <section id="features" class="py-20 bg-[#E6D8C7]/30 px-4">
     <div class="max-w-7xl mx-auto">
-      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-16 fade-in-element" data-delay="0">Fitur Unggulan Undangan</h2>
+      <h2 class="font-heading text-3xl md:text-4xl text-primary text-center mb-16 fade-in-element" data-delay="0">Fitur Unggulan Kami</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Generate 8 feature cards -->
         <!-- You can loop these in real app; here we duplicate with increasing delay -->
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="100">
           <i class="fas fa-qrcode text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
           <h3 class="font-heading text-primary text-lg mb-2">QRCode Tamu</h3>
-          <p class="text-sm text-gray-600">Manajemen buku tamu digital di hari-H. Lebih cepat, praktis, dan bebas antri.</p>
+          <p class="text-sm text-gray-600">Pastikan yang datang hanya tamu yang diundang.</p>
         </div>
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="200">
-          <i class="fas fa-envelope-open-text text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
-          <h3 class="font-heading text-primary text-lg mb-2">RSVP</h3>
-          <p class="text-sm text-gray-600">Dapatkan data perkiraan jumlah tamu yang akan hadir (via WA/Form).</p>
+          <i class="fas fa-clipboard-list text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Tata Tertib Tamu</h3>
+          <p class="text-sm text-gray-600">Panduan sopan santun dan aturan selama acara berlangsung untuk kenyamanan bersama.</p>
         </div>
-        <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="300">
-          <i class="fas fa-book text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
-          <h3 class="font-heading text-primary text-lg mb-2">Buku Tamu Online</h3>
-          <p class="text-sm text-gray-600">Tamu dapat menulis doa dan ucapan langsung di website undangan Anda.</p>
+       <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="300">
+          <i class="fas fa-video text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
+          <h3 class="font-heading text-primary text-lg mb-2">Live Streaming</h3>
+          <p class="text-sm text-gray-600">Tonton acara secara langsung dari mana saja melalui tautan streaming resmi.</p>
         </div>
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="400">
           <i class="fas fa-images text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
           <h3 class="font-heading text-primary text-lg mb-2">Gallery Foto</h3>
-          <p class="text-sm text-gray-600">Bagikan momen pre-wedding Anda dalam galeri foto dan video YouTube.</p>
+          <p class="text-sm text-gray-600">Bagikan momen Anda dalam jumlah tak terbatas.</p>
         </div>
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="500">
           <i class="fas fa-map-marked-alt text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
@@ -220,7 +232,7 @@
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="600">
           <i class="fas fa-music text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
           <h3 class="font-heading text-primary text-lg mb-2">Request Musik</h3>
-          <p class="text-sm text-gray-600">Pilih lagu spesial yang paling menggambarkan kisah cinta Anda.</p>
+          <p class="text-sm text-gray-600">Pilih lagu spesial yang paling sesuai dengan momen Anda.</p>
         </div>
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="700">
           <i class="fas fa-envelope text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
@@ -230,7 +242,7 @@
         <div class="hover-card bg-white p-6 rounded-xl border border-secondary/20 group fade-in-element" data-delay="800">
           <i class="fas fa-clock text-2xl text-secondary mb-3 group-hover:scale-110 transition"></i>
           <h3 class="font-heading text-primary text-lg mb-2">Hitung Mundur</h3>
-          <p class="text-sm text-gray-600">Menampilkan hitung mundur yang elegan menuju hari spesial Anda.</p>
+          <p class="text-sm text-gray-600">Menampilkan hitung mundur yang elegan menuju hari acara Anda.</p>
         </div>
       </div>
     </div>
@@ -368,80 +380,109 @@
   </footer>
 
   <script>
-    // Fade-in on scroll
-    document.addEventListener('DOMContentLoaded', () => {
-      const fadeElements = document.querySelectorAll('.fade-in-element');
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const delay = entry.target.dataset.delay ? parseInt(entry.target.dataset.delay) : 0;
-            setTimeout(() => {
-              entry.target.classList.add('appear');
-            }, delay);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+  document.addEventListener('DOMContentLoaded', () => {
+    // =============== Fade-in on scroll ===============
+    const fadeElements = document.querySelectorAll('.fade-in-element');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay ? parseInt(entry.target.dataset.delay) : 0;
+          setTimeout(() => {
+            entry.target.classList.add('appear');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
       });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    fadeElements.forEach(el => observer.observe(el));
 
-      fadeElements.forEach(el => {
-        observer.observe(el);
-      });
-
-      // Mobile menu
-      const mobileMenuButton = document.getElementById('mobileMenuButton');
-      const mobileMenu = document.getElementById('mobileMenu');
-      mobileMenuButton?.addEventListener('click', () => {
+    // =============== Mobile menu ===============
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
+    }
 
-      // Smooth scroll
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href !== '#' && href.startsWith('#')) {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-              window.scrollTo({
-                top: target.offsetTop - 80,
-                behavior: 'smooth'
-              });
-              if (mobileMenu.classList.contains('hidden') === false) {
-                mobileMenu.classList.add('hidden');
-              }
+    // =============== Smooth scroll ===============
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.add('hidden');
             }
           }
-        });
+        }
       });
     });
 
-    // FAQ toggle with smooth animation
-    function toggleFAQ(summary) {
-      const content = summary.nextElementSibling;
-      const icon = summary.querySelector('i');
-      
-      if (content.classList.contains('show')) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        // Trigger reflow
+    // =============== Mockup Slideshow (Fade Cross) ===============
+    const slides = [
+      document.getElementById('mockup-slide-1'),
+      document.getElementById('mockup-slide-2'),
+      document.getElementById('mockup-slide-3')
+    ];
+
+    // Hanya jalankan jika semua slide ada
+    if (slides.every(s => s)) {
+      let current = 0;
+      const total = slides.length;
+
+      // Set awal: hanya slide pertama yang visible
+      slides.forEach((slide, i) => {
+        slide.style.opacity = i === 0 ? '1' : '0';
+        slide.style.transition = 'opacity 0.7s ease-in-out';
+      });
+
+      setInterval(() => {
+        const next = (current + 1) % total;
+
+        // Fade out current
+        slides[current].style.opacity = '0';
+
+        // Fade in next setelah delay kecil (untuk efek cross-fade)
         setTimeout(() => {
-          content.style.maxHeight = '0';
-          content.classList.remove('show');
-          icon.classList.remove('rotate-180');
-        }, 10);
-      } else {
-        content.style.maxHeight = content.scrollHeight + 'px';
-        content.classList.add('show');
-        icon.classList.add('rotate-180');
-        // Reset maxHeight after transition for dynamic content
-        setTimeout(() => {
-          content.style.maxHeight = 'none';
-        }, 500);
-      }
+          slides[next].style.opacity = '1';
+          current = next;
+        }, 300);
+
+      }, 4000); // Ganti tiap 4 detik
     }
-  </script>
+  });
+
+  // =============== FAQ toggle ===============
+  function toggleFAQ(summary) {
+    const content = summary.nextElementSibling;
+    const icon = summary.querySelector('i');
+    
+    if (content.classList.contains('show')) {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      setTimeout(() => {
+        content.style.maxHeight = '0';
+        content.classList.remove('show');
+        icon.classList.remove('rotate-180');
+      }, 10);
+    } else {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      content.classList.add('show');
+      icon.classList.add('rotate-180');
+      setTimeout(() => {
+        content.style.maxHeight = 'none';
+      }, 500);
+    }
+  }
+</script>
 </body>
 </html>
