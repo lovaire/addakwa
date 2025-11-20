@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png" sizes="192x192">
+  <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png">
 
   <title>Pesan Undangan - Addakwa</title>
   <meta name="description" content="Pesan undangan digital premium sesuai kebutuhan acaramu." />
@@ -13,9 +13,6 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <script>
     tailwind.config = {
@@ -40,7 +37,7 @@
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: white;
+      background-color: #F9F7F4;
     }
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Playfair Display', serif;
@@ -52,73 +49,81 @@
     }
     .step.active {
       display: block;
-      animation: fadeIn 0.5s ease-in-out;
+      animation: fadeIn 0.4s ease-out;
     }
-
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Card yang bisa dipilih */
     .selectable-card {
       transition: all 0.25s ease;
       cursor: pointer;
-      border: 2px solid transparent;
+      border: 2px solid #E5E7EB;
+      background-color: #fff;
+    }
+    .selectable-card:hover {
+      border-color: #D1B391;
     }
     .selectable-card.selected {
-      border-color: #D1B391;
-      box-shadow: 0 4px 12px rgba(209, 179, 145, 0.25);
+      border-color: #D1B391 !important;
+      box-shadow: 0 4px 12px rgba(209, 179, 145, 0.3) !important;
+      background-color: #FFF9F5;
     }
 
     .btn-nav {
-      min-width: 120px;
+      min-width: 110px;
+      font-weight: 600;
     }
 
-    /* Template gambar 1:1 */
     .template-img {
       aspect-ratio: 1 / 1;
       object-fit: cover;
       width: 100%;
-      height: 100%;
+    }
+
+    @media (max-width: 640px) {
+      .grid-templates {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
     }
   </style>
 </head>
-<body class="text-gray-800 antialiased bg-bg-light">
+<body class="text-gray-800 antialiased">
 
   <!-- Navbar -->
-  <header class="fixed top-0 w-full z-50 backdrop-blur-md bg-white/80 border-b border-secondary/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+  <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-secondary/10">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
       <a href="index.html" class="flex items-center gap-2">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX28evTjHL360F9n7dqCgAZw1vmzQrU3fW0SG-DrEF2jXHiwSzeHSyTP4JHUIKrNERJsze0jE3EJ0cPFu-mk2dSXHKgSZXmAISA2hdF7JJXyRTwwSLK6g39E5qaR_FRFH1k1hRAaTwQai0EDfZfuiaixdecb3gdrBsPvUh6sW3IqOoQ8FfhPdyvD6IWTA/s320/Brand%20Design.png" alt="Addakwa" class="h-8 sm:h-10">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX28evTjHL360F9n7dqCgAZw1vmzQrU3fW0SG-DrEF2jXHiwSzeHSyTP4JHUIKrNERJsze0jE3EJ0cPFu-mk2dSXHKgSZXmAISA2hdF7JJXyRTwwSLK6g39E5qaR_FRFH1k1hRAaTwQai0EDfZfuiaixdecb3gdrBsPvUh6sW3IqOoQ8FfhPdyvD6IWTA/s320/Brand%20Design.png" alt="Addakwa" class="h-8">
         <span class="text-secondary font-heading text-xl font-bold">AdDakwa</span>
       </a>
-      <a href="index.html" class="text-primary hover:text-secondary text-sm font-medium">← Beranda</a>
+      <a href="index.html" class="text-primary text-sm font-medium">← Beranda</a>
     </div>
   </header>
 
   <!-- Main Content -->
   <main class="pt-24 pb-16 px-4 max-w-4xl mx-auto">
-    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-secondary/20">
+    <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 border border-secondary/10">
       <h1 class="font-heading text-3xl md:text-4xl text-primary text-center mb-2">Pesan Undangan Digital</h1>
-      <p class="text-gray-600 text-center mb-8">Isi langkah demi langkah untuk memesan undangan sesuai kebutuhanmu.</p>
+      <p class="text-gray-600 text-center mb-8">Isi langkah demi langkah untuk pesananmu</p>
 
-      <!-- Progress Visual -->
-      <div class="flex justify-between mb-10 relative">
+      <!-- Progress -->
+      <div class="flex justify-between mb-8">
         <div class="text-center" id="prog1">
-          <div class="w-8 h-8 rounded-full bg-secondary text-white text-xs flex items-center justify-center mx-auto mb-2">1</div>
+          <div class="w-8 h-8 rounded-full bg-secondary text-white text-xs flex items-center justify-center mx-auto mb-1">1</div>
           <span class="text-xs font-medium text-primary">Paket</span>
         </div>
         <div class="text-center" id="prog2">
-          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-2">2</div>
+          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-1">2</div>
           <span class="text-xs text-gray-500">Jenis</span>
         </div>
         <div class="text-center" id="prog3">
-          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-2">3</div>
+          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-1">3</div>
           <span class="text-xs text-gray-500">Template</span>
         </div>
         <div class="text-center" id="prog4">
-          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-2">4</div>
+          <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-1">4</div>
           <span class="text-xs text-gray-500">Detail</span>
         </div>
       </div>
@@ -126,124 +131,138 @@
       <form id="orderForm" class="space-y-6">
         <!-- Step 1: Paket -->
         <div class="step active" id="step1">
-          <h2 class="font-heading text-2xl text-primary mb-6">Pilih Paket</h2>
+          <h2 class="font-heading text-2xl text-primary mb-5">Pilih Paket</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="selectable-card border rounded-xl p-4 text-center" onclick="selectItem('paket', 'Hemat', this)">
+            <div class="selectable-card rounded-xl p-4 text-center" data-step="paket" data-value="Hemat" onclick="selectItem('paket', 'Hemat', this)">
               <h3 class="font-bold text-primary">Hemat</h3>
               <div class="text-secondary font-bold text-xl mt-2">Rp 50.000</div>
-              <p class="text-xs mt-2 text-gray-600">Fitur dasar</p>
+              <p class="text-xs mt-1 text-gray-600">Fitur dasar</p>
             </div>
-            <div class="selectable-card border rounded-xl p-4 text-center" onclick="selectItem('paket', 'Standar', this)">
+            <div class="selectable-card rounded-xl p-4 text-center" data-step="paket" data-value="Standar" onclick="selectItem('paket', 'Standar', this)">
               <div class="bg-secondary text-primary text-[10px] font-bold px-2 py-1 rounded-full inline-block mb-1">Populer</div>
               <h3 class="font-bold text-primary">Standar</h3>
               <div class="text-secondary font-bold text-xl mt-1">Rp 120.000</div>
               <p class="text-xs mt-1 text-gray-600">Fitur lengkap + 5x revisi</p>
             </div>
-            <div class="selectable-card border rounded-xl p-4 text-center" onclick="selectItem('paket', 'Premium', this)">
+            <div class="selectable-card rounded-xl p-4 text-center" data-step="paket" data-value="Premium" onclick="selectItem('paket', 'Premium', this)">
               <h3 class="font-bold text-primary">Premium</h3>
               <div class="text-secondary font-bold text-xl mt-2">Rp 200.000</div>
-              <p class="text-xs mt-2 text-gray-600">Fitur premium + unlimited revisi</p>
+              <p class="text-xs mt-1 text-gray-600">Fitur premium + unlimited revisi</p>
             </div>
           </div>
           <input type="hidden" id="paket" required>
           <div class="flex justify-end mt-6">
-            <button type="button" class="btn-nav px-5 py-2 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(1)">Lanjut →</button>
+            <button type="button" class="btn-nav px-4 py-2 bg-secondary text-primary rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(1)">Lanjut →</button>
           </div>
         </div>
 
         <!-- Step 2: Jenis Acara -->
         <div class="step" id="step2">
-          <h2 class="font-heading text-2xl text-primary mb-6">Jenis Acara</h2>
+          <h2 class="font-heading text-2xl text-primary mb-5">Jenis Acara</h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Pernikahan', this)">Pernikahan</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Khitanan', this)">Khitanan</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Ulang Tahun', this)">Ulang Tahun</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Wisuda', this)">Wisuda</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Aqiqah', this)">Aqiqah</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Buka Puasa', this)">Buka Puasa</div>
-            <div class="selectable-card border rounded-lg p-3 text-center text-sm" onclick="selectItem('jenis', 'Lainnya', this)">Lainnya</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Pernikahan" onclick="selectItem('jenis', 'Pernikahan', this)">Pernikahan</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Khitanan" onclick="selectItem('jenis', 'Khitanan', this)">Khitanan</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Ulang Tahun" onclick="selectItem('jenis', 'Ulang Tahun', this)">Ulang Tahun</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Wisuda" onclick="selectItem('jenis', 'Wisuda', this)">Wisuda</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Aqiqah" onclick="selectItem('jenis', 'Aqiqah', this)">Aqiqah</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Buka Puasa" onclick="selectItem('jenis', 'Buka Puasa', this)">Buka Puasa</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Kegiatan Keagamaan" onclick="selectItem('jenis', 'Kegiatan Keagamaan', this)">Keagamaan</div>
+            <div class="selectable-card rounded-lg p-3 text-center text-sm" data-step="jenis" data-value="Lainnya" onclick="selectItem('jenis', 'Lainnya', this)">Lainnya</div>
           </div>
           <input type="hidden" id="jenis_acara" required>
           <div class="flex justify-between mt-6">
-            <button type="button" class="btn-nav px-5 py-2 border border-secondary text-secondary font-semibold rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(2)">← Kembali</button>
-            <button type="button" class="btn-nav px-5 py-2 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(2)">Lanjut →</button>
+            <button type="button" class="btn-nav px-4 py-2 border border-secondary text-secondary rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(2)">← Kembali</button>
+            <button type="button" class="btn-nav px-4 py-2 bg-secondary text-primary rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(2)">Lanjut →</button>
           </div>
         </div>
 
         <!-- Step 3: Template -->
         <div class="step" id="step3">
-          <h2 class="font-heading text-2xl text-primary mb-6">Pilih Template</h2>
-          <p class="text-gray-600 text-sm mb-4">Klik template yang kamu sukai</p>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            <!-- Template 1–7 dengan gambar Picsum 1:1 -->
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 1, this)">
-              <img src="https://picsum.photos/200/200?random=1" alt="Template 1" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 1</div>
+          <h2 class="font-heading text-2xl text-primary mb-4">Pilih Template</h2>
+          <p class="text-gray-600 text-sm mb-4">Klik untuk memilih desain</p>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 grid-templates">
+            <!-- Template 1–7 -->
+            <div class="selectable-card flex flex-col" data-step="template" data-value="1" onclick="selectItem('template', 1, this)">
+              <img src="https://picsum.photos/200/200?random=1" alt="Template 1" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 1</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 2, this)">
-              <img src="https://picsum.photos/200/200?random=2" alt="Template 2" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 2</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="2" onclick="selectItem('template', 2, this)">
+              <img src="https://picsum.photos/200/200?random=2" alt="Template 2" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 2</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 3, this)">
-              <img src="https://picsum.photos/200/200?random=3" alt="Template 3" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 3</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="3" onclick="selectItem('template', 3, this)">
+              <img src="https://picsum.photos/200/200?random=3" alt="Template 3" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 3</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 4, this)">
-              <img src="https://picsum.photos/200/200?random=4" alt="Template 4" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 4</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="4" onclick="selectItem('template', 4, this)">
+              <img src="https://picsum.photos/200/200?random=4" alt="Template 4" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 4</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 5, this)">
-              <img src="https://picsum.photos/200/200?random=5" alt="Template 5" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 5</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="5" onclick="selectItem('template', 5, this)">
+              <img src="https://picsum.photos/200/200?random=5" alt="Template 5" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 5</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 6, this)">
-              <img src="https://picsum.photos/200/200?random=6" alt="Template 6" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 6</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="6" onclick="selectItem('template', 6, this)">
+              <img src="https://picsum.photos/200/200?random=6" alt="Template 6" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 6</div>
             </div>
-            <div class="selectable-card flex flex-col" onclick="selectItem('template', 7, this)">
-              <img src="https://picsum.photos/200/200?random=7" alt="Template 7" class="template-img rounded-t-lg">
-              <div class="text-center py-2 text-sm">Template 7</div>
+            <div class="selectable-card flex flex-col" data-step="template" data-value="7" onclick="selectItem('template', 7, this)">
+              <img src="https://picsum.photos/200/200?random=7" alt="Template 7" class="template-img rounded-t">
+              <div class="text-center py-2 text-sm font-medium">Template 7</div>
             </div>
           </div>
           <input type="hidden" id="template" required>
           <div class="flex justify-between mt-6">
-            <button type="button" class="btn-nav px-5 py-2 border border-secondary text-secondary font-semibold rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(3)">← Kembali</button>
-            <button type="button" class="btn-nav px-5 py-2 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(3)">Lanjut →</button>
+            <button type="button" class="btn-nav px-4 py-2 border border-secondary text-secondary rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(3)">← Kembali</button>
+            <button type="button" class="btn-nav px-4 py-2 bg-secondary text-primary rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="nextStep(3)">Lanjut →</button>
           </div>
         </div>
 
         <!-- Step 4: Detail -->
         <div class="step" id="step4">
-          <h2 class="font-heading text-2xl text-primary mb-6">Detail Acara</h2>
+          <h2 class="font-heading text-2xl text-primary mb-5">Detail Acara</h2>
           <div class="space-y-4">
+            <!-- Nama (otomatis berubah berdasarkan jenis acara) -->
             <div>
-              <label class="block text-sm font-medium text-primary mb-1">Nama</label>
+              <label class="block text-sm font-medium text-primary mb-1" id="labelNama">Nama</label>
               <input type="text" id="nama" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" placeholder="Contoh: Ahmad & Siti" required>
             </div>
+
             <div>
               <label class="block text-sm font-medium text-primary mb-1">Tanggal Acara</label>
               <input type="date" id="tanggal" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" required>
             </div>
+
             <div>
               <label class="block text-sm font-medium text-primary mb-1">Waktu</label>
               <input type="text" id="waktu" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" placeholder="Contoh: 08.00 WIB">
             </div>
+
             <div>
               <label class="block text-sm font-medium text-primary mb-1">Lokasi</label>
               <textarea id="lokasi" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" rows="2" placeholder="Masjid Al-Hikmah, Jl. Sudirman No. 10" required></textarea>
             </div>
+
             <div>
               <label class="block text-sm font-medium text-primary mb-1">Link Google Maps</label>
               <input type="url" id="maps" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" placeholder="https://maps.app.goo.gl/...">
             </div>
+
             <div>
               <label class="block text-sm font-medium text-primary mb-1">Rekening Hadiah (Opsional)</label>
               <input type="text" id="rekening" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" placeholder="Contoh: BCA 1234567890 a.n Ahmad">
             </div>
+
+            <!-- Catatan Detail Tema -->
+            <div>
+              <label class="block text-sm font-medium text-primary mb-1">Detail Tema / Catatan Khusus</label>
+              <textarea id="catatan" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-secondary focus:border-secondary" rows="3" placeholder="..."></textarea>
+            </div>
           </div>
+
           <div class="flex justify-between mt-8">
-            <button type="button" class="btn-nav px-5 py-2 border border-secondary text-secondary font-semibold rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(4)">← Kembali</button>
-            <button type="button" class="btn-nav px-5 py-2 bg-secondary text-primary font-semibold rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="submitOrder()">Kirim ke WhatsApp</button>
+            <button type="button" class="btn-nav px-4 py-2 border border-secondary text-secondary rounded-full hover:bg-secondary hover:text-primary transition" onclick="prevStep(4)">← Kembali</button>
+            <button type="button" class="btn-nav px-4 py-2 bg-secondary text-primary rounded-full hover:bg-transparent hover:text-secondary border border-secondary transition" onclick="submitOrder()">Kirim ke WhatsApp</button>
           </div>
         </div>
       </form>
@@ -252,25 +271,57 @@
 
   <script>
     let currentStep = 1;
-    const selections = {
-      paket: null,
-      jenis: null,
-      template: null
-    };
+    const selections = { paket: null, jenis: null, template: null };
+
+    // Daftar placeholder untuk catatan tema
+    const placeholders = [
+      "Saya mau tema bunga-bunga",
+      "Adat Jawa, warna biru & emas",
+      "Nuansa pastel, soft & elegan",
+      "Minimalis modern, warna netral",
+      "Tema kebun, warna hijau & krem",
+      "Islamic style, kaligrafi & emas",
+      "Nuansa laut, biru & putih",
+      "Vintage klasik dengan foto hitam putih",
+      "Ramadan, nuansa islami & tenang",
+      "Anak laki-laki, tema superhero"
+    ];
+
+    // Ganti placeholder tiap 3 detik
+    let placeholderIndex = 0;
+    function rotatePlaceholder() {
+      const el = document.getElementById('catatan');
+      if (el) {
+        el.placeholder = placeholders[placeholderIndex];
+        placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+      }
+    }
+    setInterval(rotatePlaceholder, 3000);
+    // Set awal
+    document.addEventListener('DOMContentLoaded', rotatePlaceholder);
+
+    // Ganti label nama berdasarkan jenis acara
+    function updateNamaLabel() {
+      const jenis = selections.jenis;
+      const label = document.getElementById('labelNama');
+      if (!label) return;
+      if (jenis === 'Pernikahan') label.textContent = 'Nama Mempelai';
+      else if (jenis === 'Khitanan' || jenis === 'Aqiqah' || jenis === 'Ulang Tahun') label.textContent = 'Nama Anak';
+      else if (jenis === 'Wisuda') label.textContent = 'Nama Wisudawan/i';
+      else if (jenis === 'Kegiatan Keagamaan') label.textContent = 'Nama Kegiatan';
+      else label.textContent = 'Nama';
+    }
 
     function selectItem(type, value, element) {
-      // Hapus seleksi sebelumnya di grup yang sama
-      document.querySelectorAll(`.selectable-card[data-type="${type}"]`).forEach(el => {
+      // Hapus seleksi sebelumnya
+      document.querySelectorAll(`.selectable-card[data-step="${type}"]`).forEach(el => {
         el.classList.remove('selected');
       });
-      
       // Tandai yang dipilih
       element.classList.add('selected');
-      element.setAttribute('data-type', type);
-      
-      // Simpan nilai
       selections[type] = value;
       document.getElementById(type === 'template' ? 'template' : type === 'jenis' ? 'jenis_acara' : type).value = value;
+      if (type === 'jenis') updateNamaLabel();
     }
 
     function showStep(step) {
@@ -278,15 +329,17 @@
       document.getElementById(`step${step}`).classList.add('active');
       currentStep = step;
 
-      // Update progress
+      // Update progress indicator
       for (let i = 1; i <= 4; i++) {
         const el = document.getElementById(`prog${i}`);
+        const div = el.querySelector('div');
+        const span = el.querySelector('span');
         if (i <= step) {
-          el.querySelector('div').className = 'w-8 h-8 rounded-full bg-secondary text-white text-xs flex items-center justify-center mx-auto mb-2';
-          el.querySelector('span').className = 'text-xs font-medium text-primary';
+          div.className = 'w-8 h-8 rounded-full bg-secondary text-white text-xs flex items-center justify-center mx-auto mb-1';
+          span.className = 'text-xs font-medium text-primary';
         } else {
-          el.querySelector('div').className = 'w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-2';
-          el.querySelector('span').className = 'text-xs text-gray-500';
+          div.className = 'w-8 h-8 rounded-full bg-gray-200 text-gray-500 text-xs flex items-center justify-center mx-auto mb-1';
+          span.className = 'text-xs text-gray-500';
         }
       }
     }
@@ -314,40 +367,40 @@
       const lokasi = document.getElementById('lokasi').value;
       const maps = document.getElementById('maps').value || '-';
       const rekening = document.getElementById('rekening').value || 'Tidak ada';
+      const catatan = document.getElementById('catatan').value || 'Tidak ada';
 
-      // Format tanggal ke Bahasa Indonesia
+      // Format tanggal Indonesia
       const date = new Date(tanggalInput);
       const tanggalID = new Intl.DateTimeFormat('id-ID', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
       }).format(date);
 
-      const message = `Halo Addakwa, saya ingin pesan:
+      // Format pesan WhatsApp sesuai permintaan
+      const message = `*FORMAT PEMESANAN*
 
-Paket: *${paket}*
-Jenis Acara: *${jenis}*
-Template: *${template}*
-
-Detail Acara:
-Nama: ${nama}
 Tanggal: ${tanggalID}
+Paket: ${paket}
+Jenis Acara: ${jenis}
+Template: ${template}
+Nama: ${nama}
 Waktu: ${waktu}
 Lokasi: ${lokasi}
 Google Maps: ${maps}
 Rekening Hadiah: ${rekening}
+Catatan Tema: ${catatan}
 
 Mohon bantuannya. Terima kasih!`;
 
       const waUrl = `https://wa.me/6285697833911?text=${encodeURIComponent(message)}`;
       window.open(waUrl, '_blank');
 
-      // Redirect ke thank-you setelah WhatsApp terbuka
       setTimeout(() => {
         window.location.href = 'thank-you.html';
       }, 1200);
     }
+
+    // Inisialisasi label nama
+    document.addEventListener('DOMContentLoaded', updateNamaLabel);
   </script>
 </body>
 </html>
