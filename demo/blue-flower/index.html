@@ -2,6 +2,7 @@
 <!-- saved from url=(0040)https://satumomen.com/preview/green-pink -->
 <html lang="id" class="notranslate" translate="no">
    <head>
+      <link rel="icon" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiWnN8FmrFrpxS6DtCiHHTQbpI4g3_GcZS9-oEoNCZxE-zpsRbiFKGdGOBsd1VNVIRRzhoSIO-Klo9pW21YfsVmaXyfWoR_kDmAEjsvf17iQvtBstUd7mdMKUxNXsnQkejIYv-EZWjK0NNHLKcy4Z7SAl6gLpXSr5IOFNEjLdII5gQcIUzRnr30nZF-n2Y/s1600/icon-192x192.png" type="image/png" sizes="192x192">
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/dist/icons.css">
@@ -1285,20 +1286,21 @@
           // Tampilkan di elemen dengan id="guestNameSlot"
           document.getElementById('guestNameSlot').textContent = guestName;
         }
-        //  // Blokir klik kanan
-        // document.addEventListener('contextmenu', (e) => e.preventDefault());
+         // Blokir klik kanan
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        // // Blokir shortcut inspect (F12, Ctrl+Shift+I, dll)
-        // document.addEventListener('keydown', (e) => {
-        //   if (
-        //     e.key === 'F12' ||
-        //     (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        //     (e.ctrlKey && e.shiftKey && e.key === 'J') ||
-        //     (e.ctrlKey && e.key === 'U')
-        //   ) {
-        //     e.preventDefault();
-        //   }
-        // });
+        // Blokir shortcut inspect (F12, Ctrl+Shift+I, dll)
+        document.addEventListener('keydown', (e) => {
+          if (
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.shiftKey && e.key === 'S') ||
+            (e.ctrlKey && e.key === 'U')
+          ) {
+            e.preventDefault();
+          }
+        });
       </script>
       <!-- end script -->
       <script type="text/javascript"></script>
