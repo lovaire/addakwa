@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Digital Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --inv-bg: #f6f4f0;
+      --inv-base: #464646;
+      --inv-accent: #75704C;
+      --menu-bg: #eae6e3;
+      --font-base: "Jost", sans-serif;
+      --font-accent: "Great Vibes", cursive;
+      --font-latin: "Dancing Script", cursive;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-base);
+      background: #f0f0f0;
+      padding: 20px;
+      color: var(--inv-base);
+    }
+    .builder-container {
+      display: flex;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .preview-box {
+      width: 375px;
+      height: 736px;
+      border: 2px solid #ccc;
+      overflow: hidden;
+      position: relative;
+      background: var(--inv-bg);
+    }
+    .preview-frame img {
+      width: 100%;
+      display: block;
+    }
+    .preview-content {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 10;
+    }
+    .preview-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: var(--menu-bg);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+    .preview-nav span {
+      font-size: 10px;
+    }
+    .controls {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .controls h2 {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    button {
+      background: var(--inv-accent);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    pre {
+      background: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-top: 20px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .frame-tl, .frame-bl, .frame-tr, .frame-br {
+      position: absolute;
+      z-index: 5;
+    }
+    .frame-tl, .frame-tr { top: 0; }
+    .frame-bl, .frame-br { bottom: 0; }
+    .frame-tl, .frame-bl { left: 0; }
+    .frame-tr, .frame-br { right: 0; }
+  </style>
+</head>
+<body>
+
+<div class="builder-container">
+  <!-- Preview -->
+  <div class="preview-box">
+    <div class="frame-tl"><img id="frame-tl" src="https://via.placeholder.com/100x30/eee/999?text=TL" alt="Top Left"></div>
+    <div class="frame-tr"><img id="frame-tr" src="https://via.placeholder.com/100x30/eee/999?text=TR" alt="Top Right"></div>
+    <div class="frame-bl"><img id="frame-bl" src="https://via.placeholder.com/100x30/eee/999?text=BL" alt="Bottom Left"></div>
+    <div class="frame-br"><img id="frame-br" src="https://via.placeholder.com/100x30/eee/999?text=BR" alt="Bottom Right"></div>
+    <div class="preview-content">
+      <h2 class="font-latin" style="font-size: 32px; color: var(--inv-accent); margin-bottom: 10px;">Nama Mempelai</h2>
+      <p style="margin-bottom: 20px;">Sabtu, 27 September 2025</p>
+      <button class="btn-open">Buka Undangan</button>
+    </div>
+    <div class="preview-nav" id="previewNav">
+      <span>Opening</span>
+      <span>Couple</span>
+      <span>Acara</span>
+      <span>Maps</span>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <h2>⚙️ Pengaturan Undangan</h2>
+
+    <div class="form-group">
+      <label>Daftar Menu (pisahkan koma)</label>
+      <input type="text" id="menuItems" value="Opening,Couple,Acara,Maps" />
+    </div>
+
+    <div class="form-group">
+      <label>Animasi Frame (Top Left)</label>
+      <select id="animTL">
+        <option value="fadeInDown">Fade In Down</option>
+        <option value="slideInDown">Slide In Down</option>
+        <option value="bounceInDown">Bounce In Down</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Animasi Frame (Bottom Left)</label>
+      <select id="animBL">
+        <option value="fadeInUp">Fade In Up</option>
+        <option value="slideInUp">Slide In Up</option>
+        <option value="bounceInUp">Bounce In Up</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Font Base (Google Fonts)</label>
+      <input type="text" id="fontBase" value="Jost" placeholder="Contoh: Poppins" />
+    </div>
+
+    <div class="form-group">
+      <label>Font Accent (misal: nama mempelai)</label>
+      <input type="text" id="fontAccent" value="Great Vibes" placeholder="Contoh: Great Vibes" />
+    </div>
+
+    <div class="form-group">
+      <label>Font Latin (untuk kaligrafi)</label>
+      <input type="text" id="fontLatin" value="Dancing Script" placeholder="Contoh: Imperial Script" />
+    </div>
+
+    <button id="applyBtn">Terapkan Perubahan</button>
+    <button id="copyBtn">📄 Salin Kode HTML</button>
+
+    <pre id="outputCode" style="display: none;"></pre>
+  </div>
+</div>
+
+<script>
+  const applyBtn = document.getElementById('applyBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const outputCode = document.getElementById('outputCode');
+
+  function applyChanges() {
+    const menuInput = document.getElementById('menuItems').value;
+    const menus = menuInput.split(',').map(m => m.trim());
+    const nav = document.getElementById('previewNav');
+    nav.innerHTML = menus.map(m => `<span>${m}</span>`).join('');
+
+    const animTL = document.getElementById('animTL').value;
+    const animBL = document.getElementById('animBL').value;
+    document.getElementById('frame-tl').className = `animate__animated animate__${animTL}`;
+    document.getElementById('frame-bl').className = `animate__animated animate__${animBL}`;
+    document.getElementById('frame-tr').className = `animate__animated animate__${animTL}`;
+    document.getElementById('frame-br').className = `animate__animated animate__${animBL}`;
+
+    const fontBase = document.getElementById('fontBase').value;
+    const fontAccent = document.getElementById('fontAccent').value;
+    const fontLatin = document.getElementById('fontLatin').value;
+
+    // Update CSS di preview
+    document.documentElement.style.setProperty('--font-base', `"${fontBase}", sans-serif`);
+    document.documentElement.style.setProperty('--font-accent', `"${fontAccent}", cursive`);
+    document.documentElement.style.setProperty('--font-latin', `"${fontLatin}", cursive`);
+
+    // Generate full code
+    generateCode(fontBase, fontAccent, fontLatin, menus, animTL, animBL);
+  }
+
+  function generateCode(fontBase, fontAccent, fontLatin, menus, animTL, animBL) {
+    const code = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    :root {
+      --inv-bg: #f6f4f0;
+      --inv-base: #464646;
+      --inv-accent: #75704C;
+      --font-base: "${fontBase}", sans-serif;
+      --font-accent: "${fontAccent}", cursive;
+      --font-latin: "${fontLatin}", cursive;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-base);
+      background: var(--inv-bg);
+      overflow: hidden;
+    }
+    .canvas {
+      width: 375px;
+      height: 736px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .frame-tl, .frame-bl, .frame-tr, .frame-br {
+      position: absolute;
+      z-index: 5;
+    }
+    .frame-tl, .frame-tr { top: 0; }
+    .frame-bl, .frame-br { bottom: 0; }
+    .frame-tl, .frame-bl { left: 0; }
+    .frame-tr, .frame-br { right: 0; }
+    .content {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .font-latin {
+      font-family: var(--font-latin);
+    }
+    .font-accent {
+      font-family: var(--font-accent);
+    }
+    .menu {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      background: #eae6e3;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+    .menu span {
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <img src="ASSET_URL/tm-1.webp" class="frame-tl animate__animated animate__${animTL}" style="width:100%">
+    <img src="ASSET_URL/bm.webp" class="frame-bl animate__animated animate__${animBL}" style="width:100%">
+    <img src="ASSET_URL/tm-2.webp" class="frame-tr animate__animated animate__${animTL}" style="width:100%">
+    <img src="ASSET_URL/bm-2.webp" class="frame-br animate__animated animate__${animBL}" style="width:100%">
+    <div class="content">
+      <div class="font-latin" style="font-size:32px;color:var(--inv-accent);margin-bottom:10px;">Nama Mempelai</div>
+      <div>Sabtu, 27 September 2025</div>
+      <button style="margin-top:20px;background:var(--inv-accent);color:white;border:none;padding:8px 16px;border-radius:20px;">Buka Undangan</button>
+    </div>
+    <div class="menu">
+      ${menus.map(m => `<span>${m}</span>`).join('')}
+    </div>
+  </div>
+  <!-- Ganti ASSET_URL dengan folder aset Anda -->
+</body>
+</html>`;
+
+    outputCode.textContent = code;
+    outputCode.style.display = 'block';
+  }
+
+  applyBtn.addEventListener('click', applyChanges);
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(outputCode.textContent).then(() => {
+      alert('✅ Kode HTML berhasil disalin!');
+    });
+  });
+
+  // Inisialisasi
+  applyChanges();
+</script>
+
+</body>
+</html>
