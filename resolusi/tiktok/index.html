@@ -1,381 +1,425 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Wedding Invitation</title>
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Material Symbols -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,400,0,0" />
-  <style>
-    body {
-      margin: 0;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    .mobile-wrapper {
-      width: 100%;
-      max-width: 480px;
-      height: 100dvh;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mobile-container {
-      height: 100%;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .slide {
-      height: 100dvh;
-      width: 100%;
-      scroll-snap-align: start;
-      position: relative;
-    }
-
-    .video-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-    }
-
-    .overlay {
-      position: relative;
-      z-index: 10;
-      height: 100%;
-      width: 100%;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-    }
-
-    .sidebar {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 28px;
-      z-index: 20;
-    }
-
-    .action-icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      color: white;
-    }
-
-    .icon-label {
-      margin-top: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-
-    .bottom-left {
-      position: absolute;
-      bottom: 88px;
-      left: 16px;
-      z-index: 20;
-      max-width: 70%;
-    }
-
-    .username {
-      font-weight: 700;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .caption {
-      margin-top: 4px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .music {
-      margin-top: 6px;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .navbar {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 56px;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 30;
-      padding: 0 16px;
-      box-sizing: border-box;
-    }
-
-    .nav-icon {
-      width: 24px;
-      height: 24px;
-      color: white;
-    }
-
-    /* Hide scrollbar */
-    .mobile-container::-webkit-scrollbar {
-      display: none;
-    }
-    .mobile-container {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            scrollbar-width: none;
+        }
+        
+        .snap-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .snap-section {
+            scroll-snap-align: start;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spin {
+            animation: spin 3s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .marquee {
+            animation: marquee 10s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+        }
+        
+        .icon-btn {
+            transition: transform 0.2s;
+        }
+        
+        .icon-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .plus-badge {
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #FF2D55;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <!-- Outer wrapper for centering on desktop -->
-  <div class="mobile-wrapper">
-    <div class="mobile-container">
-      <!-- Slide 1 -->
-      <div class="slide">
-        <video class="video-bg" autoplay muted loop playsinline>
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-happy-couple-in-the-park-1052-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay">
-          <div class="sidebar">
-            <div class="action-icon">
-              <div class="icon-box">R&J</div>
+    <div class="flex items-center justify-center min-h-screen bg-black">
+        <div class="relative w-full max-w-[480px] h-screen bg-black shadow-2xl">
+            
+            <!-- Snap Container -->
+            <div class="snap-container">
+                
+                <!-- Slide 1: Welcome -->
+                <div class="snap-section">
+                    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                    </video>
+                    
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 gradient-overlay"></div>
+                    
+                    <!-- Right Sidebar -->
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-20">
+                        <!-- Avatar -->
+                        <div class="relative">
+                            <img src="https://picsum.photos/100?random=1" class="w-12 h-12 rounded-full border-2 border-white">
+                            <div class="plus-badge text-white">+</div>
+                        </div>
+                        
+                        <!-- Like -->
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">88.2K</span>
+                        </button>
+                        
+                        <!-- Comment -->
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">1.5K</span>
+                        </button>
+                        
+                        <!-- Bookmark -->
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">2.8K</span>
+                        </button>
+                        
+                        <!-- Share -->
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 11.5l-9-9v5c-5.52.26-9.17 2.42-11 6.5 1.17-1.17 4.24-3.5 11-3.5v5l9-4z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">Share</span>
+                        </button>
+                        
+                        <!-- Spinning Disc -->
+                        <div class="mt-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center spin">
+                                <div class="w-3 h-3 rounded-full bg-black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Info -->
+                    <div class="absolute bottom-24 left-3 right-16 z-20">
+                        <h2 class="text-white font-bold text-lg mb-2">@TheWeddingOfRifqi</h2>
+                        <p class="text-white text-sm leading-relaxed mb-3">
+                            The Wedding of Romeo & Juliet 💕<br>
+                            Save The Date! Kepada Yth: Tamu Undangan<br>
+                            <span class="text-blue-400">#WeddingInvitation #SaveTheDate #FYP</span>
+                        </p>
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <span class="text-white text-xs">🎵</span>
+                            <div class="overflow-hidden flex-1">
+                                <div class="marquee whitespace-nowrap text-white text-xs">
+                                    Original Sound - Love Story • Original Sound - Love Story • 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: The Couple -->
+                <div class="snap-section">
+                    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                    </video>
+                    
+                    <div class="absolute inset-0 gradient-overlay"></div>
+                    
+                    <!-- Right Sidebar -->
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-20">
+                        <div class="relative">
+                            <img src="https://picsum.photos/100?random=2" class="w-12 h-12 rounded-full border-2 border-white">
+                            <div class="plus-badge text-white">+</div>
+                        </div>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">45.7K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">880</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">1.2K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 11.5l-9-9v5c-5.52.26-9.17 2.42-11 6.5 1.17-1.17 4.24-3.5 11-3.5v5l9-4z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">327</span>
+                        </button>
+                        
+                        <div class="mt-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center spin">
+                                <div class="w-3 h-3 rounded-full bg-black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Info -->
+                    <div class="absolute bottom-24 left-3 right-16 z-20">
+                        <h2 class="text-white font-bold text-lg mb-2">@TheWeddingOfRifqi</h2>
+                        <p class="text-white text-sm leading-relaxed mb-3">
+                            Meet the Groom & Bride 👰🤵<br>
+                            Menghitung hari menuju halal! 💍<br>
+                            <span class="text-blue-400">#Prewedding #CoupleGoals #Wedding2026</span>
+                        </p>
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <span class="text-white text-xs">🎵</span>
+                            <div class="overflow-hidden flex-1">
+                                <div class="marquee whitespace-nowrap text-white text-xs">
+                                    Perfect - Ed Sheeran • Perfect - Ed Sheeran • 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3: Event Details -->
+                <div class="snap-section">
+                    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+                    </video>
+                    
+                    <div class="absolute inset-0 gradient-overlay"></div>
+                    
+                    <!-- Right Sidebar -->
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-20">
+                        <div class="relative">
+                            <img src="https://picsum.photos/100?random=3" class="w-12 h-12 rounded-full border-2 border-white">
+                            <div class="plus-badge text-white">+</div>
+                        </div>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">67.3K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">2.1K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">5.4K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 11.5l-9-9v5c-5.52.26-9.17 2.42-11 6.5 1.17-1.17 4.24-3.5 11-3.5v5l9-4z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">892</span>
+                        </button>
+                        
+                        <div class="mt-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center spin">
+                                <div class="w-3 h-3 rounded-full bg-black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Info -->
+                    <div class="absolute bottom-24 left-3 right-16 z-20">
+                        <h2 class="text-white font-bold text-lg mb-2">@TheWeddingOfRifqi</h2>
+                        <p class="text-white text-sm leading-relaxed mb-3">
+                            📍 AKAD: 08.00 WIB | RESEPSI: 11.00 WIB<br>
+                            Lokasi: Grand Hotel Ballroom<br>
+                            Minggu, 15 Maret 2026<br>
+                            Tap 'Love' to RSVP! ❤️<br>
+                            <span class="text-blue-400">#WeddingDay #SaveTheDate #RSVP</span>
+                        </p>
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <span class="text-white text-xs">🎵</span>
+                            <div class="overflow-hidden flex-1">
+                                <div class="marquee whitespace-nowrap text-white text-xs">
+                                    A Thousand Years - Christina Perri • A Thousand Years - Christina Perri • 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4: Closing & Map -->
+                <div class="snap-section">
+                    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+                    </video>
+                    
+                    <div class="absolute inset-0 gradient-overlay"></div>
+                    
+                    <!-- Right Sidebar -->
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 z-20">
+                        <div class="relative">
+                            <img src="https://picsum.photos/100?random=4" class="w-12 h-12 rounded-full border-2 border-white">
+                            <div class="plus-badge text-white">+</div>
+                        </div>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">92.5K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">3.2K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">6.7K</span>
+                        </button>
+                        
+                        <button class="icon-btn flex flex-col items-center">
+                            <svg class="w-8 h-8 text-white mb-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 11.5l-9-9v5c-5.52.26-9.17 2.42-11 6.5 1.17-1.17 4.24-3.5 11-3.5v5l9-4z"/>
+                            </svg>
+                            <span class="text-white text-xs font-semibold">1.5K</span>
+                        </button>
+                        
+                        <div class="mt-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center spin">
+                                <div class="w-3 h-3 rounded-full bg-black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Info -->
+                    <div class="absolute bottom-24 left-3 right-16 z-20">
+                        <h2 class="text-white font-bold text-lg mb-2">@TheWeddingOfRifqi</h2>
+                        <p class="text-white text-sm leading-relaxed mb-3">
+                            Terima kasih atas doa restunya! 🙏💕<br>
+                            Sampai jumpa di hari H!<br>
+                            Klik panah untuk petunjuk arah 🗺️<br>
+                            <span class="text-blue-400">#ThankYou #SeeYouSoon #WeddingBells</span>
+                        </p>
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <span class="text-white text-xs">🎵</span>
+                            <div class="overflow-hidden flex-1">
+                                <div class="marquee whitespace-nowrap text-white text-xs">
+                                    Marry You - Bruno Mars • Marry You - Bruno Mars • 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <div class="action-icon" onclick="alert('Like clicked')">
-              <i class="material-symbols-rounded">favorite</i>
-              <div class="icon-label">1.1M</div>
+            
+            <!-- Fixed Bottom Navbar -->
+            <div class="absolute bottom-0 left-0 right-0 bg-black border-t border-gray-800 z-30">
+                <div class="flex items-center justify-around py-2">
+                    <button class="flex flex-col items-center gap-1">
+                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        <span class="text-white text-xs">Home</span>
+                    </button>
+                    <button class="flex flex-col items-center gap-1">
+                        <svg class="w-7 h-7 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        <span class="text-gray-400 text-xs">Shop</span>
+                    </button>
+                    <button class="flex flex-col items-center -mt-6">
+                        <div class="w-12 h-9 bg-white rounded-lg flex items-center justify-center relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 via-white to-pink-400 rounded-lg"></div>
+                            <svg class="w-6 h-6 text-black relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <button class="flex flex-col items-center gap-1">
+                        <svg class="w-7 h-7 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        <span class="text-gray-400 text-xs">Inbox</span>
+                    </button>
+                    <button class="flex flex-col items-center gap-1">
+                        <svg class="w-7 h-7 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        <span class="text-gray-400 text-xs">Profile</span>
+                    </button>
+                </div>
             </div>
-            <div class="action-icon" onclick="alert('Comment clicked')">
-              <i class="material-symbols-rounded">chat_bubble</i>
-              <div class="icon-label">523</div>
-            </div>
-            <div class="action-icon" onclick="alert('Bookmark clicked')">
-              <i class="material-symbols-rounded">bookmark</i>
-              <div class="icon-label">245</div>
-            </div>
-            <div class="action-icon" onclick="alert('Share clicked')">
-              <i class="material-symbols-rounded">ios_share</i>
-              <div class="icon-label">89</div>
-            </div>
-          </div>
-
-          <div class="bottom-left">
-            <div class="username">
-              @Romeo&JulietWedding
-              <span class="material-symbols-rounded text-[10px]">check</span>
-            </div>
-            <div class="caption">The beginning of forever. Welcome to our big day!</div>
-            <div class="music">
-              <span class="material-symbols-rounded text-[10px]">music_note</span>
-              Perfect – Ed Sheeran
-            </div>
-          </div>
+            
         </div>
-        <div class="navbar">
-          <i class="nav-icon material-symbols-rounded">home</i>
-          <i class="nav-icon material-symbols-rounded">groups</i>
-          <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <i class="material-symbols-rounded text-black text-lg">add</i>
-          </div>
-          <i class="nav-icon material-symbols-rounded">mail</i>
-          <i class="nav-icon material-symbols-rounded">person</i>
-        </div>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="slide">
-        <video class="video-bg" autoplay muted loop playsinline>
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-young-couple-walking-holding-hands-998-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay">
-          <div class="sidebar">
-            <div class="action-icon">
-              <div class="icon-box">R&J</div>
-            </div>
-            <div class="action-icon" onclick="alert('Like clicked')">
-              <i class="material-symbols-rounded">favorite</i>
-              <div class="icon-label">1.1M</div>
-            </div>
-            <div class="action-icon" onclick="alert('Comment clicked')">
-              <i class="material-symbols-rounded">chat_bubble</i>
-              <div class="icon-label">523</div>
-            </div>
-            <div class="action-icon" onclick="alert('Bookmark clicked')">
-              <i class="material-symbols-rounded">bookmark</i>
-              <div class="icon-label">245</div>
-            </div>
-            <div class="action-icon" onclick="alert('Share clicked')">
-              <i class="material-symbols-rounded">ios_share</i>
-              <div class="icon-label">89</div>
-            </div>
-          </div>
-          <div class="bottom-left">
-            <div class="username">
-              @Romeo&JulietWedding
-              <span class="material-symbols-rounded text-[10px]">check</span>
-            </div>
-            <div class="caption">Meet the groom & bride. Swipe for event details!</div>
-            <div class="music">
-              <span class="material-symbols-rounded text-[10px]">music_note</span>
-              A Thousand Years – Christina Perri
-            </div>
-          </div>
-        </div>
-        <div class="navbar">
-          <i class="nav-icon material-symbols-rounded">home</i>
-          <i class="nav-icon material-symbols-rounded">groups</i>
-          <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <i class="material-symbols-rounded text-black text-lg">add</i>
-          </div>
-          <i class="nav-icon material-symbols-rounded">mail</i>
-          <i class="nav-icon material-symbols-rounded">person</i>
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="slide">
-        <video class="video-bg" autoplay muted loop playsinline>
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-in-the-garden-1051-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay">
-          <div class="sidebar">
-            <div class="action-icon">
-              <div class="icon-box">R&J</div>
-            </div>
-            <div class="action-icon" onclick="alert('Like clicked')">
-              <i class="material-symbols-rounded">favorite</i>
-              <div class="icon-label">1.1M</div>
-            </div>
-            <div class="action-icon" onclick="alert('Comment clicked')">
-              <i class="material-symbols-rounded">chat_bubble</i>
-              <div class="icon-label">523</div>
-            </div>
-            <div class="action-icon" onclick="alert('Bookmark clicked')">
-              <i class="material-symbols-rounded">bookmark</i>
-              <div class="icon-label">245</div>
-            </div>
-            <div class="action-icon" onclick="alert('Share clicked')">
-              <i class="material-symbols-rounded">ios_share</i>
-              <div class="icon-label">89</div>
-            </div>
-          </div>
-          <div class="bottom-left">
-            <div class="username">
-              @Romeo&JulietWedding
-              <span class="material-symbols-rounded text-[10px]">check</span>
-            </div>
-            <div class="caption">Akad: 08.00 WIB. Resepsi: 11.00 - Selesai. Bertempat di Hotel Grand Bogor.</div>
-            <div class="music">
-              <span class="material-symbols-rounded text-[10px]">music_note</span>
-              Canon in D – Pachelbel
-            </div>
-          </div>
-        </div>
-        <div class="navbar">
-          <i class="nav-icon material-symbols-rounded">home</i>
-          <i class="nav-icon material-symbols-rounded">groups</i>
-          <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <i class="material-symbols-rounded text-black text-lg">add</i>
-          </div>
-          <i class="nav-icon material-symbols-rounded">mail</i>
-          <i class="nav-icon material-symbols-rounded">person</i>
-        </div>
-      </div>
-
-      <!-- Slide 4 -->
-      <div class="slide">
-        <video class="video-bg" autoplay muted loop playsinline>
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-happy-young-couple-in-love-1053-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay">
-          <div class="sidebar">
-            <div class="action-icon">
-              <div class="icon-box">R&J</div>
-            </div>
-            <div class="action-icon" onclick="alert('Like clicked')">
-              <i class="material-symbols-rounded">favorite</i>
-              <div class="icon-label">1.1M</div>
-            </div>
-            <div class="action-icon" onclick="alert('Comment clicked')">
-              <i class="material-symbols-rounded">chat_bubble</i>
-              <div class="icon-label">523</div>
-            </div>
-            <div class="action-icon" onclick="alert('Bookmark clicked')">
-              <i class="material-symbols-rounded">bookmark</i>
-              <div class="icon-label">245</div>
-            </div>
-            <div class="action-icon" onclick="alert('Share clicked')">
-              <i class="material-symbols-rounded">ios_share</i>
-              <div class="icon-label">89</div>
-            </div>
-          </div>
-          <div class="bottom-left">
-            <div class="username">
-              @Romeo&JulietWedding
-              <span class="material-symbols-rounded text-[10px]">check</span>
-            </div>
-            <div class="caption">Tanpa mengurangi rasa hormat, untuk yang ingin mengirim kado digital bisa klik hati di kanan ya!</div>
-            <div class="music">
-              <span class="material-symbols-rounded text-[10px]">music_note</span>
-              Marry You – Bruno Mars
-            </div>
-          </div>
-        </div>
-        <div class="navbar">
-          <i class="nav-icon material-symbols-rounded">home</i>
-          <i class="nav-icon material-symbols-rounded">groups</i>
-          <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <i class="material-symbols-rounded text-black text-lg">add</i>
-          </div>
-          <i class="nav-icon material-symbols-rounded">mail</i>
-          <i class="nav-icon material-symbols-rounded">person</i>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <script>
-    // Prevent zoom on iOS double-tap
-    document.addEventListener('touchstart', function(event) {
-      if (event.touches.length > 1) event.preventDefault();
-    });
-    // Disable pull-to-refresh
-    document.addEventListener('touchmove', function(event) {
-      if (event.scale !== 1) event.preventDefault();
-    }, { passive: false });
-  </script>
 </body>
 </html>
