@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Gotham-like: Inter sebagai alternatif modern & clean) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'spotify-green': '#1DB954',
+            'spotify-black': '#121212',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #121212;
+      font-family: 'Inter', sans-serif;
+    }
+    .mobile-container {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background-color: #121212;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    @media (min-width: 481px) {
+      body {
+        background: 
+          radial-gradient(circle, transparent 20%, #121212 20%),
+          url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23222'/%3E%3C/svg%3E");
+        background-color: #0a0a0a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .mobile-container {
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        border: 1px solid #333;
+      }
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .progress-bar {
+      height: 4px;
+      background-color: #535353;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      width: 35%;
+      background-color: #b3b3b3;
+      border-radius: 2px;
+      transition: width 1s linear;
+    }
+    .lyrics-text {
+      line-height: 1.6;
+    }
+    .tracklist-item {
+      transition: background-color 0.2s;
+    }
+    .tracklist-item:hover {
+      background-color: rgba(255,255,255,0.05);
+    }
+  </style>
+</head>
+<body class="text-white">
+  <!-- Mobile Container -->
+  <div class="mobile-container">
+    <!-- Main Scrollable Content -->
+    <div class="pb-24 overflow-y-auto h-screen">
+      <!-- Top Bar -->
+      <div class="flex justify-between items-center px-4 pt-6 pb-4">
+        <button class="text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button class="text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Section 1: Now Playing (Welcome) -->
+      <div class="px-6 py-4 text-center">
+        <div class="mx-auto mb-6 w-64 h-64 rounded-xl overflow-hidden">
+          <img src="https://picsum.photos/300/300?random=1" alt="Couple" class="w-full h-full object-cover" />
+        </div>
+        <h1 class="text-3xl font-bold mb-2">The Wedding</h1>
+        <p class="text-gray-400 mb-6">Sabtu, 14 Februari 2026</p>
+        <button id="openInvitationBtn" class="bg-spotify-green text-black font-bold py-3 px-8 rounded-full text-lg flex items-center justify-center mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+          </svg>
+          Open Invitation
+        </button>
+      </div>
+
+      <!-- Section 2: Lyrics (Sambutan) -->
+      <div class="px-6 py-4 glass-card mx-4 mb-6">
+        <h2 class="text-xl font-bold mb-3 text-spotify-green">Ayat & Doa</h2>
+        <blockquote class="lyrics-text text-gray-200 mb-4 italic">
+          “Dan di antara tanda-tanda-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya...” (QS Ar-Rum: 21)
+        </blockquote>
+        <p class="lyrics-text text-gray-300">
+          Dengan memohon ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami. Mohon doa restunya agar acara berjalan lancar dan pernikahan kami penuh berkah.
+        </p>
+      </div>
+
+      <!-- Section 3: Artist (Mempelai) -->
+      <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-4 text-center">Mempelai</h2>
+        <div class="flex justify-around mb-6">
+          <!-- Groom -->
+          <div class="flex flex-col items-center">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-spotify-green mb-2">
+              <img src="https://picsum.photos/100/100?random=2" alt="Groom" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex items-center">
+              <span class="font-semibold">Ahmad</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-spotify-green ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <a href="https://instagram.com/ahmad" target="_blank" class="text-spotify-green text-sm mt-1">Instagram</a>
+            <p class="text-xs text-gray-400 mt-1">Putra dari<br>Bapak Joko & Ibu Siti</p>
+          </div>
+
+          <!-- Bride -->
+          <div class="flex flex-col items-center">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-spotify-green mb-2">
+              <img src="https://picsum.photos/100/100?random=3" alt="Bride" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex items-center">
+              <span class="font-semibold">Siti</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-spotify-green ml-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <a href="https://instagram.com/siti" target="_blank" class="text-spotify-green text-sm mt-1">Instagram</a>
+            <p class="text-xs text-gray-400 mt-1">Putri dari<br>Bapak Rudi & Ibu Lina</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Tracklist (Rundown) -->
+      <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-4">Rundown Acara</h2>
+        <div class="space-y-3">
+          <!-- Akad -->
+          <div class="tracklist-item flex justify-between items-center glass-card p-4">
+            <div>
+              <div class="font-semibold">1. Akad Nikah</div>
+              <div class="text-sm text-gray-400">08.00 WIB - 10.00 WIB</div>
+              <div class="text-sm">Masjid Al-Hikmah, Jl. Merdeka No. 10</div>
+            </div>
+            <a href="https://maps.app.goo.gl/example1" target="_blank" class="text-spotify-green">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Resepsi -->
+          <div class="tracklist-item flex justify-between items-center glass-card p-4">
+            <div>
+              <div class="font-semibold">2. Resepsi</div>
+              <div class="text-sm text-gray-400">11.00 WIB - 15.00 WIB</div>
+              <div class="text-sm">Gedung Serba Guna, Jl. Pahlawan No. 5</div>
+            </div>
+            <a href="https://maps.app.goo.gl/example2" target="_blank" class="text-spotify-green">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: RSVP & Gift -->
+      <div class="px-6 py-4">
+        <h2 class="text-xl font-bold mb-4">Konfirmasi & Amplop Digital</h2>
+        
+        <!-- RSVP Form -->
+        <div class="glass-card p-5 mb-6">
+          <div class="mb-4">
+            <label class="block text-sm mb-1">Nama Anda</label>
+            <input type="text" id="rsvpName" placeholder="Masukkan nama" class="w-full bg-gray-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-spotify-green" />
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm mb-1">Kehadiran</label>
+            <div class="flex space-x-4">
+              <label class="flex items-center">
+                <input type="radio" name="attendance" value="yes" class="mr-2" /> Hadir
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="attendance" value="no" class="mr-2" /> Tidak Hadir
+              </label>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-sm mb-1">Jumlah Tamu</label>
+            <input type="number" id="guestCount" min="1" value="1" class="w-full bg-gray-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-spotify-green" />
+          </div>
+          <button id="submitRsvp" class="w-full bg-spotify-green text-black font-semibold py-2 rounded-lg">Kirim Konfirmasi</button>
+        </div>
+
+        <!-- Digital Envelope -->
+        <div class="glass-card p-5 text-center">
+          <h3 class="font-bold mb-2">Amplop Digital</h3>
+          <p class="text-sm text-gray-300 mb-1">Bank Syariah Indonesia</p>
+          <p id="accountNumber" class="font-mono text-lg mb-3">1234567890</p>
+          <button id="copyBtn" class="text-spotify-green text-sm font-semibold">Salin Nomor Rekening</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Music Player -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 px-4 py-3 flex items-center justify-between max-w-[480px] mx-auto">
+      <div class="text-xs text-gray-400 truncate">The Wedding of Ahmad & Siti</div>
+      <div class="flex items-center space-x-3">
+        <button id="playPauseBtn" class="bg-spotify-green rounded-full p-2">
+          <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+          </svg>
+          <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black hidden" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div class="progress-bar w-24">
+          <div id="progress" class="progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element (hidden) -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- JavaScript -->
+  <script>
+    const audio = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const progress = document.getElementById('progress');
+    const copyBtn = document.getElementById('copyBtn');
+    const accountNumber = document.getElementById('accountNumber');
+
+    // Play/Pause toggle
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        // Simulate progress (for demo)
+        let width = 35;
+        const interval = setInterval(() => {
+          if (!audio.paused) {
+            width = (width + 0.2) % 100;
+            progress.style.width = width + '%';
+          } else {
+            clearInterval(interval);
+          }
+        }, 100);
+      } else {
+        audio.pause();
+        pauseIcon.classList.add('hidden');
+        playIcon.classList.remove('hidden');
+      }
+    });
+
+    // Copy account number
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(accountNumber.innerText).then(() => {
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = 'Disalin!';
+        setTimeout(() => {
+          copyBtn.innerText = originalText;
+        }, 1500);
+      });
+    });
+
+    // RSVP Submit (demo)
+    document.getElementById('submitRsvp').addEventListener('click', () => {
+      const name = document.getElementById('rsvpName').value;
+      if (!name) {
+        alert('Mohon isi nama Anda.');
+        return;
+      }
+      alert('Terima kasih, ' + name + '! Konfirmasi Anda telah terkirim.');
+    });
+
+    // Auto-play not allowed on most browsers unless user interacts
+    // So music only starts when user presses play
+  </script>
+</body>
+</html>

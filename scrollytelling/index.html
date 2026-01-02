@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Undangan Cinematic (GSAP)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Optional: tombol next -->
+  <button id="nextBtn" class="next">Next</button>
+
+  <!-- Wrapper -->
+  <main>
+
+    <!-- SCENE 1 -->
+    <section class="scene scene-1">
+      <div class="layer bg bg-1"></div>
+
+      <div class="content">
+        <p class="eyebrow">UNDANGAN PERNIKAHAN</p>
+        <h1 class="title">Alya & Bima</h1>
+        <p class="subtitle">Sabtu, 10 Februari 2026</p>
+      </div>
+
+      <div class="float deco deco-1"></div>
+    </section>
+
+    <!-- SCENE 2 -->
+    <section class="scene scene-2">
+      <div class="layer bg bg-2"></div>
+
+      <div class="content two-col">
+        <div class="card photo"></div>
+        <div class="text">
+          <h2 class="heading">Dengan penuh syukur</h2>
+          <p class="body">
+            Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu.
+          </p>
+        </div>
+      </div>
+
+      <div class="float deco deco-2"></div>
+    </section>
+
+    <!-- SCENE 3 -->
+    <section class="scene scene-3">
+      <div class="layer bg bg-3"></div>
+
+      <div class="content">
+        <h2 class="heading">Lokasi</h2>
+        <p class="body">Gedung Serbaguna, Jakarta</p>
+
+        <div class="cta">
+          <a class="btn" href="#" target="_blank" rel="noopener">Buka Maps</a>
+          <a class="btn ghost" href="#">RSVP</a>
+        </div>
+      </div>
+
+      <div class="float deco deco-3"></div>
+    </section>
+
+  </main>
+
+  <!-- GSAP CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <script src="main.js"></script>
+</body>
+</html>
