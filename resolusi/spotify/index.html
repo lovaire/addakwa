@@ -3,30 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undangan Pernikahan</title>
+  <title>Undangan Pernikahan - Spotify Style</title>
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts (Gotham-like: Inter sebagai alternatif modern & clean) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'spotify-green': '#1DB954',
-            'spotify-black': '#121212',
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #121212;
       font-family: 'Inter', sans-serif;
+      color: white;
     }
     .mobile-container {
       max-width: 480px;
@@ -41,7 +27,7 @@
       body {
         background: 
           radial-gradient(circle, transparent 20%, #121212 20%),
-          url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23222'/%3E%3C/svg%3E");
+          url("image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23222'/%3E%3C/svg%3E");
         background-color: #0a0a0a;
         display: flex;
         justify-content: center;
@@ -53,6 +39,38 @@
         border: 1px solid #333;
       }
     }
+    .spotify-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+    }
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+    .progress-bar {
+      height: 3px;
+      background-color: #535353;
+      border-radius: 1.5px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    .progress {
+      height: 100%;
+      width: 25%;
+      background-color: #b3b3b3;
+      border-radius: 1.5px;
+      transition: width 1s linear;
+    }
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
@@ -60,231 +78,460 @@
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,0.1);
     }
-    .progress-bar {
-      height: 4px;
-      background-color: #535353;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-    .progress {
-      height: 100%;
-      width: 35%;
-      background-color: #b3b3b3;
-      border-radius: 2px;
-      transition: width 1s linear;
-    }
-    .lyrics-text {
+    .lyrics-box {
+      background: #3c5a77;
+      padding: 16px;
+      border-radius: 16px;
+      color: white;
+      font-size: 1.1rem;
       line-height: 1.6;
     }
-    .tracklist-item {
-      transition: background-color 0.2s;
+    .artist-card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
     }
-    .tracklist-item:hover {
-      background-color: rgba(255,255,255,0.05);
+    .explore-card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .credits-card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .nav-top {
+      background: rgba(0,0,0,0.7);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .song-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    .song-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .artist-name {
+      font-size: 0.9rem;
+      color: #b3b3b3;
+    }
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+    .control-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    .control-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .mini-album {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-right: 12px;
+    }
+    .mini-album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+    .credit-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .credit-item:last-child {
+      border-bottom: none;
+    }
+    .follow-btn {
+      border: 1px solid #b3b3b3;
+      color: #b3b3b3;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    .show-lyrics-btn {
+      background: white;
+      color: black;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 12px;
+      display: inline-block;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body class="text-white">
-  <!-- Mobile Container -->
   <div class="mobile-container">
-    <!-- Main Scrollable Content -->
-    <div class="pb-24 overflow-y-auto h-screen">
-      <!-- Top Bar -->
-      <div class="flex justify-between items-center px-4 pt-6 pb-4">
-        <button class="text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button class="text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-          </svg>
-        </button>
+    <!-- Background Video / Image -->
+    <div class="spotify-bg">
+      <video autoplay muted loop class="video-bg">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-ceremony-outside-4044-large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Top Nav Bar -->
+    <div class="nav-top">
+      <button id="backBtn" class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <div class="flex items-center">
+        <span class="text-xs text-gray-400">PLAYING FROM PLAYLIST</span>
+        <span class="ml-1 font-bold">Gawul</span>
+      </div>
+      <button class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Song Info & Player Controls -->
+    <div class="px-4 pt-6 pb-4">
+      <div class="flex items-center mb-4">
+        <div class="w-12 h-12 rounded-md overflow-hidden mr-3">
+          <img src="https://picsum.photos/200/200?random=1" alt="Album Art" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex-1">
+          <div class="song-title">Ahmad & Siti, Karir Ini Tak Ada Artinya</div>
+          <div class="artist-name">Hindia</div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-spotify-green" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
       </div>
 
-      <!-- Section 1: Now Playing (Welcome) -->
-      <div class="px-6 py-4 text-center">
-        <div class="mx-auto mb-6 w-64 h-64 rounded-xl overflow-hidden">
-          <img src="https://picsum.photos/300/300?random=1" alt="Couple" class="w-full h-full object-cover" />
-        </div>
-        <h1 class="text-3xl font-bold mb-2">The Wedding</h1>
-        <p class="text-gray-400 mb-6">Sabtu, 14 Februari 2026</p>
-        <button id="openInvitationBtn" class="bg-spotify-green text-black font-bold py-3 px-8 rounded-full text-lg flex items-center justify-center mx-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+      <div class="flex justify-between text-xs text-gray-400">
+        <span>0:23</span>
+        <span>3:44</span>
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="flex justify-around mt-4 mb-6">
+        <button class="control-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 00-14 0v6a7 7 0 0014 0v-6z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 11V9a4 4 0 00-8 0v6a4 4 0 008 0v-2m-4 2h4" />
+          </svg>
+        </button>
+        <button class="control-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 5.334a1 1 0 001.414-1.414l-5.334-5.334a1 1 0 00-1.414 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.668 11.2a1 1 0 00-1.414 0l-5.334 5.334a1 1 0 001.414 1.414l5.334-5.334a1 1 0 000-1.414z" />
+          </svg>
+        </button>
+        <button id="playPauseBtn" class="play-btn">
+          <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-black" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
           </svg>
-          Open Invitation
+          <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-black hidden" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <button class="control-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+          </svg>
+        </button>
+        <button class="control-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.8-8h9.6l-.7-1.7C18.8 9.005 20 7.59 20 6c0-1.59-.8-3.07-2.1-4.27a6.022 6.022 0 00-4.9-4.9C11.5 8 10 9.2 10 10.8c0 1.59.8 3.07 2.1 4.27L12 15.5z" />
+          </svg>
         </button>
       </div>
 
-      <!-- Section 2: Lyrics (Sambutan) -->
-      <div class="px-6 py-4 glass-card mx-4 mb-6">
-        <h2 class="text-xl font-bold mb-3 text-spotify-green">Ayat & Doa</h2>
-        <blockquote class="lyrics-text text-gray-200 mb-4 italic">
-          “Dan di antara tanda-tanda-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya...” (QS Ar-Rum: 21)
-        </blockquote>
-        <p class="lyrics-text text-gray-300">
-          Dengan memohon ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami. Mohon doa restunya agar acara berjalan lancar dan pernikahan kami penuh berkah.
+      <!-- User Info -->
+      <div class="flex items-center text-xs text-spotify-green">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>RIFQII</span>
+      </div>
+    </div>
+
+    <!-- Welcome Page (Dynamic from URL) -->
+    <div class="px-6 py-4 bg-gray-900">
+      <h1 class="text-2xl font-bold mb-2">Hello, <span id="guestName">Tamu</span>!</h1>
+      <p class="text-gray-300">Terima kasih telah membuka undangan digital kami. Nikmati musiknya, dan mari kita mulai perjalanan menuju hari bahagia ini.</p>
+    </div>
+
+    <!-- About the Artist (Groom & Bride) -->
+    <div class="px-6 py-4">
+      <div class="section-title">About the artist</div>
+      <div class="artist-card">
+        <div class="w-full h-40 rounded-xl overflow-hidden mb-4">
+          <img src="https://picsum.photos/600/400?random=2" alt="Groom" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex justify-between items-center mb-2">
+          <div>
+            <div class="font-bold text-xl">Ahmad</div>
+            <div class="text-sm text-gray-400">Putra dari Bapak Joko & Ibu Siti</div>
+          </div>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <p class="text-sm text-gray-300">
+          Ahmad adalah pria sederhana yang selalu mengutamakan kebahagiaan orang lain. Dia suka memasak, mendengarkan musik, dan menulis surat cinta untuk Siti setiap minggu.
         </p>
       </div>
 
-      <!-- Section 3: Artist (Mempelai) -->
-      <div class="px-6 py-4">
-        <h2 class="text-xl font-bold mb-4 text-center">Mempelai</h2>
-        <div class="flex justify-around mb-6">
-          <!-- Groom -->
-          <div class="flex flex-col items-center">
-            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-spotify-green mb-2">
-              <img src="https://picsum.photos/100/100?random=2" alt="Groom" class="w-full h-full object-cover" />
-            </div>
-            <div class="flex items-center">
-              <span class="font-semibold">Ahmad</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-spotify-green ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <a href="https://instagram.com/ahmad" target="_blank" class="text-spotify-green text-sm mt-1">Instagram</a>
-            <p class="text-xs text-gray-400 mt-1">Putra dari<br>Bapak Joko & Ibu Siti</p>
-          </div>
-
-          <!-- Bride -->
-          <div class="flex flex-col items-center">
-            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-spotify-green mb-2">
-              <img src="https://picsum.photos/100/100?random=3" alt="Bride" class="w-full h-full object-cover" />
-            </div>
-            <div class="flex items-center">
-              <span class="font-semibold">Siti</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-spotify-green ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <a href="https://instagram.com/siti" target="_blank" class="text-spotify-green text-sm mt-1">Instagram</a>
-            <p class="text-xs text-gray-400 mt-1">Putri dari<br>Bapak Rudi & Ibu Lina</p>
-          </div>
+      <div class="artist-card mt-4">
+        <div class="w-full h-40 rounded-xl overflow-hidden mb-4">
+          <img src="https://picsum.photos/600/400?random=3" alt="Bride" class="w-full h-full object-cover" />
         </div>
+        <div class="flex justify-between items-center mb-2">
+          <div>
+            <div class="font-bold text-xl">Siti</div>
+            <div class="text-sm text-gray-400">Putri dari Bapak Rudi & Ibu Lina</div>
+          </div>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <p class="text-sm text-gray-300">
+          Siti adalah wanita cerdas dan penyayang. Dia percaya bahwa cinta sejati dimulai dari saling mengerti dan bersabar. Dia juga senang membuat kue dan menari saat sendiri.
+        </p>
       </div>
+    </div>
 
-      <!-- Section 4: Tracklist (Rundown) -->
-      <div class="px-6 py-4">
-        <h2 class="text-xl font-bold mb-4">Rundown Acara</h2>
-        <div class="space-y-3">
-          <!-- Akad -->
-          <div class="tracklist-item flex justify-between items-center glass-card p-4">
-            <div>
-              <div class="font-semibold">1. Akad Nikah</div>
-              <div class="text-sm text-gray-400">08.00 WIB - 10.00 WIB</div>
-              <div class="text-sm">Masjid Al-Hikmah, Jl. Merdeka No. 10</div>
-            </div>
-            <a href="https://maps.app.goo.gl/example1" target="_blank" class="text-spotify-green">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </a>
-          </div>
-
-          <!-- Resepsi -->
-          <div class="tracklist-item flex justify-between items-center glass-card p-4">
-            <div>
-              <div class="font-semibold">2. Resepsi</div>
-              <div class="text-sm text-gray-400">11.00 WIB - 15.00 WIB</div>
-              <div class="text-sm">Gedung Serba Guna, Jl. Pahlawan No. 5</div>
-            </div>
-            <a href="https://maps.app.goo.gl/example2" target="_blank" class="text-spotify-green">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </a>
-          </div>
-        </div>
+    <!-- Lyrics Preview -->
+    <div class="px-6 py-4">
+      <div class="section-title">Lyrics preview</div>
+      <div class="lyrics-box">
+        <p>BESOK, coba kau izin pulang cepat</p>
+        <p>Bilang saja siapa sedang sakit</p>
+        <p>Lusa, coba izin terlambat</p>
+        <p>Bilang saja kau celaka sedikit</p>
+        <p>Habiskan cutimu sebelum resign</p>
       </div>
+      <button id="showLyricsBtn" class="show-lyrics-btn">Show lyrics</button>
+    </div>
 
-      <!-- Section 5: RSVP & Gift -->
-      <div class="px-6 py-4">
-        <h2 class="text-xl font-bold mb-4">Konfirmasi & Amplop Digital</h2>
-        
-        <!-- RSVP Form -->
-        <div class="glass-card p-5 mb-6">
-          <div class="mb-4">
-            <label class="block text-sm mb-1">Nama Anda</label>
-            <input type="text" id="rsvpName" placeholder="Masukkan nama" class="w-full bg-gray-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-spotify-green" />
+    <!-- Full Lyrics Modal (Hidden by Default) -->
+    <div id="fullLyricsModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col p-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Lyrics</h2>
+        <button id="closeLyricsBtn" class="text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto text-lg">
+        <p>BESOK, coba kau izin pulang cepat</p>
+        <p>Bilang saja siapa sedang sakit</p>
+        <p>Lusa, coba izin terlambat</p>
+        <p>Bilang saja kau celaka sedikit</p>
+        <p>Habiskan cutimu sebelum resign</p>
+        <br/>
+        <p>Karir ini tak ada artinya</p>
+        <p>Jika tanpa kamu di sampingku</p>
+        <p>Aku ingin setiap pagi</p>
+        <p>Membuatkanmu kopi dan sarapan</p>
+        <br/>
+        <p>Tapi aku tahu</p>
+        <p>Kamu punya mimpi sendiri</p>
+        <p>Jadi aku akan jadi sandaran</p>
+        <p>Saat kamu lelah berjuang</p>
+        <br/>
+        <p>Karena cinta bukan tentang memiliki</p>
+        <p>Tapi tentang saling melengkapi</p>
+        <p>Dan aku yakin</p>
+        <p>Kita adalah pasangan yang sempurna</p>
+      </div>
+    </div>
+
+    <!-- Explore Hindia (Prewedding Gallery) -->
+    <div class="px-6 py-4">
+      <div class="section-title">Explore Hindia</div>
+      <div class="explore-card">
+        <div class="flex overflow-x-auto space-x-3 pb-3">
+          <div class="mini-album">
+            <img src="https://picsum.photos/200/300?random=4" alt="Prewedding 1" />
           </div>
-          <div class="mb-4">
-            <label class="block text-sm mb-1">Kehadiran</label>
-            <div class="flex space-x-4">
-              <label class="flex items-center">
-                <input type="radio" name="attendance" value="yes" class="mr-2" /> Hadir
-              </label>
-              <label class="flex items-center">
-                <input type="radio" name="attendance" value="no" class="mr-2" /> Tidak Hadir
-              </label>
-            </div>
+          <div class="mini-album">
+            <img src="https://picsum.photos/200/300?random=5" alt="Prewedding 2" />
           </div>
-          <div class="mb-4">
-            <label class="block text-sm mb-1">Jumlah Tamu</label>
-            <input type="number" id="guestCount" min="1" value="1" class="w-full bg-gray-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-spotify-green" />
+          <div class="mini-album">
+            <img src="https://picsum.photos/200/300?random=6" alt="Prewedding 3" />
           </div>
-          <button id="submitRsvp" class="w-full bg-spotify-green text-black font-semibold py-2 rounded-lg">Kirim Konfirmasi</button>
+          <div class="mini-album">
+            <img src="https://picsum.photos/200/300?random=7" alt="Prewedding 4" />
+          </div>
+          <div class="mini-album">
+            <img src="https://picsum.photos/200/300?random=8" alt="Prewedding 5" />
+          </div>
         </div>
-
-        <!-- Digital Envelope -->
-        <div class="glass-card p-5 text-center">
-          <h3 class="font-bold mb-2">Amplop Digital</h3>
-          <p class="text-sm text-gray-300 mb-1">Bank Syariah Indonesia</p>
-          <p id="accountNumber" class="font-mono text-lg mb-3">1234567890</p>
-          <button id="copyBtn" class="text-spotify-green text-sm font-semibold">Salin Nomor Rekening</button>
+        <div class="mt-3 flex justify-between">
+          <div>
+            <div class="font-semibold">Songs by Hindia</div>
+            <div class="text-sm text-gray-400">Prewedding Moments</div>
+          </div>
+          <div>
+            <div class="font-semibold">Similar to Hindia</div>
+            <div class="text-sm text-gray-400">Romantic Ballads</div>
+          </div>
+          <div>
+            <div class="font-semibold">Similar to Berdansa...</div>
+            <div class="text-sm text-gray-400">Wedding Dance</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Sticky Music Player -->
+    <!-- Credits -->
+    <div class="px-6 py-4">
+      <div class="section-title">Credits</div>
+      <div class="credits-card">
+        <div class="flex justify-between mb-2">
+          <span class="font-semibold">Hindia</span>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <div class="text-sm text-gray-400 mb-4">Main Artist</div>
+
+        <div class="credit-item">
+          <div>
+            <div class="font-semibold">Herald Reynaldo</div>
+            <div class="text-sm text-gray-400">Composer and Producer</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div>
+            <div class="font-semibold">Baskara Putra</div>
+            <div class="text-sm text-gray-400">Composer and Lyricist</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div>
+            <div class="font-semibold">AdDakwa</div>
+            <div class="text-sm text-gray-400">Wedding Planner & Creative Director</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div>
+            <div class="font-semibold">Bapak Joko & Ibu Siti</div>
+            <div class="text-sm text-gray-400">Orang Tua Mempelai Pria</div>
+          </div>
+        </div>
+
+        <div class="credit-item">
+          <div>
+            <div class="font-semibold">Bapak Rudi & Ibu Lina</div>
+            <div class="text-sm text-gray-400">Orang Tua Mempelai Wanita</div>
+          </div>
+        </div>
+
+        <div class="text-right mt-2">
+          <button class="text-spotify-green text-sm font-semibold">Show all</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Player at Bottom -->
     <div class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 px-4 py-3 flex items-center justify-between max-w-[480px] mx-auto">
       <div class="text-xs text-gray-400 truncate">The Wedding of Ahmad & Siti</div>
       <div class="flex items-center space-x-3">
-        <button id="playPauseBtn" class="bg-spotify-green rounded-full p-2">
-          <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" viewBox="0 0 20 20" fill="currentColor">
+        <button id="playPauseBtnBottom" class="bg-spotify-green rounded-full p-2">
+          <svg id="playIconBottom" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
           </svg>
-          <svg id="pauseIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black hidden" viewBox="0 0 20 20" fill="currentColor">
+          <svg id="pauseIconBottom" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-black hidden" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
           </svg>
         </button>
         <div class="progress-bar w-24">
-          <div id="progress" class="progress"></div>
+          <div id="progressBottom" class="progress"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Audio Element (hidden) -->
+  <!-- Audio Element -->
   <audio id="bgMusic" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
   </audio>
 
   <!-- JavaScript -->
   <script>
+    // Get guest name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to') || 'Tamu';
+    document.getElementById('guestName').textContent = guestName;
+
     const audio = document.getElementById('bgMusic');
     const playBtn = document.getElementById('playPauseBtn');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
+    const playBtnBottom = document.getElementById('playPauseBtnBottom');
+    const playIconBottom = document.getElementById('playIconBottom');
+    const pauseIconBottom = document.getElementById('pauseIconBottom');
     const progress = document.getElementById('progress');
-    const copyBtn = document.getElementById('copyBtn');
-    const accountNumber = document.getElementById('accountNumber');
+    const progressBottom = document.getElementById('progressBottom');
+    const showLyricsBtn = document.getElementById('showLyricsBtn');
+    const fullLyricsModal = document.getElementById('fullLyricsModal');
+    const closeLyricsBtn = document.getElementById('closeLyricsBtn');
 
     // Play/Pause toggle
-    playBtn.addEventListener('click', () => {
+    function togglePlay() {
       if (audio.paused) {
         audio.play();
         playIcon.classList.add('hidden');
         pauseIcon.classList.remove('hidden');
-        // Simulate progress (for demo)
-        let width = 35;
+        playIconBottom.classList.add('hidden');
+        pauseIconBottom.classList.remove('hidden');
+        // Simulate progress
+        let width = 25;
         const interval = setInterval(() => {
           if (!audio.paused) {
             width = (width + 0.2) % 100;
             progress.style.width = width + '%';
+            progressBottom.style.width = width + '%';
           } else {
             clearInterval(interval);
           }
@@ -293,32 +540,27 @@
         audio.pause();
         pauseIcon.classList.add('hidden');
         playIcon.classList.remove('hidden');
+        pauseIconBottom.classList.add('hidden');
+        playIconBottom.classList.remove('hidden');
       }
+    }
+
+    playBtn.addEventListener('click', togglePlay);
+    playBtnBottom.addEventListener('click', togglePlay);
+
+    // Show Lyrics Modal
+    showLyricsBtn.addEventListener('click', () => {
+      fullLyricsModal.classList.remove('hidden');
     });
 
-    // Copy account number
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(accountNumber.innerText).then(() => {
-        const originalText = copyBtn.innerText;
-        copyBtn.innerText = 'Disalin!';
-        setTimeout(() => {
-          copyBtn.innerText = originalText;
-        }, 1500);
-      });
+    closeLyricsBtn.addEventListener('click', () => {
+      fullLyricsModal.classList.add('hidden');
     });
 
-    // RSVP Submit (demo)
-    document.getElementById('submitRsvp').addEventListener('click', () => {
-      const name = document.getElementById('rsvpName').value;
-      if (!name) {
-        alert('Mohon isi nama Anda.');
-        return;
-      }
-      alert('Terima kasih, ' + name + '! Konfirmasi Anda telah terkirim.');
+    // Back Button (for demo)
+    document.getElementById('backBtn').addEventListener('click', () => {
+      alert('Back button clicked (demo)');
     });
-
-    // Auto-play not allowed on most browsers unless user interacts
-    // So music only starts when user presses play
   </script>
 </body>
 </html>
