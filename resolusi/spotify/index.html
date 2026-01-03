@@ -6,10 +6,44 @@
     <title>Undangan Pernikahan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        
+        /* --- LOAD FONT SPOTIFY LOKAL --- */
+        /* Pastikan nama file .ttf di folder SAMA PERSIS dengan url() di bawah ini */
+
+        /* 1. Regular */
+        @font-face {
+            font-family: 'SpotifyMix';
+            src: url('SpotifyMix-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* 2. Medium */
+        @font-face {
+            font-family: 'SpotifyMix';
+            src: url('SpotifyMix-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        /* 3. Bold */
+        @font-face {
+            font-family: 'SpotifyMix';
+            src: url('SpotifyMix-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        /* 4. Extra Bold - INI KUNCI TAMPILAN LIRIK */
+        @font-face {
+            font-family: 'SpotifyMix';
+            src: url('SpotifyMix-ExtraBold.ttf') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        /* Terapkan ke semua elemen */
         * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'SpotifyMix', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         body {
@@ -52,24 +86,16 @@
             }
         }
         
+        /* Scrollbar lirik yang lebih rapi */
         .scrollable-lyrics {
-            max-height: 300px;
+            max-height: 400px; /* Sedikit lebih tinggi biar puas scrollnya */
             overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #535353 transparent;
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+            -ms-overflow-style: none; /* Hide scrollbar IE */
         }
         
         .scrollable-lyrics::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .scrollable-lyrics::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .scrollable-lyrics::-webkit-scrollbar-thumb {
-            background: #535353;
-            border-radius: 3px;
+            display: none; /* Hide scrollbar Chrome/Safari biar bersih kayak App */
         }
         
         .horizontal-scroll {
@@ -98,34 +124,31 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     
-    <!-- Welcome Overlay -->
     <div id="welcomeOverlay" class="overlay fixed inset-0 z-50 flex items-center justify-center">
         <div class="text-center px-8">
             <div class="mb-8">
                 <svg class="w-16 h-16 mx-auto mb-6 text-green-500" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
                 </svg>
-                <h1 id="guestName" class="text-4xl font-bold text-white mb-2">Hello, Tamu Undangan</h1>
-                <p class="text-secondary text-lg">You're invited to our special day</p>
+                <h1 id="guestName" class="text-4xl font-extrabold text-white mb-2 tracking-tight">Hello, Tamu Undangan</h1>
+                <p class="text-secondary text-lg font-medium">You're invited to our special day</p>
             </div>
-            <button id="openInvite" class="spotify-green text-black font-bold py-4 px-12 rounded-full text-lg hover:scale-105 transition-transform">
+            <button id="openInvite" class="spotify-green text-black font-bold py-4 px-12 rounded-full text-lg hover:scale-105 transition-transform tracking-wide">
                 Open Invitation
             </button>
         </div>
     </div>
 
-    <!-- Main Mobile Container -->
     <div class="mobile-container w-full max-w-[480px] min-h-screen overflow-y-auto">
         
-        <!-- Top Navbar -->
         <div class="sticky top-0 z-40 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-md">
             <div class="flex items-center justify-between px-4 py-3">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
                 <div class="text-center">
-                    <p class="text-xs text-secondary uppercase tracking-wider">Playing From Album</p>
-                    <p class="text-sm font-semibold text-white">The Wedding</p>
+                    <p class="text-xs text-secondary uppercase tracking-widest font-medium">Playing From Album</p>
+                    <p class="text-sm font-bold text-white">The Wedding</p>
                 </div>
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
@@ -133,179 +156,180 @@
             </div>
         </div>
 
-        <!-- Video Section -->
         <div class="px-4 pt-4">
-            <div class="aspect-square rounded-lg overflow-hidden bg-gray-800">
+            <div class="aspect-square rounded-lg overflow-hidden bg-gray-800 shadow-lg">
                 <video autoplay loop muted playsinline class="w-full h-full object-cover">
                     <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
 
-        <!-- Song Info -->
         <div class="px-4 py-6">
             <div class="flex items-start justify-between mb-1">
-                <h1 class="text-2xl font-bold text-white">Romeo & Juliet</h1>
-                <button class="text-secondary">
+                <h1 class="text-2xl font-extrabold text-white tracking-tight">Romeo & Juliet</h1>
+                <button class="text-secondary hover:text-white transition">
                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/>
+                        <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/>
                     </svg>
                 </button>
             </div>
             <div class="flex items-center gap-2">
-                <span class="text-secondary text-sm">Hindia</span>
+                <span class="text-secondary text-sm font-medium">Hindia</span>
                 <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                 </svg>
             </div>
         </div>
 
-        <!-- Player Controls -->
         <div class="px-4 pb-6">
-            <!-- Progress Bar -->
             <div class="progress-bar mb-2">
                 <div class="progress-fill"></div>
             </div>
-            <div class="flex justify-between text-xs text-secondary mb-6">
+            <div class="flex justify-between text-xs text-secondary font-medium mb-6">
                 <span>0:23</span>
                 <span>3:44</span>
             </div>
             
-            <!-- Control Buttons -->
             <div class="flex items-center justify-between">
-                <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-secondary hover:text-white transition" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
                 </svg>
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-white hover:scale-105 transition" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
                 </svg>
-                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center hover:scale-105 transition cursor-pointer">
                     <svg class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
                 </div>
-                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-white hover:scale-105 transition" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
                 </svg>
-                <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-secondary hover:text-white transition" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
                 </svg>
             </div>
         </div>
 
-        <!-- Scrollable Content Cards -->
         <div class="px-4 pb-8 space-y-4">
             
-            <!-- About the Groom -->
             <div class="card-bg p-4">
                 <h2 class="text-white font-bold text-lg mb-4">About the Groom</h2>
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" 
-                     alt="Groom" class="w-full h-48 object-cover rounded-lg mb-4">
+                     alt="Groom" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
                 <h3 class="text-white font-bold text-base mb-1">Romeo Montague</h3>
-                <p class="text-secondary text-sm mb-3">Putra Bapak Montague & Ibu Montague</p>
+                <p class="text-secondary text-sm mb-3 font-medium">Putra Bapak Montague & Ibu Montague</p>
                 <p class="text-secondary text-sm leading-relaxed">
                     Seorang pemuda yang romantis dan penuh kasih sayang. Dikenal dengan ketulusan hatinya dan dedikasi dalam setiap hal yang dilakukan... 
-                    <span class="text-white font-semibold">see more</span>
+                    <span class="text-white font-bold cursor-pointer hover:underline">see more</span>
                 </p>
             </div>
 
-            <!-- About the Bride -->
             <div class="card-bg p-4">
                 <h2 class="text-white font-bold text-lg mb-4">About the Bride</h2>
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" 
-                     alt="Bride" class="w-full h-48 object-cover rounded-lg mb-4">
+                     alt="Bride" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
                 <h3 class="text-white font-bold text-base mb-1">Juliet Capulet</h3>
-                <p class="text-secondary text-sm mb-3">Putri Bapak Capulet & Ibu Capulet</p>
+                <p class="text-secondary text-sm mb-3 font-medium">Putri Bapak Capulet & Ibu Capulet</p>
                 <p class="text-secondary text-sm leading-relaxed">
                     Wanita yang anggun, cerdas, dan memiliki hati yang lembut. Selalu menebar kebaikan di sekitarnya dengan senyuman yang hangat... 
-                    <span class="text-white font-semibold">see more</span>
+                    <span class="text-white font-bold cursor-pointer hover:underline">see more</span>
                 </p>
             </div>
 
-            <!-- Detail Acara (Scrollable) -->
-            <div class="card-bg p-4" style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a7b 100%);">
-                <h2 class="text-white font-bold text-lg mb-4">Detail Acara</h2>
+            <div class="card-bg p-6" style="background: linear-gradient(180deg, #1e3a5f 0%, #121212 100%);">
+                <h2 class="text-white font-bold text-lg mb-6">Detail Acara</h2>
+                
                 <div class="scrollable-lyrics">
-                    <div class="text-white leading-relaxed space-y-1">
-                        <p class="text-lg">Akad Nikah</p>
-                        <p class="text-base text-gray-300">Minggu, 15 Maret 2026</p>
-                        <p class="text-base text-gray-300">Pukul 08.00 - 10.00 WIB</p>
-                        <p class="text-base text-gray-300">Masjid Agung Al-Barokah</p>
-                        <p class="text-sm text-gray-400">Jl. Raya Sudirman No. 123, Jakarta Selatan</p>
+                    <div class="space-y-8 font-extrabold tracking-tight">
                         
-                        <p class="text-2xl py-4">♪</p>
+                        <div class="space-y-2">
+                            <p class="text-white text-3xl leading-snug">Akad Nikah</p>
+                            <p class="text-white text-2xl leading-snug">Minggu, 15 Maret 2026</p>
+                            <p class="text-white text-2xl leading-snug">08.00 - 10.00 WIB</p>
+                            <p class="text-white text-xl leading-snug">Masjid Agung Al-Barokah</p>
+                            <p class="text-white text-xl leading-snug">Jl. Raya Sudirman No. 123</p>
+                        </div>
                         
-                        <p class="text-lg">Resepsi Pernikahan</p>
-                        <p class="text-base text-gray-300">Minggu, 15 Maret 2026</p>
-                        <p class="text-base text-gray-300">Pukul 11.00 WIB - Selesai</p>
-                        <p class="text-base text-gray-300">Grand Ballroom Hotel Mulia</p>
-                        <p class="text-sm text-gray-400">Jl. Asia Afrika No. 8, Senayan, Jakarta Pusat</p>
+                        <div class="py-2 opacity-50 text-white text-2xl">♪</div>
                         
-                        <p class="text-2xl py-4">♪</p>
+                        <div class="space-y-2 text-white/60 hover:text-white transition-colors cursor-default">
+                            <p class="text-3xl leading-snug">Resepsi Pernikahan</p>
+                            <p class="text-2xl leading-snug">Minggu, 15 Maret 2026</p>
+                            <p class="text-2xl leading-snug">11.00 WIB - Selesai</p>
+                            <p class="text-xl leading-snug">Grand Ballroom Hotel Mulia</p>
+                            <p class="text-xl leading-snug">Jl. Asia Afrika No. 8</p>
+                        </div>
+
+                        <div class="py-2 opacity-30 text-white text-2xl">♪</div>
                         
-                        <p class="text-lg">Dress Code</p>
-                        <p class="text-base text-gray-300">Formal atau Semi Formal</p>
-                        <p class="text-sm text-gray-400">Kami mengharapkan Anda mengenakan pakaian formal</p>
-                        <p class="text-sm text-gray-400">atau semi formal dengan warna pastel atau earth tone</p>
-                        
-                        <p class="text-2xl py-4">♪</p>
-                        
-                        <p class="text-lg">Protokol Kesehatan</p>
-                        <p class="text-sm text-gray-400">Demi kenyamanan bersama, kami menghimbau tamu</p>
-                        <p class="text-sm text-gray-400">undangan untuk tetap menjaga protokol kesehatan</p>
-                        <p class="text-sm text-gray-400">yang berlaku. Masker disediakan di lokasi acara</p>
+                        <div class="space-y-2 text-white/60 hover:text-white transition-colors cursor-default">
+                            <p class="text-3xl leading-snug">Dress Code</p>
+                            <p class="text-2xl leading-snug">Formal / Semi Formal</p>
+                            <p class="text-xl leading-snug">Warna Pastel atau Earth Tone</p>
+                            <p class="text-xl leading-snug">Tanpa Jeans & Kaos</p>
+                        </div>
+
+                        <div class="py-2 opacity-30 text-white text-2xl">♪</div>
+
+                        <div class="space-y-2 text-white/60 hover:text-white transition-colors cursor-default">
+                            <p class="text-3xl leading-snug">Protokol Kesehatan</p>
+                            <p class="text-xl leading-snug">Mohon menjaga jarak</p>
+                            <p class="text-xl leading-snug">Menggunakan masker</p>
+                            <p class="text-xl leading-snug">Mencuci tangan berkala</p>
+                        </div>
+
+                        <div class="h-12"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Galeri Prewedding -->
             <div class="card-bg p-4">
                 <h2 class="text-white font-bold text-lg mb-4">Galeri Prewedding</h2>
                 <div class="horizontal-scroll flex gap-3">
                     <div class="flex-shrink-0 w-40">
                         <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=400&fit=crop" 
-                             alt="Prewed 1" class="w-full h-56 object-cover rounded-lg mb-2">
-                        <p class="text-white text-sm font-medium">Casual Shoot</p>
+                             alt="Prewed 1" class="w-full h-56 object-cover rounded-lg mb-2 shadow-sm">
+                        <p class="text-white text-sm font-bold">Casual Shoot</p>
                     </div>
                     <div class="flex-shrink-0 w-40">
                         <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=300&h=400&fit=crop" 
-                             alt="Prewed 2" class="w-full h-56 object-cover rounded-lg mb-2">
-                        <p class="text-white text-sm font-medium">Garden Session</p>
+                             alt="Prewed 2" class="w-full h-56 object-cover rounded-lg mb-2 shadow-sm">
+                        <p class="text-white text-sm font-bold">Garden Session</p>
                     </div>
                     <div class="flex-shrink-0 w-40">
                         <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=300&h=400&fit=crop" 
-                             alt="Prewed 3" class="w-full h-56 object-cover rounded-lg mb-2">
-                        <p class="text-white text-sm font-medium">Beach Vibes</p>
+                             alt="Prewed 3" class="w-full h-56 object-cover rounded-lg mb-2 shadow-sm">
+                        <p class="text-white text-sm font-bold">Beach Vibes</p>
                     </div>
                     <div class="flex-shrink-0 w-40">
                         <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=300&h=400&fit=crop" 
-                             alt="Prewed 4" class="w-full h-56 object-cover rounded-lg mb-2">
-                        <p class="text-white text-sm font-medium">Urban Style</p>
+                             alt="Prewed 4" class="w-full h-56 object-cover rounded-lg mb-2 shadow-sm">
+                        <p class="text-white text-sm font-bold">Urban Style</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Credits -->
             <div class="card-bg p-4">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-white font-bold text-lg">Credits</h2>
-                    <button class="text-secondary text-sm font-semibold">Show all</button>
+                    <button class="text-secondary text-sm font-bold hover:text-white transition">Show all</button>
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <p class="text-secondary text-sm">Keluarga Mempelai Pria</p>
-                        <p class="text-white font-medium">Bapak & Ibu Montague</p>
+                        <p class="text-secondary text-sm font-medium">Keluarga Mempelai Pria</p>
+                        <p class="text-white font-bold">Bapak & Ibu Montague</p>
                     </div>
                     <div>
-                        <p class="text-secondary text-sm">Keluarga Mempelai Wanita</p>
-                        <p class="text-white font-medium">Bapak & Ibu Capulet</p>
+                        <p class="text-secondary text-sm font-medium">Keluarga Mempelai Wanita</p>
+                        <p class="text-white font-bold">Bapak & Ibu Capulet</p>
                     </div>
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-secondary text-sm">Invitation Design & Code</p>
-                            <p class="text-white font-medium">AdDakwa</p>
+                            <p class="text-secondary text-sm font-medium">Invitation Design & Code</p>
+                            <p class="text-white font-bold">AdDakwa</p>
                         </div>
-                        <button class="border border-white/30 text-white text-sm font-semibold py-1.5 px-6 rounded-full hover:border-white transition-colors">
+                        <button class="border border-white/30 text-white text-sm font-bold py-1.5 px-6 rounded-full hover:border-white transition-colors">
                             Follow
                         </button>
                     </div>
@@ -316,7 +340,6 @@
     </div>
 
     <script>
-        // Parse URL parameter for guest name
         function getGuestName() {
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('to');
@@ -326,10 +349,8 @@
             return 'Tamu Undangan';
         }
 
-        // Set guest name on load
         document.getElementById('guestName').textContent = `Hello, ${getGuestName()}`;
 
-        // Open invitation button
         document.getElementById('openInvite').addEventListener('click', function() {
             const overlay = document.getElementById('welcomeOverlay');
             overlay.classList.add('fade-out');
