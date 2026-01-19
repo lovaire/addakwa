@@ -315,45 +315,44 @@
     </div>
     
     <script>
-        // Parse URL parameter for guest name
-        function getGuestName() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const guestName = urlParams.get('to');
-            if (guestName) {
-                return guestName.replace(/\+/g, ' ').toUpperCase();
-            }
-            return 'TAMU UNDANGAN';
+    // 1. Ambil nama dari URL (JANGAN DI-UPPERCASE DULU DI SINI)
+    function getGuestName() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        if (guestName) {
+            // Cuma ganti tanda + jadi spasi, biarkan huruf besar/kecil apa adanya
+            return guestName.replace(/\+/g, ' ');
         }
+        return 'Tamu Undangan';
+    }
+
+    // 2. Simpan nama asli ke variabel
+    const guestName = getGuestName();
+
+    // 3. Update Tampilan Nama (DI SINI BARU KITA KAPITALKAN BIAR ESTETIK)
+    document.getElementById('guestNameWelcome').textContent = guestName.toUpperCase();
+    document.getElementById('guestNameReceipt').textContent = guestName.toUpperCase();
+
+    // 4. Update Iframe RSVP (PAKAI NAMA ASLI/ORIGINAL)
+    // Jadi kalau di URL tes1, masuk ke iframe tetap tes1 (bukan TES1)
+    const rsvpBaseUrl = "https://rsvp.addakwa.com/rifqi/";
+    const rsvpFullUrl = `${rsvpBaseUrl}?to=${encodeURIComponent(guestName)}`;
+    
+    document.getElementById('rsvpIframe').src = rsvpFullUrl;
+
+    // ... (Animasi tombol collect receipt tetap sama) ...
+    document.getElementById('collectBtn').addEventListener('click', function() {
+        const welcomePage = document.getElementById('welcomePage');
+        const receiptContainer = document.getElementById('receiptContainer');
         
-        // Get guest name
-        const guestName = getGuestName();
+        welcomePage.classList.add('fade-out');
         
-        // Set guest name in welcome page
-        document.getElementById('guestNameWelcome').textContent = guestName;
-        
-        // Set guest name in receipt
-        document.getElementById('guestNameReceipt').textContent = guestName;
-        
-        // Update iframe src with guest name
-        const rsvpUrl = `https://rsvp.addakwa.com/rifqi/?to=${encodeURIComponent(guestName)}`;
-        document.getElementById('rsvpIframe').src = rsvpUrl;
-        
-        // Collect Receipt Button
-        document.getElementById('collectBtn').addEventListener('click', function() {
-            const welcomePage = document.getElementById('welcomePage');
-            const receiptContainer = document.getElementById('receiptContainer');
-            
-            // Fade out welcome page
-            welcomePage.classList.add('fade-out');
-            
-            setTimeout(() => {
-                welcomePage.style.display = 'none';
-                
-                // Slide up receipt
-                receiptContainer.classList.add('slide-up');
-                receiptContainer.style.opacity = '1';
-            }, 500);
-        });
-    </script>
+        setTimeout(() => {
+            welcomePage.style.display = 'none';
+            receiptContainer.classList.add('slide-up');
+            receiptContainer.style.opacity = '1';
+        }, 500);
+    });
+</script>
 </body>
 </html>
