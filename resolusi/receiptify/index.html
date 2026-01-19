@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Receipt - Receiptify Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'VT323', monospace;
+        }
+        
+        body {
+            background: #121212;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .receipt-paper {
+            background: #F0F0F0;
+            color: #111111;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        
+        .receipt-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: 
+                linear-gradient(135deg, #F0F0F0 25%, transparent 25%),
+                linear-gradient(225deg, #F0F0F0 25%, transparent 25%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 0;
+        }
+        
+        .receipt-paper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: 
+                linear-gradient(45deg, #F0F0F0 25%, transparent 25%),
+                linear-gradient(-45deg, #F0F0F0 25%, transparent 25%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 0;
+        }
+        
+        .dashed-line {
+            border-top: 2px dashed #111111;
+            margin: 12px 0;
+        }
+        
+        .barcode {
+            background: repeating-linear-gradient(
+                90deg,
+                #111111 0px,
+                #111111 3px,
+                transparent 3px,
+                transparent 6px,
+                #111111 6px,
+                #111111 8px,
+                transparent 8px,
+                transparent 10px,
+                #111111 10px,
+                #111111 14px,
+                transparent 14px,
+                transparent 16px,
+                #111111 16px,
+                #111111 18px,
+                transparent 18px,
+                transparent 22px
+            );
+            height: 80px;
+            margin: 20px 0;
+        }
+        
+        .blink {
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .fade-out {
+            animation: fadeOut 0.5s forwards;
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        .printer-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+        }
+        
+        .mono-text {
+            font-family: 'Space Mono', monospace;
+        }
+    </style>
+</head>
+<body class="bg-[#121212] min-h-screen flex items-center justify-center">
+    
+    <!-- Welcome Page Overlay -->
+    <div id="welcomePage" class="fixed inset-0 bg-[#121212] z-50 flex items-center justify-center">
+        <div class="text-center">
+            <!-- Printer Icon -->
+            <div class="printer-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#F0F0F0" stroke-width="1.5">
+                    <path d="M6 9V2h12v7"/>
+                    <path d="M6 18H4c-1.1 0-2-.9-2-2v-5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v5c0 1.1-.9 2-2 2h-2"/>
+                    <path d="M6 14h12v8H6z"/>
+                    <circle cx="17" cy="11" r="1" fill="#F0F0F0"/>
+                </svg>
+            </div>
+            
+            <div class="text-[#F0F0F0] text-3xl mb-8 tracking-wider">
+                PRINTING INVITATION FOR...
+            </div>
+            
+            <div id="guestNameWelcome" class="text-[#F0F0F0] text-5xl font-bold mb-12 mono-text">
+                TAMU UNDANGAN
+            </div>
+            
+            <button id="collectBtn" class="blink bg-[#F0F0F0] text-[#111111] px-12 py-4 text-2xl font-bold tracking-wider hover:bg-white transition-colors">
+                [ COLLECT RECEIPT ]
+            </button>
+        </div>
+    </div>
+    
+    <!-- Receipt Container -->
+    <div id="receiptContainer" class="w-full max-w-md mx-auto p-4 opacity-0">
+        <div class="receipt-paper px-8 py-12 pt-16 pb-16">
+            
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h1 class="text-5xl font-bold tracking-wider mb-3">WEDDING RECEIPT</h1>
+                <div class="text-xl tracking-wide">SUNDAY, 15 MARCH 2026</div>
+                <div class="text-lg mt-2">ORDER #2026</div>
+                <div class="text-lg mt-1">CUSTOMER: <span id="guestNameReceipt" class="font-bold mono-text">TAMU UNDANGAN</span></div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Items Header -->
+            <div class="text-xl mb-4">
+                <div class="flex justify-between font-bold">
+                    <span>QTY</span>
+                    <span class="flex-1 ml-4">ITEM</span>
+                    <span>AMT</span>
+                </div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- The Couple -->
+            <div class="text-xl mb-2">
+                <div class="flex justify-between">
+                    <span>1X</span>
+                    <span class="flex-1 ml-4 font-bold">THE GROOM</span>
+                    <span>∞</span>
+                </div>
+                <div class="ml-12 text-lg">ROMEO MONTAGUE</div>
+            </div>
+            
+            <div class="text-xl mb-4">
+                <div class="flex justify-between">
+                    <span>1X</span>
+                    <span class="flex-1 ml-4 font-bold">THE BRIDE</span>
+                    <span>∞</span>
+                </div>
+                <div class="ml-12 text-lg">JULIET CAPULET</div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Event 1: Akad -->
+            <div class="text-xl mb-4">
+                <div class="font-bold mb-2">ITEM: AKAD NIKAH</div>
+                <div class="ml-6 text-lg space-y-1">
+                    <div>TIME: 08:00 WIB</div>
+                    <div>LOC : MASJID AGUNG AL-BAROKAH</div>
+                    <div>ADDR: JL. RAYA SUDIRMAN NO.123</div>
+                    <div>     JAKARTA SELATAN</div>
+                </div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Event 2: Resepsi -->
+            <div class="text-xl mb-4">
+                <div class="font-bold mb-2">ITEM: RESEPSI</div>
+                <div class="ml-6 text-lg space-y-1">
+                    <div>TIME: 11:00 WIB - SELESAI</div>
+                    <div>LOC : GRAND HOTEL BALLROOM</div>
+                    <div>ADDR: JL. ASIA AFRIKA NO.8</div>
+                    <div>     JAKARTA PUSAT</div>
+                </div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Dress Code -->
+            <div class="text-xl mb-4">
+                <div class="font-bold mb-2">DRESS CODE:</div>
+                <div class="ml-6 text-lg">
+                    FORMAL / SEMI FORMAL
+                </div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Total -->
+            <div class="text-2xl font-bold mb-2">
+                <div class="flex justify-between">
+                    <span>TOTAL:</span>
+                    <span>100% LOVE</span>
+                </div>
+            </div>
+            
+            <div class="text-xl mb-4">
+                <div class="flex justify-between">
+                    <span>PAYMENT:</span>
+                    <span>PRICELESS</span>
+                </div>
+            </div>
+            
+            <div class="text-lg mono-text mb-4">
+                CARD: **** **** **** 2026
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Barcode -->
+            <div class="my-6">
+                <div class="barcode"></div>
+                <div class="text-center text-lg mono-text tracking-widest">
+                    || 15032026WEDDING ||
+                </div>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- RSVP Section -->
+            <div class="text-center my-6">
+                <div class="text-2xl font-bold mb-4">
+                    SCAN TO CONFIRM ATTENDANCE
+                </div>
+                <div class="text-lg mb-4">
+                    ↓ RSVP FORM BELOW ↓
+                </div>
+            </div>
+            
+            <!-- Embedded RSVP Iframe -->
+            <div class="my-6 bg-white p-2 border-4 border-dashed border-[#111111]">
+                <iframe 
+                    id="rsvpIframe"
+                    src="https://rsvp.addakwa.com/rifqi/?to=TAMU+UNDANGAN"
+                    style="width: 100%; height: 500px; border: none;"
+                    title="RSVP Form"
+                ></iframe>
+            </div>
+            
+            <div class="dashed-line"></div>
+            
+            <!-- Footer -->
+            <div class="text-center text-lg mt-8 space-y-2">
+                <div class="font-bold">TERIMA KASIH</div>
+                <div>ATAS DOA & RESTU ANDA</div>
+                <div class="mt-4 text-sm">
+                    INVITATION POWERED BY
+                </div>
+                <div class="font-bold mono-text">
+                    ADDAKWA.COM
+                </div>
+                <div class="mt-4 text-sm">
+                    ---RECEIPT ISSUED---
+                </div>
+                <div class="text-xs mono-text">
+                    2026-03-15 00:00:00
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script>
+        // Parse URL parameter for guest name
+        function getGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to');
+            if (guestName) {
+                return guestName.replace(/\+/g, ' ').toUpperCase();
+            }
+            return 'TAMU UNDANGAN';
+        }
+        
+        // Get guest name
+        const guestName = getGuestName();
+        
+        // Set guest name in welcome page
+        document.getElementById('guestNameWelcome').textContent = guestName;
+        
+        // Set guest name in receipt
+        document.getElementById('guestNameReceipt').textContent = guestName;
+        
+        // Update iframe src with guest name
+        const rsvpUrl = `https://rsvp.addakwa.com/rifqi/?to=${encodeURIComponent(guestName)}`;
+        document.getElementById('rsvpIframe').src = rsvpUrl;
+        
+        // Collect Receipt Button
+        document.getElementById('collectBtn').addEventListener('click', function() {
+            const welcomePage = document.getElementById('welcomePage');
+            const receiptContainer = document.getElementById('receiptContainer');
+            
+            // Fade out welcome page
+            welcomePage.classList.add('fade-out');
+            
+            setTimeout(() => {
+                welcomePage.style.display = 'none';
+                
+                // Slide up receipt
+                receiptContainer.classList.add('slide-up');
+                receiptContainer.style.opacity = '1';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
