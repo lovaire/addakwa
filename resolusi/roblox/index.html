@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Romeo & Juliet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            background: #111216;
+            max-width: 480px;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(17,18,22,0.7) 0%, rgba(17,18,22,0.95) 50%, rgba(17,18,22,1) 100%);
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Fixed Top Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 gradient-overlay max-w-[480px] mx-auto">
+        <button class="w-10 h-10 flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="flex items-center gap-3">
+            <button class="w-10 h-10 flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </button>
+            <button class="w-10 h-10 flex items-center justify-center relative">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Scrollable Content -->
+    <main class="pt-16 pb-24">
+        <!-- Hero Section -->
+        <div class="relative">
+            <img src="https://source.unsplash.com/random/800x600/?wedding,couple" alt="Wedding Photo" class="w-full aspect-video object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111216] via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Title Section -->
+        <div class="px-4 pt-4 pb-3">
+            <h1 class="text-2xl font-bold leading-tight mb-2">The Wedding of Romeo & Juliet</h1>
+            <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-400">By</span>
+                <span class="text-sm font-semibold text-white">AdDakwa</span>
+                <svg class="w-4 h-4 text-[#0066FF]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    <circle cx="12" cy="12" r="11" fill="currentColor"/>
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="px-4 py-4 flex items-center justify-between border-t border-b border-gray-800">
+            <div class="flex-1 text-center border-r border-gray-800">
+                <div class="text-xs text-gray-500 mb-1">Rating</div>
+                <div class="text-sm font-bold">100% 👍</div>
+            </div>
+            <div class="flex-1 text-center border-r border-gray-800">
+                <div class="text-xs text-gray-500 mb-1">Invited</div>
+                <div class="text-sm font-bold">500+</div>
+            </div>
+            <div class="flex-1 text-center border-r border-gray-800">
+                <div class="text-xs text-gray-500 mb-1">Age</div>
+                <div class="text-sm font-bold">17+</div>
+            </div>
+            <div class="flex-1 text-center">
+                <div class="text-xs text-gray-500 mb-1">Genre</div>
+                <div class="text-sm font-bold">Romance</div>
+            </div>
+        </div>
+
+        <!-- Events Section -->
+        <div class="py-5">
+            <h2 class="text-lg font-bold px-4 mb-3">Events</h2>
+            <div class="flex gap-3 px-4 overflow-x-auto scrollbar-hide pb-2">
+                <!-- Event Card 1 -->
+                <div class="flex-shrink-0 w-40 bg-[#1b1c21] rounded-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/400x300/?mosque,wedding" alt="Akad" class="w-full h-24 object-cover">
+                        <div class="absolute top-2 left-2 bg-[#00B06F] text-white text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                            Happening Now
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold mb-1">AKAD NIKAH</div>
+                        <div class="text-xs text-gray-400">08:00 WIB</div>
+                    </div>
+                </div>
+                <!-- Event Card 2 -->
+                <div class="flex-shrink-0 w-40 bg-[#1b1c21] rounded-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="https://source.unsplash.com/random/400x300/?wedding,reception" alt="Resepsi" class="w-full h-24 object-cover">
+                        <div class="absolute top-2 left-2 bg-gray-700 text-white text-xs font-bold px-2 py-1 rounded">
+                            Sun, Jan 25
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold mb-1">RESEPSI</div>
+                        <div class="text-xs text-gray-400">11:00 WIB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="px-4 py-4 border-t border-gray-800">
+            <h2 class="text-lg font-bold mb-3">Description</h2>
+            <p class="text-sm text-gray-300 leading-relaxed mb-2">
+                💒 Join us to celebrate the holy matrimony of Romeo and Juliet! 💍
+                <br><br>
+                Experience the most magical day as two hearts become one. Witness their love story unfold in an unforgettable celebration filled with joy, laughter, and blessings. ✨
+                <br><br>
+                🎊 Be part of this special moment and share in the happiness of the newlyweds!
+            </p>
+            <button class="text-sm text-gray-500 font-semibold">Read More</button>
+        </div>
+
+        <!-- Store Section -->
+        <div class="px-4 py-4 border-t border-gray-800">
+            <h2 class="text-lg font-bold mb-3">Store & Passes</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Gift Card 1 -->
+                <div class="bg-[#1b1c21] rounded-lg overflow-hidden">
+                    <div class="p-4 flex items-center justify-center bg-gradient-to-br from-purple-900 to-purple-700 h-32">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold mb-2">Digital Envelope</div>
+                        <button class="w-full bg-[#00B06F] hover:bg-[#00a062] text-white font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            SEND GIFT
+                        </button>
+                    </div>
+                </div>
+                <!-- Gift Card 2 -->
+                <div class="bg-[#1b1c21] rounded-lg overflow-hidden">
+                    <div class="p-4 flex items-center justify-center bg-gradient-to-br from-yellow-900 to-orange-700 h-32">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="text-sm font-bold mb-2">Premium Wish</div>
+                        <button class="w-full bg-[#00B06F] hover:bg-[#00a062] text-white font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            SEND GIFT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Info Section -->
+        <div class="px-4 py-4 border-t border-gray-800 space-y-3 text-sm">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Developer</span>
+                <span class="font-semibold">AdDakwa</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Created</span>
+                <span class="font-semibold">10/21/2025</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-gray-500">Server Size</span>
+                <span class="font-semibold">2 (Couple)</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fixed Bottom Action Bar -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-[#1b1c21] border-t border-gray-800 px-4 py-3 max-w-[480px] mx-auto">
+        <div class="flex items-center gap-3">
+            <button class="w-12 h-12 flex items-center justify-center bg-[#2b2c31] rounded-full flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="6" r="1.5"/>
+                    <circle cx="12" cy="12" r="1.5"/>
+                    <circle cx="12" cy="18" r="1.5"/>
+                </svg>
+            </button>
+            <button class="w-12 h-12 flex items-center justify-center bg-[#2b2c31] rounded-full flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+            </button>
+            <button class="flex-1 h-12 bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold rounded-full flex items-center justify-center gap-2 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span class="text-base">JOIN WEDDING</span>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+</html>
