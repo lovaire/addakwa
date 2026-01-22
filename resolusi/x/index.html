@@ -1,498 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romeo & Juliet Wedding | X</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        body {
-            background: #000000;
-            color: #E7E9EA;
-            max-width: 480px;
-            margin: 0 auto;
-            position: relative;
-            min-height: 100vh;
-            padding-bottom: 60px;
-        }
-        .tweet-hover:hover {
-            background: #080808;
-        }
-        .action-btn {
-            transition: all 0.2s;
-        }
-        .action-btn:hover {
-            background: rgba(29, 155, 240, 0.1);
-        }
-        .action-btn.like:hover {
-            background: rgba(249, 24, 128, 0.1);
-        }
-        .action-btn.like:hover svg {
-            stroke: #F91880;
-        }
-        .action-btn.like.active svg {
-            fill: #F91880;
-            stroke: #F91880;
-        }
-        .action-btn.repost:hover {
-            background: rgba(0, 186, 124, 0.1);
-        }
-        .action-btn.repost:hover svg {
-            stroke: #00BA7C;
-        }
-        .action-btn.repost.active svg {
-            stroke: #00BA7C;
-        }
-        .tab-active {
-            border-bottom: 3px solid #1D9BF0;
-        }
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .link-card {
-            border: 1px solid #2F3336;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .link-card:hover {
-            background: #0A0A0A;
-        }
-        .fab {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            background: #1D9BF0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(29, 155, 240, 0.4);
-            cursor: pointer;
-            transition: transform 0.2s;
-            z-index: 40;
-        }
-        .fab:hover {
-            transform: scale(1.05);
-        }
-        .fab:active {
-            transform: scale(0.95);
-        }
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background: #000000;
-            border-top: 1px solid #2F3336;
-            z-index: 50;
-        }
-        .nav-btn {
-            transition: color 0.2s;
-        }
-        .nav-btn:hover {
-            background: rgba(29, 155, 240, 0.1);
-        }
-        .nav-btn.active {
-            color: #E7E9EA;
-        }
-    </style>
-</head>
-<body>
-    <!-- Sticky Header -->
-    <header class="sticky top-0 z-50 bg-black border-b border-[#2F3336]">
-        <div class="flex items-center justify-between px-4 py-2">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Romeo & Juliet Wedding | X</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+         * {
+         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         }
+         body {
+         background: #000000;
+         color: #E7E9EA;
+         max-width: 480px;
+         margin: 0 auto;
+         position: relative;
+         min-height: 100vh;
+         padding-bottom: 60px;
+         }
+         .tweet-hover:hover {
+         background: #080808;
+         }
+         .action-btn {
+         transition: all 0.2s;
+         }
+         .action-btn:hover {
+         background: rgba(29, 155, 240, 0.1);
+         }
+         .action-btn.like:hover {
+         background: rgba(249, 24, 128, 0.1);
+         }
+         .action-btn.like:hover svg {
+         stroke: #F91880;
+         }
+         .action-btn.like.active svg {
+         fill: #F91880;
+         stroke: #F91880;
+         }
+         .action-btn.repost:hover {
+         background: rgba(0, 186, 124, 0.1);
+         }
+         .action-btn.repost:hover svg {
+         stroke: #00BA7C;
+         }
+         .action-btn.repost.active svg {
+         stroke: #00BA7C;
+         }
+         .tab-active {
+         border-bottom: 3px solid #1D9BF0;
+         }
+         .verified-badge {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         }
+         .link-card {
+         border: 1px solid #2F3336;
+         border-radius: 16px;
+         overflow: hidden;
+         cursor: pointer;
+         transition: background 0.2s;
+         }
+         .link-card:hover {
+         background: #0A0A0A;
+         }
+         .fab {
+         position: fixed;
+         bottom: 80px;
+         right: 20px;
+         width: 56px;
+         height: 56px;
+         background: #1D9BF0;
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         box-shadow: 0 4px 12px rgba(29, 155, 240, 0.4);
+         cursor: pointer;
+         transition: transform 0.2s;
+         z-index: 40;
+         }
+         .fab:hover {
+         transform: scale(1.05);
+         }
+         .fab:active {
+         transform: scale(0.95);
+         }
+         .bottom-nav {
+         position: fixed;
+         bottom: 0;
+         left: 50%;
+         transform: translateX(-50%);
+         width: 100%;
+         max-width: 480px;
+         background: #000000;
+         border-top: 1px solid #2F3336;
+         z-index: 50;
+         }
+         .nav-btn {
+         transition: color 0.2s;
+         }
+         .nav-btn:hover {
+         background: rgba(29, 155, 240, 0.1);
+         }
+         .nav-btn.active {
+         color: #E7E9EA;
+         }
+      </style>
+   </head>
+   <body>
+      <!-- Sticky Header -->
+      <header class="sticky top-0 z-50 bg-black border-b border-[#2F3336]">
+         <div class="flex items-center justify-between px-4 py-2">
             <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=32" class="w-8 h-8 rounded-full" alt="Avatar">
             <svg class="w-7 h-7" viewBox="0 0 24 24" fill="white">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/>
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-        </div>
-        <div class="flex border-b border-[#2F3336]">
+         </div>
+         <div class="flex border-b border-[#2F3336]">
             <div class="flex-1 text-center py-4 font-semibold tab-active cursor-pointer">For You</div>
             <div class="flex-1 text-center py-4 font-semibold text-[#71767B] cursor-pointer hover:bg-[#080808]">Following</div>
-        </div>
-    </header>
-
-    <!-- Feed -->
-    <main class="pb-4">
-        <!-- Tweet 1 - Pinned (The Couple) -->
-        <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
+         </div>
+      </header>
+      <!-- Feed -->
+      <main class="pb-4">
+         <!-- Tweet 1 - Pinned (The Couple) -->
+         <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
             <div class="flex items-center gap-2 text-[#71767B] text-sm mb-2">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M7 4.5C7 3.12 8.12 2 9.5 2h5C15.88 2 17 3.12 17 4.5v5.26L20.12 16H13v5l-1 .5L11 21v-5H3.88L7 9.76V4.5z"/>
-                </svg>
-                <span>Pinned</span>
+               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M7 4.5C7 3.12 8.12 2 9.5 2h5C15.88 2 17 3.12 17 4.5v5.26L20.12 16H13v5l-1 .5L11 21v-5H3.88L7 9.76V4.5z"/>
+               </svg>
+               <span>Pinned</span>
             </div>
             <div class="flex gap-3">
-                <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-1 flex-wrap">
-                        <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
-                        <div class="verified-badge">
-                            <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
-                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
-                            </svg>
-                        </div>
-                        <span class="text-[#71767B]">@thewedding</span>
-                        <span class="text-[#71767B]">· 1h</span>
-                    </div>
-                    <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
-                        Bismillah. With pure hearts, we invite you to celebrate our union. 🤍💍 <span class="text-[#1D9BF0]">#TheWedding</span> <span class="text-[#1D9BF0]">#RomeoJuliet</span>
-                    </div>
-                    <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
-                        <img src="https://source.unsplash.com/random/800x1000/?couple,wedding" class="w-full" alt="Couple Photo">
-                    </div>
-                    <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
-                        <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#1D9BF0]">234</span>
-                        </button>
-                        <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#00BA7C]" data-count="500">500</span>
-                        </button>
-                        <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#F91880]" data-count="1200">1.2K</span>
-                        </button>
-                        <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#1D9BF0]">45K</span>
-                        </button>
-                        <button class="action-btn p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+               <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
+               <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1 flex-wrap">
+                     <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
+                     <div class="verified-badge">
+                        <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
+                           <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
+                        </svg>
+                     </div>
+                     <span class="text-[#71767B]">@thewedding</span>
+                     <span class="text-[#71767B]">· 1h</span>
+                  </div>
+                  <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
+                     Bismillah. With pure hearts, we invite you to celebrate our union. 🤍💍 <span class="text-[#1D9BF0]">#TheWedding</span> <span class="text-[#1D9BF0]">#RomeoJuliet</span>
+                  </div>
+                  <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
+                     <img src="https://source.unsplash.com/random/800x1000/?couple,wedding" class="w-full" alt="Couple Photo">
+                  </div>
+                  <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">234</span>
+                     </button>
+                     <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#00BA7C]" data-count="500">500</span>
+                     </button>
+                     <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#F91880]" data-count="1200">1.2K</span>
+                     </button>
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">45K</span>
+                     </button>
+                     <button class="action-btn p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
             </div>
-        </article>
-
-        <!-- Tweet 2 - Akad Nikah -->
-        <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
+         </article>
+         <!-- Tweet 2 - Akad Nikah -->
+         <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
             <div class="flex gap-3">
-                <img src="https://ui-avatars.com/api/?name=WO&background=7856FF&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Wedding Organizer">
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-1 flex-wrap">
-                        <span class="font-bold text-[#E7E9EA]">Wedding Organizer</span>
-                        <div class="verified-badge">
-                            <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
-                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
-                            </svg>
-                        </div>
-                        <span class="text-[#71767B]">@wo_official</span>
-                        <span class="text-[#71767B]">· 3h</span>
-                    </div>
-                    <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5 whitespace-pre-line">SAVE THE DATE! 🗓️
-
-✨ AKAD NIKAH ✨
-Sunday, 15 March 2026
-08:00 WIB
-
-A sacred moment begins here. Please pray for us.</div>
-                    <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
-                        <img src="https://source.unsplash.com/random/800x600/?rings,wedding" class="w-full" alt="Wedding Rings">
-                    </div>
-                    <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
-                        <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#1D9BF0]">189</span>
-                        </button>
-                        <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#00BA7C]" data-count="342">342</span>
-                        </button>
-                        <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#F91880]" data-count="876">876</span>
-                        </button>
-                        <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                            </svg>
-                            <span class="text-xs group-hover:text-[#1D9BF0]">32K</span>
-                        </button>
-                        <button class="action-btn p-2 rounded-full group">
-                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+               <img src="https://ui-avatars.com/api/?name=WO&background=7856FF&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Wedding Organizer">
+               <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1 flex-wrap">
+                     <span class="font-bold text-[#E7E9EA]">Wedding Organizer</span>
+                     <div class="verified-badge">
+                        <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
+                           <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
+                        </svg>
+                     </div>
+                     <span class="text-[#71767B]">@wo_official</span>
+                     <span class="text-[#71767B]">· 3h</span>
+                  </div>
+                  <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5 whitespace-pre-line">SAVE THE DATE! 🗓️
+                     ✨ AKAD NIKAH ✨
+                     Sunday, 15 March 2026
+                     08:00 WIB
+                     A sacred moment begins here. Please pray for us.
+                  </div>
+                  <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
+                     <img src="https://source.unsplash.com/random/800x600/?rings,wedding" class="w-full" alt="Wedding Rings">
+                  </div>
+                  <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">189</span>
+                     </button>
+                     <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#00BA7C]" data-count="342">342</span>
+                     </button>
+                     <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#F91880]" data-count="876">876</span>
+                     </button>
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">32K</span>
+                     </button>
+                     <button class="action-btn p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
             </div>
-        </article>
-
-        <!-- Tweet 3 - Resepsi -->
-        <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
+         </article>
+         <!-- Tweet 3 - Resepsi -->
+         <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
             <div class="flex gap-3">
-                <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-1 flex-wrap">
-                        <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
-                        <div class="verified-badge">
-                            <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
-                                <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274 .586 .705 1 .084 1 .439 .54 .551 .816 .569 .647 -.016 .276 -.213 .817 -.567s -.854 .972 -1 .245 -1 .44 -1 .439c .239 604 .296 1266 .164 1903 -.132 .636 -.447 1220 -.907 1680 -.46 .46 -.776 1044 -.908 1681s -.075 1299 .165 1903c .586 -.274 1084 -.705 12439 -1246 .354 -.54 .551 -1170 .569 -1816zM9662 14850l -3429 -3428 1293 -1302        
-        <!-- Tweet 3 - Resepsi (continued from your last partial tweet) -->
-        <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
-            🎉 RESEPSI PERNIKAHAN 🎉<br>
-            Sunday, 15 March 2026<br>
-            11:00 – 15:00 WIB<br>
-            Grand Ballroom, The Majestic Hotel, Jakarta<br><br>
-            Dresscode: <span class="text-[#1D9BF0]">White & Gold</span> ✨<br>
-            We can’t wait to celebrate with you!
-        </div>
-        <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
-            <img src="https://source.unsplash.com/random/800x600/?wedding,hall" class="w-full" alt="Wedding Hall">
-        </div>
-        <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
-            <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
-                </svg>
-                <span class="text-xs group-hover:text-[#1D9BF0]">210</span>
-            </button>
-            <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
-                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
-                </svg>
-                <span class="text-xs group-hover:text-[#00BA7C]" data-count="421">421</span>
-            </button>
-            <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
-                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                </svg>
-                <span class="text-xs group-hover:text-[#F91880]" data-count="1050">1K</span>
-            </button>
-            <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                </svg>
-                <span class="text-xs group-hover:text-[#1D9BF0]">28K</span>
-            </button>
-            <button class="action-btn p-2 rounded-full group">
-                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-</article>
-
-<!-- Tweet 4 - Link Card (Digital Invitation) -->
-<article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
-    <div class="flex gap-3">
-        <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
-        <div class="flex-1 min-w-0">
+            <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
+            <div class="flex-1 min-w-0">
             <div class="flex items-center gap-1 flex-wrap">
-                <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
-                <div class="verified-badge">
-                    <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
-                        <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
-                    </svg>
-                </div>
-                <span class="text-[#71767B]">@thewedding</span>
-                <span class="text-[#71767B]">· 5h</span>
-            </div>
-            <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
-                💌 You're invited! View our digital wedding invitation below 👇
-            </div>
-            <a href="#" class="link-card mt-3 block">
-                <div class="p-3">
-                    <div class="text-[#1D9BF0] text-sm font-semibold">romeo-juliet.wedding</div>
-                    <div class="text-[#E7E9EA] font-medium mt-1">Romeo & Juliet · The Wedding</div>
-                    <div class="text-[#71767B] text-sm mt-1 line-clamp-2">Join us on March 15, 2026 in Jakarta for a celebration of love, faith, and unity.</div>
-                    <div class="mt-2 w-full h-20 bg-[#15191D] rounded-lg flex items-center justify-center">
-                        <span class="text-[#71767B] text-xs">Preview not available</span>
-                    </div>
-                </div>
-            </a>
-            <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
-                <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
+            <div class="verified-badge">
+               <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
+               <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274 .586 .705 1 .084 1 .439 .54 .551 .816 .569 .647 -.016 .276 -.213 .817 -.567s -.854 .972 -1 .245 -1 .44 -1 .439c .239 604 .296 1266 .164 1903 -.132 .636 -.447 1220 -.907 1680 -.46 .46 -.776 1044 -.908 1681s -.075 1299 .165 1903c .586 -.274 1084 -.705 12439 -1246 .354 -.54 .551 -1170 .569 -1816zM9662 14850l -3429 -3428 1293 -1302        
+               <!-- Tweet 3 - Resepsi (continued from your last partial tweet) -->
+               <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
+                  🎉 RESEPSI PERNIKAHAN 🎉<br>
+                  Sunday, 15 March 2026<br>
+                  11:00 – 15:00 WIB<br>
+                  Grand Ballroom, The Majestic Hotel, Jakarta<br><br>
+                  Dresscode: <span class="text-[#1D9BF0]">White & Gold</span> ✨<br>
+                  We can’t wait to celebrate with you!
+               </div>
+               <div class="mt-3 rounded-2xl overflow-hidden border border-[#2F3336]">
+                  <img src="https://source.unsplash.com/random/800x600/?wedding,hall" class="w-full" alt="Wedding Hall">
+               </div>
+               <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
+                  <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#1D9BF0]">98</span>
-                </button>
-                <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                     </svg>
+                     <span class="text-xs group-hover:text-[#1D9BF0]">210</span>
+                  </button>
+                  <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
+                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#00BA7C]" data-count="187">187</span>
-                </button>
-                <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                     </svg>
+                     <span class="text-xs group-hover:text-[#00BA7C]" data-count="421">421</span>
+                  </button>
+                  <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
+                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#F91880]" data-count="642">642</span>
-                </button>
-                <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                     </svg>
+                     <span class="text-xs group-hover:text-[#F91880]" data-count="1050">1K</span>
+                  </button>
+                  <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#1D9BF0]">15K</span>
-                </button>
-                <button class="action-btn p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                     </svg>
+                     <span class="text-xs group-hover:text-[#1D9BF0]">28K</span>
+                  </button>
+                  <button class="action-btn p-2 rounded-full group">
+                     <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
-                    </svg>
-                </button>
+                     </svg>
+                  </button>
+               </div>
             </div>
-        </div>
-    </div>
-</article>
-
-<!-- Tweet 5 - Thank You -->
-<article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
-    <div class="flex gap-3">
-        <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
-        <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1 flex-wrap">
-                <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
-                <div class="verified-badge">
-                    <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
-                        <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
-                    </svg>
-                </div>
-                <span class="text-[#71767B]">@thewedding</span>
-                <span class="text-[#71767B]">· 6h</span>
+         </article>
+         <!-- Tweet 4 - Link Card (Digital Invitation) -->
+         <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
+            <div class="flex gap-3">
+               <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
+               <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1 flex-wrap">
+                     <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
+                     <div class="verified-badge">
+                        <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
+                           <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
+                        </svg>
+                     </div>
+                     <span class="text-[#71767B]">@thewedding</span>
+                     <span class="text-[#71767B]">· 5h</span>
+                  </div>
+                  <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
+                     💌 You're invited! View our digital wedding invitation below 👇
+                  </div>
+                  <a href="#" class="link-card mt-3 block">
+                     <div class="p-3">
+                        <div class="text-[#1D9BF0] text-sm font-semibold">romeo-juliet.wedding</div>
+                        <div class="text-[#E7E9EA] font-medium mt-1">Romeo & Juliet · The Wedding</div>
+                        <div class="text-[#71767B] text-sm mt-1 line-clamp-2">Join us on March 15, 2026 in Jakarta for a celebration of love, faith, and unity.</div>
+                        <div class="mt-2 w-full h-20 bg-[#15191D] rounded-lg flex items-center justify-center">
+                           <span class="text-[#71767B] text-xs">Preview not available</span>
+                        </div>
+                     </div>
+                  </a>
+                  <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">98</span>
+                     </button>
+                     <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#00BA7C]" data-count="187">187</span>
+                     </button>
+                     <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#F91880]" data-count="642">642</span>
+                     </button>
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">15K</span>
+                     </button>
+                     <button class="action-btn p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
             </div>
-            <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
-                ❤️ To everyone who has supported us — your love, prayers, and kind words mean the world to us. Thank you from the bottom of our hearts.
+         </article>
+         <!-- Tweet 5 - Thank You -->
+         <article class="border-b border-[#2F3336] px-4 py-3 tweet-hover">
+            <div class="flex gap-3">
+               <img src="https://ui-avatars.com/api/?name=R+J&background=1D9BF0&color=fff&size=48" class="w-12 h-12 rounded-full flex-shrink-0" alt="Romeo & Juliet">
+               <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1 flex-wrap">
+                     <span class="font-bold text-[#E7E9EA]">Romeo & Juliet</span>
+                     <div class="verified-badge">
+                        <svg class="w-5 h-5" viewBox="0 0 22 22" fill="#1D9BF0">
+                           <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/>
+                        </svg>
+                     </div>
+                     <span class="text-[#71767B]">@thewedding</span>
+                     <span class="text-[#71767B]">· 6h</span>
+                  </div>
+                  <div class="mt-2 text-[#E7E9EA] text-[15px] leading-5">
+                     ❤️ To everyone who has supported us — your love, prayers, and kind words mean the world to us. Thank you from the bottom of our hearts.
+                  </div>
+                  <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">320</span>
+                     </button>
+                     <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#00BA7C]" data-count="210">210</span>
+                     </button>
+                     <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#F91880]" data-count="2100">2.1K</span>
+                     </button>
+                     <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                        </svg>
+                        <span class="text-xs group-hover:text-[#1D9BF0]">50K</span>
+                     </button>
+                     <button class="action-btn p-2 rounded-full group">
+                        <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
             </div>
-            <div class="flex justify-between mt-3 text-[#71767B] max-w-md">
-                <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#1D9BF0]">320</span>
-                </button>
-                <button class="action-btn repost flex items-center gap-2 p-2 rounded-full group" onclick="handleRepost(this)">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#00BA7C]" data-count="210">210</span>
-                </button>
-                <button class="action-btn like flex items-center gap-2 p-2 rounded-full group" onclick="handleLike(this)">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#F91880]" data-count="2100">2.1K</span>
-                </button>
-                <button class="action-btn flex items-center gap-2 p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-                    </svg>
-                    <span class="text-xs group-hover:text-[#1D9BF0]">50K</span>
-                </button>
-                <button class="action-btn p-2 rounded-full group">
-                    <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-</article>
-    </main>
-
-    <!-- Floating Action Button -->
-    <div class="fab" onclick="alert('Compose clicked!')">
-        <svg class="w-6 h-6" fill="white" viewBox="0 0 24 24">
+         </article>
+      </main>
+      <!-- Floating Action Button -->
+      <div class="fab" onclick="alert('Compose clicked!')">
+         <svg class="w-6 h-6" fill="white" viewBox="0 0 24 24">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-        </svg>
-    </div>
-
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav">
-        <div class="flex justify-around py-2">
+         </svg>
+      </div>
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+         <div class="flex justify-around py-2">
             <button class="nav-btn p-3 active">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+               </svg>
             </button>
             <button class="nav-btn p-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
-                </svg>
+               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
+               </svg>
             </button>
             <button class="nav-btn p-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.057.48 1.119 1.056zM11.25 12.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h.008v.014h-.008V12.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
-                </svg>
+               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.057.48 1.119 1.056zM11.25 12.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h.008v.014h-.008V12.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+               </svg>
             </button>
             <button class="nav-btn p-3">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
+               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
+               </svg>
             </button>
-        </div>
-    </nav>
-
-    <script>
-        function handleLike(btn) {
-            const countEl = btn.querySelector('[data-count]');
-            let count = parseInt(countEl.dataset.count.replace('K', '000'));
-            if (countEl.textContent.includes('K')) {
-                count = Math.round(count / 1000) * 1000;
-            }
-            const isActive = btn.classList.contains('active');
-            if (isActive) {
-                count--;
-                btn.classList.remove('active');
-            } else {
-                count++;
-                btn.classList.add('active');
-            }
-            countEl.dataset.count = count;
-            countEl.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace('.0', '') + 'K' : count;
-        }
-
-        function handleRepost(btn) {
-            const countEl = btn.querySelector('[data-count]');
-            let count = parseInt(countEl.dataset.count);
-            const isActive = btn.classList.contains('active');
-            if (isActive) {
-                count--;
-                btn.classList.remove('active');
-            } else {
-                count++;
-                btn.classList.add('active');
-            }
-            countEl.dataset.count = count;
-            countEl.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace('.0', '') + 'K' : count;
-        }
-    </script>
-</body>
+         </div>
+      </nav>
+      <script>
+         function handleLike(btn) {
+             const countEl = btn.querySelector('[data-count]');
+             let count = parseInt(countEl.dataset.count.replace('K', '000'));
+             if (countEl.textContent.includes('K')) {
+                 count = Math.round(count / 1000) * 1000;
+             }
+             const isActive = btn.classList.contains('active');
+             if (isActive) {
+                 count--;
+                 btn.classList.remove('active');
+             } else {
+                 count++;
+                 btn.classList.add('active');
+             }
+             countEl.dataset.count = count;
+             countEl.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace('.0', '') + 'K' : count;
+         }
+         
+         function handleRepost(btn) {
+             const countEl = btn.querySelector('[data-count]');
+             let count = parseInt(countEl.dataset.count);
+             const isActive = btn.classList.contains('active');
+             if (isActive) {
+                 count--;
+                 btn.classList.remove('active');
+             } else {
+                 count++;
+                 btn.classList.add('active');
+             }
+             countEl.dataset.count = count;
+             countEl.textContent = count >= 1000 ? (count / 1000).toFixed(1).replace('.0', '') + 'K' : count;
+         }
+      </script>
+   </body>
 </html>
