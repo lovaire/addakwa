@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Romeo & Juliet | The Timeless Editorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #F4F1EA;
+            color: #1A1A1A;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Paper Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.03) 2px, rgba(0,0,0,.03) 4px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #1A1A1A;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease;
+            mix-blend-mode: difference;
+            background: white;
+        }
+
+        #cursor.hover {
+            transform: scale(2);
+        }
+
+        /* Typography */
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Line Reveal Animation */
+        .line-reveal {
+            overflow: hidden;
+        }
+
+        .line-reveal span {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .line-reveal.active span {
+            transform: translateY(0);
+        }
+
+        /* Parallax */
+        .parallax-img {
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Custom Styles */
+        .editorial-title {
+            font-size: clamp(3rem, 12vw, 9rem);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+        }
+
+        .editorial-subtitle {
+            font-size: clamp(0.75rem, 2vw, 1rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .section-spacing {
+            padding: clamp(4rem, 15vh, 12rem) clamp(1.5rem, 8vw, 6rem);
+        }
+
+        /* RSVP Button */
+        .rsvp-btn {
+            border: 1px solid #1A1A1A;
+            padding: 1.2rem 3rem;
+            background: transparent;
+            color: #1A1A1A;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            cursor: none;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: #1A1A1A;
+            transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+            z-index: -1;
+        }
+
+        .rsvp-btn:hover::before {
+            width: 100%;
+        }
+
+        .rsvp-btn:hover {
+            color: #F4F1EA;
+        }
+
+        /* Mobile Cursor Override */
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            #cursor {
+                display: none;
+            }
+
+            .rsvp-btn {
+                cursor: pointer;
+            }
+        }
+
+        /* Hero Image */
+        .hero-image {
+            filter: grayscale(20%) contrast(1.1);
+            object-fit: cover;
+        }
+
+        /* Divider */
+        .elegant-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(26, 26, 26, 0.2), transparent);
+            margin: 4rem 0;
+        }
+
+        /* Guest Name Styling */
+        .guest-name {
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Scroll Hint */
+        .scroll-hint {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Image Grid */
+        .editorial-grid {
+            display: grid;
+            gap: clamp(2rem, 5vw, 4rem);
+        }
+
+        @media (min-width: 768px) {
+            .editorial-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- Section 1: Hero / Magazine Cover -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=90" 
+                 alt="Romeo & Juliet" 
+                 class="w-full h-full hero-image">
+        </div>
+        
+        <!-- Typography Overlay -->
+        <div class="relative z-10 text-center px-6">
+            <p class="montserrat editorial-subtitle text-white mb-8 reveal" style="transition-delay: 0.2s;">
+                <span class="guest-name" id="guest-greeting">Dear Guest</span>
+            </p>
+            <h1 class="playfair editorial-title text-white font-bold italic mb-4 reveal" style="transition-delay: 0.4s;">
+                ROMEO<br>
+                <span class="text-6xl md:text-8xl">&</span><br>
+                JULIET
+            </h1>
+            <p class="montserrat editorial-subtitle text-white/80 mb-12 reveal" style="transition-delay: 0.6s;">
+                THE WEDDING
+            </p>
+            <p class="montserrat text-sm text-white/60 tracking-widest reveal" style="transition-delay: 0.8s;">
+                15 MARCH 2026
+            </p>
+        </div>
+
+        <!-- Scroll Hint -->
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10">
+            <p class="montserrat text-xs text-white/70 tracking-widest scroll-hint">EXPLORE</p>
+            <div class="w-px h-12 bg-white/30 mx-auto mt-2"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: The Narrative -->
+    <section class="section-spacing">
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-6 text-center">
+                <div class="line-reveal reveal">
+                    <span class="playfair text-3xl md:text-5xl italic leading-relaxed">
+                        We invite you to witness
+                    </span>
+                </div>
+                <div class="line-reveal reveal" style="transition-delay: 0.2s;">
+                    <span class="playfair text-3xl md:text-5xl italic leading-relaxed">
+                        the union of two souls,
+                    </span>
+                </div>
+                <div class="line-reveal reveal" style="transition-delay: 0.4s;">
+                    <span class="playfair text-3xl md:text-5xl italic leading-relaxed">
+                        bound by love eternal.
+                    </span>
+                </div>
+            </div>
+
+            <div class="elegant-divider mt-16"></div>
+
+            <div class="text-center mt-12 reveal" style="transition-delay: 0.6s;">
+                <p class="montserrat text-sm tracking-widest opacity-60 mb-4">THEIR STORY</p>
+                <p class="playfair text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+                    Through serendipity and destiny intertwined, two hearts found their home in one another. 
+                    On this day, we celebrate not just a wedding, but the beginning of forever.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Details (Asymmetrical Editorial Layout) -->
+    <section class="section-spacing bg-white/40">
+        <div class="max-w-7xl mx-auto">
+            <!-- Akad Nikah -->
+            <div class="editorial-grid mb-24">
+                <div class="reveal order-2 md:order-1">
+                    <h2 class="playfair text-6xl md:text-8xl italic mb-6">Akad</h2>
+                    <div class="space-y-4 montserrat text-sm tracking-wider">
+                        <p class="uppercase opacity-60">Sacred Ceremony</p>
+                        <p class="text-2xl md:text-3xl font-light">08:00 WIB</p>
+                        <p class="leading-relaxed">
+                            Sunday, 15 March 2026<br>
+                            Grand Ballroom Hotel<br>
+                            Jl. Romantic Avenue No. 143<br>
+                            Jakarta, Indonesia
+                        </p>
+                    </div>
+                </div>
+                <div class="reveal order-1 md:order-2 parallax-container">
+                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=90" 
+                         alt="Wedding Rings" 
+                         class="w-full h-64 md:h-96 object-cover parallax-img"
+                         style="filter: grayscale(30%) contrast(1.1);">
+                </div>
+            </div>
+
+            <div class="elegant-divider"></div>
+
+            <!-- Reception -->
+            <div class="editorial-grid mt-24">
+                <div class="reveal parallax-container">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f29da8c851?w=800&q=90" 
+                         alt="Wedding Venue" 
+                         class="w-full h-64 md:h-96 object-cover parallax-img"
+                         style="filter: grayscale(30%) contrast(1.1);">
+                </div>
+                <div class="reveal">
+                    <h2 class="playfair text-6xl md:text-8xl italic mb-6">Reception</h2>
+                    <div class="space-y-4 montserrat text-sm tracking-wider">
+                        <p class="uppercase opacity-60">Celebration</p>
+                        <p class="text-2xl md:text-3xl font-light">11:00 WIB - Finish</p>
+                        <p class="leading-relaxed">
+                            Join us for an evening of joy,<br>
+                            music, and merriment as we<br>
+                            celebrate this momentous occasion.
+                        </p>
+                        <div class="pt-4">
+                            <p class="uppercase text-xs opacity-60 mb-2">Dress Code</p>
+                            <p class="text-lg">Earth Tone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: RSVP -->
+    <section class="section-spacing">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="reveal mb-12">
+                <h2 class="playfair text-7xl md:text-9xl italic mb-4">R.S.V.P</h2>
+                <p class="montserrat text-sm tracking-widest opacity-60">RÉPONDEZ S'IL VOUS PLAÎT</p>
+            </div>
+
+            <div class="reveal border border-black/20 p-8 md:p-16" style="transition-delay: 0.2s;">
+                <p class="playfair text-xl md:text-2xl italic mb-8 leading-relaxed">
+                    Your presence would be the greatest gift.<br>
+                    Kindly confirm your attendance by 1 March 2026.
+                </p>
+
+                <!-- RSVP iFrame Container -->
+                <div id="rsvp-container" class="mb-8">
+                    <iframe id="rsvp-iframe" 
+                            style="width: 100%; min-height: 400px; border: none; display: none;"
+                            title="RSVP Form">
+                    </iframe>
+                </div>
+
+                <button class="rsvp-btn" id="rsvp-button" onclick="openRSVP()">
+                    Submit Attendance
+                </button>
+
+                <p class="montserrat text-xs tracking-wider opacity-50 mt-8">
+                    For inquiries: wedding@romeoandjuliet.com
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section-spacing text-center border-t border-black/10">
+        <p class="playfair text-2xl md:text-3xl italic mb-4">
+            With love & gratitude,
+        </p>
+        <p class="montserrat text-sm tracking-widest">
+            ROMEO & JULIET
+        </p>
+        <p class="montserrat text-xs tracking-wider opacity-50 mt-8">
+            © 2026 The Timeless Editorial
+        </p>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursor.style.left = mouseX - 10 + 'px';
+            cursor.style.top = mouseY - 10 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+
+        if (window.innerWidth > 768) {
+            animateCursor();
+        }
+
+        // Cursor hover effect
+        const hoverElements = document.querySelectorAll('button, a, .rsvp-btn');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Intersection Observer for Reveal Animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Parallax Effect
+        let ticking = false;
+
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax-img');
+            
+            parallaxElements.forEach((el) => {
+                const container = el.closest('.parallax-container');
+                if (!container) return;
+                
+                const rect = container.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    const speed = 0.3;
+                    const yPos = -(rect.top * speed);
+                    el.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // URL Parser for Guest Name & RSVP
+        function parseURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            const guestName = params.get('to');
+            
+            if (guestName) {
+                // Sanitize input
+                const sanitized = guestName.replace(/[<>]/g, '').trim();
+                const greeting = document.getElementById('guest-greeting');
+                if (sanitized) {
+                    greeting.textContent = `Dear ${sanitized}`;
+                }
+            }
+        }
+
+        // RSVP Function
+        function openRSVP() {
+            const iframe = document.getElementById('rsvp-iframe');
+            const button = document.getElementById('rsvp-button');
+            
+            // Get guest name from URL
+            const params = new URLSearchParams(window.location.search);
+            const guestName = params.get('to') || '';
+            
+            // Example RSVP form URL (replace with your actual form)
+            // You can append the guest name to pre-fill the form
+            const rsvpURL = `https://forms.gle/yourformid?entry.name=${encodeURIComponent(guestName)}`;
+            
+            // For demo purposes, show alert
+            alert(`RSVP Form Integration\n\nReplace this with your actual RSVP form URL.\n\nGuest: ${guestName || 'Not specified'}\n\nExample implementation:\niframe.src = rsvpURL;\niframe.style.display = 'block';\nbutton.style.display = 'none';`);
+            
+            // Actual implementation (uncomment when ready):
+            // iframe.src = rsvpURL;
+            // iframe.style.display = 'block';
+            // button.style.display = 'none';
+        }
+
+        // Initialize
+        parseURLParams();
+
+        // Initial reveal for hero section
+        setTimeout(() => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.add('active');
+            });
+        }, 300);
+
+        // Smooth scroll for mobile
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

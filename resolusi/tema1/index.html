@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding Of</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: #FAFAFA;
+            color: #333333;
+            overflow-x: hidden;
+        }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .serif-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Welcome Overlay */
+        .welcome-overlay {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: zoomIn 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* Floating Animation for Ornaments */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .float-ornament {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Intersection Observer Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37, #F4E5A1);
+            color: #333333;
+            padding: 16px 48px;
+            border: 2px solid #D4AF37;
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold:hover {
+            background: transparent;
+            color: #D4AF37;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Bottom Navbar */
+        .bottom-nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .nav-item {
+            transition: all 0.4s ease;
+        }
+
+        .nav-item.active {
+            color: #D4AF37;
+        }
+
+        .nav-dot {
+            width: 4px;
+            height: 4px;
+            background: #D4AF37;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .nav-item.active .nav-dot {
+            opacity: 1;
+        }
+
+        /* Photo Frames */
+        .photo-frame {
+            border: 3px solid #D4AF37;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+        }
+
+        /* Countdown Timer */
+        .countdown-box {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Form Styles */
+        input, textarea {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Ornament Positioning */
+        .ornament-tl {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            opacity: 0.9;
+            z-index: 1;
+        }
+
+        .ornament-br {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            opacity: 0.9;
+            transform: rotate(180deg);
+            z-index: 1;
+        }
+
+        /* Section Divider */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            margin: 40px auto;
+        }
+
+        @media (max-width: 768px) {
+            .ornament-tl, .ornament-br {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Overlay -->
+    <div id="welcomeOverlay" class="welcome-overlay fixed inset-0 z-50 flex items-center justify-center">
+        <div class="text-center text-white px-6">
+            <p class="serif-font text-sm md:text-base tracking-[0.3em] mb-6 uppercase">The Wedding Of</p>
+            <h1 class="script-font text-6xl md:text-8xl mb-8 leading-tight">
+                Alexander & Sophia
+            </h1>
+            <p class="text-lg md:text-xl mb-4 tracking-wider">Dear Beloved Guest,</p>
+            <p class="text-sm md:text-base mb-12 max-w-md mx-auto opacity-90">
+                We joyfully invite you to celebrate our union
+            </p>
+            <button onclick="openInvitation()" class="btn-gold text-sm md:text-base">
+                OPEN INVITATION
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="hidden">
+        
+        <!-- Section 1: The Couple -->
+        <section id="home" class="min-h-screen flex items-center justify-center py-20 px-6 relative">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-tl float-ornament reveal">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-br float-ornament reveal">
+            
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="serif-font text-sm md:text-base tracking-[0.3em] mb-6 uppercase reveal" style="color: #D4AF37;">
+                    We Request The Honor Of Your Presence
+                </p>
+                <h2 class="script-font text-5xl md:text-7xl mb-8 reveal">
+                    The Celebration Of Love
+                </h2>
+                <div class="divider reveal"></div>
+                
+                <p class="text-lg md:text-xl leading-relaxed mb-16 max-w-2xl mx-auto reveal">
+                    Two souls, united in love, invite you to witness the beginning of their forever journey together as they exchange sacred vows in the presence of family and cherished friends.
+                </p>
+
+                <!-- Couple Photos -->
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 mb-12">
+                    <!-- Groom -->
+                    <div class="reveal">
+                        <div class="photo-frame rounded-full overflow-hidden w-64 h-64 mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80" alt="Groom" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="script-font text-4xl mb-2" style="color: #D4AF37;">Alexander James</h3>
+                        <p class="serif-font text-sm tracking-widest uppercase">The Groom</p>
+                    </div>
+
+                    <!-- Bride -->
+                    <div class="reveal">
+                        <div class="photo-frame rounded-full overflow-hidden w-64 h-64 mx-auto mb-6">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80" alt="Bride" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="script-font text-4xl mb-2" style="color: #D4AF37;">Sophia Grace</h3>
+                        <p class="serif-font text-sm tracking-widest uppercase">The Bride</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Event -->
+        <section id="event" class="min-h-screen flex items-center justify-center py-20 px-6 relative bg-white">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-tl float-ornament reveal">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-br float-ornament reveal">
+            
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="serif-font text-sm md:text-base tracking-[0.3em] mb-6 uppercase reveal" style="color: #D4AF37;">
+                    Save The Date
+                </p>
+                <h2 class="script-font text-5xl md:text-7xl mb-8 reveal">
+                    The Event
+                </h2>
+                <div class="divider reveal"></div>
+
+                <!-- Event Details -->
+                <div class="mb-16 reveal">
+                    <div class="mb-12">
+                        <p class="serif-font text-2xl md:text-3xl font-semibold mb-3" style="color: #D4AF37;">Saturday</p>
+                        <p class="text-4xl md:text-5xl font-light mb-2">14th June, 2026</p>
+                        <p class="text-xl md:text-2xl">4:00 PM</p>
+                    </div>
+
+                    <div class="border-t border-b border-[#D4AF37] border-opacity-30 py-8 max-w-2xl mx-auto">
+                        <p class="serif-font text-sm tracking-widest uppercase mb-3" style="color: #D4AF37;">Venue</p>
+                        <p class="text-2xl md:text-3xl mb-2">The Grand Ballroom</p>
+                        <p class="text-lg">Royal Heritage Hotel</p>
+                        <p class="text-base opacity-80">123 Elegance Boulevard, Metropolitan City</p>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="reveal">
+                    <p class="serif-font text-sm tracking-widest uppercase mb-6" style="color: #D4AF37;">Time Until Forever</p>
+                    <div class="grid grid-cols-4 gap-4 max-w-lg mx-auto">
+                        <div class="countdown-box p-4 rounded">
+                            <p class="text-3xl md:text-4xl font-light mb-1" id="days">--</p>
+                            <p class="text-xs tracking-widest uppercase opacity-70">Days</p>
+                        </div>
+                        <div class="countdown-box p-4 rounded">
+                            <p class="text-3xl md:text-4xl font-light mb-1" id="hours">--</p>
+                            <p class="text-xs tracking-widest uppercase opacity-70">Hours</p>
+                        </div>
+                        <div class="countdown-box p-4 rounded">
+                            <p class="text-3xl md:text-4xl font-light mb-1" id="minutes">--</p>
+                            <p class="text-xs tracking-widest uppercase opacity-70">Minutes</p>
+                        </div>
+                        <div class="countdown-box p-4 rounded">
+                            <p class="text-3xl md:text-4xl font-light mb-1" id="seconds">--</p>
+                            <p class="text-xs tracking-widest uppercase opacity-70">Seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: RSVP -->
+        <section id="rsvp" class="min-h-screen flex items-center justify-center py-20 px-6 relative">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-tl float-ornament reveal">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="" class="ornament-br float-ornament reveal">
+            
+            <div class="max-w-2xl mx-auto text-center w-full">
+                <p class="serif-font text-sm md:text-base tracking-[0.3em] mb-6 uppercase reveal" style="color: #D4AF37;">
+                    Kindly Respond By
+                </p>
+                <h2 class="script-font text-5xl md:text-7xl mb-8 reveal">
+                    RSVP
+                </h2>
+                <div class="divider reveal"></div>
+
+                <p class="text-lg mb-12 reveal">
+                    Your presence would be the greatest gift. Please confirm your attendance before May 30th, 2026.
+                </p>
+
+                <!-- RSVP Form -->
+                <form class="text-left space-y-6 reveal" onsubmit="handleRSVP(event)">
+                    <div>
+                        <label class="block serif-font text-sm tracking-widest uppercase mb-2" style="color: #D4AF37;">Full Name</label>
+                        <input type="text" required class="w-full px-6 py-4 text-lg" placeholder="Enter your name">
+                    </div>
+
+                    <div>
+                        <label class="block serif-font text-sm tracking-widest uppercase mb-2" style="color: #D4AF37;">Email Address</label>
+                        <input type="email" required class="w-full px-6 py-4 text-lg" placeholder="your@email.com">
+                    </div>
+
+                    <div>
+                        <label class="block serif-font text-sm tracking-widest uppercase mb-2" style="color: #D4AF37;">Number of Guests</label>
+                        <select required class="w-full px-6 py-4 text-lg">
+                            <option value="">Select number</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block serif-font text-sm tracking-widest uppercase mb-2" style="color: #D4AF37;">Attendance</label>
+                        <div class="flex gap-6">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="attendance" value="yes" required class="mr-3">
+                                <span>Joyfully Accepts</span>
+                            </label>
+                            <label class="flex items-center cursor-pointer">
+                                <input type="radio" name="attendance" value="no" required class="mr-3">
+                                <span>Regretfully Declines</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block serif-font text-sm tracking-widest uppercase mb-2" style="color: #D4AF37;">Special Message (Optional)</label>
+                        <textarea rows="4" class="w-full px-6 py-4 text-lg resize-none" placeholder="Share your wishes for the couple..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-gold w-full text-sm md:text-base">
+                        SUBMIT RESPONSE
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 text-center border-t border-[#D4AF37] border-opacity-20 reveal">
+            <p class="script-font text-3xl mb-2" style="color: #D4AF37;">Alexander & Sophia</p>
+            <p class="text-sm opacity-70">#AlexAndSophiaForever</p>
+        </footer>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav fixed bottom-0 left-0 right-0 z-40 py-4 px-6">
+            <div class="max-w-md mx-auto flex justify-around items-center">
+                <a href="#home" class="nav-item active flex flex-col items-center gap-1 text-xs uppercase tracking-wider">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span>Home</span>
+                    <div class="nav-dot"></div>
+                </a>
+                <a href="#couple" class="nav-item flex flex-col items-center gap-1 text-xs uppercase tracking-wider">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                    <span>Couple</span>
+                    <div class="nav-dot"></div>
+                </a>
+                <a href="#event" class="nav-item flex flex-col items-center gap-1 text-xs uppercase tracking-wider">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Event</span>
+                    <div class="nav-dot"></div>
+                </a>
+                <a href="#rsvp" class="nav-item flex flex-col items-center gap-1 text-xs uppercase tracking-wider">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>RSVP</span>
+                    <div class="nav-dot"></div>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Open Invitation
+        function openInvitation() {
+            const overlay = document.getElementById('welcomeOverlay');
+            const mainContent = document.getElementById('mainContent');
+            
+            overlay.style.transition = 'opacity 1.5s ease';
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                initIntersectionObserver();
+                startCountdown();
+            }, 1500);
+        }
+
+        // Intersection Observer for Scroll Animations
+        function initIntersectionObserver() {
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    } else {
+                        entry.target.classList.remove('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        }
+
+        // Countdown Timer
+        function startCountdown() {
+            const weddingDate = new Date('June 14, 2026 16:00:00').getTime();
+            
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                }
+            };
+
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // Navigation Active State
+        const navLinks = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth Scroll
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // RSVP Form Handler
+        function handleRSVP(e) {
+            e.preventDefault();
+            alert('Thank you for your response! We look forward to celebrating with you.');
+            e.target.reset();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romeo & Juliet - Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            overflow: hidden;
+            height: 100vh;
+            background: #008080;
+            user-select: none;
+        }
+
+        /* Boot Screen */
+        #boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #00FF00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-size: 20px;
+            padding: 20px;
+        }
+
+        #boot-text {
+            font-family: 'Courier New', monospace;
+            white-space: pre-line;
+        }
+
+        /* Desktop */
+        #desktop {
+            width: 100%;
+            height: calc(100vh - 40px);
+            position: relative;
+            padding: 20px;
+            display: none;
+        }
+
+        /* Desktop Icons */
+        .desktop-icon {
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .desktop-icon:active {
+            filter: invert(1);
+        }
+
+        .icon-image {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 5px;
+            background: #C0C0C0;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .icon-label {
+            color: #fff;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px #000;
+            word-wrap: break-word;
+        }
+
+        /* Window System */
+        .window {
+            position: absolute;
+            background: #C0C0C0;
+            border: 2px solid;
+            border-color: #DFDFDF #808080 #808080 #DFDFDF;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+            min-width: 300px;
+            display: none;
+        }
+
+        .window.active {
+            z-index: 1000;
+        }
+
+        .window-header {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 3px 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .window-title {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 3px;
+        }
+
+        .window-btn {
+            width: 20px;
+            height: 20px;
+            background: #C0C0C0;
+            border: 2px solid;
+            border-color: #DFDFDF #000 #000 #DFDFDF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .window-btn:active {
+            border-color: #000 #DFDFDF #DFDFDF #000;
+        }
+
+        .window-content {
+            padding: 15px;
+            background: #C0C0C0;
+            overflow: auto;
+            max-height: 400px;
+        }
+
+        /* Taskbar */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: #C0C0C0;
+            border-top: 2px solid #DFDFDF;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            gap: 5px;
+            z-index: 2000;
+        }
+
+        #start-btn {
+            background: #C0C0C0;
+            border: 2px solid;
+            border-color: #DFDFDF #000 #000 #DFDFDF;
+            padding: 3px 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #start-btn:active {
+            border-color: #000 #DFDFDF #DFDFDF #000;
+        }
+
+        .taskbar-btn {
+            background: #C0C0C0;
+            border: 2px solid;
+            border-color: #DFDFDF #000 #000 #DFDFDF;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 16px;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .taskbar-btn.active {
+            border-color: #000 #DFDFDF #DFDFDF #000;
+        }
+
+        #clock {
+            margin-left: auto;
+            padding: 3px 10px;
+            border: 2px solid;
+            border-color: #808080 #DFDFDF #DFDFDF #808080;
+            font-size: 18px;
+        }
+
+        /* Notepad Style */
+        .notepad-content {
+            background: #FFF;
+            color: #000;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            border: 2px solid;
+            border-color: #808080 #DFDFDF #DFDFDF #808080;
+            min-height: 200px;
+        }
+
+        /* Retro Button */
+        .retro-btn {
+            background: #C0C0C0;
+            border: 2px solid;
+            border-color: #DFDFDF #000 #000 #DFDFDF;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .retro-btn:active {
+            border-color: #000 #DFDFDF #DFDFDF #000;
+        }
+
+        /* Couple Photos */
+        .couple-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .couple-photo {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .couple-photo img {
+            width: 100%;
+            max-width: 200px;
+            border: 3px solid;
+            border-color: #808080 #DFDFDF #DFDFDF #808080;
+            margin-bottom: 10px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .window {
+                left: 10px !important;
+                right: 10px !important;
+                top: 50px !important;
+                width: calc(100% - 20px) !important;
+                min-width: unset;
+            }
+
+            .desktop-icon {
+                width: 70px;
+            }
+
+            .icon-image {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+
+            .icon-label {
+                font-size: 14px;
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+    </div>
+
+    <!-- Desktop -->
+    <div id="desktop">
+        <!-- Desktop Icons -->
+        <div class="desktop-icon" onclick="openWindow('couple-window')">
+            <div class="icon-image">💑</div>
+            <div class="icon-label">The Couple</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('details-window')">
+            <div class="icon-image">📝</div>
+            <div class="icon-label">Event Details.txt</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('location-window')">
+            <div class="icon-image">🗺️</div>
+            <div class="icon-label">Location.exe</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('rsvp-window')">
+            <div class="icon-image">✉️</div>
+            <div class="icon-label">RSVP Now</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('music-window')">
+            <div class="icon-image">🎵</div>
+            <div class="icon-label">Music Player</div>
+        </div>
+
+        <!-- Window: The Couple -->
+        <div id="couple-window" class="window" style="left: 100px; top: 80px; width: 500px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <span>💑</span>
+                    <span>The Couple</span>
+                </div>
+                <div class="window-controls">
+                    <div class="window-btn" onclick="closeWindow('couple-window')">✕</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="couple-container">
+                    <div class="couple-photo">
+                        <img src="https://source.unsplash.com/200x250/?man,portrait" alt="Romeo">
+                        <div style="font-size: 20px; font-weight: bold;">Romeo</div>
+                        <div style="font-size: 16px;">The Groom</div>
+                    </div>
+                    <div class="couple-photo">
+                        <img src="https://source.unsplash.com/200x250/?woman,portrait" alt="Juliet">
+                        <div style="font-size: 20px; font-weight: bold;">Juliet</div>
+                        <div style="font-size: 16px;">The Bride</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; font-size: 18px; border: 2px solid #000; padding: 10px; background: #FFF;">
+                    ✓ Verified Match Found
+                    <br>💍 Compatibility: 100%
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: Event Details -->
+        <div id="details-window" class="window" style="left: 150px; top: 120px; width: 450px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <span>📝</span>
+                    <span>Event Details.txt - Notepad</span>
+                </div>
+                <div class="window-controls">
+                    <div class="window-btn" onclick="closeWindow('details-window')">✕</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="notepad-content">=============================================
+    WEDDING INVITATION SYSTEM v1.0
+=============================================
+
+EVENT: The Marriage of Romeo & Juliet
+
+DATE: Sunday, 15 March 2026
+
+SCHEDULE:
+- Akad Nikah: 08:00 WIB
+- Reception: 11:00 WIB - Finish
+
+VENUE: Grand Ballroom Hotel
+        Jl. Romantic Avenue No. 143
+        Jakarta, Indonesia
+
+DRESS CODE: Earth Tone
+
+NOTE: Your presence will make our day
+      even more special. ♥
+
+=============================================
+                                    - R & J
+=============================================</div>
+            </div>
+        </div>
+
+        <!-- Window: Location -->
+        <div id="location-window" class="window" style="left: 200px; top: 100px; width: 420px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <span>🗺️</span>
+                    <span>Location.exe</span>
+                </div>
+                <div class="window-controls">
+                    <div class="window-btn" onclick="closeWindow('location-window')">✕</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div style="background: #FFF; padding: 15px; border: 2px solid #000;">
+                    <h2 style="font-size: 22px; margin-bottom: 10px; color: #000;">📍 Venue Location</h2>
+                    <p style="color: #000; font-size: 18px; line-height: 1.6;">
+                        Grand Ballroom Hotel<br>
+                        Jl. Romantic Avenue No. 143<br>
+                        Jakarta, Indonesia<br><br>
+                        <strong>GPS Coordinates:</strong><br>
+                        -6.200000, 106.816666
+                    </p>
+                    <button class="retro-btn" onclick="window.open('https://maps.google.com/?q=-6.200000,106.816666', '_blank')">
+                        [ OPEN IN GOOGLE MAPS ]
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: RSVP -->
+        <div id="rsvp-window" class="window" style="left: 120px; top: 140px; width: 400px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <span>✉️</span>
+                    <span>RSVP Form</span>
+                </div>
+                <div class="window-controls">
+                    <div class="window-btn" onclick="closeWindow('rsvp-window')">✕</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div style="background: #FFF; padding: 20px; border: 2px solid #000;">
+                    <h2 style="font-size: 22px; margin-bottom: 15px; color: #000; text-align: center;">
+                        💌 Confirm Your Attendance
+                    </h2>
+                    <p style="color: #000; font-size: 18px; text-align: center; margin-bottom: 20px;">
+                        Please let us know if you can join our celebration!
+                    </p>
+                    <div style="text-align: center;">
+                        <button class="retro-btn" onclick="alert('RSVP form would open here!\n\nReplace this with your actual RSVP link.')">
+                            [ CLICK TO FILL RSVP ]
+                        </button>
+                    </div>
+                    <p style="color: #666; font-size: 14px; text-align: center; margin-top: 15px;">
+                        Deadline: 1 March 2026
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Window: Music Player -->
+        <div id="music-window" class="window" style="left: 180px; top: 160px; width: 380px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <span>🎵</span>
+                    <span>Winamp - Wedding Playlist</span>
+                </div>
+                <div class="window-controls">
+                    <div class="window-btn" onclick="closeWindow('music-window')">✕</div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div style="background: linear-gradient(to bottom, #2C3E50, #34495E); padding: 20px; border: 2px solid #000; color: #00FF00;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 28px; margin-bottom: 10px;">♪ ♫ ♪</div>
+                        <div style="font-size: 20px; color: #0FF;">NOW PLAYING:</div>
+                        <div style="font-size: 18px; margin-top: 5px;">"Perfect" - Ed Sheeran</div>
+                    </div>
+                    <div style="background: #000; padding: 10px; margin: 10px 0; font-family: 'Courier New', monospace;">
+                        ▶️ Track 1: Perfect - Ed Sheeran<br>
+                        ⏸️ Track 2: Marry You - Bruno Mars<br>
+                        ⏸️ Track 3: A Thousand Years<br>
+                        ⏸️ Track 4: All of Me - John Legend
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="retro-btn" style="background: #34495E; color: #0FF; margin: 0 5px;">⏮️</button>
+                        <button class="retro-btn" style="background: #34495E; color: #0FF; margin: 0 5px;">⏸️</button>
+                        <button class="retro-btn" style="background: #34495E; color: #0FF; margin: 0 5px;">⏭️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar">
+        <div id="start-btn">
+            <span style="font-size: 24px;">🪟</span>
+            <span>Start</span>
+        </div>
+        <div id="taskbar-apps"></div>
+        <div id="clock"></div>
+    </div>
+
+    <script>
+        // Boot Sequence
+        const bootTexts = [
+            'C:\\> RUN WEDDING_SETUP.EXE',
+            'Loading Assets... [OK]',
+            'Initializing Love... [OK]',
+            'Calculating Romance Levels... [OK]',
+            'Starting System...'
+        ];
+
+        let bootIndex = 0;
+        const bootTextEl = document.getElementById('boot-text');
+        const bootScreen = document.getElementById('boot-screen');
+        const desktop = document.getElementById('desktop');
+
+        function typeBoot() {
+            if (bootIndex < bootTexts.length) {
+                bootTextEl.innerHTML += bootTexts[bootIndex] + '\n';
+                bootIndex++;
+                setTimeout(typeBoot, 600);
+            } else {
+                setTimeout(() => {
+                    bootScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        bootScreen.style.display = 'none';
+                        desktop.style.display = 'block';
+                        updateClock();
+                        setInterval(updateClock, 1000);
+                    }, 1000);
+                }, 500);
+            }
+        }
+
+        setTimeout(typeBoot, 500);
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12;
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+            document.getElementById('clock').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+
+        // Window Management
+        let highestZ = 1000;
+        const windows = {};
+
+        function openWindow(id) {
+            const win = document.getElementById(id);
+            if (!win) return;
+
+            win.style.display = 'block';
+            bringToFront(id);
+            updateTaskbar();
+
+            // Initialize dragging
+            if (!windows[id]) {
+                dragElement(win);
+                windows[id] = true;
+            }
+        }
+
+        function closeWindow(id) {
+            const win = document.getElementById(id);
+            if (!win) return;
+            win.style.display = 'none';
+            updateTaskbar();
+        }
+
+        function bringToFront(id) {
+            const win = document.getElementById(id);
+            if (!win) return;
+
+            document.querySelectorAll('.window').forEach(w => {
+                w.classList.remove('active');
+            });
+
+            highestZ++;
+            win.style.zIndex = highestZ;
+            win.classList.add('active');
+        }
+
+        function updateTaskbar() {
+            const taskbarApps = document.getElementById('taskbar-apps');
+            taskbarApps.innerHTML = '';
+
+            document.querySelectorAll('.window').forEach(win => {
+                if (win.style.display !== 'none') {
+                    const btn = document.createElement('div');
+                    btn.className = 'taskbar-btn';
+                    if (win.classList.contains('active')) {
+                        btn.classList.add('active');
+                    }
+                    const title = win.querySelector('.window-title span:last-child').textContent;
+                    btn.textContent = title;
+                    btn.onclick = () => {
+                        if (win.style.display === 'none') {
+                            openWindow(win.id);
+                        } else {
+                            bringToFront(win.id);
+                        }
+                    };
+                    taskbarApps.appendChild(btn);
+                }
+            });
+        }
+
+        // Drag Functionality
+        function dragElement(el) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            const header = el.querySelector('.window-header');
+
+            if (header) {
+                header.onmousedown = dragMouseDown;
+                header.ontouchstart = dragTouchStart;
+            }
+
+            function dragMouseDown(e) {
+                e.preventDefault();
+                bringToFront(el.id);
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function dragTouchStart(e) {
+                if (window.innerWidth <= 768) return; // Disable on mobile
+                bringToFront(el.id);
+                const touch = e.touches[0];
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                document.ontouchend = closeDragElement;
+                document.ontouchmove = elementTouchDrag;
+            }
+
+            function elementDrag(e) {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                el.style.top = (el.offsetTop - pos2) + "px";
+                el.style.left = (el.offsetLeft - pos1) + "px";
+            }
+
+            function elementTouchDrag(e) {
+                const touch = e.touches[0];
+                pos1 = pos3 - touch.clientX;
+                pos2 = pos4 - touch.clientY;
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                el.style.top = (el.offsetTop - pos2) + "px";
+                el.style.left = (el.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+                document.ontouchend = null;
+                document.ontouchmove = null;
+            }
+        }
+
+        // Click to bring window to front
+        document.querySelectorAll('.window').forEach(win => {
+            win.addEventListener('mousedown', () => bringToFront(win.id));
+            win.addEventListener('touchstart', () => bringToFront(win.id));
+        });
+
+        // Start button Easter egg
+        document.getElementById('start-btn').onclick = () => {
+            alert('💍 Welcome to Romeo & Juliet\'s Wedding!\n\nClick on desktop icons to explore.\n\n✨ Have a wonderful day! ✨');
+        };
+    </script>
+</body>
+</html>
