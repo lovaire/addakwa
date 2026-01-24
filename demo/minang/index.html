@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Baralek Gadang - Rifqi & Ayu</title>
+      <!-- Tailwind CSS CDN -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+      <style>
+         :root {
+         --maroon: #800000;
+         --ivory: #FAFAFA;
+         --gold: #FFD700;
+         }
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Lato', sans-serif;
+         background-color: var(--maroon);
+         color: var(--ivory);
+         overflow-x: hidden;
+         position: relative;
+         }
+         /* Songket Pattern Background */
+         .songket-bg {
+         background-image: 
+         linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+         linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+         background-size: 40px 40px;
+         background-position: 0 0, 20px 20px;
+         }
+         .cinzel {
+         font-family: 'Cinzel Decorative', serif;
+         }
+         /* Gonjong Silhouette */
+         .gonjong {
+         width: 120px;
+         height: 160px;
+         position: relative;
+         margin: 0 auto 2rem;
+         }
+         .gonjong::before,
+         .gonjong::after {
+         content: '';
+         position: absolute;
+         top: 0;
+         width: 0;
+         height: 0;
+         border-left: 60px solid transparent;
+         border-right: 60px solid transparent;
+         }
+         .gonjong::before {
+         border-bottom: 100px solid var(--gold);
+         z-index: 2;
+         }
+         .gonjong::after {
+         border-bottom: 120px solid var(--maroon);
+         top: -10px;
+         z-index: 1;
+         }
+         /* Diamond Shape for Photos */
+         .diamond-frame {
+         width: 200px;
+         height: 200px;
+         transform: rotate(45deg);
+         margin: 0 auto 2rem;
+         overflow: hidden;
+         border: 4px solid var(--gold);
+         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+         }
+         .diamond-frame img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         transform: rotate(-45deg);
+         }
+         /* Gold Floral Divider */
+         .floral-divider {
+         position: relative;
+         height: 20px;
+         margin: 2rem auto;
+         width: 80%;
+         }
+         .floral-divider::before,
+         .floral-divider::after {
+         content: "✿";
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         color: var(--gold);
+         font-size: 1.5rem;
+         }
+         .floral-divider::before {
+         left: 0;
+         }
+         .floral-divider::after {
+         right: 0;
+         }
+         /* Reveal Animations */
+         .reveal {
+         opacity: 0;
+         transform: translateX(-50px);
+         transition: all 0.8s ease-out;
+         }
+         .reveal.right {
+         transform: translateX(50px);
+         }
+         .reveal.active {
+         opacity: 1;
+         transform: translateX(0);
+         }
+         .reveal.fade-up {
+         transform: translateY(30px);
+         }
+         .reveal.fade-up.active {
+         transform: translateY(0);
+         }
+         /* Section Styling */
+         .section {
+         padding: 4rem 1.5rem;
+         }
+         .section.ivory-bg {
+         background-color: var(--ivory);
+         color: var(--maroon);
+         }
+         /* Button Styles */
+         .btn-gold {
+         background: linear-gradient(to bottom, var(--gold), #e6c200);
+         color: var(--maroon);
+         font-weight: bold;
+         padding: 0.75rem 2rem;
+         border: none;
+         border-radius: 0;
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+         }
+         .btn-gold:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+         }
+         /* Event Card */
+         .event-card {
+         background: var(--ivory);
+         border: 2px solid var(--gold);
+         border-radius: 0;
+         padding: 1.5rem;
+         margin-bottom: 2rem;
+         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+         }
+         .event-icon {
+         color: var(--gold);
+         font-size: 1.5rem;
+         margin-right: 0.5rem;
+         }
+         /* Gift Card */
+         .gift-card {
+         background: var(--ivory);
+         border: 2px solid var(--gold);
+         border-radius: 0;
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
+         position: relative;
+         }
+         .gift-card::after {
+         content: "";
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         width: 100%;
+         height: 10px;
+         background: repeating-linear-gradient(
+         90deg,
+         var(--gold),
+         var(--gold) 10px,
+         transparent 10px,
+         transparent 20px
+         );
+         }
+         /* Responsive Adjustments */
+         @media (min-width: 768px) {
+         .section {
+         padding: 6rem 3rem;
+         }
+         .diamond-frame {
+         width: 250px;
+         height: 250px;
+         }
+         }
+      </style>
+   </head>
+   <body class="songket-bg">
+      <!-- Welcome Overlay -->
+      <div id="welcomeOverlay" class="fixed inset-0 z-50 flex items-center justify-center songket-bg">
+         <div class="text-center px-6 max-w-md w-full">
+            <div class="gonjong animate-slide-down"></div>
+            <p class="cinzel text-xl md:text-2xl mb-4 tracking-widest">Baralek Gadang</p>
+            <h1 class="cinzel text-4xl md:text-5xl mb-6" style="color: var(--gold);">Rifqi & Ayu</h1>
+            <p class="text-lg mb-2">Kepada Yth,</p>
+            <p id="guestNameDisplay" class="text-xl font-semibold mb-10 text-white">Bapak/Ibu/Saudara/i</p>
+            <button onclick="openInvitation()" class="btn-gold">
+            BUKA UNDANGAN
+            </button>
+         </div>
+      </div>
+      <!-- Main Content -->
+      <div id="mainContent" class="hidden">
+         <!-- Hero Section -->
+         <section id="home" class="section ivory-bg">
+            <div class="max-w-4xl mx-auto text-center">
+               <div class="mb-8 reveal fade-up">
+                  <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80" 
+                     alt="Couple in Minang Attire" 
+                     class="w-full max-w-lg mx-auto rounded-none shadow-2xl border-4 border-yellow-500">
+               </div>
+               <p class="cinzel text-lg md:text-xl mb-4" style="color: var(--maroon);">The Wedding Of</p>
+               <h2 class="cinzel text-5xl md:text-7xl mb-6 reveal fade-up" style="color: var(--gold);">
+                  Rifqi & Ayu
+               </h2>
+            </div>
+         </section>
+         <!-- Ayat Suci -->
+         <section id="ayat" class="section">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-8 reveal" style="color: var(--gold);">Ayat Suci</h3>
+               <div class="bg-[#800000] p-8 border-4 border-yellow-500 reveal">
+                  <p class="text-2xl md:text-3xl mb-4 leading-relaxed" dir="rtl" style="font-family: 'Amiri', serif; color: var(--gold);">
+                     وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+                  </p>
+                  <p class="italic text-base md:text-lg opacity-90 mb-4">
+                     “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.”
+                  </p>
+                  <p class="text-sm font-semibold" style="color: var(--gold);">— QS. Ar-Rum: 21</p>
+               </div>
+            </div>
+         </section>
+         <!-- Mempelai -->
+         <section id="mempelai" class="section ivory-bg">
+            <div class="max-w-4xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--maroon);">Mempelai</h3>
+               <div class="grid md:grid-cols-2 gap-12 items-center">
+                  <!-- Groom -->
+                  <div class="text-center reveal">
+                     <div class="diamond-frame mx-auto">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Groom">
+                     </div>
+                     <h4 class="cinzel text-3xl mb-3" style="color: var(--gold);">Muhammad Rifqi</h4>
+                     <p class="text-base mb-2">Anak dari</p>
+                     <p class="text-sm">Bapak Suryanto & Ibu Siti Nurhaliza</p>
+                     <p class="text-sm opacity-70 mt-2">Yogyakarta</p>
+                  </div>
+                  <!-- Bride -->
+                  <div class="text-center reveal right">
+                     <div class="diamond-frame mx-auto">
+                        <img src="https://images.unsplash.com/photo-1583952812544-c5f2c8b60dc0?w=400&q=80" alt="Bride">
+                     </div>
+                     <h4 class="cinzel text-3xl mb-3" style="color: var(--gold);">Ayu Lestari</h4>
+                     <p class="text-base mb-2">Anak dari</p>
+                     <p class="text-sm">Bapak Bambang Wijaya & Ibu Endah Susilowati</p>
+                     <p class="text-sm opacity-70 mt-2">Solo</p>
+                  </div>
+               </div>
+               <div class="floral-divider reveal"></div>
+            </div>
+         </section>
+         <!-- Galeri -->
+         <section id="galeri" class="section">
+            <div class="max-w-4xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--gold);">Galeri Prewedding</h3>
+               <div class="columns-2 sm:columns-3 gap-4 reveal">
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 1">
+                  </div>
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 2">
+                  </div>
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 3">
+                  </div>
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 4">
+                  </div>
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 5">
+                  </div>
+                  <div class="mb-4 break-inside-avoid">
+                     <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&q=80" 
+                        class="w-full h-auto border-4 border-yellow-500" alt="Photo 6">
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- Detail Acara -->
+         <section id="acara" class="section ivory-bg">
+            <div class="max-w-3xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--maroon);">Detail Acara</h3>
+               <!-- Akad Nikah -->
+               <div class="event-card reveal">
+                  <div class="flex items-center mb-4">
+                     <span class="event-icon">📅</span>
+                     <h4 class="cinzel text-2xl" style="color: var(--maroon);">Akad Nikah</h4>
+                  </div>
+                  <p class="font-semibold">Jumat, 20 Juni 2026</p>
+                  <p>Pukul 08.00 WIB</p>
+                  <div class="mt-4 pt-4 border-t border-yellow-500">
+                     <p class="font-medium">Masjid Agung Kauman</p>
+                     <p class="text-sm opacity-80">Jl. Kauman No. 1, Yogyakarta</p>
+                  </div>
+               </div>
+               <!-- Resepsi -->
+               <div class="event-card reveal">
+                  <div class="flex items-center mb-4">
+                     <span class="event-icon">🍽️</span>
+                     <h4 class="cinzel text-2xl" style="color: var(--maroon);">Resepsi</h4>
+                  </div>
+                  <p class="font-semibold">Jumat, 20 Juni 2026</p>
+                  <p>Pukul 11.00 – 15.00 WIB</p>
+                  <div class="mt-4 pt-4 border-t border-yellow-500">
+                     <p class="font-medium">Pendopo Keraton Yogyakarta</p>
+                     <p class="text-sm opacity-80">Jl. Rotowijayan Blok No. 1, Yogyakarta</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- RSVP -->
+         <section id="rsvp" class="section">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--gold);">Konfirmasi Kehadiran</h3>
+               <p class="text-lg mb-8 reveal">Mohon konfirmasi kehadiran Anda melalui formulir berikut:</p>
+               <div class="bg-[#800000] p-4 rounded-none border-4 border-yellow-500 reveal">
+                  <iframe id="rsvpIframe" src="" width="100%" height="500" frameborder="0"></iframe>
+               </div>
+            </div>
+         </section>
+         <!-- Map -->
+         <section id="map" class="section ivory-bg">
+            <div class="max-w-3xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--maroon);">Lokasi Acara</h3>
+               <div class="rounded-none overflow-hidden shadow-lg mb-6 border-4 border-yellow-500 reveal">
+                  <iframe 
+                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.9634795434645!2d110.36405631477709!3d-7.805394394383825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sKeraton%20Ngayogyakarta%20Hadiningrat!5e0!3m2!1sen!2sid!4v1234567890" 
+                     width="100%" 
+                     height="300" 
+                     style="border:0;" 
+                     allowfullscreen="" 
+                     loading="lazy">
+                  </iframe>
+               </div>
+               <a href="https://goo.gl/maps/YourMapLink" target="_blank" class="btn-gold inline-block mt-4">
+               PETUNJUK ARAH
+               </a>
+            </div>
+         </section>
+         <!-- Gift -->
+         <section id="gift" class="section">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--gold);">Tali Asih</h3>
+               <p class="text-base mb-8 reveal">
+                  Doa restu Bapak/Ibu/Saudara/i merupakan karunia terindah bagi kami. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.
+               </p>
+               <div class="space-y-4">
+                  <!-- Bank 1 -->
+                  <div class="gift-card reveal">
+                     <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank BCA</p>
+                     <p class="text-xl font-semibold mb-1">1234567890</p>
+                     <p class="text-base mb-3">a.n. Muhammad Rifqi</p>
+                     <button onclick="copyToClipboard('1234567890')" class="btn-gold">
+                     Salin Rekening
+                     </button>
+                  </div>
+                  <!-- Bank 2 -->
+                  <div class="gift-card reveal">
+                     <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank Mandiri</p>
+                     <p class="text-xl font-semibold mb-1">0987654321</p>
+                     <p class="text-base mb-3">a.n. Ayu Lestari</p>
+                     <button onclick="copyToClipboard('0987654321')" class="btn-gold">
+                     Salin Rekening
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- Thank You -->
+         <section id="thanks" class="section ivory-bg">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--maroon);">Tarimo Kasih</h3>
+               <div class="reveal">
+                  <p class="text-lg leading-relaxed mb-8">
+                     Atas doa dan restu Bapak/Ibu/Saudara/i, kami haturkan terima kasih yang tulus.
+                  </p>
+                  <div class="text-5xl mb-4">🙏</div>
+                  <p class="text-base opacity-80">
+                     Wassalamu’alaikum Warahmatullahi Wabarakatuh
+                  </p>
+               </div>
+            </div>
+         </section>
+         <!-- Footer -->
+         <footer class="py-6 text-center text-sm opacity-80" style="background-color: var(--maroon);">
+            <p>Created by AdDakwa</p>
+         </footer>
+      </div>
+      <!-- Scripts -->
+      <script>
+         // Animation for Gonjong on welcome screen
+         document.addEventListener('DOMContentLoaded', () => {
+           const gonjong = document.querySelector('.gonjong');
+           if (gonjong) {
+             gonjong.style.opacity = '0';
+             gonjong.style.transform = 'translateY(-50px)';
+             setTimeout(() => {
+               gonjong.style.transition = 'all 1s ease-out';
+               gonjong.style.opacity = '1';
+               gonjong.style.transform = 'translateY(0)';
+             }, 300);
+           }
+           
+           // Parse guest name from URL
+           const urlParams = new URLSearchParams(window.location.search);
+           const guestName = urlParams.get('to') || 'Bapak/Ibu/Saudara/i';
+           document.getElementById('guestNameDisplay').textContent = guestName.toUpperCase();
+         });
+         
+         // Open invitation
+         function openInvitation() {
+           document.getElementById('welcomeOverlay').classList.add('hidden');
+           document.getElementById('mainContent').classList.remove('hidden');
+           
+           // Inject RSVP iframe
+           const urlParams = new URLSearchParams(window.location.search);
+           const guestName = urlParams.get('to') || 'Guest';
+           const iframe = document.getElementById('rsvpIframe');
+           iframe.src = `https://rsvp.addakwa.com/rifqi/?to=${encodeURIComponent(guestName)}`;
+           
+           initReveal();
+         }
+         
+         // Copy to clipboard
+         function copyToClipboard(text) {
+           navigator.clipboard.writeText(text).then(() => {
+             alert('Nomor rekening berhasil disalin!');
+           }).catch(err => {
+             console.error('Gagal menyalin: ', err);
+           });
+         }
+         
+         // Intersection Observer for Reveal Animation
+         function initReveal() {
+           const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                 entry.target.classList.add('active');
+               }
+             });
+           }, { threshold: 0.1 });
+         
+           document.querySelectorAll('.reveal').forEach(el => {
+             observer.observe(el);
+           });
+         }
+      </script>
+   </body>
+</html>
