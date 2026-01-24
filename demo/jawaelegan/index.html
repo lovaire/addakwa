@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pawiwahan Ageng - Javanese Wedding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ivory: #FDFBF7;
+            --teak: #4A3B32;
+            --gold: #C6A87C;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--ivory);
+            color: var(--teak);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Batik Pattern Background Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImJhdGlrIiB3aWR0aD0iODAiIGhlaWdodD0iODAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPjxjaXJjbGUgY3g9IjQwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiNDNkE4N0MiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjEiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIyNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQzZBODdDIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4wNSIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIxMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQzZBODdDIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4wOCIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iODAiIHI9IjEwIiBmaWxsPSJub25lIiBzdHJva2U9IiNDNkE4N0MiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjA4Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2JhdGlrKSIvPjwvc3ZnPg==');
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Container for mobile centering */
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            background: var(--ivory);
+        }
+
+        /* Welcome Overlay */
+        .welcome-overlay {
+            background: linear-gradient(rgba(74, 59, 50, 0.9), rgba(74, 59, 50, 0.85));
+        }
+
+        /* Gunungan Animation */
+        .gunungan {
+            animation: riseUp 2s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes riseUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Styles */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), #D4B896);
+            color: var(--teak);
+            padding: 14px 42px;
+            border: 2px solid var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 0 6px 20px rgba(198, 168, 124, 0.3);
+        }
+
+        .btn-gold:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(198, 168, 124, 0.4);
+        }
+
+        /* Intersection Observer Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Oval/Arch Frames */
+        .oval-frame {
+            width: 240px;
+            height: 320px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--gold), #D4B896);
+            padding: 4px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .oval-frame::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 2px solid rgba(198, 168, 124, 0.3);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            pointer-events: none;
+        }
+
+        .oval-inner {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            background: white;
+        }
+
+        .oval-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Gebyok Frame (Sacred Text) */
+        .gebyok-frame {
+            background: white;
+            border: 3px solid var(--gold);
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .gebyok-frame::before,
+        .gebyok-frame::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gold);
+        }
+
+        .gebyok-frame::before {
+            top: -3px;
+            left: -3px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .gebyok-frame::after {
+            bottom: -3px;
+            right: -3px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Batik Divider */
+        .batik-divider {
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .batik-divider::before {
+            content: '❖';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            font-size: 16px;
+            background: var(--ivory);
+            padding: 0 10px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .gallery-img {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+            filter: sepia(40%) brightness(1.1);
+        }
+
+        .gallery-img:hover {
+            filter: sepia(0%) brightness(1);
+            transform: scale(1.05);
+        }
+
+        .gallery-img img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /* Event Card */
+        .event-card {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Gift Card (Envelope style) */
+        .gift-card {
+            background: linear-gradient(135deg, #FFF8E7, #FFFAF0);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .gift-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 80px solid transparent;
+            border-right: 80px solid transparent;
+            border-top: 50px solid var(--gold);
+            opacity: 0.2;
+        }
+
+        /* Copy Button */
+        .btn-copy {
+            background: var(--gold);
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background: var(--teak);
+        }
+
+        .btn-copy:active {
+            transform: scale(0.95);
+        }
+
+        /* Iframe Container */
+        .iframe-container {
+            width: 100%;
+            height: 600px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .oval-frame {
+                width: 200px;
+                height: 280px;
+            }
+            .gallery-img img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Overlay -->
+    <div id="welcomeOverlay" class="welcome-overlay fixed inset-0 z-50 flex items-center justify-center">
+        <div class="text-center text-white px-6 max-w-md">
+            <!-- Gunungan SVG Illustration -->
+            <div class="gunungan mb-8">
+                <svg viewBox="0 0 200 200" class="w-32 h-32 mx-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 20 L160 180 L40 180 Z" fill="#C6A87C" opacity="0.9"/>
+                    <path d="M100 20 L130 100 L70 100 Z" fill="#D4B896" opacity="0.8"/>
+                    <circle cx="100" cy="60" r="8" fill="#FFF" opacity="0.6"/>
+                    <path d="M85 120 L100 100 L115 120 Z" fill="#FFF" opacity="0.4"/>
+                    <path d="M60 160 L100 140 L140 160 Z" fill="#D4B896" opacity="0.5"/>
+                </svg>
+            </div>
+            
+            <p class="serif-font text-base tracking-[0.3em] mb-5 uppercase opacity-90">
+                The Wedding of
+            </p>
+            
+            <h1 class="script-font text-5xl md:text-6xl mb-8 leading-tight" style="color: var(--gold);">
+                Rifqi & Ayu
+            </h1>
+            
+            <p class="text-lg mb-2 tracking-wide">Kepada Yth,</p>
+            <p id="guestNameDisplay" class="text-xl font-semibold mb-10 opacity-90">Bapak/Ibu/Saudara/i</p>
+            
+            <button onclick="openInvitation()" class="btn-gold text-sm md:text-base">
+                BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="hidden mobile-container">
+        
+        <!-- Section 1: Home/Hero -->
+        <section class="min-h-screen flex items-center justify-center py-16 px-6 relative">
+            <div class="text-center w-full">
+                <div class="reveal mb-8">
+                    <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80" 
+                         alt="Couple" 
+                         class="w-full max-w-lg mx-auto rounded-lg shadow-2xl">
+                </div>
+                
+                <p class="serif-font text-sm md:text-base tracking-[0.3em] mb-4 uppercase reveal" style="color: var(--gold);">
+                    Pawiwahan Ageng
+                </p>
+                
+                <h2 class="script-font text-5xl md:text-7xl mb-6 reveal" style="color: var(--teak);">
+                    Rifqi & Ayu
+                </h2>
+                
+                <div class="batik-divider reveal"></div>
+                
+                <p class="text-lg md:text-xl reveal">
+                    20 Juni 2026
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2: Ayat Suci -->
+        <section class="py-16 px-6">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-8 reveal" style="color: var(--teak);">
+                    Ayat Suci
+                </h3>
+                
+                <div class="gebyok-frame reveal">
+                    <p class="text-2xl md:text-3xl text-center mb-6 leading-relaxed" style="font-family: 'Amiri', serif; direction: rtl; color: var(--teak);">
+                        وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً
+                    </p>
+                    <p class="text-sm md:text-base italic text-center leading-relaxed opacity-80">
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                    </p>
+                    <p class="text-sm text-center mt-4 font-semibold" style="color: var(--gold);">
+                        — QS. Ar-Rum: 21
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Nama Mempelai -->
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--teak);">
+                    Mempelai
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Groom -->
+                    <div class="text-center reveal">
+                        <div class="oval-frame">
+                            <div class="oval-inner">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Groom">
+                            </div>
+                        </div>
+                        <h4 class="script-font text-4xl mt-8 mb-3" style="color: var(--gold);">
+                            Muhammad Rifqi
+                        </h4>
+                        <p class="text-base mb-2">Putra dari</p>
+                        <p class="text-sm">Bapak Suryanto & Ibu Siti Nurhaliza</p>
+                        <p class="text-sm opacity-70 mt-2">Yogyakarta</p>
+                    </div>
+
+                    <!-- Bride -->
+                    <div class="text-center reveal">
+                        <div class="oval-frame">
+                            <div class="oval-inner">
+                                <img src="https://images.unsplash.com/photo-1583952812544-c5f2c8b60dc0?w=400&q=80" alt="Bride">
+                            </div>
+                        </div>
+                        <h4 class="script-font text-4xl mt-8 mb-3" style="color: var(--gold);">
+                            Ayu Lestari
+                        </h4>
+                        <p class="text-base mb-2">Putri dari</p>
+                        <p class="text-sm">Bapak Bambang Wijaya & Ibu Endah Susilowati</p>
+                        <p class="text-sm opacity-70 mt-2">Solo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Galeri -->
+        <section class="py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--teak);">
+                    Galeri Prewedding
+                </h3>
+                
+                <div class="gallery-grid reveal">
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" alt="Photo 1">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=500&q=80" alt="Photo 2">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=500&q=80" alt="Photo 3">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&q=80" alt="Photo 4">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=80" alt="Photo 5">
+                    </div>
+                    <div class="gallery-img">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&q=80" alt="Photo 6">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Detail Acara -->
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--teak);">
+                    Detail Acara
+                </h3>
+                
+                <!-- Akad Nikah -->
+                <div class="event-card reveal">
+                    <div class="text-center mb-6">
+                        <svg class="w-12 h-12 mx-auto mb-3" style="color: var(--gold);" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                        </svg>
+                    </div>
+                    <h4 class="serif-font text-2xl md:text-3xl text-center mb-4" style="color: var(--teak);">
+                        Akad Nikah
+                    </h4>
+                    <div class="text-center space-y-2">
+                        <p class="text-lg font-semibold">Jumat, 20 Juni 2026</p>
+                        <p class="text-base">Pukul 08:00 WIB</p>
+                        <div class="border-t border-b py-4 mt-4" style="border-color: var(--gold);">
+                            <p class="font-semibold">Masjid Agung Kauman</p>
+                            <p class="text-sm opacity-80">Jl. Kauman No. 1, Yogyakarta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pahargyan (Resepsi) -->
+                <div class="event-card reveal">
+                    <div class="text-center mb-6">
+                        <svg class="w-12 h-12 mx-auto mb-3" style="color: var(--gold);" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <h4 class="serif-font text-2xl md:text-3xl text-center mb-4" style="color: var(--teak);">
+                        Pahargyan (Resepsi)
+                    </h4>
+                    <div class="text-center space-y-2">
+                        <p class="text-lg font-semibold">Jumat, 20 Juni 2026</p>
+                        <p class="text-base">Pukul 11:00 - 15:00 WIB</p>
+                        <div class="border-t border-b py-4 mt-4" style="border-color: var(--gold);">
+                            <p class="font-semibold">Pendopo Keraton Yogyakarta</p>
+                            <p class="text-sm opacity-80">Jl. Rotowijayan Blok No. 1, Yogyakarta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: RSVP -->
+        <section class="py-16 px-6">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-8 reveal" style="color: var(--teak);">
+                    Konfirmasi Kehadiran
+                </h3>
+                
+                <p class="text-center text-lg mb-8 reveal">
+                    Mohon konfirmasi kehadiran Anda melalui formulir berikut:
+                </p>
+                
+                <div class="iframe-container reveal">
+                    <iframe id="rsvpIframe" src="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Map (Lokasi) -->
+        <section class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-8 reveal" style="color: var(--teak);">
+                    Lokasi Acara
+                </h3>
+                
+                <div class="reveal">
+                    <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg mb-6">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.9634795434645!2d110.36405631477709!3d-7.805394394383825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sKeraton%20Ngayogyakarta%20Hadiningrat!5e0!3m2!1sen!2sid!4v1234567890" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="https://goo.gl/maps/YourMapLink" target="_blank" class="btn-gold inline-block text-sm md:text-base">
+                            PETUNJUK ARAH
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Gift (Tali Asih) -->
+        <section class="py-16 px-6">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl text-center mb-8 reveal" style="color: var(--teak);">
+                    Tali Asih
+                </h3>
+                
+                <p class="text-center text-base mb-8 reveal">
+                    Doa restu Bapak/Ibu/Saudara/i merupakan karunia terindah bagi kami. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.
+                </p>
+                
+                <div class="space-y-4">
+                    <!-- Bank 1 -->
+                    <div class="gift-card reveal">
+                        <div class="text-center">
+                            <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank BCA</p>
+                            <p class="text-xl font-semibold mb-1">1234567890</p>
+                            <p class="text-base mb-3">a.n. Muhammad Rifqi</p>
+                            <button onclick="copyToClipboard('1234567890')" class="btn-copy">
+                                Salin Rekening
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bank 2 -->
+                    <div class="gift-card reveal">
+                        <div class="text-center">
+                            <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank Mandiri</p>
+                            <p class="text-xl font-semibold mb-1">0987654321</p>
+                                                <p class="text-base mb-3">a.n. Ayu Lestari</p>
+                            <button onclick="copyToClipboard('0987654321')" class="btn-copy">
+                                Salin Rekening
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Thanks -->
+        <section class="py-16 px-6 bg-white text-center">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="serif-font text-3xl md:text-4xl mb-6 reveal" style="color: var(--teak);">
+                    Terima Kasih
+                </h3>
+                
+                <div class="reveal">
+                    <p class="text-lg leading-relaxed mb-8">
+                        Atas segala doa, dukungan, dan kehadiran Bapak/Ibu/Saudara/i, kami haturkan terima kasih yang tulus.
+                    </p>
+                    
+                    <div class="script-font text-5xl md:text-6xl" style="color: var(--gold); margin-bottom: 1rem;">
+                        🙏
+                    </div>
+                    
+                    <p class="text-base opacity-80">
+                        Wassalamu’alaikum Warahmatullahi Wabarakatuh
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 px-6 text-center text-sm opacity-70" style="background-color: var(--ivory);">
+            <p>© 2026 Rifqi & Ayu • Undangan Pernikahan Digital</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Open invitation
+        function openInvitation() {
+            document.getElementById('welcomeOverlay').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            initReveal();
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor rekening berhasil disalin!');
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+            });
+        }
+
+        // Intersection Observer for reveal animation
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Set guest name (optional personalization)
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to') || 'Bapak/Ibu/Saudara/i';
+            document.getElementById('guestNameDisplay').textContent = guestName;
+        });
+    </script>
+</body>
+</html>

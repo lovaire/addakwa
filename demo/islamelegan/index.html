@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Pernikahan Rifqi & Ayu</title>
+      <!-- Tailwind CSS CDN -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cinzel+Decorative:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+      <style>
+         :root {
+         --ivory: #FDFBF7;
+         --dark-text: #1F2937;
+         --emerald: #04471C;
+         --gold: #D4AF37;
+         }
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'Lato', sans-serif;
+         background-color: var(--ivory);
+         color: var(--dark-text);
+         overflow-x: hidden;
+         position: relative;
+         }
+         /* Islamic Geometric Pattern Overlay */
+         body::before {
+         content: '';
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%2304471C' stroke-width='0.5' d='M0 0l100 100M100 0L0 100' opacity='0.03'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='%23D4AF37' stroke-width='0.5' opacity='0.02'/%3E%3C/svg%3E");
+         pointer-events: none;
+         z-index: 0;
+         }
+         .arabic-calligraphy {
+         font-family: 'Amiri', serif;
+         font-size: 2.5rem;
+         color: var(--emerald);
+         text-align: center;
+         }
+         .cinzel {
+         font-family: 'Cinzel Decorative', serif;
+         }
+         .mihrab-frame {
+         width: 220px;
+         height: 280px;
+         margin: 0 auto;
+         position: relative;
+         clip-path: path('M20,0 C50,0 170,0 200,0 C200,80 200,200 100,280 C0,200 0,80 0,0 Z');
+         background: white;
+         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+         }
+         .mihrab-frame img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         }
+         .floating {
+         animation: float 6s ease-in-out infinite;
+         }
+         @keyframes float {
+         0%, 100% { transform: translateY(0); }
+         50% { transform: translateY(-15px); }
+         }
+         .spin-slow {
+         animation: spin 20s linear infinite;
+         }
+         @keyframes spin {
+         from { transform: rotate(0deg); }
+         to { transform: rotate(360deg); }
+         }
+         .reveal {
+         opacity: 0;
+         transform: translateY(40px);
+         transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+         }
+         .reveal.active {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         .countdown-box {
+         background: var(--ivory);
+         border: 2px solid var(--gold);
+         border-radius: 8px;
+         padding: 16px;
+         text-align: center;
+         min-width: 80px;
+         }
+         .countdown-number {
+         font-size: 2rem;
+         font-weight: 700;
+         color: var(--emerald);
+         }
+         .countdown-label {
+         font-size: 0.875rem;
+         color: var(--dark-text);
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         }
+         /* Navbar */
+         .bottom-nav {
+         background: rgba(4, 71, 28, 0.85);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         border-top-left-radius: 16px;
+         border-top-right-radius: 16px;
+         }
+         .nav-icon {
+         color: var(--gold);
+         font-size: 1.25rem;
+         }
+         /* Responsive */
+         @media (max-width: 768px) {
+         .mihrab-frame {
+         width: 180px;
+         height: 240px;
+         }
+         .arabic-calligraphy {
+         font-size: 2rem;
+         }
+         }
+      </style>
+   </head>
+   <body class="relative">
+      <!-- Welcome Overlay -->
+      <div id="welcomeOverlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#04471C]">
+         <div class="text-center px-6 max-w-md relative">
+            <!-- Corner Ornaments -->
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="Ornament" class="absolute top-6 left-6 w-12 h-12 spin-slow opacity-70">
+            <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="Ornament" class="absolute top-6 right-6 w-12 h-12 spin-slow opacity-70 rotate-90">
+            <div class="mb-6 floating">
+               <div class="arabic-calligraphy">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            </div>
+            <p class="cinzel text-base tracking-widest mb-4 text-[#D4AF37] uppercase">The Wedding of</p>
+            <h1 class="cinzel text-5xl md:text-6xl mb-6" style="color: var(--gold);">Rifqi & Ayu</h1>
+            <p class="text-lg mb-2 text-white">Kepada Yth,</p>
+            <p id="guestNameDisplay" class="text-xl font-semibold mb-8 text-white/90">Bapak/Ibu/Saudara/i</p>
+            <button onclick="openInvitation()" class="px-8 py-3 bg-[#D4AF37] text-[#04471C] font-bold rounded-full shadow-lg hover:bg-[#c9a02a] transition-all duration-300">
+            BUKA UNDANGAN
+            </button>
+         </div>
+      </div>
+      <!-- Main Content -->
+      <div id="mainContent" class="hidden">
+         <!-- Hero Section -->
+         <section id="home" class="min-h-screen flex flex-col items-center justify-center py-16 px-6 relative">
+            <div class="text-center max-w-2xl">
+               <h2 class="cinzel text-5xl md:text-7xl mb-6 reveal" style="color: var(--emerald);">Rifqi & Ayu</h2>
+               <p class="text-lg md:text-xl reveal">20 Juni 2026</p>
+            </div>
+         </section>
+         <!-- Ayat Suci -->
+         <section id="ayat" class="py-16 px-6 bg-white relative">
+            <div class="max-w-2xl mx-auto text-center relative">
+               <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="Floral" class="absolute -top-6 -left-6 w-16 h-16 opacity-60">
+               <img src="https://i.ibb.co/vz134C6/corner-floral-gold.png" alt="Floral" class="absolute -top-6 -right-6 w-16 h-16 opacity-60 rotate-90">
+               <h3 class="cinzel text-3xl md:text-4xl mb-8 reveal" style="color: var(--emerald);">Ayat Suci</h3>
+               <div class="bg-[#FDFBF7] p-8 border-2 border-[#D4AF37] rounded-xl reveal">
+                  <p class="text-2xl md:text-3xl mb-4 font-amiri leading-relaxed" dir="rtl" style="font-family: 'Amiri', serif; color: var(--emerald);">
+                     وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+                  </p>
+                  <p class="italic text-base md:text-lg opacity-90 mb-4">
+                     “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.”
+                  </p>
+                  <p class="text-sm font-semibold" style="color: var(--gold);">— QS. Ar-Rum: 21</p>
+               </div>
+            </div>
+         </section>
+         <!-- Mempelai -->
+         <section id="mempelai" class="py-16 px-6 bg-[#FDFBF7]">
+            <div class="max-w-4xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--emerald);">Mempelai</h3>
+               <div class="grid md:grid-cols-2 gap-12 items-center">
+                  <!-- Groom -->
+                  <div class="text-center reveal">
+                     <div class="mihrab-frame mx-auto mb-6">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Groom">
+                     </div>
+                     <h4 class="cinzel text-3xl mb-3" style="color: var(--gold);">Muhammad Rifqi</h4>
+                     <p class="text-base mb-2">Putra dari</p>
+                     <p class="text-sm">Bapak Suryanto & Ibu Siti Nurhaliza</p>
+                     <p class="text-sm opacity-70 mt-2">Yogyakarta</p>
+                  </div>
+                  <!-- Bride -->
+                  <div class="text-center reveal">
+                     <div class="mihrab-frame mx-auto mb-6">
+                        <img src="https://images.unsplash.com/photo-1583952812544-c5f2c8b60dc0?w=400&q=80" alt="Bride">
+                     </div>
+                     <h4 class="cinzel text-3xl mb-3" style="color: var(--gold);">Ayu Lestari</h4>
+                     <p class="text-base mb-2">Putri dari</p>
+                     <p class="text-sm">Bapak Bambang Wijaya & Ibu Endah Susilowati</p>
+                     <p class="text-sm opacity-70 mt-2">Solo</p>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- Galeri -->
+         <section id="galeri" class="py-16 px-6">
+            <div class="max-w-4xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl text-center mb-12 reveal" style="color: var(--emerald);">Galeri Prewedding</h3>
+               <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal">
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 1">
+                  </div>
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 2">
+                  </div>
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 3">
+                  </div>
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 4">
+                  </div>
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 5">
+                  </div>
+                  <div class="rounded-xl overflow-hidden shadow-md">
+                     <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&q=80" class="w-full h-48 object-cover" alt="Photo 6">
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- Detail Acara -->
+         <section id="acara" class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-12 reveal" style="color: var(--emerald);">Detail Acara</h3>
+               <!-- Countdown Timer -->
+               <div class="flex justify-center space-x-4 mb-12 reveal">
+                  <div class="countdown-box">
+                     <div class="countdown-number" id="days">00</div>
+                     <div class="countdown-label">Hari</div>
+                  </div>
+                  <div class="countdown-box">
+                     <div class="countdown-number" id="hours">00</div>
+                     <div class="countdown-label">Jam</div>
+                  </div>
+                  <div class="countdown-box">
+                     <div class="countdown-number" id="minutes">00</div>
+                     <div class="countdown-label">Menit</div>
+                  </div>
+                  <div class="countdown-box">
+                     <div class="countdown-number" id="seconds">00</div>
+                     <div class="countdown-label">Detik</div>
+                  </div>
+               </div>
+               <!-- Akad Nikah -->
+               <div class="bg-[#FDFBF7] p-6 rounded-xl border-2 border-[#D4AF37] mb-8 reveal">
+                  <h4 class="cinzel text-2xl mb-3" style="color: var(--emerald);">Akad Nikah</h4>
+                  <p class="font-semibold">Jumat, 20 Juni 2026</p>
+                  <p>Pukul 08.00 WIB</p>
+                  <p class="mt-3 font-medium">Masjid Agung Kauman, Yogyakarta</p>
+               </div>
+               <!-- Walimatul Ursy -->
+               <div class="bg-[#FDFBF7] p-6 rounded-xl border-2 border-[#D4AF37] reveal">
+                  <h4 class="cinzel text-2xl mb-3" style="color: var(--emerald);">Walimatul Ursy</h4>
+                  <p class="font-semibold">Jumat, 20 Juni 2026</p>
+                  <p>Pukul 11.00 – 15.00 WIB</p>
+                  <p class="mt-3 font-medium">Pendopo Keraton Yogyakarta</p>
+               </div>
+            </div>
+         </section>
+         <!-- RSVP -->
+         <section id="rsvp" class="py-16 px-6 bg-[#FDFBF7]">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--emerald);">Konfirmasi Kehadiran</h3>
+               <p class="text-lg mb-8 reveal">Mohon konfirmasi kehadiran Anda melalui formulir berikut:</p>
+               <div class="bg-white p-4 rounded-xl border-2 border-[#D4AF37] reveal">
+                  <iframe src="https://docs.google.com/forms/d/e/your-form-id/viewform?embedded=true" 
+                     width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">
+                  Loading…
+                  </iframe>
+               </div>
+            </div>
+         </section>
+         <!-- Map -->
+         <section id="map" class="py-16 px-6 bg-white">
+            <div class="max-w-3xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--emerald);">Lokasi Acara</h3>
+               <div class="rounded-xl overflow-hidden shadow-lg mb-6 reveal">
+                  <iframe 
+                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.9634795434645!2d110.36405631477709!3d-7.805394394383825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sKeraton%20Ngayogyakarta%20Hadiningrat!5e0!3m2!1sen!2sid!4v1234567890" 
+                     width="100%" 
+                     height="300" 
+                     style="border:0;" 
+                     allowfullscreen="" 
+                     loading="lazy">
+                  </iframe>
+               </div>
+               <a href="https://goo.gl/maps/YourMapLink" target="_blank" class="inline-block px-6 py-3 bg-[#D4AF37] text-[#04471C] font-bold rounded-full mt-4 hover:bg-[#c9a02a] transition">
+               PETUNJUK ARAH
+               </a>
+            </div>
+         </section>
+         <!-- Gift -->
+         <section id="gift" class="py-16 px-6 bg-[#FDFBF7]">
+            <div class="max-w-2xl mx-auto text-center">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--emerald);">Tali Asih</h3>
+               <p class="text-base mb-8 reveal">
+                  Doa restu Bapak/Ibu/Saudara/i merupakan karunia terindah bagi kami. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.
+               </p>
+               <div class="space-y-4">
+                  <div class="bg-white p-6 rounded-xl border-2 border-[#D4AF37] reveal">
+                     <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank BCA</p>
+                     <p class="text-xl font-semibold mb-1">1234567890</p>
+                     <p class="text-base mb-3">a.n. Muhammad Rifqi</p>
+                     <button onclick="copyToClipboard('1234567890')" class="px-4 py-2 bg-[#D4AF37] text-white rounded hover:bg-[#c9a02a] transition">
+                     Salin Rekening
+                     </button>
+                  </div>
+                  <div class="bg-white p-6 rounded-xl border-2 border-[#D4AF37] reveal">
+                     <p class="text-sm uppercase tracking-wider mb-2" style="color: var(--gold);">Bank Mandiri</p>
+                     <p class="text-xl font-semibold mb-1">0987654321</p>
+                     <p class="text-base mb-3">a.n. Ayu Lestari</p>
+                     <button onclick="copyToClipboard('0987654321')" class="px-4 py-2 bg-[#D4AF37] text-white rounded hover:bg-[#c9a02a] transition">
+                     Salin Rekening
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- Thank You -->
+         <section id="thanks" class="py-16 px-6 bg-white text-center">
+            <div class="max-w-2xl mx-auto">
+               <h3 class="cinzel text-3xl md:text-4xl mb-6 reveal" style="color: var(--emerald);">Terima Kasih</h3>
+               <div class="reveal">
+                  <p class="text-lg leading-relaxed mb-8">
+                     Atas segala doa, dukungan, dan kehadiran Bapak/Ibu/Saudara/i, kami haturkan terima kasih yang tulus.
+                  </p>
+                  <div class="text-5xl mb-4">🤲</div>
+                  <p class="text-base opacity-80">
+                     Wassalamu’alaikum Warahmatullahi Wabarakatuh
+                  </p>
+               </div>
+            </div>
+         </section>
+         <!-- Footer -->
+         <footer class="py-6 text-center text-sm opacity-70" style="background-color: var(--ivory);">
+            <p>© 2026 Rifqi & Ayu • Undangan Pernikahan Digital</p>
+         </footer>
+      </div>
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav fixed bottom-0 left-0 right-0 z-40 py-3 px-6 flex justify-around items-center">
+         <a href="#home" class="flex flex-col items-center nav-icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span class="text-xs mt-1 text-white">Home</span>
+         </a>
+         <a href="#mempelai" class="flex flex-col items-center nav-icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+            <span class="text-xs mt-1 text-white">Couple</span>
+         </a>
+         <a href="#acara" class="flex flex-col items-center nav-icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+            </svg>
+            <span class="text-xs mt-1 text-white">Event</span>
+         </a>
+         <a href="#rsvp" class="flex flex-col items-center nav-icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <span class="text-xs mt-1 text-white">RSVP</span>
+         </a>
+      </nav>
+      <!-- Scripts -->
+      <script>
+         // Open invitation
+         function openInvitation() {
+           document.getElementById('welcomeOverlay').classList.add('hidden');
+           document.getElementById('mainContent').classList.remove('hidden');
+           initReveal();
+           startCountdown();
+         }
+         
+         // Copy to clipboard
+         function copyToClipboard(text) {
+           navigator.clipboard.writeText(text).then(() => {
+             alert('Nomor rekening berhasil disalin!');
+           }).catch(err => {
+             console.error('Gagal menyalin: ', err);
+           });
+         }
+         
+         // Countdown Timer
+         function startCountdown() {
+           const weddingDate = new Date('June 20, 2026 08:00:00').getTime();
+           const updateCountdown = () => {
+             const now = new Date().getTime();
+             const distance = weddingDate - now;
+         
+             if (distance < 0) {
+               document.getElementById('days').innerText = '00';
+               document.getElementById('hours').innerText = '00';
+               document.getElementById('minutes').innerText = '00';
+               document.getElementById('seconds').innerText = '00';
+               return;
+             }
+         
+             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+         
+             document.getElementById('days').innerText = String(days).padStart(2, '0');
+             document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+             document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+             document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+           };
+           updateCountdown();
+           setInterval(updateCountdown, 1000);
+         }
+         
+         // Intersection Observer for Reveal Animation
+         function initReveal() {
+           const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                 entry.target.classList.add('active');
+               } else {
+                 entry.target.classList.remove('active');
+               }
+             });
+           }, { threshold: 0.1 });
+         
+           document.querySelectorAll('.reveal').forEach(el => {
+             observer.observe(el);
+           });
+         }
+         
+         // Guest Name Personalization
+         window.addEventListener('DOMContentLoaded', () => {
+           const urlParams = new URLSearchParams(window.location.search);
+           const guestName = urlParams.get('to') || 'Bapak/Ibu/Saudara/i';
+           document.getElementById('guestNameDisplay').textContent = guestName;
+         });
+      </script>
+   </body>
+</html>
