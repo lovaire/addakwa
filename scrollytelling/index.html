@@ -1,98 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Scrollytelling Portrait - Final</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrollytelling Addakwa</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height: 100%; overflow-x: hidden; background: black; }
-    
+    /* Reset dasar */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
+      background-color: #000;
+      /* HEIGHT adalah kunci kecepatan scroll. 
+         Semakin tinggi vh, semakin lambat animasinya.
+         Coba ganti 400vh ke 600vh jika ingin lebih pelan.
+      */
+      height: 400vh; 
+      margin: 0;
+    }
+
+    /* Wadah canvas agar selalu di tengah */
+    .canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
+      z-index: 1; /* Pastikan di bawah konten lain jika ada */
     }
 
     canvas {
       display: block;
-      width: auto;
-      height: 100vh;
-      aspect-ratio: 9/16;
+      /* Agar responsif tapi tetap menjaga rasio */
+      max-width: 100%;
+      max-height: 100vh;
+      object-fit: contain; 
     }
 
-    /* Scroll space untuk trigger scroll */
-    #scroll-space {
-      width: 0;
+    /* Loading text (optional) */
+    #loader {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: sans-serif;
+      z-index: 10;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-<canvas id="canvas"></canvas>
-<div id="scroll-space"></div>
+  <div id="loader">Loading 0%...</div>
 
-<script>
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
+  <div class="canvas-container">
+    <canvas id="hero-scrolly"></canvas>
+  </div>
 
-  const frameCount = 16; // ganti sesuai jumlah frame
-  const images = [];
-  let ready = false;
+  <script>
+    const canvas = document.getElementById("hero-scrolly");
+    const context = canvas.getContext("2d");
+    const loader = document.getElementById("loader");
 
-  // Path folder scrollytelling
-  const framePath = i => `/scrollytelling/frames/frame_${String(i).padStart(6,"0")}.webp`;
+    // KONFIGURASI
+    const frameCount = 16; // Total gambar (0 s/d 15)
+    
+    // Fungsi untuk generate URL gambar
+    const currentFrame = index => (
+      `https://www.addakwa.com/scrollytelling/frames/frame_${index.toString().padStart(6, '0')}.webp`
+    );
 
-  // Set canvas size
-  canvas.width = 720;
-  canvas.height = 1280;
+    const images = [];
+    const scrollState = { frame: 0 };
 
-  // Preload images
-  let loaded = 0;
-  for(let i=0; i<frameCount; i++){
-    const img = new Image();
-    img.src = framePath(i);
-    img.onload = () => {
-      loaded++;
-      if(loaded === 1){
-        ready = true;
-        drawFrame(0);
+    // Set ukuran internal canvas (Resolusi HD Vertikal / 9:16)
+    canvas.width = 720;
+    canvas.height = 1280;
+
+    // 1. PRELOAD IMAGES
+    // Kita harus load semua gambar dulu agar transisi mulus
+    let imagesLoaded = 0;
+
+    const preloadImages = () => {
+      for (let i = 0; i < frameCount; i++) {
+        const img = new Image();
+        img.src = currentFrame(i);
+        
+        img.onload = () => {
+          imagesLoaded++;
+          // Update text loading
+          const percent = Math.round((imagesLoaded / frameCount) * 100);
+          loader.innerText = `Loading ${percent}%...`;
+
+          // Jika semua sudah load
+          if (imagesLoaded === frameCount) {
+            loader.style.opacity = 0; // Sembunyikan loader
+            render(); // Gambar frame pertama
+          }
+        };
+
+        img.onerror = () => {
+          console.error(`Gagal load gambar index: ${i}`);
+        };
+
+        images.push(img);
       }
     };
-    img.onerror = () => console.error("Gagal load:", img.src);
-    images.push(img);
-  }
 
-  function drawFrame(i){
-    if(!images[i]) return;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.drawImage(images[i],0,0,canvas.width,canvas.height);
-  }
+    // 2. FUNGSI GAMBAR KE CANVAS
+    const render = () => {
+      // Pastikan gambar sudah ada di array sebelum digambar
+      if (images[scrollState.frame]) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(images[scrollState.frame], 0, 0);
+      }
+    };
 
-  // Automatic scroll-space height based on frame count
-  const scrollSpace = document.getElementById("scroll-space");
-  scrollSpace.style.height = `${frameCount * 100}vh`; // 1 layar per frame
+    // 3. LOGIKA SCROLL
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+      
+      // Berapa persen user sudah scroll ke bawah? (0.0 s/d 1.0)
+      const scrollFraction = scrollTop / maxScrollTop;
 
-  // Scroll listener
-  window.addEventListener("scroll", ()=>{
-    if(!ready) return;
+      // Konversi persen scroll ke index frame
+      // Math.min memastikan tidak melebihi frameCount - 1
+      const frameIndex = Math.min(
+        frameCount - 1,
+        Math.ceil(scrollFraction * frameCount)
+      );
 
-    const scrollTop = window.scrollY;
-    const pixelsPerFrame = window.innerHeight; // 1 layar = 1 frame
-    const index = Math.min(frameCount-1, Math.floor(scrollTop / pixelsPerFrame));
+      // Hanya render ulang jika frame berubah (performance optimization)
+      if (frameIndex !== scrollState.frame) {
+        scrollState.frame = frameIndex;
+        requestAnimationFrame(render);
+      }
+    });
 
-    drawFrame(index);
-  });
+    // Jalankan preload
+    preloadImages();
 
-  // Optional: responsive canvas
-  function resizeCanvas(){
-    const h = window.innerHeight;
-    const w = h * 9 /16;
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-  }
-  window.addEventListener("resize", resizeCanvas);
-  resizeCanvas();
-</script>
-
+  </script>
 </body>
 </html>
