@@ -26,9 +26,10 @@
     }
 
     canvas {
-      height: 100vh;
-      width: auto; /* penting buat portrait */
+    height: 100vh;
+    aspect-ratio: 9 / 16;
     }
+
 
     .spacer {
       height: 100vh;
@@ -46,53 +47,72 @@
   <section class="spacer"></section>
 
   <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
 
-    // 🔧 SESUAIKAN
-    const frameCount = 16; // TOTAL FILE (misal 000000–000015 = 16)
-    const framePath = i =>
-      `frames/frame_${String(i).padStart(6, "0")}.webp`;
+  const frameCount = 16; // SESUAIKAN
+  const images = [];
+  let ready = false;
 
+  // PASTIIN PATH RELATIVE
+  const framePath = i =>
+    `./frames/frame_${String(i).padStart(6, "0")}.webp`;
 
-    const images = [];
-    let loaded = 0;
+  function resizeCanvas() {
+    const h = window.innerHeight;
+    const w = h * (9 / 16);
 
-    // ukuran portrait (sesuaikan sama frame lo)
+    canvas.style.height = h + "px";
+    canvas.style.width = w + "px";
+
     canvas.width = 720;
     canvas.height = 1280;
+  }
 
-    // preload images
-    for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
-      img.src = framePath(i);
-      img.onload = () => {
-        loaded++;
-        if (loaded === 1) drawFrame(0); // draw frame pertama
-      };
-      images.push(img);
-    }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
-    function drawFrame(index) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(images[index], 0, 0, canvas.width, canvas.height);
-    }
+  function drawFrame(i) {
+    if (!images[i]) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(images[i], 0, 0, canvas.width, canvas.height);
+  }
 
-    window.addEventListener("scroll", () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const maxScroll =
-        document.documentElement.scrollHeight - window.innerHeight;
+  // preload
+  let loaded = 0;
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = framePath(i);
+    img.onload = () => {
+      loaded++;
+      if (loaded === 1) {
+        ready = true;
+        drawFrame(0);
+      }
+    };
+    img.onerror = () => {
+      console.error("Gagal load:", img.src);
+    };
+    images.push(img);
+  }
 
-      const scrollFraction = scrollTop / maxScroll;
+  window.addEventListener("scroll", () => {
+    if (!ready) return;
 
-      const frameIndex = Math.min(
-        frameCount - 1,
-        Math.floor(scrollFraction * frameCount)
-      );
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const scrollTop = window.scrollY;
 
-      requestAnimationFrame(() => drawFrame(frameIndex));
-    });
-  </script>
+    const progress = scrollTop / maxScroll;
+    const index = Math.min(
+      frameCount - 1,
+      Math.floor(progress * frameCount)
+    );
+
+    requestAnimationFrame(() => drawFrame(index));
+  });
+</script>
+
 
 </body>
 </html>
