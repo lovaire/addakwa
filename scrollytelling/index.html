@@ -2,148 +2,147 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scrollytelling Addakwa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Scrollytelling Smooth</title>
   <style>
-    /* Reset dasar */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      background-color: #000;
-      /* HEIGHT adalah kunci kecepatan scroll. 
-         Semakin tinggi vh, semakin lambat animasinya.
-         Coba ganti 400vh ke 600vh jika ingin lebih pelan.
-      */
-      height: 400vh; 
       margin: 0;
-    }
-
-    /* Wadah canvas agar selalu di tengah */
-    .canvas-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1; /* Pastikan di bawah konten lain jika ada */
+      padding: 0;
+      background-color: #000;
+      /* Tinggi body menentukan durasi scroll. 
+         Jika framemu nanti ada 200, set height ke minimal 800vh atau 1000vh
+      */
+      height: 800vh; 
+      overflow-x: hidden;
     }
 
     canvas {
-      display: block;
-      /* Agar responsif tapi tetap menjaga rasio */
-      max-width: 100%;
-      max-height: 100vh;
-      object-fit: contain; 
+      position: fixed; /* KUNCI AGAR TIDAK GESER */
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* Memaksa canvas memenuhi layar */
+      z-index: -1; /* Taruh di belakang */
     }
 
-    /* Loading text (optional) */
-    #loader {
+    #loading {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       color: white;
-      font-family: sans-serif;
-      z-index: 10;
-      pointer-events: none;
+      font-family: Arial, sans-serif;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 20px;
+      border-radius: 8px;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
 
-  <div id="loader">Loading 0%...</div>
+<div id="loading">Loading 0%</div>
+<canvas id="scrolly-canvas"></canvas>
 
-  <div class="canvas-container">
-    <canvas id="hero-scrolly"></canvas>
-  </div>
+<script>
+  // --- KONFIGURASI ---
+  // Ganti frameCount dengan jumlah total file hasil export kamu nanti (misal 225)
+  const frameCount = 16; 
+  
+  // Format nama file
+  const currentFrame = index => 
+    `https://www.addakwa.com/scrollytelling/frames/frame_${index.toString().padStart(6, '0')}.webp`;
+  // -------------------
 
-  <script>
-    const canvas = document.getElementById("hero-scrolly");
-    const context = canvas.getContext("2d");
-    const loader = document.getElementById("loader");
+  const canvas = document.getElementById("scrolly-canvas");
+  const context = canvas.getContext("2d");
+  const loading = document.getElementById("loading");
+  const images = [];
+  
+  // Set canvas size sesuai resolusi layar device saat ini
+  // Ini mencegah gambar buram atau tidak pas
+  function updateCanvasSize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Redraw frame terakhir saat resize window
+    requestAnimationFrame(() => render());
+  }
+  window.addEventListener('resize', updateCanvasSize);
+  updateCanvasSize();
 
-    // KONFIGURASI
-    const frameCount = 16; // Total gambar (0 s/d 15)
+  // --- LOGIKA "COVER" (Agar gambar memenuhi layar tanpa sisa ruang) ---
+  function drawImageProp(ctx, img) {
+    if (!img) return;
+
+    const canvasRatio = ctx.canvas.width / ctx.canvas.height;
+    const imgRatio = img.width / img.height;
     
-    // Fungsi untuk generate URL gambar
-    const currentFrame = index => (
-      `https://www.addakwa.com/scrollytelling/frames/frame_${index.toString().padStart(6, '0')}.webp`
+    let renderWidth, renderHeight, offsetX, offsetY;
+
+    // Jika layar lebih lebar dari gambar (Landscape / PC)
+    if (canvasRatio > imgRatio) {
+      renderWidth = ctx.canvas.width;
+      renderHeight = renderWidth / imgRatio;
+      offsetX = 0;
+      offsetY = (ctx.canvas.height - renderHeight) / 2; // Center Vertikal
+    } 
+    // Jika layar lebih tinggi dari gambar (Portrait / HP Panjang)
+    else {
+      renderHeight = ctx.canvas.height;
+      renderWidth = renderHeight * imgRatio;
+      offsetY = 0;
+      offsetX = (ctx.canvas.width - renderWidth) / 2; // Center Horizontal
+    }
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
+  }
+
+  // --- PRELOAD GAMBAR ---
+  let imagesLoaded = 0;
+  
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+    img.onload = () => {
+      imagesLoaded++;
+      loading.innerText = `Loading ${Math.round((imagesLoaded/frameCount)*100)}%`;
+      
+      if (imagesLoaded === frameCount) {
+        loading.style.display = 'none';
+        render(); // Gambar frame pertama
+      }
+    };
+    images.push(img);
+  }
+
+  // --- SCROLL LOGIC ---
+  let frameIndex = 0;
+
+  function render() {
+    drawImageProp(context, images[frameIndex]);
+  }
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollFraction = scrollTop / maxScrollTop;
+
+    // Hitung index frame berdasarkan % scroll
+    const targetIndex = Math.min(
+      frameCount - 1,
+      Math.ceil(scrollFraction * frameCount)
     );
 
-    const images = [];
-    const scrollState = { frame: 0 };
+    if (targetIndex !== frameIndex) {
+      frameIndex = targetIndex;
+      requestAnimationFrame(render);
+    }
+  });
 
-    // Set ukuran internal canvas (Resolusi HD Vertikal / 9:16)
-    canvas.width = 720;
-    canvas.height = 1280;
+</script>
 
-    // 1. PRELOAD IMAGES
-    // Kita harus load semua gambar dulu agar transisi mulus
-    let imagesLoaded = 0;
-
-    const preloadImages = () => {
-      for (let i = 0; i < frameCount; i++) {
-        const img = new Image();
-        img.src = currentFrame(i);
-        
-        img.onload = () => {
-          imagesLoaded++;
-          // Update text loading
-          const percent = Math.round((imagesLoaded / frameCount) * 100);
-          loader.innerText = `Loading ${percent}%...`;
-
-          // Jika semua sudah load
-          if (imagesLoaded === frameCount) {
-            loader.style.opacity = 0; // Sembunyikan loader
-            render(); // Gambar frame pertama
-          }
-        };
-
-        img.onerror = () => {
-          console.error(`Gagal load gambar index: ${i}`);
-        };
-
-        images.push(img);
-      }
-    };
-
-    // 2. FUNGSI GAMBAR KE CANVAS
-    const render = () => {
-      // Pastikan gambar sudah ada di array sebelum digambar
-      if (images[scrollState.frame]) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(images[scrollState.frame], 0, 0);
-      }
-    };
-
-    // 3. LOGIKA SCROLL
-    window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Berapa persen user sudah scroll ke bawah? (0.0 s/d 1.0)
-      const scrollFraction = scrollTop / maxScrollTop;
-
-      // Konversi persen scroll ke index frame
-      // Math.min memastikan tidak melebihi frameCount - 1
-      const frameIndex = Math.min(
-        frameCount - 1,
-        Math.ceil(scrollFraction * frameCount)
-      );
-
-      // Hanya render ulang jika frame berubah (performance optimization)
-      if (frameIndex !== scrollState.frame) {
-        scrollState.frame = frameIndex;
-        requestAnimationFrame(render);
-      }
-    });
-
-    // Jalankan preload
-    preloadImages();
-
-  </script>
 </body>
 </html>
