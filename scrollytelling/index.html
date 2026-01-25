@@ -50,13 +50,13 @@
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
 
-  const frameCount = 16; // SESUAIKAN
+  const frameCount = 16;
   const images = [];
   let ready = false;
 
-  // PASTIIN PATH RELATIVE
+  const basePath = window.location.pathname.replace(/\/[^\/]*$/, "");
   const framePath = i =>
-    `./frames/frame_${String(i).padStart(6, "0")}.webp`;
+    `${basePath}/frames/frame_${String(i).padStart(6, "0")}.webp`;
 
   function resizeCanvas() {
     const h = window.innerHeight;
@@ -78,7 +78,6 @@
     ctx.drawImage(images[i], 0, 0, canvas.width, canvas.height);
   }
 
-  // preload
   let loaded = 0;
   for (let i = 0; i < frameCount; i++) {
     const img = new Image();
@@ -112,6 +111,7 @@
     requestAnimationFrame(() => drawFrame(index));
   });
 </script>
+
 
 
 </body>
