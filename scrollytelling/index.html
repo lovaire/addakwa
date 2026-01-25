@@ -1,19 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>DEBUG</title>
+  <meta charset="UTF-8">
+  <title>Scrollytelling Portrait</title>
   <style>
-    body { background: black; color: white; }
+    /* Reset & body */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: black;
+    }
+
+    /* Canvas portrait 9:16 */
+    canvas {
+      display: block;
+      width: auto;
+      height: 100vh;
+      aspect-ratio: 9 / 16;
+    }
+
+    /* Tambahan section tinggi untuk scroll */
+    #scroll-space {
+      height: 200vh; /* adjust sesuai panjang scroll */
+      width: 0;
+    }
   </style>
 </head>
 <body>
 
-<h1>JS TEST</h1>
+<canvas id="canvas"></canvas>
+<div id="scroll-space"></div>
 
 <script>
-  alert("JS JALAN");
-  console.log("JS JALAN BRO");
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  const frameCount = 16; // jumlah frame, ganti sesuai frame
+  const images = [];
+  let ready = false;
+
+  // PATH FIX HARDCORE ke folder /scrollytelling/frames/
+  const framePath = i => `/scrollytelling/frames/frame_${String(i).padStart(6,"0")}.webp`;
+
+  // Set canvas size
+  canvas.width = 720;
+  canvas.height = 1280;
+
+  function drawFrame(i){
+    if(!images[i]) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(images[i],0,0,canvas.width,canvas.height);
+  }
+
+  // Preload frames
+  let loaded = 0;
+  for(let i=0; i<frameCount; i++){
+    const img = new Image();
+    img.src = framePath(i);
+    img.onload = () => {
+      loaded++;
+      if(loaded === 1){ // draw first frame
+        ready = true;
+        drawFrame(0);
+      }
+    };
+    img.onerror = () => console.error("Gagal load:", img.src);
+    images.push(img);
+  }
+
+  // Scroll event to update frame
+  window.addEventListener("scroll", ()=>{
+    if(!ready) return;
+
+    const scrollTop = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollTop / maxScroll;
+
+    const index = Math.min(frameCount - 1, Math.floor(progress * frameCount));
+    requestAnimationFrame(()=>drawFrame(index));
+  });
+
+  // Optional: resize canvas dynamically (portrait ratio)
+  function resizeCanvas(){
+    const h = window.innerHeight;
+    const w = h * (9/16);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
 </script>
 
 </body>
