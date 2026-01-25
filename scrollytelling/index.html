@@ -1,104 +1,20 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>Scrollytelling Portrait</title>
-
+  <title>DEBUG</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      height: 300vh; /* panjang scroll */
-      background: #000;
-    }
-
-    .sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    canvas {
-    height: 100vh;
-    aspect-ratio: 9 / 16;
-    }
-
-
-    .spacer {
-      height: 100vh;
-    }
+    body { background: black; color: white; }
   </style>
 </head>
 <body>
 
-  <section class="spacer"></section>
+<h1>JS TEST</h1>
 
-  <section class="sticky">
-    <canvas id="canvas"></canvas>
-  </section>
-
-  <section class="spacer"></section>
-
-  <script>
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-
-  const frameCount = 16;
-  const images = [];
-  let ready = false;
-
-  const framePath = i =>
-    `/scrollytelling/frames/frame_${String(i).padStart(6, "0")}.webp`;
-
-  canvas.width = 720;
-  canvas.height = 1280;
-
-  function drawFrame(i) {
-    if (!images[i]) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(images[i], 0, 0, canvas.width, canvas.height);
-  }
-
-  let loaded = 0;
-  for (let i = 0; i < frameCount; i++) {
-    const img = new Image();
-    img.src = framePath(i);
-    img.onload = () => {
-      loaded++;
-      if (loaded === 1) {
-        ready = true;
-        drawFrame(0);
-      }
-    };
-    img.onerror = () => console.error("404:", img.src);
-    images.push(img);
-  }
-
-  window.addEventListener("scroll", () => {
-    if (!ready) return;
-
-    const maxScroll =
-      document.documentElement.scrollHeight - window.innerHeight;
-    const progress = window.scrollY / maxScroll;
-
-    const index = Math.min(
-      frameCount - 1,
-      Math.floor(progress * frameCount)
-    );
-
-    requestAnimationFrame(() => drawFrame(index));
-  });
+<script>
+  alert("JS JALAN");
+  console.log("JS JALAN BRO");
 </script>
-
-
-
 
 </body>
 </html>
