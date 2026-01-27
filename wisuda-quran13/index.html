@@ -856,7 +856,11 @@
                <div class="editable mb-2" style="font-size: 14px; opacity: 0.7;">Sabtu, 14 Februari 2026</div>
             </div>
 
-            <div class="rundown-wrapper animate__animated animate__fadeInUp animate__slow" style="max-height: 55vh; overflow-y: auto; padding-right: 5px;">
+            <div class="rundown-wrapper animate__animated animate__fadeInUp animate__slow" 
+                 style="max-height: 55vh; overflow-y: auto; padding-right: 5px; touch-action: pan-y; overscroll-behavior: contain;"
+                 onwheel="event.stopPropagation()"
+                 ontouchstart="event.stopPropagation()"
+                 ontouchmove="event.stopPropagation()">
                
                <div class="rundown-item mb-3 text-center border-bottom pb-2" style="border-color: rgba(182, 143, 88, 0.3) !important;">
                   <div class="time font-accent color-accent" style="font-size: 24px;">07.30 - 07.35</div>
@@ -900,7 +904,7 @@
                </div>
 
             </div>
-            </div>
+         </div>
       </div>
    </div>
 </li>
