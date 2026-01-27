@@ -1,0 +1,598 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { Download, Plus, Type, Square, Image as ImageIcon, Circle, Trash2, Copy } from 'lucide-react';
+
+const InvitationBuilder = () => {
+  const [elements, setElements] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [draggedId, setDraggedId] = useState(null);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const canvasRef = useRef(null);
+
+  const animationTypes = ['none', 'fadeIn', 'slideUp', 'zoomIn', 'pulse'];
+
+  const addElement = (type) => {
+    const newElement = {
+      id: Date.now(),
+      type,
+      x: 50,
+      y: 50,
+      width: type === 'text' ? 200 : 100,
+      height: type === 'text' ? 40 : 100,
+      content: type === 'text' ? 'Double click to edit' : '',
+      color: type === 'shape' ? '#e0f2fe' : '#000000',
+      backgroundColor: type === 'shape' ? '#0ea5e9' : 'transparent',
+      fontSize: 16,
+      opacity: 100,
+      zIndex: elements.length,
+      shapeType: type === 'shape' ? 'rectangle' : null,
+      borderRadius: 0,
+      animation: 'none',
+      animationDelay: 0,
+      animationDuration: 1,
+      imageSrc: null,
+      imageFileName: null
+    };
+    setElements([...elements, newElement]);
+    setSelectedId(newElement.id);
+  };
+
+  const handleMouseDown = (e, id) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    
+    const element = elements.find(el => el.id === id);
+    const canvas = canvasRef.current.getBoundingClientRect();
+    
+    setDraggedId(id);
+    setSelectedId(id);
+    setDragOffset({
+      x: e.clientX - canvas.left - element.x,
+      y: e.clientY - canvas.top - element.y
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (!draggedId) return;
+    
+    const canvas = canvasRef.current.getBoundingClientRect();
+    const newX = e.clientX - canvas.left - dragOffset.x;
+    const newY = e.clientY - canvas.top - dragOffset.y;
+
+    setElements(elements.map(el => 
+      el.id === draggedId 
+        ? { ...el, x: Math.max(0, Math.min(400 - el.width, newX)), y: Math.max(0, newY) }
+        : el
+    ));
+  };
+
+  const handleMouseUp = () => {
+    setDraggedId(null);
+  };
+
+  useEffect(() => {
+    if (draggedId) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [draggedId, dragOffset]);
+
+  const updateElement = (id, updates) => {
+    setElements(elements.map(el => el.id === id ? { ...el, ...updates } : el));
+  };
+
+  const deleteElement = (id) => {
+    setElements(elements.filter(el => el.id !== id));
+    setSelectedId(null);
+  };
+
+  const duplicateElement = (id) => {
+    const element = elements.find(el => el.id === id);
+    const newElement = {
+      ...element,
+      id: Date.now(),
+      x: element.x + 20,
+      y: element.y + 20,
+      zIndex: elements.length
+    };
+    setElements([...elements, newElement]);
+  };
+
+  const handleImageUpload = (id, e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        updateElement(id, { 
+          imageSrc: event.target.result,
+          imageFileName: file.name
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const generateAnimationCSS = () => {
+    return `
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}`;
+  };
+
+  const exportToHTML = () => {
+    const sortedElements = [...elements].sort((a, b) => a.zIndex - b.zIndex);
+    
+    const elementsHTML = sortedElements.map(el => {
+      let elementHTML = '';
+      const animationStyle = el.animation !== 'none' 
+        ? `animation: ${el.animation} ${el.animationDuration}s ease-out ${el.animationDelay}s both;`
+        : '';
+      
+      if (el.type === 'text') {
+        const content = el.content.replace(/\n/g, '<br>');
+        elementHTML = `<div style="position: absolute; left: ${el.x}px; top: ${el.y}px; width: ${el.width}px; min-height: ${el.height}px; color: ${el.color}; font-size: ${el.fontSize}px; opacity: ${el.opacity / 100}; z-index: ${el.zIndex}; ${animationStyle}">${content}</div>`;
+      } else if (el.type === 'shape') {
+        const borderRadius = el.shapeType === 'circle' ? '50%' : `${el.borderRadius}px`;
+        elementHTML = `<div style="position: absolute; left: ${el.x}px; top: ${el.y}px; width: ${el.width}px; height: ${el.height}px; background-color: ${el.backgroundColor}; border-radius: ${borderRadius}; opacity: ${el.opacity / 100}; z-index: ${el.zIndex}; ${animationStyle}"></div>`;
+      } else if (el.type === 'image' && el.imageFileName) {
+        elementHTML = `<img src="./assets/${el.imageFileName}" style="position: absolute; left: ${el.x}px; top: ${el.y}px; width: ${el.width}px; height: ${el.height}px; opacity: ${el.opacity / 100}; z-index: ${el.zIndex}; object-fit: cover; ${animationStyle}" alt="invitation-image">`;
+      }
+      
+      return elementHTML;
+    }).join('\n    ');
+
+    const hasImages = elements.some(el => el.type === 'image' && el.imageFileName);
+    const imageAlert = hasImages ? `
+    alert('PENTING: Upload gambar ke folder "assets" dengan nama file asli!\\n\\nContoh struktur:\\n- index.html\\n- assets/\\n  - photo1.jpg\\n  - photo2.png');
+    ` : '';
+
+    const html = `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .invitation-canvas {
+      position: relative;
+      width: 400px;
+      min-height: 600px;
+      background: white;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    ${generateAnimationCSS()}
+  </style>
+</head>
+<body>
+  <div class="invitation-canvas">
+    ${elementsHTML}
+  </div>
+  
+  <script>
+    window.onload = function() {${imageAlert}
+    };
+  </script>
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'invitation.html';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const selectedElement = elements.find(el => el.id === selectedId);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
+            <h1 className="text-3xl font-bold mb-2">Invitation Builder</h1>
+            <p className="opacity-90">Buat undangan digital dengan mudah dan ekspor ke HTML</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+            {/* Toolbar */}
+            <div className="lg:col-span-1 space-y-4">
+              <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+                <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
+                  <Plus className="w-5 h-5" />
+                  Tambah Elemen
+                </h2>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => addElement('text')}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
+                  >
+                    <Type className="w-5 h-5" />
+                    Teks
+                  </button>
+                  <button
+                    onClick={() => addElement('shape')}
+                    className="w-full bg-purple-500 hover:bg-purple-600 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
+                  >
+                    <Square className="w-5 h-5" />
+                    Shape
+                  </button>
+                  <button
+                    onClick={() => {
+                      const newElement = {
+                        id: Date.now(),
+                        type: 'image',
+                        x: 50,
+                        y: 50,
+                        width: 150,
+                        height: 150,
+                        opacity: 100,
+                        zIndex: elements.length,
+                        animation: 'none',
+                        animationDelay: 0,
+                        animationDuration: 1,
+                        imageSrc: null,
+                        imageFileName: null
+                      };
+                      setElements([...elements, newElement]);
+                      setSelectedId(newElement.id);
+                    }}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all"
+                  >
+                    <ImageIcon className="w-5 h-5" />
+                    Image
+                  </button>
+                </div>
+              </div>
+
+              {/* Properties Panel */}
+              {selectedElement && (
+                <div className="bg-gray-50 rounded-xl p-4 border-2 border-blue-200">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="font-bold text-lg">Properties</h2>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => duplicateElement(selectedId)}
+                        className="p-2 bg-blue-100 hover:bg-blue-200 rounded-lg transition-all"
+                        title="Duplicate"
+                      >
+                        <Copy className="w-4 h-4 text-blue-600" />
+                      </button>
+                      <button
+                        onClick={() => deleteElement(selectedId)}
+                        className="p-2 bg-red-100 hover:bg-red-200 rounded-lg transition-all"
+                        title="Delete"
+                      >
+                        <Trash2 className="w-4 h-4 text-red-600" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    {selectedElement.type === 'text' && (
+                      <>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Konten</label>
+                          <textarea
+                            value={selectedElement.content}
+                            onChange={(e) => updateElement(selectedId, { content: e.target.value })}
+                            className="w-full border rounded-lg p-2 text-sm"
+                            rows="3"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Font Size: {selectedElement.fontSize}px</label>
+                          <input
+                            type="range"
+                            min="10"
+                            max="48"
+                            value={selectedElement.fontSize}
+                            onChange={(e) => updateElement(selectedId, { fontSize: parseInt(e.target.value) })}
+                            className="w-full"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Warna Teks</label>
+                          <input
+                            type="color"
+                            value={selectedElement.color}
+                            onChange={(e) => updateElement(selectedId, { color: e.target.value })}
+                            className="w-full h-10 rounded-lg"
+                          />
+                        </div>
+                      </>
+                    )}
+
+                    {selectedElement.type === 'shape' && (
+                      <>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Tipe Shape</label>
+                          <select
+                            value={selectedElement.shapeType}
+                            onChange={(e) => updateElement(selectedId, { shapeType: e.target.value })}
+                            className="w-full border rounded-lg p-2"
+                          >
+                            <option value="rectangle">Kotak</option>
+                            <option value="circle">Bulat</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Warna Background</label>
+                          <input
+                            type="color"
+                            value={selectedElement.backgroundColor}
+                            onChange={(e) => updateElement(selectedId, { backgroundColor: e.target.value })}
+                            className="w-full h-10 rounded-lg"
+                          />
+                        </div>
+                        {selectedElement.shapeType === 'rectangle' && (
+                          <div>
+                            <label className="block text-sm font-medium mb-1">Border Radius: {selectedElement.borderRadius}px</label>
+                            <input
+                              type="range"
+                              min="0"
+                              max="50"
+                              value={selectedElement.borderRadius}
+                              onChange={(e) => updateElement(selectedId, { borderRadius: parseInt(e.target.value) })}
+                              className="w-full"
+                            />
+                          </div>
+                        )}
+                      </>
+                    )}
+
+                    {selectedElement.type === 'image' && (
+                      <div>
+                        <label className="block text-sm font-medium mb-1">Upload Gambar</label>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleImageUpload(selectedId, e)}
+                          className="w-full text-sm"
+                        />
+                        {selectedElement.imageFileName && (
+                          <p className="text-xs text-gray-600 mt-1">File: {selectedElement.imageFileName}</p>
+                        )}
+                      </div>
+                    )}
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Width: {selectedElement.width}px</label>
+                      <input
+                        type="range"
+                        min="50"
+                        max="400"
+                        value={selectedElement.width}
+                        onChange={(e) => updateElement(selectedId, { width: parseInt(e.target.value) })}
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Height: {selectedElement.height}px</label>
+                      <input
+                        type="range"
+                        min="20"
+                        max="400"
+                        value={selectedElement.height}
+                        onChange={(e) => updateElement(selectedId, { height: parseInt(e.target.value) })}
+                        className="w-full"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Z-Index: {selectedElement.zIndex}</label>
+                      <input
+                        type="number"
+                        value={selectedElement.zIndex}
+                        onChange={(e) => updateElement(selectedId, { zIndex: parseInt(e.target.value) })}
+                        className="w-full border rounded-lg p-2"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Opacity: {selectedElement.opacity}%</label>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={selectedElement.opacity}
+                        onChange={(e) => updateElement(selectedId, { opacity: parseInt(e.target.value) })}
+                        className="w-full"
+                      />
+                    </div>
+
+                    <hr className="my-3" />
+
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Animasi</label>
+                      <select
+                        value={selectedElement.animation}
+                        onChange={(e) => updateElement(selectedId, { animation: e.target.value })}
+                        className="w-full border rounded-lg p-2"
+                      >
+                        {animationTypes.map(anim => (
+                          <option key={anim} value={anim}>
+                            {anim === 'none' ? 'Tidak Ada' : anim}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {selectedElement.animation !== 'none' && (
+                      <>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Delay: {selectedElement.animationDelay}s</label>
+                          <input
+                            type="range"
+                            min="0"
+                            max="5"
+                            step="0.1"
+                            value={selectedElement.animationDelay}
+                            onChange={(e) => updateElement(selectedId, { animationDelay: parseFloat(e.target.value) })}
+                            className="w-full"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Duration: {selectedElement.animationDuration}s</label>
+                          <input
+                            type="range"
+                            min="0.1"
+                            max="3"
+                            step="0.1"
+                            value={selectedElement.animationDuration}
+                            onChange={(e) => updateElement(selectedId, { animationDuration: parseFloat(e.target.value) })}
+                            className="w-full"
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Export Button */}
+              <button
+                onClick={exportToHTML}
+                disabled={elements.length === 0}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-400 text-white py-4 px-6 rounded-xl flex items-center justify-center gap-2 font-bold text-lg shadow-lg transition-all disabled:cursor-not-allowed"
+              >
+                <Download className="w-6 h-6" />
+                Download HTML
+              </button>
+            </div>
+
+            {/* Canvas */}
+            <div className="lg:col-span-2 flex flex-col items-center">
+              <div className="bg-gray-100 rounded-xl p-6 w-full max-w-md">
+                <h2 className="font-bold text-lg mb-4 text-center">Canvas Preview (400px)</h2>
+                <div 
+                  ref={canvasRef}
+                  className="relative bg-white shadow-2xl mx-auto overflow-hidden"
+                  style={{ width: '400px', minHeight: '600px' }}
+                  onClick={() => setSelectedId(null)}
+                >
+                  {elements.map(el => {
+                    const isSelected = el.id === selectedId;
+                    return (
+                      <div
+                        key={el.id}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          handleMouseDown(e, el.id);
+                        }}
+                        style={{
+                          position: 'absolute',
+                          left: `${el.x}px`,
+                          top: `${el.y}px`,
+                          width: `${el.width}px`,
+                          height: el.type === 'text' ? 'auto' : `${el.height}px`,
+                          minHeight: el.type === 'text' ? `${el.height}px` : 'auto',
+                          cursor: 'move',
+                          border: isSelected ? '2px solid #3b82f6' : '2px solid transparent',
+                          zIndex: el.zIndex,
+                          opacity: el.opacity / 100
+                        }}
+                      >
+                        {el.type === 'text' && (
+                          <div
+                            style={{
+                              color: el.color,
+                              fontSize: `${el.fontSize}px`,
+                              whiteSpace: 'pre-wrap',
+                              wordBreak: 'break-word'
+                            }}
+                          >
+                            {el.content}
+                          </div>
+                        )}
+                        {el.type === 'shape' && (
+                          <div
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundColor: el.backgroundColor,
+                              borderRadius: el.shapeType === 'circle' ? '50%' : `${el.borderRadius}px`
+                            }}
+                          />
+                        )}
+                        {el.type === 'image' && (
+                          el.imageSrc ? (
+                            <img
+                              src={el.imageSrc}
+                              alt="uploaded"
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                pointerEvents: 'none'
+                              }}
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                              <ImageIcon className="w-12 h-12 text-gray-400" />
+                            </div>
+                          )
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-center text-sm text-gray-600 mt-4">
+                  Klik elemen untuk edit • Drag untuk pindah posisi
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default InvitationBuilder;
