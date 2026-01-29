@@ -1594,4 +1594,53 @@
     }
   });
 </script>
+<script>
+    // 1. Blokir Klik Kanan (Context Menu)
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        // Opsional: Munculin alert kalau mau ngeledek
+        // alert("Eits, dilarang intip-intip ya! 👀");
+    });
+
+    // 2. Blokir Shortcut Keyboard (Ctrl/Cmd + S, U, I, J, C)
+    document.onkeydown = function(e) {
+        // Deteksi tombol Ctrl (Windows) atau Command/Meta (Mac)
+        var isCtrlOrCmd = e.ctrlKey || e.metaKey; 
+
+        // Blokir F12 (Developer Tools standar)
+        if (e.keyCode == 123) {
+            return false;
+        }
+
+        // Blokir Save Page (Ctrl/Cmd + S)
+        if (isCtrlOrCmd && e.key === 's') {
+            e.preventDefault();
+            return false;
+        }
+
+        // Blokir View Source (Ctrl/Cmd + U)
+        if (isCtrlOrCmd && e.key === 'u') {
+            e.preventDefault();
+            return false;
+        }
+
+        // Blokir Inspect Element (Ctrl/Cmd + Shift + I)
+        if (isCtrlOrCmd && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+            return false;
+        }
+        
+        // Blokir Inspect Element (Ctrl/Cmd + Shift + C) - Mode Pilih Elemen
+        if (isCtrlOrCmd && e.shiftKey && e.key === 'C') {
+            e.preventDefault();
+            return false;
+        }
+
+        // Blokir Console (Ctrl/Cmd + Shift + J)
+        if (isCtrlOrCmd && e.shiftKey && e.key === 'J') {
+            e.preventDefault();
+            return false;
+        }
+    };
+</script>
 </body></html>
