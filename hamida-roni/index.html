@@ -671,7 +671,7 @@
                         <div class="satumomen_track">
                            <ul class="satumomen_list">
                               <li class="satumomen_slide satumomen_cover" style="">
-                                 <div class="container-mobile cover" style="background-image: url(&quot;https://satumomen.com/themes/vine-flower/bg.webp&quot;);">
+                                 <div class="container-mobile cover" style="background-image: url('https://satumomen.com/themes/vine-flower/bg.webp');">
                                     <div class="frame">
                                        <div class="frame-tl frame-top animate__animated animate__fadeInTopLeft animate__slow"><img src="./assets/tl.webp" alt="frame" class="w-100 blow-left"></div>
                                        <div class="frame-tr frame-top animate__animated animate__fadeInTopRight animate__slow"><img src="./assets/tr.webp" alt="frame" class="w-100 blow-right"></div>
@@ -680,12 +680,22 @@
                                     </div>
                                     <div class="h-100 w-100 d-flex flex-column justify-content-center align-items-center">
                                        <div style="width: 100%;">
-                                          <div class="editable text-center animate__animated animate__fadeInDown animate__slower font-italic" style="font-size: 15px;">Undangan Pernikahan</div>
-                                          <div class="text-center mb-5">
-                                            <div class="editable color-accent h3 animate__animated animate__fadeInLeft animate__slower handwriting" style="font-size: 70px; line-height: 2; margin-bottom: -20px;">Hamida</div>
-                                            <div class="editable color-accent h3 mb-0 animate__animated animate__zoomIn animate__slower" style="font-size: 24px;">&amp;</div>
-                                            <div class="editable color-accent h3 mb-0 animate__animated animate__fadeInRight animate__slower handwriting" style="font-size: 70px; line-height: 2; margin-top: -20px;">Roni</div>
+                                          <!-- Judul Undangan -->
+                                          <div class="editable text-center animate__animated animate__fadeInDown animate__slower font-italic" style="font-size: 18px;">Undangan Walimatul Ursy</div>
+
+                                          <!-- Nama Orangtua (ukuran lebih besar dari judul) -->
+                                          <div class="text-center my-3">
+                                             <div class="editable color-accent font-weight-bold animate__animated animate__fadeInDown animate__slower" style="font-size: 20px; line-height: 1.4;">Bpk Dwi Agus Purwono & Ibu Sumiati, M.Pd</div>
                                           </div>
+
+                                          <!-- Nama Pengantin -->
+                                          <div class="text-center mb-4">
+                                             <div class="editable color-accent h3 animate__animated animate__fadeInLeft animate__slower handwriting" style="font-size: 70px; line-height: 2; margin-bottom: -20px;">Hamida</div>
+                                             <div class="editable color-accent h3 mb-0 animate__animated animate__zoomIn animate__slower" style="font-size: 24px;">&amp;</div>
+                                             <div class="editable color-accent h3 mb-0 animate__animated animate__fadeInRight animate__slower handwriting" style="font-size: 70px; line-height: 2; margin-top: -20px;">Roni</div>
+                                          </div>
+
+                                          <!-- Bagian Kepada Yth & Tombol Buka Undangan (tetap sama seperti semula) -->
                                           <div class="text-center mx-auto" style="max-width: 300px;">
                                              <div class="text-center mb-3 p-2 animate__animated animate__zoomIn animate__slower">
                                                 <div class="editable mb-1 animate__animated animate__fadeInUp animate__slower" style="font-size: 14px;">Kepada Yth;<br>Bapak/Ibu/Saudara/i</div>
@@ -920,7 +930,7 @@
                                 </div>
                               </li>
                               <li class="satumomen_slide" style="display: none;">
-                                 <div class="container-mobile" style="background-image: url(&quot;https://satumomen.com/themes/vine-flower/bg.webp&quot;);">
+                                 <div class="container-mobile" style="background-image: url('https://satumomen.com/themes/vine-flower/bg.webp');">
                                     <div class="frame">
                                        <div class="frame-tl frame-top animate__animated animate__fadeInTopLeft animate__slow"><img src="./assets/tl.webp" alt="frame" class="w-100 blow-left"></div>
                                        <div class="frame-tr frame-top animate__animated animate__fadeInTopRight animate__slow"><img src="./assets/tr.webp" alt="frame" class="w-100 blow-right"></div>
@@ -932,7 +942,8 @@
                                           <div class="text-center">
                                              <div class="editable mb-3 animate__animated animate__fadeInDown animate__slower" style="font-size: 14px;">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara (i) berkenan hadir untuk memberikan doa restu kepada kedua mempelai</div>
                                              <div class="editable animate__animated animate__fadeInDown animate__slow font-weight-bold" style="font-size: 14px;">Hormat Kami Yang Mengundang</div>
-                                             <div class="editable h4 color-accent animate__animated animate__fadeInDown animate__slow font-weight-bold" style="font-size: 30px;">Hamida &amp; Roni</div>
+                                             <!-- Nama orangtua (bukan mempelai) -->
+                                             <div class="editable h4 color-accent animate__animated animate__fadeInDown animate__slow font-weight-bold" style="font-size: 24px; line-height: 1.4;">Bpk Dwi Agus Purwono<br>& Ibu Sumiati, M.Pd</div>
                                           </div>
                                        </div>
                                        <div class="watermark-placeholder text-center pb-5">
